@@ -27,17 +27,16 @@ function App() {
 
   return (
     <div>
-      <nav style={{ padding: "1rem", background: "black", color: "white", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-        <button onClick={() => setCurrentPage("dashboard")}>🏠 Dashboard</button>
-        <button onClick={() => setCurrentPage("assistant")}>🧠 Assistant Luxe</button>
-        <button onClick={() => setCurrentPage("fiche")}>📄 Fiche Produit</button>
-        <button onClick={() => setCurrentPage("estimation")}>💰 Estimation</button>
-        <button onClick={() => setCurrentPage("comparateur")}>📊 Comparateur</button>
-        <button onClick={() => setCurrentPage("scraper")}>🔎 Scraper VC</button>
-        <button onClick={() => setCurrentPage("quiz")}>📝 Quiz</button>
-        <button onClick={() => setCurrentPage("academy")}>🎓 Academy</button>
-      </nav>
-
+     <nav style={{ padding: "1rem", background: "#111" }}>
+  <button onClick={() => setCurrentPage("assistant")}>Assistant Luxe</button>
+  <button onClick={() => setCurrentPage("fiche")}>Fiche Produit</button>
+  <button onClick={() => setCurrentPage("estimation")}>Estimation Luxe</button>
+  <button onClick={() => setCurrentPage("comparateur")}>Comparateur</button>
+  <button onClick={() => setCurrentPage("scraper")}>Scraper Vestiaire</button>
+  <button onClick={() => setCurrentPage("quiz")}>Quiz</button>
+  <button onClick={() => setCurrentPage("academy")}>Academy</button>
+  <button onClick={() => setCurrentPage("dashboard")}>Dashboard</button>
+</nav> 
       <div style={{ padding: "2rem" }}>
         {renderPage()}
       </div>
