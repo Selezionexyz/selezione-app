@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './Dashboard';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<div className="p-4 text-xl font-bold">Bienvenue sur SELEZIONE 👑</div>} />
+        <Route path="/" element={<Dashboard />} />
       </Routes>
     </Router>
   );
