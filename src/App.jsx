@@ -9,38 +9,52 @@ import Academy from "./components/Academy";
 import Dashboard from "./components/Dashboard";
 
 function App() {
-  const [currentComponent, setCurrentComponent] = useState("");
+  const [currentComponent, setCurrentComponent] = useState("home");
 
-  const renderComponent = () => {
-    if (currentComponent === "assistant") return <AssistantLuxe />;
-    if (currentComponent === "fiche") return <FicheProduit />;
-    if (currentComponent === "estimation") return <EstimationLuxe />;
-    if (currentComponent === "comparateur") return <ComparateurLuxe />;
-    if (currentComponent === "scraper") return <ScraperVC />;
-    if (currentComponent === "quiz") return <Quiz />;
-    if (currentComponent === "academy") return <Academy />;
-    if (currentComponent === "dashboard") return <Dashboard />;
-    return (
-      <div style={{ color: "white", padding: "2rem" }}>
-        <h2>Bienvenue sur SELEZIONE</h2>
-        <p>Le rendu React fonctionne. Le problème vient probablement d’un composant importé.</p>
-      </div>
-    );
+  const renderContent = () => {
+    switch (currentComponent) {
+      case "assistant":
+        return <AssistantLuxe />;
+      case "fiche":
+        return <FicheProduit />;
+      case "estimation":
+        return <EstimationLuxe />;
+      case "comparateur":
+        return <ComparateurLuxe />;
+      case "scraper":
+        return <ScraperVC />;
+      case "quiz":
+        return <Quiz />;
+      case "academy":
+        return <Academy />;
+      case "dashboard":
+        return <Dashboard />;
+      default:
+        return (
+          <div style={{ padding: "2rem", color: "white" }}>
+            <h1>Bienvenue sur SELEZIONE</h1>
+            <p>Le rendu React fonctionne. Sélectionnez un composant.</p>
+          </div>
+        );
+    }
   };
 
   return (
-    <div>
-      <div style={{ backgroundColor: "#111", padding: "1rem", display: "flex", flexWrap: "wrap" }}>
+    <div style={{ background: "black", color: "white", minHeight: "100vh" }}>
+      <nav style={{ padding: "1rem", background: "#111" }}>
         <button onClick={() => setCurrentComponent("assistant")}>Assistant Luxe</button>
         <button onClick={() => setCurrentComponent("fiche")}>Fiche Produit</button>
         <button onClick={() => setCurrentComponent("estimation")}>Estimation Luxe</button>
-        <button onClick={() => setCurrentComponent("comparateur")}>Comparateur</button>
+        <button onClick={() => setCurrentComponent("comparateur")}>Comparateur Luxe</button>
         <button onClick={() => setCurrentComponent("scraper")}>Scraper Vestiaire</button>
         <button onClick={() => setCurrentComponent("quiz")}>Quiz</button>
         <button onClick={() => setCurrentComponent("academy")}>Academy</button>
         <button onClick={() => setCurrentComponent("dashboard")}>Dashboard</button>
-      </div>
-      <div style={{ padding: "2rem" }}>{renderComponent()}</div>
+      </nav>
+
+      <main style={{ padding: "1rem" }}>
+        {renderContent()}
+      </main>
     </div>
   );
 }
