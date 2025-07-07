@@ -788,7 +788,6 @@ useEffect(() => {
             </button>
             <button
               onClick={publishListing}
-              disabled={!newListing.title || !newListing.brand || !newListing.price}
               className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl font-bold hover:opacity-90 disabled:opacity-50"
             >
               🚀 Publier l'annonce
