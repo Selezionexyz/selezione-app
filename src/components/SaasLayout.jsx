@@ -120,7 +120,7 @@ const SaasLayout = () => {
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex items-center space-x-3">
             <div className="flex items-center space-x-2 text-sm">
-              <Cpu className="w-4 h-4 text-purple-400 animate-pulse" />
+              <Cpu className="w-4 h-4 text-purple-400" />
               <span className="text-purple-400">IA Active</span>
             </div>
           </div>
@@ -202,8 +202,8 @@ const SaasLayout = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative">
       {/* Background Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl"></div>
+<div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
       </div>
 
       {/* Overlay mobile */}
