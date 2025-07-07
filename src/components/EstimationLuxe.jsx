@@ -8,7 +8,7 @@ import {
 const EstimationLuxe = () => {
   const [activeTool, setActiveTool] = useState('estimator');
   
-  // ✅ SÉPARATION DES ÉTATS - Chaque outil a son propre state
+  // ✅ ÉTATS SÉPARÉS - Chaque outil a son propre state
   const [estimatorData, setEstimatorData] = useState({ input: '', result: '', analyzing: false });
   const [descriptionData, setDescriptionData] = useState({ productInfo: '', result: '', generating: false });
   const [marketData, setMarketData] = useState({ searchQuery: '', result: '', analyzing: false });
@@ -361,14 +361,13 @@ const EstimationLuxe = () => {
           </div>
         );
 
-      // ==================== OUTILS À CONNECTER ====================
       case 'authenticator':
         return (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl p-4 border border-green-500/30">
-              <h3 className="text-green-400 font-bold text-lg mb-2">🛡️ Authentificateur IA (À CONNECTER)</h3>
-              <p className="text-gray-300 text-sm">Vision IA 99.7% de précision - Backend prêt </p>
-              </div>
+              <h3 className="text-green-400 font-bold text-lg mb-2">🛡️ Authentificateur IA (API CONNECTÉE)</h3>
+              <p className="text-gray-300 text-sm">Vision IA 99.7% de précision - Backend connecté</p>
+            </div>
             
             <div>
               <label className="block text-white font-medium mb-2">Description détaillée du produit:</label>
@@ -379,6 +378,7 @@ const EstimationLuxe = () => {
                 className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 h-32 text-sm focus:outline-none focus:border-green-500"
               />
             </div>
+            
             <button
               onClick={async () => {
                 if (!authenticatorData.description.trim()) return;
@@ -410,18 +410,17 @@ const EstimationLuxe = () => {
               className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
             >
               {authenticatorData.analyzing ? (
-              <>
+                <>
                   <Loader className="w-5 h-5 animate-spin mr-2" />
                   Analyse authenticité...
                 </>
               ) : (
                 <>
                   <Shield className="w-5 h-5 mr-2" />
-                  Authentifier (API BACKEND)
+                  Authentifier (API RÉELLE)
                 </>
               )}
             </button>
-            
             {authenticatorData.result && (
               <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
                 <pre className="text-green-400 whitespace-pre-wrap text-sm leading-relaxed">{authenticatorData.result}</pre>
@@ -441,6 +440,7 @@ const EstimationLuxe = () => {
               </h3>
               <p className="text-gray-300 text-sm">Backend API prêt - À connecter au frontend</p>
             </div>
+            
             <div className="bg-gray-900 rounded-xl p-8 border border-gray-700 text-center">
               <div className="text-gray-400 text-6xl mb-4">🚧</div>
               <h4 className="text-white font-bold text-lg mb-2">Outil prêt à connecter</h4>
@@ -448,43 +448,42 @@ const EstimationLuxe = () => {
                 L'API backend est implémentée et fonctionnelle. Le frontend doit être connecté.
               </p>
               <p className="text-gray-500 text-xs">
-                Outils déjà connectés: Estimateur, Générateur descriptions, Analyseur marché, Actualités
+                Outils connectés: Estimateur, Générateur descriptions, Analyseur marché, Actualités, Authentificateur
               </p>
             </div>
           </div>
         );
     }
   };
-
   return (
     <div className="p-4 md:p-6 space-y-6">
       <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-6 border border-blue-500/20">
         <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
           🛠️ OUTILS IA CONNECTÉS
         </h2>
-        <p className="text-gray-400">4 outils avec APIs réelles GPT-4 Turbo • 8 en développement</p>
+        <p className="text-gray-400">5 outils avec APIs réelles GPT-4 Turbo • 7 en développement</p>
         <div className="mt-3 flex items-center space-x-2">
           <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
           <span className="text-green-400 text-sm font-medium">APIs Backend connectées</span>
         </div>
       </div>
+
       {/* Filtres par catégorie */}
       <div className="flex flex-wrap gap-2">
         <button className="px-3 py-2 bg-blue-500/20 border border-blue-500/30 rounded-lg text-blue-400 text-xs">
           Tous ({tools.length})
         </button>
         <button className="px-3 py-2 bg-green-500/20 border border-green-500/30 rounded-lg text-green-400 text-xs">
-          Connectés (4)
+          Connectés (5)
         </button>
         <button className="px-3 py-2 bg-yellow-500/20 border border-yellow-500/30 rounded-lg text-yellow-400 text-xs">
-          En développement (8)
+          En développement (7)
         </button>
       </div>
-
       {/* Grille des outils */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {tools.map((tool) => {
-          const isConnected = ['estimator', 'description-generator', 'market-analyzer', 'trend-predictor'].includes(tool.id);
+          const isConnected = ['estimator', 'description-generator', 'market-analyzer', 'trend-predictor', 'authenticator'].includes(tool.id);
           
           return (
             <button
@@ -508,7 +507,6 @@ const EstimationLuxe = () => {
           );
         })}
       </div>
-
       {/* Outil actif */}
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-blue-500/30 p-6">
         <div className="flex items-center mb-6">
@@ -518,7 +516,7 @@ const EstimationLuxe = () => {
           <h3 className="text-xl font-bold text-white">
             {tools.find(t => t.id === activeTool)?.name}
           </h3>
-          {['estimator', 'description-generator', 'market-analyzer', 'trend-predictor'].includes(activeTool) && (
+          {['estimator', 'description-generator', 'market-analyzer', 'trend-predictor', 'authenticator'].includes(activeTool) && (
             <span className="ml-3 px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
               API RÉELLE
             </span>
