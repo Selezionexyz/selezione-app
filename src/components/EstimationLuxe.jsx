@@ -1,3 +1,21 @@
+const EstimationLuxe = () => {
+  const [testInput, setTestInput] = useState('');
+  
+  // TEST SIMPLE
+  return (
+    <div className="p-6">
+      <h1 className="text-white text-2xl mb-4">🐛 TEST DEBUG</h1>
+      <input 
+        type="text"
+        value={testInput}
+        onChange={(e) => setTestInput(e.target.value)}
+        placeholder="TEST - peux-tu écrire ici ?"
+        className="w-full bg-gray-900 text-white p-3 rounded border"
+      />
+      <p className="text-white mt-2">Valeur: {testInput}</p>
+    </div>
+  );
+};
 import React, { useState } from 'react';
 import { 
   Calculator, Shield, TrendingUp, Camera, FileText, BarChart3, 
