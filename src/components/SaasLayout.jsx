@@ -32,7 +32,6 @@ import ScraperVC from './ScraperVC';
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [loading, setLoading] = useState(false);
   
   const [user] = useState({ 
@@ -43,10 +42,6 @@ const SaasLayout = () => {
     subscription: 'SELEZIONE ULTIMATE'
   });
 
-  useEffect(() => {
-  const timer = setInterval(() => setCurrentTime(new Date()), 60000); // 1 minute au lieu de 1 seconde
-  return () => clearInterval(timer);
-}, []);
 
   // ==================== SIDEBAR ====================
   const Sidebar = () => {
@@ -120,18 +115,7 @@ const SaasLayout = () => {
             <Menu className="w-6 h-6" />
           </button>
           
-          <div className="hidden lg:flex items-center space-x-4">
-            <div className="bg-black/60 rounded-lg px-4 py-2 border border-amber-500/30">
-              <div className="text-amber-400 text-sm font-mono">
-                {currentTime.toLocaleString('fr-FR', {
-                  weekday: 'short',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+          
 
         <div className="flex items-center space-x-4">
           <div className="hidden md:flex items-center space-x-3">
