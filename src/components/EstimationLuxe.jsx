@@ -1,21 +1,3 @@
-
-  const [testInput, setTestInput] = useState('');
-  
-  // TEST SIMPLE
-  return (
-    <div className="p-6">
-      <h1 className="text-white text-2xl mb-4">🐛 TEST DEBUG</h1>
-      <input 
-        type="text"
-        value={testInput}
-        onChange={(e) => setTestInput(e.target.value)}
-        placeholder="TEST - peux-tu écrire ici ?"
-        className="w-full bg-gray-900 text-white p-3 rounded border"
-      />
-      <p className="text-white mt-2">Valeur: {testInput}</p>
-    </div>
-  );
-};
 import React, { useState } from 'react';
 import { 
   Calculator, Shield, TrendingUp, Camera, FileText, BarChart3, 
@@ -26,19 +8,37 @@ import {
 const EstimationLuxe = () => {
   const [activeTool, setActiveTool] = useState('estimator');
   
-  // ✅ ÉTATS SÉPARÉS - Chaque outil a son propre state
-  const [estimatorData, setEstimatorData] = useState({ input: '', result: '', analyzing: false });
-  const [descriptionData, setDescriptionData] = useState({ productInfo: '', result: '', generating: false });
-  const [marketData, setMarketData] = useState({ searchQuery: '', result: '', analyzing: false });
-  const [newsData, setNewsData] = useState({ topic: '', newsType: 'tendance', result: '', analyzing: false });
-  const [authenticatorData, setAuthenticatorData] = useState({ description: '', result: '', analyzing: false });
-  const [datingData, setDatingData] = useState({ brand: '', description: '', markings: '', result: '', dating: false });
-  const [sizeData, setSizeData] = useState({ brand: '', category: '', currentSize: '', targetBrand: '', result: '', advising: false });
-  const [roiData, setRoiData] = useState({ purchasePrice: '', currentValue: '', timeHeld: '', category: '', result: '', calculating: false });
-  const [monitorData, setMonitorData] = useState({ brand: '', keywords: '', alertPrice: '', result: '', setting: false });
-  const [trackerData, setTrackerData] = useState({ product: '', targetPrice: '', result: '', tracking: false });
-  const [influenceData, setInfluenceData] = useState({ brand: '', timeframe: '30', result: '', measuring: false });
-  const [photoData, setPhotoData] = useState({ result: '', optimizing: false });
+  // États séparés pour chaque outil
+  const [estimatorData, setEstimatorData] = useState({ 
+    input: '', 
+    result: '', 
+    analyzing: false 
+  });
+  
+  const [descriptionData, setDescriptionData] = useState({ 
+    productInfo: '', 
+    result: '', 
+    generating: false 
+  });
+  
+  const [marketData, setMarketData] = useState({ 
+    searchQuery: '', 
+    result: '', 
+    analyzing: false 
+  });
+  
+  const [newsData, setNewsData] = useState({ 
+    topic: '', 
+    newsType: 'tendance', 
+    result: '', 
+    analyzing: false 
+  });
+  
+  const [authenticatorData, setAuthenticatorData] = useState({ 
+    description: '', 
+    result: '', 
+    analyzing: false 
+  });
 
   // Configuration API
   const API_BASE = 'https://selezione-ia-backend.onrender.com';
@@ -58,7 +58,6 @@ const EstimationLuxe = () => {
     { id: 'influence-meter', name: 'Mesureur Influence', icon: Users, description: 'Impact social', category: 'Social' }
   ];
 
-  // ==================== RENDU DES OUTILS ====================
   const renderToolContent = () => {
     switch(activeTool) {
       case 'estimator':
@@ -439,6 +438,7 @@ const EstimationLuxe = () => {
                 </>
               )}
             </button>
+            
             {authenticatorData.result && (
               <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
                 <pre className="text-green-400 whitespace-pre-wrap text-sm leading-relaxed">{authenticatorData.result}</pre>
@@ -469,10 +469,11 @@ const EstimationLuxe = () => {
                 Outils connectés: Estimateur, Générateur descriptions, Analyseur marché, Actualités, Authentificateur
               </p>
             </div>
-          </div>
+            </div>
         );
     }
   };
+
   return (
     <div className="p-4 md:p-6 space-y-6">
       <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-6 border border-blue-500/20">
@@ -486,7 +487,6 @@ const EstimationLuxe = () => {
         </div>
       </div>
 
-      {/* Filtres par catégorie */}
       <div className="flex flex-wrap gap-2">
         <button className="px-3 py-2 bg-blue-500/20 border border-blue-500/30 rounded-lg text-blue-400 text-xs">
           Tous ({tools.length})
@@ -498,7 +498,6 @@ const EstimationLuxe = () => {
           En développement (7)
         </button>
       </div>
-      {/* Grille des outils */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {tools.map((tool) => {
           const isConnected = ['estimator', 'description-generator', 'market-analyzer', 'trend-predictor', 'authenticator'].includes(tool.id);
@@ -525,7 +524,7 @@ const EstimationLuxe = () => {
           );
         })}
       </div>
-      {/* Outil actif */}
+
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-blue-500/30 p-6">
         <div className="flex items-center mb-6">
           {React.createElement(tools.find(t => t.id === activeTool)?.icon || Calculator, {
@@ -547,3 +546,4 @@ const EstimationLuxe = () => {
 };
 
 export default EstimationLuxe;
+            
