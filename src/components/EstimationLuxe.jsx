@@ -1,4 +1,4 @@
-const EstimationLuxe = () => {
+
   const [testInput, setTestInput] = useState('');
   
   // TEST SIMPLE
