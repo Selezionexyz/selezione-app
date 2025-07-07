@@ -1,10 +1,13 @@
+// src/components/ScraperVC.jsx
 import React from "react";
 
-export default function ScraperVC() {
+function ScraperVC() {
   return (
-    <div style={{ padding: "2rem", color: "white" }}>
-      <h1>NOM_DU_COMPOSANT</h1>
-      <p>Contenu à venir...</p>
+    <div style={{ color: "white" }}>
+      <h2>Scraper Vestiaire chargé ✅</h2>
+      <p>Le composant ScraperVC fonctionne bien.</p>
     </div>
   );
 }
+
+export default ScraperVC;
