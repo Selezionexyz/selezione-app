@@ -159,7 +159,20 @@ const ComparateurLuxe = () => {
       featured: false
     }
   ]);
-
+// Ajoute ça pour récupérer les vraies annonces
+useEffect(() => {
+  // Récupérer les annonces depuis la base
+  const fetchListings = async () => {
+    try {
+      const response = await fetch(`${API_BASE}/api/listings`);
+      const data = await response.json();
+      // Ajouter aux listings existants
+    } catch (error) {
+      console.log('Pas encore d\'API pour récupérer les annonces');
+    }
+  };
+  fetchListings();
+}, []);
   const categories = [
     "Sacs à main", "Chaussures", "Prêt-à-porter", "Accessoires", 
     "Bijoux", "Montres", "Parfums", "Maroquinerie"
@@ -232,7 +245,7 @@ const ComparateurLuxe = () => {
       }
 
       // Appel API backend (à implémenter)
-      const response = await fetch(`${API_BASE}/marketplace/create-listing`, {
+      const response = await fetch(`${API_BASE}/api/commande`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
