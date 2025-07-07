@@ -249,11 +249,12 @@ useEffect(() => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...newListing,
-          sellerId: 'user123', // À remplacer par vraie authentification
-          createdAt: new Date().toISOString()
-        })
-      });
+  user: 'vendeur123',
+  fichier: 'marketplace-listing',
+  selections: newListing
+})
+});
+    
 
       if (response.ok) {
         alert('Annonce publiée avec succès !');
