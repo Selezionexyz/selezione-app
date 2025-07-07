@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { 
-  Menu, X, Home, Brain, Calculator, TrendingUp, FileText, 
+import {
+  Menu, X, Home, Brain, Calculator, TrendingUp, FileText,
   BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart
 } from 'lucide-react';
 
@@ -16,14 +16,25 @@ import ScraperVC from './ScraperVC';
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
-  const [user] = useState({ 
-    name: 'Alexandre Dupont', 
+
+  const [user] = useState({
+    name: 'Alexandre Dupont',
     avatar: '👑',
     level: 'Executive Member',
     credits: 99999,
     subscription: 'SELEZIONE ULTIMATE'
   });
+
+  const views = {
+    dashboard: <Dashboard />,
+    agents: <AssistantLuxe />,
+    outils: <EstimationLuxe />,
+    fiche: <FicheProduit />,
+    scraper: <ScraperVC />,
+    quiz: <Quiz />,
+    academy: <Academy />,
+    marketplace: <ComparateurLuxe />
+  };
 
   const Sidebar = () => {
     const menuItems = [
@@ -50,7 +61,7 @@ const SaasLayout = () => {
                 <p className="text-amber-400 text-xs">Luxury Intelligence</p>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => setSidebarOpen(false)}
               className="p-2 text-gray-400 hover:text-white lg:hidden"
             >
@@ -69,8 +80,8 @@ const SaasLayout = () => {
                   setSidebarOpen(false);
                 }}
                 className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all text-left ${
-                  activeView === item.id 
-                    ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white font-medium' 
+                  activeView === item.id
+                    ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white font-medium'
                     : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
                 }`}
               >
@@ -87,18 +98,14 @@ const SaasLayout = () => {
   const TopNav = () => (
     <nav className="bg-black/95 backdrop-blur-sm border-b border-amber-500/20 px-4 py-3 lg:ml-64">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <button 
-            onClick={() => setSidebarOpen(true)}
-            className="p-2 text-gray-400 hover:text-white lg:hidden"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-        </div>
-
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="p-2 text-gray-400 hover:text-white lg:hidden"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
         <div className="flex items-center space-x-4">
           <Bell className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer" />
-          
           <div className="flex items-center space-x-3">
             <div className="text-right">
               <p className="text-sm font-medium text-white">{user.name}</p>
@@ -140,41 +147,24 @@ const SaasLayout = () => {
     );
   };
 
-  const renderMainContent = () => {
-    switch (activeView) {
-      case 'agents':
-        return <AssistantLuxe />;
-      case 'outils':
-        return <EstimationLuxe />;
-      case 'fiche':
-        return <FicheProduit />;
-      case 'scraper':
-        return <ScraperVC />;
-      case 'quiz':
-        return <Quiz />;
-      case 'academy':
-        return <Academy />;
-      case 'marketplace':
-        return <ComparateurLuxe />;
-      default:
-        return <Dashboard />;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative">
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-      
+
       <Sidebar />
       <TopNav />
-      
+
       <main className="lg:ml-64 pb-20 relative z-10 min-h-screen">
-        {renderMainContent()}
+        {Object.entries(views).map(([key, component]) => (
+          <div key={key} style={{ display: activeView === key ? 'block' : 'none' }}>
+            {component}
+          </div>
+        ))}
       </main>
 
       <BottomNav />
