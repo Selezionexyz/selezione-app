@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText, 
-  Newspaper, ShoppingBag, BookOpen, Settings, User, Search,
-  BarChart3, Zap, Target, Award, Crown, Sparkles, Send,
-  ArrowRight, Play, Star, ChevronDown, Bell, Diamond,
-  Eye, DollarSign, Users, Clock, Filter, MoreVertical,
-  ChevronRight, Upload, Download, CheckCircle, AlertCircle, 
-  Info, Percent, Euro, MessageCircle, ShoppingCart, Package,
-  GraduationCap, Mic, MicOff, Volume2, VolumeX, Loader,
-  Plus, Minus, Edit, Trash2, Save, Rss, Calendar, Globe,
-  Mail, Phone, MapPin, ExternalLink, Camera, Tag, Palette,
-  Heart, Share2, Bookmark, TrendingDown, Activity, Monitor,
-  Smartphone, Instagram, Twitter, Youtube, Wifi, WifiOff,
-  Radar, Cpu, Database, LineChart, AreaChart, Bot, Layers,
-  Scan, Shield, Lock, Unlock, Key, RefreshCw, Power, Gauge,
-  MousePointer, Crosshair, Headphones, Video, Wand2, Atom,
-  Orbit, Hexagon, Triangle, Square, Circle, Octagon, Image,
-  Briefcase, PieChart, Building, Wallet, CreditCard, Archive
+  BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart
 } from 'lucide-react';
 
-// Import des composants individuels
 import Dashboard from './Dashboard';
 import AssistantLuxe from './AssistantLuxe';
 import EstimationLuxe from './EstimationLuxe';
@@ -32,7 +16,6 @@ import ScraperVC from './ScraperVC';
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   
   const [user] = useState({ 
     name: 'Alexandre Dupont', 
@@ -42,8 +25,6 @@ const SaasLayout = () => {
     subscription: 'SELEZIONE ULTIMATE'
   });
 
-
-  // ==================== SIDEBAR ====================
   const Sidebar = () => {
     const menuItems = [
       { id: 'dashboard', label: 'Dashboard', icon: Home },
@@ -103,7 +84,6 @@ const SaasLayout = () => {
     );
   };
 
-  // ==================== TOP NAVIGATION ====================
   const TopNav = () => (
     <nav className="bg-black/95 backdrop-blur-sm border-b border-amber-500/20 px-4 py-3 lg:ml-64">
       <div className="flex items-center justify-between">
@@ -114,17 +94,9 @@ const SaasLayout = () => {
           >
             <Menu className="w-6 h-6" />
           </button>
-          </div>
-          
+        </div>
 
         <div className="flex items-center space-x-4">
-          <div className="hidden md:flex items-center space-x-3">
-            <div className="flex items-center space-x-2 text-sm">
-              <Cpu className="w-4 h-4 text-purple-400" />
-              <span className="text-purple-400">IA Active</span>
-            </div>
-          </div>
-          
           <Bell className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer" />
           
           <div className="flex items-center space-x-3">
@@ -141,14 +113,13 @@ const SaasLayout = () => {
     </nav>
   );
 
-  // ==================== BOTTOM NAVIGATION ====================
   const BottomNav = () => {
     const bottomItems = [
-      { id: 'marketplace', label: 'Acheter', icon: ShoppingCart, badge: 'B2B' },
-      { id: 'outils', label: 'Outils IA', icon: Zap, badge: '12' },
-      { id: 'agents', label: 'Agents', icon: Bot, badge: 'IA' },
-      { id: 'academy', label: 'Academy', icon: GraduationCap, badge: '6' },
-      { id: 'quiz', label: 'Quiz', icon: Brain, badge: 'Expert' }
+      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart },
+      { id: 'outils', label: 'Outils IA', icon: Zap },
+      { id: 'agents', label: 'Agents', icon: Bot },
+      { id: 'academy', label: 'Academy', icon: GraduationCap },
+      { id: 'quiz', label: 'Quiz', icon: Brain }
     ];
 
     return (
@@ -158,16 +129,9 @@ const SaasLayout = () => {
             <button
               key={idx}
               onClick={() => setActiveView(item.id)}
-              className="flex flex-col items-center space-y-1 px-3 py-2 rounded-xl transition-all relative"
+              className="flex flex-col items-center space-y-1 px-3 py-2 rounded-xl transition-all"
             >
-              <div className="relative">
-                <item.icon className="w-6 h-6 text-gray-400" />
-                {item.badge && (
-                  <span className="absolute -top-2 -right-2 bg-amber-500 text-black text-xs px-1 rounded-full font-bold">
-                    {item.badge}
-                  </span>
-                )}
-              </div>
+              <item.icon className="w-6 h-6 text-gray-400" />
               <span className="text-xs text-gray-400 font-medium">{item.label}</span>
             </button>
           ))}
@@ -176,7 +140,6 @@ const SaasLayout = () => {
     );
   };
 
-  // ==================== RENDU PRINCIPAL ====================
   const renderMainContent = () => {
     switch (activeView) {
       case 'agents':
@@ -200,13 +163,6 @@ const SaasLayout = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative">
-      {/* Background Effects */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl"></div>
-<div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
-      </div>
-
-      {/* Overlay mobile */}
       {sidebarOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -218,14 +174,6 @@ const SaasLayout = () => {
       <TopNav />
       
       <main className="lg:ml-64 pb-20 relative z-10 min-h-screen">
-        {loading && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center">
-            <div className="flex items-center space-x-3 text-amber-400">
-              <Loader className="w-8 h-8 animate-spin" />
-              <span className="font-medium">Chargement...</span>
-            </div>
-          </div>
-        )}
         {renderMainContent()}
       </main>
 
