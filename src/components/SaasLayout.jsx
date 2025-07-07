@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText, 
   Newspaper, ShoppingBag, BookOpen, Settings, User, Search,
@@ -29,15 +29,9 @@ import FicheProduit from './FicheProduit';
 import Quiz from './Quiz';
 import ScraperVC from './ScraperVC';
 
-// Import des hooks personnalisés
-import { useNavigation, useUserData, useNotifications } from '../hooks/useAppState';
-
 const SaasLayout = () => {
-  const { activeView, sidebarOpen, setActiveView, setSidebarOpen, navigate } = useNavigation();
-  const { user } = useUserData();
-  const { success } = useNotifications();
-  
-  const [currentTime, setCurrentTime] = React.useState(new Date());arOpen, setSidebarOpen] = useState(false);
+  const [activeView, setActiveView] = useState('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [loading, setLoading] = useState(false);
   
