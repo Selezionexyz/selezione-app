@@ -44,9 +44,9 @@ const SaasLayout = () => {
   });
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+  const timer = setInterval(() => setCurrentTime(new Date()), 60000); // 1 minute au lieu de 1 seconde
+  return () => clearInterval(timer);
+}, []);
 
   // ==================== SIDEBAR ====================
   const Sidebar = () => {
