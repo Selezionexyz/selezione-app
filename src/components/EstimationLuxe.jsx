@@ -7,7 +7,22 @@ import {
 
 const EstimationLuxe = () => {
   const [activeTool, setActiveTool] = useState('estimator');
-  const [toolResults, setToolResults] = useState({});
+  
+  // ✅ CENTRALISÉ : Tous les states des outils ici
+  const [toolsData, setToolsData] = useState({
+    estimator: { input: '', result: '', analyzing: false },
+    authenticator: { description: '', result: '', analyzing: false },
+    'description-generator': { productInfo: '', result: '', generating: false },
+    'market-analyzer': { searchQuery: '', result: '', analyzing: false },
+    'trend-predictor': { topic: '', newsType: 'tendance', result: '', analyzing: false },
+    'vintage-dating': { brand: '', description: '', markings: '', result: '', dating: false },
+    'size-advisor': { brand: '', category: '', currentSize: '', targetBrand: '', result: '', advising: false },
+    'roi-calculator': { purchasePrice: '', currentValue: '', timeHeld: '', category: '', result: '', calculating: false },
+    'brand-monitor': { brand: '', keywords: '', alertPrice: '', result: '', setting: false },
+    'price-tracker': { product: '', targetPrice: '', result: '', tracking: false },
+    'influence-meter': { brand: '', timeframe: '30', result: '', measuring: false },
+    'photo-optimizer': { result: '', optimizing: false }
+  });
 
   // Configuration API
   const API_BASE = 'https://selezione-ia-backend.onrender.com';
@@ -29,406 +44,358 @@ const EstimationLuxe = () => {
 
   const categories = [...new Set(tools.map(t => t.category))];
 
-  // ==================== OUTIL 1: ESTIMATEUR IA PRIX (API RÉELLE) ====================
-  const EstimatorTool = () => {
-    const [input, setInput] = useState('');
-    const [result, setResult] = useState('');
-    const [analyzing, setAnalyzing] = useState(false);
-
-    const analyze = async () => {
-      if (!input.trim()) return;
-      setAnalyzing(true);
-      setResult('🧠 Analyse en cours avec IA GPT-4 Turbo...');
-      
-      try {
-        const response = await fetch(`${API_BASE}/estimation-luxe`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ description: input })
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-          setResult(`💎 ESTIMATION SELEZIONE AI (RÉELLE)\n\n${data.estimation}\n\n✅ Analyse générée par GPT-4 Turbo\n🔗 API: ${API_BASE}/estimation-luxe`);
-        } else {
-          setResult(`❌ Erreur API: ${data.error}`);
-        }
-      } catch (error) {
-        setResult(`❌ Erreur de connexion: ${error.message}`);
-      }
-      
-      setAnalyzing(false);
-    };
-
-    return (
-      <div className="space-y-6">
-        <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl p-4 border border-blue-500/30">
-          <h3 className="text-blue-400 font-bold text-lg mb-2">💎 Estimateur IA Prix (API RÉELLE)</h3>
-          <p className="text-gray-300 text-sm">Powered by GPT-4 Turbo - API Backend connectée</p>
-        </div>
-        
-        <div>
-          <label className="block text-white font-medium mb-2">Décrivez votre article en détail:</label>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ex: Sac Chanel Classic Flap Medium noir caviar, chaîne dorée, état excellent, avec boîte et cartes..."
-            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 h-32 text-sm"
-          />
-        </div>
-        
-        <button
-          onClick={analyze}
-          disabled={analyzing || !input.trim()}
-          className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
-        >
-          {analyzing ? (
-            <>
-              <Loader className="w-5 h-5 animate-spin mr-2" />
-              Analyse GPT-4 en cours...
-            </>
-          ) : (
-            <>
-              <Calculator className="w-5 h-5 mr-2" />
-              Estimer avec IA (API RÉELLE)
-            </>
-          )}
-        </button>
-        
-        {result && (
-          <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
-            <pre className="text-green-400 whitespace-pre-wrap text-sm leading-relaxed">{result}</pre>
-          </div>
-        )}
-      </div>
-    );
+  // ✅ HELPER : Mise à jour state outil
+  const updateToolData = (toolId, updates) => {
+    setToolsData(prev => ({
+      ...prev,
+      [toolId]: { ...prev[toolId], ...updates }
+    }));
   };
 
-  // ==================== OUTIL 2: GÉNÉRATEUR DESCRIPTIONS (API RÉELLE) ====================
-  const DescriptionGeneratorTool = () => {
-    const [productInfo, setProductInfo] = useState('');
-    const [result, setResult] = useState('');
-    const [generating, setGenerating] = useState(false);
-
-    const generateDescription = async () => {
-      if (!productInfo.trim()) return;
-      setGenerating(true);
-      setResult('✍️ Génération GPT-4 Turbo en cours...');
-      
-      try {
-        const response = await fetch(`${API_BASE}/fiche-produit`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ produit: productInfo })
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-          setResult(`✍️ FICHE PRODUIT GÉNÉRÉE (API RÉELLE)\n\n${data.fiche}\n\n✅ Contenu SEO optimisé par GPT-4 Turbo\n🔗 API: ${API_BASE}/fiche-produit`);
-        } else {
-          setResult(`❌ Erreur API: ${data.error}`);
-        }
-      } catch (error) {
-        setResult(`❌ Erreur de connexion: ${error.message}`);
-      }
-      
-      setGenerating(false);
-    };
-
-    return (
-      <div className="space-y-6">
-        <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-xl p-4 border border-orange-500/30">
-          <h3 className="text-orange-400 font-bold text-lg mb-2">✍️ Générateur Descriptions (API RÉELLE)</h3>
-          <p className="text-gray-300 text-sm">GPT-4 Turbo pour descriptions SEO optimisées</p>
-        </div>
-        
-        <div>
-          <label className="block text-white font-medium mb-2">Description du produit:</label>
-          <textarea
-            value={productInfo}
-            onChange={(e) => setProductInfo(e.target.value)}
-            placeholder="Ex: Sac Hermès Birkin 30 Togo Étoupe, excellent état, avec dustbag et boîte..."
-            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 h-32 text-sm"
-          />
-        </div>
-        
-        <button
-          onClick={generateDescription}
-          disabled={generating || !productInfo.trim()}
-          className="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
-        >
-          {generating ? (
-            <>
-              <Loader className="w-5 h-5 animate-spin mr-2" />
-              GPT-4 génère...
-            </>
-          ) : (
-            <>
-              <FileText className="w-5 h-5 mr-2" />
-              Générer avec IA (API RÉELLE)
-            </>
-          )}
-        </button>
-        
-        {result && (
-          <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
-            <div className="flex items-center justify-between mb-3">
-              <h4 className="text-orange-400 font-medium">📝 Fiche produit générée</h4>
-              <button 
-                onClick={() => navigator.clipboard.writeText(result)}
-                className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
-              >
-                <Copy className="w-4 h-4 text-gray-300" />
-              </button>
-            </div>
-            <pre className="text-orange-400 whitespace-pre-wrap text-sm leading-relaxed">{result}</pre>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  // ==================== OUTIL 3: ANALYSEUR MARCHÉ (API RÉELLE) ====================
-  const MarketAnalyzerTool = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-    const [result, setResult] = useState('');
-    const [analyzing, setAnalyzing] = useState(false);
-
-    const analyzeMarket = async () => {
-      if (!searchQuery.trim()) return;
-      setAnalyzing(true);
-      setResult('📊 Scraping Vestiaire Collective en cours...');
-      
-      try {
-        const response = await fetch(`${API_BASE}/scrape-vestiaire`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ query: searchQuery })
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-          let resultText = `📊 ANALYSE MARCHÉ RÉELLE\n\nRecherche: ${searchQuery}\n\n`;
-          
-          if (data.produits && data.produits.length > 0) {
-            resultText += `🛍️ PRODUITS TROUVÉS: ${data.produits.length}\n\n`;
-            resultText += `💰 STATISTIQUES PRIX:\n`;
-            resultText += `• Prix minimum: ${data.stats.min}€\n`;
-            resultText += `• Prix maximum: ${data.stats.max}€\n`;
-            resultText += `• Prix moyen: ${data.stats.avg}€\n\n`;
-            
-            resultText += `🤖 ANALYSE IA GPT-4:\n${data.resume}\n\n`;
-            
-            resultText += `📋 ÉCHANTILLON PRODUITS:\n`;
-            data.produits.slice(0, 5).forEach((produit, index) => {
-              resultText += `${index + 1}. ${produit.title} - ${produit.price}€\n`;
-            });
-          } else {
-            resultText += `❌ Aucun produit trouvé pour cette recherche.\n`;
-            resultText += `💡 ${data.resume || 'Essayez avec des mots-clés différents.'}`;
-          }
-          
-          resultText += `\n\n✅ Données RÉELLES de Vestiaire Collective\n🔗 API: ${API_BASE}/scrape-vestiaire`;
-          
-          setResult(resultText);
-        } else {
-          setResult(`❌ Erreur API: ${data.error}`);
-        }
-      } catch (error) {
-        setResult(`❌ Erreur de connexion: ${error.message}`);
-      }
-      
-      setAnalyzing(false);
-    };
-
-    return (
-      <div className="space-y-6">
-        <div className="bg-gradient-to-r from-indigo-500/10 to-blue-500/10 rounded-xl p-4 border border-indigo-500/30">
-          <h3 className="text-indigo-400 font-bold text-lg mb-2">📊 Analyseur Marché (API RÉELLE)</h3>
-          <p className="text-gray-300 text-sm">Scraping live Vestiaire Collective + Analyse GPT-4</p>
-        </div>
-        
-        <div>
-          <label className="block text-white font-medium mb-2">Produit à analyser:</label>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Ex: Chanel Classic Flap Medium"
-            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm"
-          />
-        </div>
-        
-        <button
-          onClick={analyzeMarket}
-          disabled={analyzing || !searchQuery.trim()}
-          className="w-full bg-gradient-to-r from-indigo-500 to-blue-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
-        >
-          {analyzing ? (
-            <>
-              <Loader className="w-5 h-5 animate-spin mr-2" />
-              Scraping + IA en cours...
-            </>
-          ) : (
-            <>
-              <BarChart3 className="w-5 h-5 mr-2" />
-              Analyser marché (API RÉELLE)
-            </>
-          )}
-        </button>
-        
-        {result && (
-          <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
-            <pre className="text-indigo-400 whitespace-pre-wrap text-sm leading-relaxed">{result}</pre>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  // ==================== OUTIL 4: ACTUALITÉS LUXE (API RÉELLE) ====================
-  const NewsAnalyzerTool = () => {
-    const [topic, setTopic] = useState('');
-    const [newsType, setNewsType] = useState('tendance');
-    const [result, setResult] = useState('');
-    const [analyzing, setAnalyzing] = useState(false);
-
-    const analyzeNews = async () => {
-      setAnalyzing(true);
-      setResult('📰 Génération actualité GPT-4 en cours...');
-      
-      try {
-        const response = await fetch(`${API_BASE}/actus-luxe-ia`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            sujet: topic || 'actualités luxe',
-            type: newsType 
-          })
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-          setResult(`📰 ACTUALITÉ LUXE IA (RÉELLE)\n\n${data.contenu}\n\n✅ Contenu généré par GPT-4 Turbo\n🔗 API: ${API_BASE}/actus-luxe-ia`);
-        } else {
-          setResult(`❌ Erreur API: ${data.error}`);
-        }
-      } catch (error) {
-        setResult(`❌ Erreur de connexion: ${error.message}`);
-      }
-      
-      setAnalyzing(false);
-    };
-
-    return (
-      <div className="space-y-6">
-        <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/30">
-          <h3 className="text-purple-400 font-bold text-lg mb-2">📰 Actualités Luxe IA (API RÉELLE)</h3>
-          <p className="text-gray-300 text-sm">Génération actualités par GPT-4 Turbo</p>
-        </div>
-        
-        <div>
-          <label className="block text-white font-medium mb-2">Sujet (optionnel):</label>
-          <input
-            type="text"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-            placeholder="Ex: Chanel, LVMH, Fashion Week..."
-            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm"
-          />
-        </div>
-
-        <div>
-          <label className="block text-white font-medium mb-2">Type d'actualité:</label>
-          <select
-            value={newsType}
-            onChange={(e) => setNewsType(e.target.value)}
-            className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm"
-          >
-            <option value="tendance">Analyse tendance</option>
-            <option value="anecdote">Anecdote rare</option>
-            <option value="news">Actualité générale</option>
-          </select>
-        </div>
-        
-        <button
-          onClick={analyzeNews}
-          disabled={analyzing}
-          className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
-        >
-          {analyzing ? (
-            <>
-              <Loader className="w-5 h-5 animate-spin mr-2" />
-              GPT-4 génère...
-            </>
-          ) : (
-            <>
-              <TrendingUp className="w-5 h-5 mr-2" />
-              Générer actualité (API RÉELLE)
-            </>
-          )}
-        </button>
-        
-        {result && (
-          <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
-            <pre className="text-purple-400 whitespace-pre-wrap text-sm leading-relaxed">{result}</pre>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  // ==================== AUTRES OUTILS (À COMPLÉTER) ====================
-  const DefaultTool = ({ toolName, toolIcon, toolColor }) => (
-    <div className="space-y-6">
-      <div className={`bg-gradient-to-r from-${toolColor}-500/10 to-${toolColor}-600/10 rounded-xl p-4 border border-${toolColor}-500/30`}>
-        <h3 className={`text-${toolColor}-400 font-bold text-lg mb-2`}>
-          {React.createElement(toolIcon, { className: "w-6 h-6 inline mr-2" })}
-          {toolName}
-        </h3>
-        <p className="text-gray-300 text-sm">API en cours de développement</p>
-      </div>
-      
-      <div className="bg-gray-900 rounded-xl p-8 border border-gray-700 text-center">
-        <div className={`text-${toolColor}-400 text-6xl mb-4`}>🚧</div>
-        <h4 className="text-white font-bold text-lg mb-2">Outil en développement</h4>
-        <p className="text-gray-400 text-sm mb-4">
-          Cet outil sera bientôt connecté à une API backend réelle.
-        </p>
-        <p className="text-gray-500 text-xs">
-          Vous pouvez déjà utiliser: Estimateur, Générateur descriptions, Analyseur marché et Actualités
-        </p>
-      </div>
-    </div>
-  );
-
-  // ==================== RENDU OUTIL ACTIF ====================
-  const renderTool = () => {
-    const tool = tools.find(t => t.id === activeTool);
+  // ==================== RENDU DES OUTILS ====================
+  const renderToolContent = () => {
+    const currentData = toolsData[activeTool];
     
     switch(activeTool) {
       case 'estimator':
-        return <EstimatorTool />;
+        return (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl p-4 border border-blue-500/30">
+              <h3 className="text-blue-400 font-bold text-lg mb-2">💎 Estimateur IA Prix (API RÉELLE)</h3>
+              <p className="text-gray-300 text-sm">Powered by GPT-4 Turbo - API Backend connectée</p>
+            </div>
+            
+            <div>
+              <label className="block text-white font-medium mb-2">Décrivez votre article en détail:</label>
+              <textarea
+                value={currentData.input}
+                onChange={(e) => updateToolData('estimator', { input: e.target.value })}
+                placeholder="Ex: Sac Chanel Classic Flap Medium noir caviar, chaîne dorée, état excellent, avec boîte et cartes..."
+                className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 h-32 text-sm focus:outline-none focus:border-blue-500"
+              />
+            </div>
+            
+            <button
+              onClick={async () => {
+                if (!currentData.input.trim()) return;
+                updateToolData('estimator', { analyzing: true, result: '🧠 Analyse en cours avec IA GPT-4 Turbo...' });
+                
+                try {
+                  const response = await fetch(`${API_BASE}/estimation-luxe`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ description: currentData.input })
+                  });
+                  
+                  const data = await response.json();
+                  
+                  if (response.ok) {
+                    updateToolData('estimator', { 
+                      result: `💎 ESTIMATION SELEZIONE AI (RÉELLE)\n\n${data.estimation}\n\n✅ Analyse générée par GPT-4 Turbo\n🔗 API: ${API_BASE}/estimation-luxe`,
+                      analyzing: false 
+                    });
+                  } else {
+                    updateToolData('estimator', { result: `❌ Erreur API: ${data.error}`, analyzing: false });
+                  }
+                } catch (error) {
+                  updateToolData('estimator', { result: `❌ Erreur de connexion: ${error.message}`, analyzing: false });
+                }
+              }}
+              disabled={currentData.analyzing || !currentData.input.trim()}
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
+            >
+              {currentData.analyzing ? (
+                <>
+                  <Loader className="w-5 h-5 animate-spin mr-2" />
+                  Analyse GPT-4 en cours...
+                </>
+              ) : (
+                <>
+                  <Calculator className="w-5 h-5 mr-2" />
+                  Estimer avec IA (API RÉELLE)
+                </>
+              )}
+            </button>
+            
+            {currentData.result && (
+              <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
+                <pre className="text-green-400 whitespace-pre-wrap text-sm leading-relaxed">{currentData.result}</pre>
+              </div>
+            )}
+          </div>
+        );
+
       case 'description-generator':
-        return <DescriptionGeneratorTool />;
+        return (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-xl p-4 border border-orange-500/30">
+              <h3 className="text-orange-400 font-bold text-lg mb-2">✍️ Générateur Descriptions (API RÉELLE)</h3>
+              <p className="text-gray-300 text-sm">GPT-4 Turbo pour descriptions SEO optimisées</p>
+            </div>
+            
+            <div>
+              <label className="block text-white font-medium mb-2">Description du produit:</label>
+              <textarea
+                value={currentData.productInfo}
+                onChange={(e) => updateToolData('description-generator', { productInfo: e.target.value })}
+                placeholder="Ex: Sac Hermès Birkin 30 Togo Étoupe, excellent état, avec dustbag et boîte..."
+                className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 h-32 text-sm focus:outline-none focus:border-orange-500"
+              />
+            </div>
+            
+            <button
+              onClick={async () => {
+                if (!currentData.productInfo.trim()) return;
+                updateToolData('description-generator', { generating: true, result: '✍️ Génération GPT-4 Turbo en cours...' });
+                
+                try {
+                  const response = await fetch(`${API_BASE}/fiche-produit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ produit: currentData.productInfo })
+                  });
+                  
+                  const data = await response.json();
+                  
+                  if (response.ok) {
+                    updateToolData('description-generator', { 
+                      result: `✍️ FICHE PRODUIT GÉNÉRÉE (API RÉELLE)\n\n${data.fiche}\n\n✅ Contenu SEO optimisé par GPT-4 Turbo\n🔗 API: ${API_BASE}/fiche-produit`,
+                      generating: false 
+                    });
+                  } else {
+                    updateToolData('description-generator', { result: `❌ Erreur API: ${data.error}`, generating: false });
+                  }
+                } catch (error) {
+                  updateToolData('description-generator', { result: `❌ Erreur de connexion: ${error.message}`, generating: false });
+                }
+              }}
+              disabled={currentData.generating || !currentData.productInfo.trim()}
+              className="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
+            >
+              {currentData.generating ? (
+                <>
+                  <Loader className="w-5 h-5 animate-spin mr-2" />
+                  GPT-4 génère...
+                </>
+              ) : (
+                <>
+                  <FileText className="w-5 h-5 mr-2" />
+                  Générer avec IA (API RÉELLE)
+                </>
+              )}
+            </button>
+            
+            {currentData.result && (
+              <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-orange-400 font-medium">📝 Fiche produit générée</h4>
+                  <button 
+                    onClick={() => navigator.clipboard.writeText(currentData.result)}
+                    className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                  >
+                    <Copy className="w-4 h-4 text-gray-300" />
+                  </button>
+                </div>
+                <pre className="text-orange-400 whitespace-pre-wrap text-sm leading-relaxed">{currentData.result}</pre>
+              </div>
+            )}
+          </div>
+        );
+
       case 'market-analyzer':
-        return <MarketAnalyzerTool />;
+        return (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-indigo-500/10 to-blue-500/10 rounded-xl p-4 border border-indigo-500/30">
+              <h3 className="text-indigo-400 font-bold text-lg mb-2">📊 Analyseur Marché (API RÉELLE)</h3>
+              <p className="text-gray-300 text-sm">Scraping live Vestiaire Collective + Analyse GPT-4</p>
+            </div>
+            
+            <div>
+              <label className="block text-white font-medium mb-2">Produit à analyser:</label>
+              <input
+                type="text"
+                value={currentData.searchQuery}
+                onChange={(e) => updateToolData('market-analyzer', { searchQuery: e.target.value })}
+                placeholder="Ex: Chanel Classic Flap Medium"
+                className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-indigo-500"
+              />
+            </div>
+            
+            <button
+              onClick={async () => {
+                if (!currentData.searchQuery.trim()) return;
+                updateToolData('market-analyzer', { analyzing: true, result: '📊 Scraping Vestiaire Collective en cours...' });
+                
+                try {
+                  const response = await fetch(`${API_BASE}/scrape-vestiaire`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: currentData.searchQuery })
+                  });
+                  
+                  const data = await response.json();
+                  
+                  if (response.ok) {
+                    let resultText = `📊 ANALYSE MARCHÉ RÉELLE\n\nRecherche: ${currentData.searchQuery}\n\n`;
+                    
+                    if (data.produits && data.produits.length > 0) {
+                      resultText += `🛍️ PRODUITS TROUVÉS: ${data.produits.length}\n\n`;
+                      resultText += `💰 STATISTIQUES PRIX:\n`;
+                      resultText += `• Prix minimum: ${data.stats.min}€\n`;
+                      resultText += `• Prix maximum: ${data.stats.max}€\n`;
+                      resultText += `• Prix moyen: ${data.stats.avg}€\n\n`;
+                      resultText += `🤖 ANALYSE IA GPT-4:\n${data.resume}\n\n`;
+                      resultText += `📋 ÉCHANTILLON PRODUITS:\n`;
+                      data.produits.slice(0, 5).forEach((produit, index) => {
+                        resultText += `${index + 1}. ${produit.title} - ${produit.price}€\n`;
+                      });
+                    } else {
+                      resultText += `❌ Aucun produit trouvé pour cette recherche.\n`;
+                      resultText += `💡 ${data.resume || 'Essayez avec des mots-clés différents.'}`;
+                    }
+                    
+                    resultText += `\n\n✅ Données RÉELLES de Vestiaire Collective\n🔗 API: ${API_BASE}/scrape-vestiaire`;
+                    
+                    updateToolData('market-analyzer', { result: resultText, analyzing: false });
+                  } else {
+                    updateToolData('market-analyzer', { result: `❌ Erreur API: ${data.error}`, analyzing: false });
+                  }
+                } catch (error) {
+                  updateToolData('market-analyzer', { result: `❌ Erreur de connexion: ${error.message}`, analyzing: false });
+                }
+              }}
+              disabled={currentData.analyzing || !currentData.searchQuery.trim()}
+              className="w-full bg-gradient-to-r from-indigo-500 to-blue-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
+            >
+              {currentData.analyzing ? (
+                <>
+                  <Loader className="w-5 h-5 animate-spin mr-2" />
+                  Scraping + IA en cours...
+                </>
+              ) : (
+                <>
+                  <BarChart3 className="w-5 h-5 mr-2" />
+                  Analyser marché (API RÉELLE)
+                </>
+              )}
+            </button>
+            
+            {currentData.result && (
+              <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
+                <pre className="text-indigo-400 whitespace-pre-wrap text-sm leading-relaxed">{currentData.result}</pre>
+              </div>
+            )}
+          </div>
+        );
+
       case 'trend-predictor':
-        return <NewsAnalyzerTool />;
+        return (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/30">
+              <h3 className="text-purple-400 font-bold text-lg mb-2">📰 Actualités Luxe IA (API RÉELLE)</h3>
+              <p className="text-gray-300 text-sm">Génération actualités par GPT-4 Turbo</p>
+            </div>
+            
+            <div>
+              <label className="block text-white font-medium mb-2">Sujet (optionnel):</label>
+              <input
+                type="text"
+                value={currentData.topic}
+                onChange={(e) => updateToolData('trend-predictor', { topic: e.target.value })}
+                placeholder="Ex: Chanel, LVMH, Fashion Week..."
+                className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-purple-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-white font-medium mb-2">Type d'actualité:</label>
+              <select
+                value={currentData.newsType}
+                onChange={(e) => updateToolData('trend-predictor', { newsType: e.target.value })}
+                className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-purple-500"
+              >
+                <option value="tendance">Analyse tendance</option>
+                <option value="anecdote">Anecdote rare</option>
+                <option value="news">Actualité générale</option>
+              </select>
+            </div>
+            
+            <button
+              onClick={async () => {
+                updateToolData('trend-predictor', { analyzing: true, result: '📰 Génération actualité GPT-4 en cours...' });
+                
+                try {
+                  const response = await fetch(`${API_BASE}/actus-luxe-ia`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                      sujet: currentData.topic || 'actualités luxe',
+                      type: currentData.newsType 
+                    })
+                  });
+                  
+                  const data = await response.json();
+                  
+                  if (response.ok) {
+                    updateToolData('trend-predictor', { 
+                      result: `📰 ACTUALITÉ LUXE IA (RÉELLE)\n\n${data.contenu}\n\n✅ Contenu généré par GPT-4 Turbo\n🔗 API: ${API_BASE}/actus-luxe-ia`,
+                      analyzing: false 
+                    });
+                  } else {
+                    updateToolData('trend-predictor', { result: `❌ Erreur API: ${data.error}`, analyzing: false });
+                  }
+                } catch (error) {
+                  updateToolData('trend-predictor', { result: `❌ Erreur de connexion: ${error.message}`, analyzing: false });
+                }
+              }}
+              disabled={currentData.analyzing}
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-4 rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center"
+            >
+              {currentData.analyzing ? (
+                <>
+                  <Loader className="w-5 h-5 animate-spin mr-2" />
+                  GPT-4 génère...
+                </>
+              ) : (
+                <>
+                  <TrendingUp className="w-5 h-5 mr-2" />
+                  Générer actualité (API RÉELLE)
+                </>
+              )}
+            </button>
+            
+            {currentData.result && (
+              <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
+                <pre className="text-purple-400 whitespace-pre-wrap text-sm leading-relaxed">{currentData.result}</pre>
+              </div>
+            )}
+          </div>
+        );
+
       default:
-        return <DefaultTool toolName={tool?.name} toolIcon={tool?.icon} toolColor="gray" />;
+        const tool = tools.find(t => t.id === activeTool);
+        return (
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-gray-500/10 to-gray-600/10 rounded-xl p-4 border border-gray-500/30">
+              <h3 className="text-gray-400 font-bold text-lg mb-2">
+                {React.createElement(tool?.icon || Calculator, { className: "w-6 h-6 inline mr-2" })}
+                {tool?.name}
+              </h3>
+              <p className="text-gray-300 text-sm">API en cours de développement</p>
+          </div>
+            
+            <div className="bg-gray-900 rounded-xl p-8 border border-gray-700 text-center">
+              <div className="text-gray-400 text-6xl mb-4">🚧</div>
+              <h4 className="text-white font-bold text-lg mb-2">Outil en développement</h4>
+              <p className="text-gray-400 text-sm mb-4">
+                Cet outil sera bientôt connecté à une API backend réelle.
+              </p>
+              <p className="text-gray-500 text-xs">
+                Vous pouvez déjà utiliser: Estimateur, Générateur descriptions, Analyseur marché et Actualités
+              </p>
+            </div>
+          </div>
+        );
     }
   };
 
@@ -444,7 +411,6 @@ const EstimationLuxe = () => {
           <span className="text-green-400 text-sm font-medium">APIs Backend connectées</span>
         </div>
       </div>
-
       {/* Filtres par catégorie */}
       <div className="flex flex-wrap gap-2">
         <button className="px-3 py-2 bg-blue-500/20 border border-blue-500/30 rounded-lg text-blue-400 text-xs">
@@ -457,7 +423,6 @@ const EstimationLuxe = () => {
           En développement (8)
         </button>
       </div>
-
       {/* Grille des outils */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {tools.map((tool) => {
@@ -500,7 +465,7 @@ const EstimationLuxe = () => {
             </span>
           )}
         </div>
-        {renderTool()}
+        {renderToolContent()}
       </div>
     </div>
   );
