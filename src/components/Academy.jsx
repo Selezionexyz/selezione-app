@@ -1,10 +1,13 @@
+// src/components/Academy.jsx
 import React from "react";
 
-export default function Academy() {
+function Academy() {
   return (
-    <div style={{ padding: "2rem", color: "white" }}>
-      <h1>NOM_DU_COMPOSANT</h1>
-      <p>Contenu à venir...</p>
+    <div style={{ color: "white" }}>
+      <h2>Academy chargée ✅</h2>
+      <p>Le composant Academy fonctionne bien.</p>
     </div>
   );
 }
+
+export default Academy;
