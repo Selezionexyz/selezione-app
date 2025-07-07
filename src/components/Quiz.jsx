@@ -1,10 +1,13 @@
+// src/components/Quiz.jsx
 import React from "react";
 
-export default function Quiz() {
+function Quiz() {
   return (
-    <div style={{ padding: "2rem", color: "white" }}>
-      <h1>NOM_DU_COMPOSANT</h1>
-      <p>Contenu à venir...</p>
+    <div style={{ color: "white" }}>
+      <h2>Quiz chargé ✅</h2>
+      <p>Le composant Quiz fonctionne bien.</p>
     </div>
   );
 }
+
+export default Quiz;
