@@ -17,10 +17,7 @@ const ComparateurLuxe = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
 
-  // ✅ NOUVEAU ÉTAT POUR UX AMÉLIORÉE
-  const [isPublishing, setIsPublishing] = useState(false);
-
-  // État pour vendre
+  // États pour vendre
   const [newListing, setNewListing] = useState({
     title: '',
     brand: '',
@@ -38,6 +35,7 @@ const ComparateurLuxe = () => {
 
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [isPublishing, setIsPublishing] = useState(false); // ✅ NOUVEAU : État loading
 
   // API Configuration
   const API_BASE = 'https://selezione-ia-backend.onrender.com';
@@ -71,6 +69,62 @@ const ComparateurLuxe = () => {
       negotiable: true,
       reserved: false,
       featured: true
+    },
+    {
+      id: 2,
+      title: "Hermès Birkin 30 Togo Gold",
+      brand: "Hermès",
+      category: "Sacs à main",
+      price: 12500,
+      originalPrice: 13000,
+      condition: "Neuf",
+      location: "Monaco",
+      seller: {
+        name: "MonacoLuxury",
+        rating: 5.0,
+        sales: 89,
+        verified: true,
+        badge: "Expert Seller"
+      },
+      photos: ["🟡", "📸", "🔍", "💼"],
+      description: "Hermès Birkin 30 en cuir Togo couleur Gold, hardware palladié.",
+      tags: ["Neuf", "Boîte", "Dustbag", "Facture", "Investissement"],
+      views: 456,
+      likes: 78,
+      posted: "Il y a 1 jour",
+      shipping: "Main propre + assurance",
+      authentication: "Hermès Spa certifié",
+      negotiable: false,
+      reserved: false,
+      featured: true
+    },
+    {
+      id: 3,
+      title: "Saint Laurent Loulou Medium Noir",
+      brand: "Saint Laurent",
+      category: "Sacs à main",
+      price: 1850,
+      originalPrice: 2100,
+      condition: "Très bon",
+      location: "Lyon, France",
+      seller: {
+        name: "FashionLyon",
+        rating: 4.7,
+        sales: 234,
+        verified: true,
+        badge: "Regular Seller"
+      },
+      photos: ["⚫", "📸", "🔍", "💼"],
+      description: "Saint Laurent Loulou Medium en cuir matelassé noir, chaîne dorée.",
+      tags: ["Authentique", "Dustbag", "Bon prix"],
+      views: 189,
+      likes: 23,
+      posted: "Il y a 3 jours",
+      shipping: "Livraison express",
+      authentication: "Vérifié plateforme",
+      negotiable: true,
+      reserved: false,
+      featured: false
     }
   ]);
 
@@ -86,33 +140,15 @@ const ComparateurLuxe = () => {
 
   const conditions = ["Neuf", "Excellent", "Très bon", "Bon", "Correct"];
 
-  // ✅ UPLOAD DE PHOTOS AMÉLIORÉ
+  // Upload de photos
   const handlePhotoUpload = async (event) => {
     const files = Array.from(event.target.files);
     if (files.length === 0) return;
 
-    // Validation taille et type
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-    
-    const validFiles = files.filter(file => {
-      if (file.size > maxSize) {
-        alert(`❌ Fichier trop volumineux: ${file.name} (max 5MB)`);
-        return false;
-      }
-      if (!allowedTypes.includes(file.type)) {
-        alert(`❌ Type de fichier non supporté: ${file.name}`);
-        return false;
-      }
-      return true;
-    });
-
-    if (validFiles.length === 0) return;
-
     setIsUploading(true);
     
     try {
-      const uploadPromises = validFiles.map(file => {
+      const uploadPromises = files.map(file => {
         return new Promise((resolve) => {
           const reader = new FileReader();
           reader.onload = (e) => {
@@ -129,31 +165,19 @@ const ComparateurLuxe = () => {
       });
 
       const uploadedFiles = await Promise.all(uploadPromises);
-      
-      // Limiter à 10 photos max
-      const currentPhotosCount = uploadedPhotos.length;
-      const remainingSlots = 10 - currentPhotosCount;
-      const filesToAdd = uploadedFiles.slice(0, remainingSlots);
-      
-      if (filesToAdd.length < uploadedFiles.length) {
-        alert(`⚠️ Limite de 10 photos atteinte. ${filesToAdd.length} photos ajoutées.`);
-      }
-      
-      setUploadedPhotos(prev => [...prev, ...filesToAdd]);
+      setUploadedPhotos(prev => [...prev, ...uploadedFiles]);
       setNewListing(prev => ({
         ...prev,
-        photos: [...prev.photos, ...filesToAdd.map(f => f.url)]
+        photos: [...prev.photos, ...uploadedFiles.map(f => f.url)]
       }));
-      
     } catch (error) {
       console.error('Erreur upload:', error);
-      alert('❌ Erreur lors de l\'upload des photos');
     } finally {
       setIsUploading(false);
     }
   };
 
-  // ✅ SUPPRIMER UNE PHOTO AMÉLIORÉ
+  // Supprimer une photo
   const removePhoto = (photoId) => {
     setUploadedPhotos(prev => prev.filter(p => p.id !== photoId));
     const photoToRemove = uploadedPhotos.find(p => p.id === photoId);
@@ -165,38 +189,29 @@ const ComparateurLuxe = () => {
     }
   };
 
-  // ✅ VALIDATION ROBUSTE
-  const validateListing = (listing) => {
-    const errors = [];
-    
-    if (!listing.title?.trim()) errors.push('Titre requis');
-    if (!listing.brand?.trim()) errors.push('Marque requise');
-    if (!listing.category?.trim()) errors.push('Catégorie requise');
-    if (!listing.condition?.trim()) errors.push('État requis');
-    if (!listing.price || parseFloat(listing.price) <= 0) errors.push('Prix invalide');
-    if (!listing.description?.trim()) errors.push('Description requise');
-    if (listing.description && listing.description.length < 20) errors.push('Description trop courte (min 20 caractères)');
-    
-    return errors;
-  };
-
-  // ✅ FONCTION PUBLICATION COMPLÈTEMENT CORRIGÉE
+  // ✅ FONCTION PUBLICATION AMÉLIORÉE COMPLÈTE
   const publishListing = async () => {
     if (isPublishing) return; // Éviter double-click
     
     console.log('📝 Publication...', newListing);
     
-    // Validation complète
-    const errors = validateListing(newListing);
-    if (errors.length > 0) {
-      alert(`❌ Erreurs à corriger:\n${errors.join('\n')}`);
+    // Validation des champs obligatoires
+    const requiredFields = [];
+    if (!newListing.title?.trim()) requiredFields.push('Titre');
+    if (!newListing.brand?.trim()) requiredFields.push('Marque');
+    if (!newListing.category?.trim()) requiredFields.push('Catégorie');
+    if (!newListing.condition?.trim()) requiredFields.push('État');
+    if (!newListing.price || parseFloat(newListing.price) <= 0) requiredFields.push('Prix valide');
+    if (!newListing.description?.trim()) requiredFields.push('Description');
+
+    if (requiredFields.length > 0) {
+      alert(`❌ Champs obligatoires manquants:\n• ${requiredFields.join('\n• ')}`);
       return;
     }
 
     setIsPublishing(true); // 🔄 Démarrer loading
 
     try {
-      // Préparer les données pour l'API
       const listingData = {
         user: 'user_' + Date.now(),
         fichier: 'marketplace-listing',
@@ -208,7 +223,11 @@ const ComparateurLuxe = () => {
           status: 'active',
           views: 0,
           likes: 0,
-          photos_count: uploadedPhotos.length
+          seller: {
+            name: 'Utilisateur SELEZIONE',
+            rating: 5.0,
+            verified: true
+          }
         }
       };
 
@@ -229,7 +248,7 @@ const ComparateurLuxe = () => {
         const result = await response.json();
         console.log('✅ Réponse API:', result);
         
-        alert('✅ Annonce publiée avec succès !');
+        alert('✅ Annonce publiée avec succès !\n\nVotre article est maintenant visible sur la marketplace.');
         
         // Reset formulaire complet
         setNewListing({
@@ -238,35 +257,39 @@ const ComparateurLuxe = () => {
           shipping: true, negotiable: false, tags: []
         });
         setUploadedPhotos([]);
-        setActiveTab('acheter');
+        setActiveTab('acheter'); // Retour à l'onglet acheter
         
       } else {
         const errorText = await response.text();
         console.error('❌ Erreur HTTP:', response.status, errorText);
         
         // Messages d'erreur spécifiques
-        let errorMessage = 'Erreur de publication';
+        let errorMessage = 'Erreur lors de la publication';
         if (response.status === 400) {
-          errorMessage = 'Données invalides, vérifiez le formulaire';
+          errorMessage = 'Données invalides. Vérifiez tous les champs.';
         } else if (response.status === 500) {
-          errorMessage = 'Erreur serveur, réessayez dans quelques minutes';
+          errorMessage = 'Erreur serveur. Réessayez dans quelques minutes.';
         } else if (response.status === 404) {
-          errorMessage = 'Service temporairement indisponible';
+          errorMessage = 'Service temporairement indisponible.';
         }
         
-        alert(`❌ ${errorMessage}\nDétails: ${errorText}`);
+        alert(`❌ ${errorMessage}\n\nDétails: ${errorText}`);
       }
       
     } catch (error) {
-      console.error('❌ Erreur réseau:', error);
-      alert(`❌ Erreur de connexion: ${error.message}\nVérifiez votre internet et réessayez.`);
+      console.error('❌ Erreur publication:', error);
+      
+      let errorMessage = 'Erreur de connexion';
+      if (error.name === 'TypeError') {
+        errorMessage = 'Problème de réseau. Vérifiez votre connexion internet.';
+      }
+      
+      alert(`❌ ${errorMessage}\n\nErreur: ${error.message}`);
       
     } finally {
       setIsPublishing(false); // 🔄 Arrêter loading dans tous les cas
     }
-  };
-
-  // Interface d'achat
+    // Interface d'achat
   const BuyerInterface = () => (
     <div className="space-y-6">
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
@@ -351,7 +374,7 @@ const ComparateurLuxe = () => {
     </div>
   );
 
-  // ✅ INTERFACE DE VENTE COMPLÈTEMENT AMÉLIORÉE
+  // Interface de vente - AMÉLIORÉE
   const SellerInterface = () => (
     <div className="space-y-6">
       <div className="bg-purple-500/10 rounded-xl p-6 border border-purple-500/30">
@@ -365,16 +388,11 @@ const ComparateurLuxe = () => {
             <h4 className="text-white font-bold text-lg mb-4">📋 Informations produit</h4>
             
             <div>
-              <label className="block text-white font-medium mb-2">
-                Titre de l'annonce * 
-                <span className="text-gray-400 text-sm font-normal ml-2">
-                  ({newListing.title.length}/100)
-                </span>
-              </label>
+              <label className="block text-white font-medium mb-2">Titre de l'annonce *</label>
               <input
                 type="text"
                 value={newListing.title}
-                onChange={(e) => setNewListing({...newListing, title: e.target.value.slice(0, 100)})}
+                onChange={(e) => setNewListing({...newListing, title: e.target.value})}
                 placeholder="Ex: Chanel Classic Flap Medium Caviar Noir"
                 className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-purple-500"
               />
@@ -427,7 +445,6 @@ const ComparateurLuxe = () => {
                 <label className="block text-white font-medium mb-2">Prix (€) *</label>
                 <input
                   type="number"
-                  min="1"
                   value={newListing.price}
                   onChange={(e) => setNewListing({...newListing, price: e.target.value})}
                   placeholder="8500"
@@ -437,15 +454,10 @@ const ComparateurLuxe = () => {
             </div>
 
             <div>
-              <label className="block text-white font-medium mb-2">
-                Description détaillée * 
-                <span className="text-gray-400 text-sm font-normal ml-2">
-                  ({newListing.description.length}/2000) - Min 20 caractères
-                </span>
-              </label>
+              <label className="block text-white font-medium mb-2">Description détaillée *</label>
               <textarea
                 value={newListing.description}
-                onChange={(e) => setNewListing({...newListing, description: e.target.value.slice(0, 2000)})}
+                onChange={(e) => setNewListing({...newListing, description: e.target.value})}
                 placeholder="Décrivez précisément l'article : matériaux, dimensions, défauts éventuels, accessoires inclus..."
                 className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 h-32 text-sm focus:outline-none focus:border-purple-500"
               />
@@ -477,108 +489,61 @@ const ComparateurLuxe = () => {
                 </select>
               </div>
             </div>
-
-            <div className="flex items-center space-x-4">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={newListing.shipping}
-                  onChange={(e) => setNewListing({...newListing, shipping: e.target.checked})}
-                  className="mr-2"
-                />
-                <span className="text-white text-sm">Livraison possible</span>
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={newListing.negotiable}
-                  onChange={(e) => setNewListing({...newListing, negotiable: e.target.checked})}
-                  className="mr-2"
-                />
-                <span className="text-white text-sm">Prix négociable</span>
-              </label>
-            </div>
           </div>
 
-          {/* ✅ UPLOAD PHOTOS COMPLÈTEMENT AMÉLIORÉ */}
+          {/* Upload photos */}
           <div className="space-y-4">
-            <h4 className="text-white font-bold text-lg mb-4">
-              📸 Photos ({uploadedPhotos.length}/10)
-              <span className="text-gray-400 text-sm font-normal ml-2">- Recommandé: 5+ photos</span>
-            </h4>
+            <h4 className="text-white font-bold text-lg mb-4">📸 Photos (jusqu'à 10)</h4>
             
             <div className="border-2 border-dashed border-purple-500/50 rounded-xl p-8 text-center bg-purple-500/5">
               <input
                 type="file"
                 multiple
-                accept="image/jpeg,image/png,image/webp"
+                accept="image/*"
                 onChange={handlePhotoUpload}
                 className="hidden"
                 id="photo-upload"
-                disabled={uploadedPhotos.length >= 10 || isUploading}
               />
-              <label 
-                htmlFor="photo-upload" 
-                className={`cursor-pointer ${uploadedPhotos.length >= 10 ? 'opacity-50 cursor-not-allowed' : ''}`}
-              >
-                {isUploading ? (
-                  <div className="flex items-center justify-center">
-                    <Loader className="w-8 h-8 text-purple-400 mr-3 animate-spin" />
-                    <span className="text-purple-400 font-medium">Upload en cours...</span>
-                  </div>
-                ) : (
-                  <>
-                    <Camera className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-                    <p className="text-purple-400 font-medium mb-2">
-                      {uploadedPhotos.length >= 10 ? 'Limite atteinte (10 photos max)' : 'Cliquez pour ajouter des photos'}
-                    </p>
-                    <p className="text-gray-400 text-sm">JPG, PNG, WebP jusqu'à 5MB chacune</p>
-                  </>
-                )}
+              <label htmlFor="photo-upload" className="cursor-pointer">
+                <Camera className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+                <p className="text-purple-400 font-medium mb-2">Cliquez pour ajouter des photos</p>
+                <p className="text-gray-400 text-sm">JPG, PNG jusqu'à 5MB chacune</p>
               </label>
-            </div>
-            {uploadedPhotos.length > 0 && (
-              <div>
-                <p className="text-gray-400 text-sm mb-3">
-                  ✅ {uploadedPhotos.length} photo{uploadedPhotos.length > 1 ? 's' : ''} ajoutée{uploadedPhotos.length > 1 ? 's' : ''}
-                </p>
-                <div className="grid grid-cols-3 gap-3 max-h-64 overflow-y-auto">
-                  {uploadedPhotos.map((photo, index) => (
-                    <div key={photo.id} className="relative group">
-                      <img
-                        src={photo.url}
-                        alt={`Photo ${index + 1}`}
-                        className="w-full h-24 object-cover rounded-lg border border-gray-600"
-                      />
-                      <div className="absolute top-1 left-1 bg-black/60 text-white text-xs px-1 rounded">
-                        {index + 1}
-                      </div>
-                      <button
-                        onClick={() => removePhoto(photo.id)}
-                        className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                        title="Supprimer"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                      <div className="absolute bottom-1 right-1 bg-black/60 text-white text-xs px-1 rounded">
-                        {Math.round(photo.size / 1024)}KB
-                      </div>
-                    </div>
-                  ))}
+              {isUploading && (
+                <div className="mt-4 flex items-center justify-center">
+                  <Loader className="w-5 h-5 text-purple-400 mr-2" />
+                  <span className="text-purple-400 text-sm">Upload en cours...</span>
                 </div>
+              )}
+            </div>
+
+            {uploadedPhotos.length > 0 && (
+              <div className="grid grid-cols-3 gap-3">
+                {uploadedPhotos.map((photo) => (
+                  <div key={photo.id} className="relative group">
+                    <img
+                      src={photo.url}
+                      alt={photo.name}
+                      className="w-full h-24 object-cover rounded-lg"
+                    />
+                    <button
+                      onClick={() => removePhoto(photo.id)}
+                      className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
               </div>
             )}
           </div>
         </div>
-        {/* ✅ ACTIONS COMPLÈTEMENT AMÉLIORÉES */}
+
+        {/* ✅ ACTIONS AMÉLIORÉES AVEC UX LOADING */}
         <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-700">
           <div className="text-gray-400 text-sm">
             <p>Commission SELEZIONE : 5% + frais paiement</p>
-            <p className="font-medium">
-              Vous recevrez : <span className="text-green-400">
-                {newListing.price ? (newListing.price * 0.95).toFixed(0) : '0'}€
-              </span>
-            </p>
+            <p>Vous recevrez : {newListing.price ? (newListing.price * 0.95).toFixed(0) : '0'}€</p>
           </div>
           
           <div className="flex space-x-3">
@@ -591,7 +556,7 @@ const ComparateurLuxe = () => {
             
             <button
               onClick={publishListing}
-              disabled={isPublishing || !newListing.title || !newListing.brand || !newListing.price || !newListing.description}
+              disabled={isPublishing || !newListing.title || !newListing.brand || !newListing.price || !newListing.category || !newListing.condition || !newListing.description}
               className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center min-w-[200px]"
             >
               {isPublishing ? (
@@ -605,42 +570,6 @@ const ComparateurLuxe = () => {
                 </>
               )}
             </button>
-          </div>
-        </div>
-
-        {/* ✅ INDICATEUR DE PROGRESSION */}
-        <div className="mt-4 p-4 bg-gray-900/50 rounded-xl">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-gray-400 text-sm">Progression du formulaire</span>
-            <span className="text-gray-400 text-sm">
-              {Math.round(((newListing.title ? 1 : 0) + 
-                          (newListing.brand ? 1 : 0) + 
-                          (newListing.category ? 1 : 0) + 
-                          (newListing.condition ? 1 : 0) + 
-                          (newListing.price ? 1 : 0) + 
-                          (newListing.description && newListing.description.length >= 20 ? 1 : 0)) / 6 * 100)}%
-            </span>
-          </div>
-          <div className="w-full bg-gray-700 rounded-full h-2">
-            <div 
-              className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-300"
-              style={{
-                width: `${((newListing.title ? 1 : 0) + 
-                          (newListing.brand ? 1 : 0) + 
-                          (newListing.category ? 1 : 0) + 
-                          (newListing.condition ? 1 : 0) + 
-                          (newListing.price ? 1 : 0) + 
-                          (newListing.description && newListing.description.length >= 20 ? 1 : 0)) / 6 * 100}%`
-              }}
-              ></div>
-          </div>
-          <div className="flex justify-between text-xs text-gray-500 mt-2">
-            <span>Titre</span>
-            <span>Marque</span>
-            <span>Catégorie</span>
-            <span>État</span>
-            <span>Prix</span>
-            <span>Description</span>
           </div>
         </div>
       </div>
@@ -680,7 +609,6 @@ const ComparateurLuxe = () => {
         {activeTab === 'acheter' ? <BuyerInterface /> : <SellerInterface />}
       </div>
 
-      {/* ✅ MODAL PRODUIT AMÉLIORÉE */}
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-gray-900 rounded-2xl border border-green-500/30 max-w-4xl w-full max-h-[90vh] overflow-auto">
@@ -689,55 +617,28 @@ const ComparateurLuxe = () => {
                 <h3 className="text-2xl font-bold text-white">{selectedProduct.title}</h3>
                 <button
                   onClick={() => setSelectedProduct(null)}
-                  className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
+                  className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600"
                 >
                   <X className="w-5 h-5 text-white" />
                 </button>
               </div>
+              
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div className="aspect-square bg-gray-800 rounded-xl flex items-center justify-center text-8xl">
                     {selectedProduct.photos[0]}
                   </div>
-                  <div className="grid grid-cols-4 gap-2">
-                    {selectedProduct.photos.slice(1, 5).map((photo, index) => (
-                      <div key={index} className="aspect-square bg-gray-700 rounded-lg flex items-center justify-center text-2xl">
-                        {photo}
-                      </div>
-                    ))}
-                  </div>
                 </div>
                 
                 <div className="space-y-6">
                   <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-3xl font-bold text-white">{selectedProduct.price.toLocaleString()}€</span>
-                      <span className="text-green-400 font-medium">{selectedProduct.condition}</span>
-                    </div>
-                    <p className="text-gray-300 leading-relaxed">{selectedProduct.description}</p>
+                    <span className="text-3xl font-bold text-white">{selectedProduct.price.toLocaleString()}€</span>
+                    <p className="text-gray-300 leading-relaxed mt-4">{selectedProduct.description}</p>
                   </div>
                   
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Localisation:</span>
-                      <span className="text-white">{selectedProduct.location}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Authentification:</span>
-                      <span className="text-green-400">{selectedProduct.authentication}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Livraison:</span>
-                      <span className="text-white">{selectedProduct.shipping}</span>
-                    </div>
-                    <div className="space-y-3">
-                    <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:opacity-90">
-                      💬 Contacter le vendeur
-                    </button>
-                    <button className="w-full bg-gray-700 text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-600">
-                      ❤️ Ajouter aux favoris
-                    </button>
-                  </div>
+                  <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:opacity-90">
+                    💬 Contacter le vendeur
+                  </button>
                 </div>
               </div>
             </div>
@@ -749,3 +650,4 @@ const ComparateurLuxe = () => {
 };
 
 export default ComparateurLuxe;
+  };
