@@ -650,4 +650,3 @@ const ComparateurLuxe = () => {
 };
 
 export default ComparateurLuxe;
-  };
