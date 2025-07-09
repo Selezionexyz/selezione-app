@@ -1,3 +1,6 @@
+// 📝 FICHIER: src/components/ComparateurLuxe.jsx
+// Remplacez TOUT le contenu de ce fichier par le code ci-dessous:
+
 import React, { useState } from 'react';
 import { 
   Upload, Search, Filter, Eye, Heart, Share2, 
@@ -5,6 +8,84 @@ import {
   ShoppingCart, Package
 } from 'lucide-react';
 
+// 🆕 1. AJOUTER LA CLASSE ImageUploadService AU DÉBUT DU FICHIER
+class ImageUploadService {
+  constructor() {
+    this.API_BASE = 'https://selezione-ia-backend.onrender.com';
+  }
+
+  async compressImage(file, options = {}) {
+    const {
+      maxWidth = 1200,
+      maxHeight = 1200,
+      quality = 0.8,
+      format = 'image/jpeg'
+    } = options;
+
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      img.onload = () => {
+        let { width, height } = img;
+        const ratio = Math.min(maxWidth / width, maxHeight / height);
+        
+        if (ratio < 1) {
+          width *= ratio;
+          height *= ratio;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+          resolve({
+            blob,
+            dataURL: canvas.toDataURL(format, quality),
+            originalSize: file.size,
+            compressedSize: blob.size,
+            compressionRatio: Math.round((1 - blob.size / file.size) * 100)
+          });
+        }, format, quality);
+      };
+
+      img.onerror = reject;
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  async uploadImages(files) {
+    try {
+      const formData = new FormData();
+      
+      for (let i = 0; i < files.length; i++) {
+        const compressed = await this.compressImage(files[i]);
+        const fileName = `image_${Date.now()}_${i}.jpg`;
+        formData.append('images', compressed.blob, fileName);
+      }
+
+      const response = await fetch(`${this.API_BASE}/api/upload-images`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur upload: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Erreur upload:', error);
+      throw error;
+    }
+  }
+}
+
+// 🆕 2. MODIFIER LE COMPOSANT ComparateurLuxe (remplacer la fonction existante)
 const ComparateurLuxe = () => {
   const [activeTab, setActiveTab] = useState('acheter');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -12,7 +93,12 @@ const ComparateurLuxe = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
 
-  // États pour vendre
+  // 🆕 NOUVEAUX ÉTATS pour le système d'upload amélioré
+  const [imageUploadService] = useState(new ImageUploadService());
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [imageUrls, setImageUrls] = useState([]);
+
+  // États pour vendre (MODIFIER les états existants)
   const [newListing, setNewListing] = useState({
     title: '',
     brand: '',
@@ -20,7 +106,7 @@ const ComparateurLuxe = () => {
     condition: '',
     price: '',
     description: '',
-    photos: [],
+    photos: [], // Contiendra maintenant des URLs au lieu de base64
     authenticity: '',
     location: '',
     shipping: true,
@@ -28,14 +114,13 @@ const ComparateurLuxe = () => {
     tags: []
   });
 
-  const [uploadedPhotos, setUploadedPhotos] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
 
-  // API Configuration
+  // Configuration API
   const API_BASE = 'https://selezione-ia-backend.onrender.com';
 
-  // Données simulées
+  // Données simulées (garder tel quel)
   const listings = [
     {
       id: 1,
@@ -83,56 +168,55 @@ const ComparateurLuxe = () => {
 
   const conditions = ["Neuf", "Excellent", "Très bon", "Bon", "Correct"];
 
-  // Upload de photos
+  // 🆕 3. REMPLACER handlePhotoUpload par cette nouvelle version
   const handlePhotoUpload = async (event) => {
     const files = Array.from(event.target.files);
     if (files.length === 0) return;
 
-    setIsUploading(true);
-    
-    try {
-      const uploadPromises = files.map(file => {
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            resolve({
-              id: Date.now() + Math.random(),
-              file: file,
-              url: e.target.result,
-              name: file.name,
-              size: file.size
-            });
-          };
-          reader.readAsDataURL(file);
-        });
-      });
+    // Validation
+    if (files.length > 6) {
+      alert('Maximum 6 images autorisées');
+      return;
+    }
 
-      const uploadedFiles = await Promise.all(uploadPromises);
-      setUploadedPhotos(prev => [...prev, ...uploadedFiles]);
-      setNewListing(prev => ({
-        ...prev,
-        photos: [...prev.photos, ...uploadedFiles.map(f => f.url)]
-      }));
+    const totalSize = files.reduce((acc, f) => acc + f.size, 0);
+    if (totalSize > 20 * 1024 * 1024) {
+      alert('Taille totale des fichiers trop importante (max 20MB)');
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadProgress(0);
+
+    try {
+      console.log('🚀 Début upload de', files.length, 'fichier(s)');
+      
+      // Upload avec le nouveau service
+      const result = await imageUploadService.uploadImages(files);
+      
+      if (result.success && result.urls) {
+        setImageUrls(prev => [...prev, ...result.urls]);
+        setNewListing(prev => ({
+          ...prev,
+          photos: [...prev.photos, ...result.urls]
+        }));
+        
+        alert(`✅ ${result.urls.length} image(s) uploadée(s) avec succès!`);
+        console.log('✅ URLs reçues:', result.urls);
+      } else {
+        throw new Error('Réponse invalide du serveur');
+      }
+      
     } catch (error) {
-      console.error('Erreur upload:', error);
+      console.error('❌ Erreur upload:', error);
+      alert(`❌ Erreur upload: ${error.message}`);
     } finally {
       setIsUploading(false);
+      setUploadProgress(0);
     }
   };
 
-  // Supprimer une photo
-  const removePhoto = (photoId) => {
-    setUploadedPhotos(prev => prev.filter(p => p.id !== photoId));
-    const photoToRemove = uploadedPhotos.find(p => p.id === photoId);
-    if (photoToRemove) {
-      setNewListing(prev => ({
-        ...prev,
-        photos: prev.photos.filter(url => url !== photoToRemove.url)
-      }));
-    }
-  };
-
-  // Fonction publication améliorée
+  // 🆕 4. REMPLACER publishListing par cette nouvelle version
   const publishListing = async () => {
     if (isPublishing) return;
     
@@ -152,21 +236,26 @@ const ComparateurLuxe = () => {
       return;
     }
 
+    const listingData = {
+      user: 'user_' + Date.now(),
+      fichier: 'marketplace-listing',
+      selections: {
+        ...newListing,
+        id: 'listing_' + Date.now(),
+        price: parseFloat(newListing.price),
+        created_at: new Date().toISOString(),
+        status: 'active',
+        images: imageUrls // URLs séparées
+      }
+    };
+
+    // Payload beaucoup plus léger maintenant
+    const payloadSize = new Blob([JSON.stringify(listingData)]).size;
+    console.log(`✅ Payload size: ${Math.round(payloadSize/1024)}KB`);
+
     setIsPublishing(true);
 
     try {
-      const listingData = {
-        user: 'user_' + Date.now(),
-        fichier: 'marketplace-listing',
-        selections: {
-          ...newListing,
-          id: 'listing_' + Date.now(),
-          price: parseFloat(newListing.price),
-          created_at: new Date().toISOString(),
-          status: 'active'
-        }
-      };
-
       const response = await fetch(`${API_BASE}/api/commande`, {
         method: 'POST',
         headers: { 
@@ -178,16 +267,7 @@ const ComparateurLuxe = () => {
       
       if (response.ok) {
         alert('✅ Annonce publiée avec succès !');
-        
-        // Reset formulaire
-        setNewListing({
-          title: '', brand: '', category: '', condition: '', price: '',
-          description: '', photos: [], authenticity: '', location: '',
-          shipping: true, negotiable: false, tags: []
-        });
-        setUploadedPhotos([]);
-        setActiveTab('acheter');
-        
+        resetForm();
       } else {
         const errorText = await response.text();
         alert(`❌ Erreur publication: ${errorText}`);
@@ -200,7 +280,18 @@ const ComparateurLuxe = () => {
     }
   };
 
-  // Interface d'achat
+  // 🆕 5. AJOUTER la fonction resetForm
+  const resetForm = () => {
+    setNewListing({
+      title: '', brand: '', category: '', condition: '', price: '',
+      description: '', photos: [], authenticity: '', location: '',
+      shipping: true, negotiable: false, tags: []
+    });
+    setImageUrls([]);
+    setActiveTab('acheter');
+  };
+
+  // Interface d'achat (GARDER tel quel)
   const BuyerInterface = () => (
     <div className="space-y-6">
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
@@ -283,7 +374,7 @@ const ComparateurLuxe = () => {
     </div>
   );
 
-  // Interface de vente
+  // 🆕 6. REMPLACER l'interface de vente par cette nouvelle version
   const SellerInterface = () => (
     <div className="space-y-6">
       <div className="bg-purple-500/10 rounded-xl p-6 border border-purple-500/30">
@@ -373,10 +464,11 @@ const ComparateurLuxe = () => {
             </div>
           </div>
 
+          {/* 🆕 NOUVELLE INTERFACE UPLOAD */}
           <div className="space-y-4">
-            <h4 className="text-white font-bold text-lg mb-4">📸 Photos</h4>
+            <h4 className="text-white font-bold text-lg mb-4">📸 Photos (Nouveau système)</h4>
             
-            <div className="border-2 border-dashed border-purple-500/50 rounded-xl p-8 text-center bg-purple-500/5">
+            <div className="border-2 border-dashed border-purple-500/50 rounded-xl p-6 text-center bg-purple-500/5">
               <input
                 type="file"
                 multiple
@@ -384,31 +476,74 @@ const ComparateurLuxe = () => {
                 onChange={handlePhotoUpload}
                 className="hidden"
                 id="photo-upload"
+                disabled={isUploading}
               />
               <label htmlFor="photo-upload" className="cursor-pointer">
                 <Camera className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-                <p className="text-purple-400 font-medium mb-2">Ajouter des photos</p>
-                <p className="text-gray-400 text-sm">JPG, PNG jusqu'à 5MB</p>
+                <p className="text-purple-400 font-medium mb-2">
+                  {isUploading ? 'Upload en cours...' : 'Ajouter des photos'}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  JPG, PNG jusqu'à 5MB par image • Max 6 images
+                </p>
               </label>
             </div>
 
-            {uploadedPhotos.length > 0 && (
-              <div className="grid grid-cols-3 gap-3">
-                {uploadedPhotos.map((photo) => (
-                  <div key={photo.id} className="relative group">
-                    <img
-                      src={photo.url}
-                      alt={photo.name}
-                      className="w-full h-24 object-cover rounded-lg"
-                    />
-                    <button
-                      onClick={() => removePhoto(photo.id)}
-                      className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </div>
-                ))}
+            {isUploading && (
+              <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-purple-400 text-sm">Upload en cours...</span>
+                  <span className="text-purple-400 text-sm">{uploadProgress}%</span>
+                </div>
+                <div className="w-full bg-gray-700 rounded-full h-2">
+                  <div 
+                    className="bg-purple-500 h-2 rounded-full transition-all duration-300"
+                    style={{width: `${uploadProgress}%`}}
+                  ></div>
+                </div>
+              </div>
+            )}
+
+            {imageUrls.length > 0 && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-purple-400 font-medium">
+                    📸 {imageUrls.length} image(s) uploadée(s)
+                  </span>
+                  <button 
+                    onClick={() => {
+                      setImageUrls([]);
+                      setNewListing(prev => ({...prev, photos: []}));
+                    }}
+                    className="text-red-400 text-sm hover:text-red-300"
+                  >
+                    Supprimer tout
+                  </button>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  {imageUrls.map((url, index) => (
+                    <div key={index} className="relative group">
+                      <img
+                        src={url}
+                        alt={`Upload ${index + 1}`}
+                        className="w-full h-20 object-cover rounded-lg"
+                        onError={(e) => {
+                          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjNEY0NjRGIi8+Cjx0ZXh0IHg9IjEyIiB5PSIxMyIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjOTQ5Mzk0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JbWFnZTwvdGV4dD4KPHN2Zz4K';
+                        }}
+                      />
+                      <button
+                        onClick={() => {
+                          const newUrls = imageUrls.filter((_, i) => i !== index);
+                          setImageUrls(newUrls);
+                          setNewListing(prev => ({...prev, photos: newUrls}));
+                        }}
+                        className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -424,7 +559,7 @@ const ComparateurLuxe = () => {
             <button 
               disabled={isPublishing}
               className="px-6 py-3 bg-gray-700 text-white rounded-xl font-medium hover:bg-gray-600 disabled:opacity-50"
-            >
+            > 
               💾 Brouillon
             </button>
             
@@ -449,7 +584,7 @@ const ComparateurLuxe = () => {
       </div>
     </div>
   );
-
+// Garder le reste tel quel (modal produit, return, etc.)
   return (
     <div className="p-4 md:p-6 space-y-6">
       <div className="bg-gradient-to-r from-green-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-6 border border-green-500/20">
@@ -482,7 +617,6 @@ const ComparateurLuxe = () => {
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
         {activeTab === 'acheter' ? <BuyerInterface /> : <SellerInterface />}
       </div>
-
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-gray-900 rounded-2xl border border-green-500/30 max-w-4xl w-full max-h-[90vh] overflow-auto">
@@ -507,7 +641,6 @@ const ComparateurLuxe = () => {
                     <span className="text-3xl font-bold text-white">{selectedProduct.price.toLocaleString()}€</span>
                     <p className="text-gray-300 mt-4">{selectedProduct.description}</p>
                   </div>
-                  
                   <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:opacity-90">
                     💬 Contacter le vendeur
                   </button>
@@ -522,3 +655,5 @@ const ComparateurLuxe = () => {
 };
 
 export default ComparateurLuxe;
+                  
+  
