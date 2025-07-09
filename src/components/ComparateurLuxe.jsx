@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
-  Upload, Download, Copy, Search, Filter, Eye, Heart, Share2, 
-  MessageCircle, Star, TrendingUp, DollarSign, Users, MapPin,
-  Calendar, Clock, CheckCircle, AlertCircle, Camera, Edit,
-  Trash2, MoreVertical, ExternalLink, Zap, Target, Award,
-  ShoppingCart, Package, Truck, CreditCard, Shield, Bookmark,
-  BarChart3, Activity, Bell, Settings, Plus, Minus, X,
-  ChevronDown, ChevronRight, ArrowRight, Loader, Send
+  Upload, Search, Filter, Eye, Heart, Share2, 
+  MessageCircle, Camera, X, Loader,
+  ShoppingCart, Package
 } from 'lucide-react';
 
 const ComparateurLuxe = () => {
   const [activeTab, setActiveTab] = useState('acheter');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('recent');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
 
@@ -35,39 +30,27 @@ const ComparateurLuxe = () => {
 
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
-  const [isPublishing, setIsPublishing] = useState(false); // ✅ NOUVEAU : État loading
+  const [isPublishing, setIsPublishing] = useState(false);
 
   // API Configuration
   const API_BASE = 'https://selezione-ia-backend.onrender.com';
 
   // Données simulées
-  const [listings] = useState([
+  const listings = [
     {
       id: 1,
       title: "Chanel Classic Flap Medium Caviar",
       brand: "Chanel",
       category: "Sacs à main",
       price: 8500,
-      originalPrice: 9200,
       condition: "Excellent",
       location: "Paris, France",
-      seller: {
-        name: "LuxuryParisien",
-        rating: 4.9,
-        sales: 156,
-        verified: true,
-        badge: "Pro Seller"
-      },
       photos: ["🖤", "📸", "🔍", "💼"],
-      description: "Authentique sac Chanel Classic Flap en cuir caviar noir, chaîne dorée.",
-      tags: ["Authentique", "Boîte incluse", "Facture", "Rare"],
+      description: "Authentique sac Chanel Classic Flap en cuir caviar noir.",
       views: 234,
       likes: 45,
       posted: "Il y a 2 jours",
-      shipping: "Livraison assurée",
-      authentication: "Certifié SELEZIONE",
       negotiable: true,
-      reserved: false,
       featured: true
     },
     {
@@ -76,57 +59,17 @@ const ComparateurLuxe = () => {
       brand: "Hermès",
       category: "Sacs à main",
       price: 12500,
-      originalPrice: 13000,
       condition: "Neuf",
       location: "Monaco",
-      seller: {
-        name: "MonacoLuxury",
-        rating: 5.0,
-        sales: 89,
-        verified: true,
-        badge: "Expert Seller"
-      },
       photos: ["🟡", "📸", "🔍", "💼"],
-      description: "Hermès Birkin 30 en cuir Togo couleur Gold, hardware palladié.",
-      tags: ["Neuf", "Boîte", "Dustbag", "Facture", "Investissement"],
+      description: "Hermès Birkin 30 en cuir Togo couleur Gold.",
       views: 456,
       likes: 78,
       posted: "Il y a 1 jour",
-      shipping: "Main propre + assurance",
-      authentication: "Hermès Spa certifié",
       negotiable: false,
-      reserved: false,
       featured: true
-    },
-    {
-      id: 3,
-      title: "Saint Laurent Loulou Medium Noir",
-      brand: "Saint Laurent",
-      category: "Sacs à main",
-      price: 1850,
-      originalPrice: 2100,
-      condition: "Très bon",
-      location: "Lyon, France",
-      seller: {
-        name: "FashionLyon",
-        rating: 4.7,
-        sales: 234,
-        verified: true,
-        badge: "Regular Seller"
-      },
-      photos: ["⚫", "📸", "🔍", "💼"],
-      description: "Saint Laurent Loulou Medium en cuir matelassé noir, chaîne dorée.",
-      tags: ["Authentique", "Dustbag", "Bon prix"],
-      views: 189,
-      likes: 23,
-      posted: "Il y a 3 jours",
-      shipping: "Livraison express",
-      authentication: "Vérifié plateforme",
-      negotiable: true,
-      reserved: false,
-      featured: false
     }
-  ]);
+  ];
 
   const categories = [
     "Sacs à main", "Chaussures", "Prêt-à-porter", "Accessoires", 
@@ -189,9 +132,9 @@ const ComparateurLuxe = () => {
     }
   };
 
-  // ✅ FONCTION PUBLICATION AMÉLIORÉE COMPLÈTE
+  // Fonction publication améliorée
   const publishListing = async () => {
-    if (isPublishing) return; // Éviter double-click
+    if (isPublishing) return;
     
     console.log('📝 Publication...', newListing);
     
@@ -209,7 +152,7 @@ const ComparateurLuxe = () => {
       return;
     }
 
-    setIsPublishing(true); // 🔄 Démarrer loading
+    setIsPublishing(true);
 
     try {
       const listingData = {
@@ -220,18 +163,9 @@ const ComparateurLuxe = () => {
           id: 'listing_' + Date.now(),
           price: parseFloat(newListing.price),
           created_at: new Date().toISOString(),
-          status: 'active',
-          views: 0,
-          likes: 0,
-          seller: {
-            name: 'Utilisateur SELEZIONE',
-            rating: 5.0,
-            verified: true
-          }
+          status: 'active'
         }
       };
-
-      console.log('📡 Envoi données:', listingData);
 
       const response = await fetch(`${API_BASE}/api/commande`, {
         method: 'POST',
@@ -241,70 +175,45 @@ const ComparateurLuxe = () => {
         },
         body: JSON.stringify(listingData)
       });
-
-      console.log('📡 Status réponse:', response.status);
       
       if (response.ok) {
-        const result = await response.json();
-        console.log('✅ Réponse API:', result);
+        alert('✅ Annonce publiée avec succès !');
         
-        alert('✅ Annonce publiée avec succès !\n\nVotre article est maintenant visible sur la marketplace.');
-        
-        // Reset formulaire complet
+        // Reset formulaire
         setNewListing({
           title: '', brand: '', category: '', condition: '', price: '',
           description: '', photos: [], authenticity: '', location: '',
           shipping: true, negotiable: false, tags: []
         });
         setUploadedPhotos([]);
-        setActiveTab('acheter'); // Retour à l'onglet acheter
+        setActiveTab('acheter');
         
       } else {
         const errorText = await response.text();
-        console.error('❌ Erreur HTTP:', response.status, errorText);
-        
-        // Messages d'erreur spécifiques
-        let errorMessage = 'Erreur lors de la publication';
-        if (response.status === 400) {
-          errorMessage = 'Données invalides. Vérifiez tous les champs.';
-        } else if (response.status === 500) {
-          errorMessage = 'Erreur serveur. Réessayez dans quelques minutes.';
-        } else if (response.status === 404) {
-          errorMessage = 'Service temporairement indisponible.';
-        }
-        
-        alert(`❌ ${errorMessage}\n\nDétails: ${errorText}`);
+        alert(`❌ Erreur publication: ${errorText}`);
       }
       
     } catch (error) {
-      console.error('❌ Erreur publication:', error);
-      
-      let errorMessage = 'Erreur de connexion';
-      if (error.name === 'TypeError') {
-        errorMessage = 'Problème de réseau. Vérifiez votre connexion internet.';
-      }
-      
-      alert(`❌ ${errorMessage}\n\nErreur: ${error.message}`);
-      
+      alert(`❌ Erreur de connexion: ${error.message}`);
     } finally {
-      setIsPublishing(false); // 🔄 Arrêter loading dans tous les cas
+      setIsPublishing(false);
     }
-    // Interface d'achat
+  };
+
+  // Interface d'achat
   const BuyerInterface = () => (
     <div className="space-y-6">
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
-          <div className="lg:col-span-2">
-            <div className="relative">
-              <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Rechercher par marque, modèle..."
-                className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-10 pr-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-green-500"
-              />
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Rechercher par marque, modèle..."
+              className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-10 pr-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-green-500"
+            />
           </div>
           
           <select
@@ -330,7 +239,7 @@ const ComparateurLuxe = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {listings.map((product) => (
-          <div key={product.id} className="bg-gray-900 rounded-xl border border-gray-700 hover:border-green-500/50 transition-all duration-300 overflow-hidden group">
+          <div key={product.id} className="bg-gray-900 rounded-xl border border-gray-700 hover:border-green-500/50 transition-all duration-300 overflow-hidden">
             <div className="relative">
               <div className="aspect-square bg-gray-800 flex items-center justify-center text-6xl">
                 {product.photos[0]}
@@ -359,11 +268,11 @@ const ComparateurLuxe = () => {
               <div className="flex space-x-2">
                 <button 
                   onClick={() => setSelectedProduct(product)}
-                  className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity"
+                  className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90"
                 >
                   Voir détails
                 </button>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
                   <MessageCircle className="w-4 h-4" />
                 </button>
               </div>
@@ -374,12 +283,12 @@ const ComparateurLuxe = () => {
     </div>
   );
 
-  // Interface de vente - AMÉLIORÉE
+  // Interface de vente
   const SellerInterface = () => (
     <div className="space-y-6">
       <div className="bg-purple-500/10 rounded-xl p-6 border border-purple-500/30">
         <h3 className="text-purple-400 font-bold text-xl mb-2">💼 Vendre sur SELEZIONE Marketplace</h3>
-        <p className="text-gray-300 text-sm">Plateforme professionnelle B2B pour le luxe. Commission : 5% + frais paiement.</p>
+        <p className="text-gray-300 text-sm">Plateforme professionnelle B2B pour le luxe. Commission : 5%</p>
       </div>
 
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
@@ -388,12 +297,12 @@ const ComparateurLuxe = () => {
             <h4 className="text-white font-bold text-lg mb-4">📋 Informations produit</h4>
             
             <div>
-              <label className="block text-white font-medium mb-2">Titre de l'annonce *</label>
+              <label className="block text-white font-medium mb-2">Titre *</label>
               <input
                 type="text"
                 value={newListing.title}
                 onChange={(e) => setNewListing({...newListing, title: e.target.value})}
-                placeholder="Ex: Chanel Classic Flap Medium Caviar Noir"
+                placeholder="Ex: Chanel Classic Flap Medium"
                 className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-purple-500"
               />
             </div>
@@ -454,46 +363,18 @@ const ComparateurLuxe = () => {
             </div>
 
             <div>
-              <label className="block text-white font-medium mb-2">Description détaillée *</label>
+              <label className="block text-white font-medium mb-2">Description *</label>
               <textarea
                 value={newListing.description}
                 onChange={(e) => setNewListing({...newListing, description: e.target.value})}
-                placeholder="Décrivez précisément l'article : matériaux, dimensions, défauts éventuels, accessoires inclus..."
+                placeholder="Décrivez l'article..."
                 className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 h-32 text-sm focus:outline-none focus:border-purple-500"
               />
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-white font-medium mb-2">Localisation</label>
-                <input
-                  type="text"
-                  value={newListing.location}
-                  onChange={(e) => setNewListing({...newListing, location: e.target.value})}
-                  placeholder="Paris, France"
-                  className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-purple-500"
-                />
-              </div>
-              <div>
-                <label className="block text-white font-medium mb-2">Authenticité</label>
-                <select
-                  value={newListing.authenticity}
-                  onChange={(e) => setNewListing({...newListing, authenticity: e.target.value})}
-                  className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-purple-500"
-                >
-                  <option value="">Sélectionner</option>
-                  <option value="Facture originale">Facture originale</option>
-                  <option value="Cartes d'authenticité">Cartes d'authenticité</option>
-                  <option value="Certificat expert">Certificat expert</option>
-                  <option value="Garantie vendeur">Garantie vendeur</option>
-                </select>
-              </div>
-            </div>
           </div>
 
-          {/* Upload photos */}
           <div className="space-y-4">
-            <h4 className="text-white font-bold text-lg mb-4">📸 Photos (jusqu'à 10)</h4>
+            <h4 className="text-white font-bold text-lg mb-4">📸 Photos</h4>
             
             <div className="border-2 border-dashed border-purple-500/50 rounded-xl p-8 text-center bg-purple-500/5">
               <input
@@ -506,15 +387,9 @@ const ComparateurLuxe = () => {
               />
               <label htmlFor="photo-upload" className="cursor-pointer">
                 <Camera className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-                <p className="text-purple-400 font-medium mb-2">Cliquez pour ajouter des photos</p>
-                <p className="text-gray-400 text-sm">JPG, PNG jusqu'à 5MB chacune</p>
+                <p className="text-purple-400 font-medium mb-2">Ajouter des photos</p>
+                <p className="text-gray-400 text-sm">JPG, PNG jusqu'à 5MB</p>
               </label>
-              {isUploading && (
-                <div className="mt-4 flex items-center justify-center">
-                  <Loader className="w-5 h-5 text-purple-400 mr-2" />
-                  <span className="text-purple-400 text-sm">Upload en cours...</span>
-                </div>
-              )}
             </div>
 
             {uploadedPhotos.length > 0 && (
@@ -528,7 +403,7 @@ const ComparateurLuxe = () => {
                     />
                     <button
                       onClick={() => removePhoto(photo.id)}
-                      className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -539,25 +414,24 @@ const ComparateurLuxe = () => {
           </div>
         </div>
 
-        {/* ✅ ACTIONS AMÉLIORÉES AVEC UX LOADING */}
         <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-700">
           <div className="text-gray-400 text-sm">
-            <p>Commission SELEZIONE : 5% + frais paiement</p>
+            <p>Commission : 5%</p>
             <p>Vous recevrez : {newListing.price ? (newListing.price * 0.95).toFixed(0) : '0'}€</p>
           </div>
           
           <div className="flex space-x-3">
             <button 
               disabled={isPublishing}
-              className="px-6 py-3 bg-gray-700 text-white rounded-xl font-medium hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="px-6 py-3 bg-gray-700 text-white rounded-xl font-medium hover:bg-gray-600 disabled:opacity-50"
             >
-              💾 Sauvegarder brouillon
+              💾 Brouillon
             </button>
             
             <button
               onClick={publishListing}
-              disabled={isPublishing || !newListing.title || !newListing.brand || !newListing.price || !newListing.category || !newListing.condition || !newListing.description}
-              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center min-w-[200px]"
+              disabled={isPublishing || !newListing.title || !newListing.brand || !newListing.price}
+              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center min-w-[180px]"
             >
               {isPublishing ? (
                 <>
@@ -566,7 +440,7 @@ const ComparateurLuxe = () => {
                 </>
               ) : (
                 <>
-                  🚀 Publier l'annonce
+                  🚀 Publier
                 </>
               )}
             </button>
@@ -580,9 +454,9 @@ const ComparateurLuxe = () => {
     <div className="p-4 md:p-6 space-y-6">
       <div className="bg-gradient-to-r from-green-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-6 border border-green-500/20">
         <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-          🏪 MARKETPLACE SELEZIONE PRO
+          🏪 MARKETPLACE SELEZIONE
         </h2>
-        <p className="text-gray-400">Plateforme B2B professionnelle pour le luxe</p>
+        <p className="text-gray-400">Plateforme professionnelle pour le luxe</p>
       </div>
 
       <div className="flex space-x-4">
@@ -624,16 +498,14 @@ const ComparateurLuxe = () => {
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="aspect-square bg-gray-800 rounded-xl flex items-center justify-center text-8xl">
-                    {selectedProduct.photos[0]}
-                  </div>
+                <div className="aspect-square bg-gray-800 rounded-xl flex items-center justify-center text-8xl">
+                  {selectedProduct.photos[0]}
                 </div>
                 
                 <div className="space-y-6">
                   <div>
                     <span className="text-3xl font-bold text-white">{selectedProduct.price.toLocaleString()}€</span>
-                    <p className="text-gray-300 leading-relaxed mt-4">{selectedProduct.description}</p>
+                    <p className="text-gray-300 mt-4">{selectedProduct.description}</p>
                   </div>
                   
                   <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:opacity-90">
