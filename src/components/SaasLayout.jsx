@@ -33,7 +33,7 @@ const SaasLayout = () => {
     scraper: <ScraperVC />,
     quiz: <Quiz />,
     academy: <Academy />,
-    marketplace: <ComparateurLuxe />
+    marketplace: <ComparateurLuxe />,
     estimationia: <OutilEstimationIA />,
   };
 
