@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/Label';
 export default function OutilEstimationIA() {
   const [query, setQuery] = useState('');
   const [etat, setEtat] = useState('neuf');
+  const [marque, setMarque] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
