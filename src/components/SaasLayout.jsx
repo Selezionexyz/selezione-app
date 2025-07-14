@@ -3,7 +3,7 @@ import {
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText,
   BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart
 } from 'lucide-react';
-import OutilEstimationIA from './OutilEstimationIA';
+import OutilEstimationIA from '@/components/OutilEstimationIA';
 import Dashboard from './Dashboard';
 import AssistantLuxe from './AssistantLuxe';
 import EstimationLuxe from './EstimationLuxe';
