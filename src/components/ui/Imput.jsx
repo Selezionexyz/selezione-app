@@ -1,13 +1,10 @@
 import React from 'react';
 
-export function Input({ type = 'text', value, onChange, placeholder = '', className = '' }) {
+export const Input = ({ className = '', ...props }) => {
   return (
     <input
-      type={type}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className={`bg-black border border-amber-500/30 text-white p-2 rounded w-full ${className}`}
+      className={`border border-gray-300 px-3 py-2 rounded-md ${className}`}
+      {...props}
     />
   );
-}
+};
