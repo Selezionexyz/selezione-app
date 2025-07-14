@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function Label({ htmlFor, children, className = '' }) {
+export const Label = ({ htmlFor, children, className = '' }) => {
   return (
-    <label htmlFor={htmlFor} className={`text-white text-sm font-medium ${className}`}>
+    <label htmlFor={htmlFor} className={`block text-white mb-1 ${className}`}>
       {children}
     </label>
   );
-}
+};
