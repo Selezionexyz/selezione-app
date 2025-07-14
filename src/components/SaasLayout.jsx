@@ -3,7 +3,7 @@ import {
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText,
   BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart
 } from 'lucide-react';
-
+import OutilEstimationIA from './OutilEstimationIA';
 import Dashboard from './Dashboard';
 import AssistantLuxe from './AssistantLuxe';
 import EstimationLuxe from './EstimationLuxe';
@@ -34,6 +34,7 @@ const SaasLayout = () => {
     quiz: <Quiz />,
     academy: <Academy />,
     marketplace: <ComparateurLuxe />
+    estimationia: <OutilEstimationIA />,
   };
 
   const Sidebar = () => {
@@ -46,6 +47,7 @@ const SaasLayout = () => {
       { id: 'quiz', label: 'Quiz Expert', icon: Brain },
       { id: 'academy', label: 'Academy', icon: GraduationCap },
       { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart }
+      { id: 'estimationia', label: 'Estimation IA 🔍', icon: Calculator },
     ];
 
     return (
@@ -125,6 +127,7 @@ const SaasLayout = () => {
       { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart },
       { id: 'outils', label: 'Outils IA', icon: Zap },
       { id: 'agents', label: 'Agents', icon: Bot },
+      { id: 'estimationia', label: 'Estimation IA', icon: Calculator },
       { id: 'academy', label: 'Academy', icon: GraduationCap },
       { id: 'quiz', label: 'Quiz', icon: Brain }
     ];
