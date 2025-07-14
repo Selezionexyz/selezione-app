@@ -1,10 +1,12 @@
+// /src/components/ui/Input.jsx
 import React from 'react';
 
-export const Input = ({ className = '', ...props }) => {
+export function Input({ className = '', ...props }) {
   return (
     <input
-      className={`border border-gray-300 px-3 py-2 rounded-md ${className}`}
+      type="text"
+      className={`text-black bg-white p-3 rounded w-full ${className}`}
       {...props}
     />
   );
-};
+}
