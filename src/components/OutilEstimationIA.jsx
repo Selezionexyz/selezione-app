@@ -436,8 +436,7 @@ export default function OutilEstimationIA() {
                 <select
                   className="w-full p-2 rounded bg-gray-900 text-white border border-gray-700 text-sm focus:border-amber-500 focus:outline-none"
                   value={matiere}
-                  onChange={(e) => setMatiere(e.target.value)}
-                >
+                  onChange={(e) => setMatiere(e.target.value)>
                   <option value="">-- Sélectionner --</option>
                   <option value="Cuir grainé">Cuir grainé</option>
                   <option value="Cuir lisse">Cuir lisse</option>
