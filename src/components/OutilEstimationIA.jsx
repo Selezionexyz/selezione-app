@@ -8,6 +8,7 @@ export default function OutilEstimationIA() {
   const [query, setQuery] = useState('');
   const [etat, setEtat] = useState('neuf');
   const [marque, setMarque] = useState('');
+  const [periode, setPeriode] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -18,7 +19,7 @@ export default function OutilEstimationIA() {
     setLoading(true);
     try {
       // Construire la description complète pour l'API
-      const description = `${query} ${marque} état ${etat}`;
+      const description = `${query} ${marque} ${periode ? `période ${periode}` : ''} état ${etat}`;
       
       const res = await fetch(`${API_BASE}/estimation-luxe`, {
         method: 'POST',
@@ -40,7 +41,8 @@ export default function OutilEstimationIA() {
         const prix = prixMatch ? parseInt(prixMatch[0].replace(/\s/g, '').replace('€', '')) : 0;
         
         setResult({
-          name: `${marque} ${query}`,
+          name: `${marque} ${query}${periode ? ` (${periode})` : ''}`,
+          periode: periode,
           prixBoutique: prix,
           revente: `${Math.round(prix * 0.7)}€ - ${Math.round(prix * 0.85)}€`,
           achat: `${Math.round(prix * 0.5)}€ - ${Math.round(prix * 0.6)}€`,
@@ -135,6 +137,24 @@ export default function OutilEstimationIA() {
               <option value="Moschino">Moschino</option>
             </select>
           </div>
+
+          <div className="mb-6">
+            <Label className="mb-2 block text-amber-400 font-medium">Période / Année</Label>
+            <select
+              className="w-full p-3 rounded bg-gray-900 text-white border border-gray-700 focus:border-amber-500 focus:outline-none"
+              value={periode}
+              onChange={(e) => setPeriode(e.target.value)}
+            >
+              <option value="">Sélectionner une période</option>
+              <option value="1960-1970">1960-1970</option>
+              <option value="1970-1980">1970-1980</option>
+              <option value="1980-1990">1980-1990</option>
+              <option value="1990-2000">1990-2000</option>
+              <option value="2000-2010">2000-2010</option>
+              <option value="2010-2020">2010-2020</option>
+              <option value="2020-2025">2020-2025</option>
+            </select>
+          </div>
           
           <div className="mb-6">
             <Label className="mb-2 block text-amber-400 font-medium">État</Label>
@@ -176,6 +196,9 @@ export default function OutilEstimationIA() {
                 
                 <div className="space-y-2 mb-4">
                   <p><strong className="text-amber-400">Produit :</strong> <span className="text-white">{result.name}</span></p>
+                  {result.periode && (
+                    <p><strong className="text-amber-400">Période :</strong> <span className="text-white">{result.periode}</span></p>
+                  )}
                   <p><strong className="text-amber-400">Prix boutique estimé :</strong> <span className="text-white font-bold">{result.prixBoutique} €</span></p>
                   <p><strong className="text-amber-400">Prix de revente estimé :</strong> <span className="text-green-400">{result.revente}</span></p>
                   <p><strong className="text-amber-400">Prix d'achat conseillé :</strong> <span className="text-blue-400">{result.achat}</span></p>
