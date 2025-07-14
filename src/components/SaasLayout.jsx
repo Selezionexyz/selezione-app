@@ -46,7 +46,7 @@ const SaasLayout = () => {
       { id: 'scraper', label: 'Analyseur Marché', icon: TrendingUp },
       { id: 'quiz', label: 'Quiz Expert', icon: Brain },
       { id: 'academy', label: 'Academy', icon: GraduationCap },
-      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart }
+      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart },
       { id: 'estimationia', label: 'Estimation IA 🔍', icon: Calculator },
     ];
 
