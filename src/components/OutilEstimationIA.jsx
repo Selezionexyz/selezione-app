@@ -25,7 +25,7 @@ export default function OutilEstimationIA() {
   const [detailsSupp, setDetailsSupp] = useState('');
   
   // État pour le mode d'estimation
-  const [estimationMode, setEstimationMode] = useState('ai-market'); // 'ai-only', 'ai-market', 'comparative'
+  const [estimationMode, setEstimationMode] = useState('ai-market');
   const [comparativeResults, setComparativeResults] = useState(null);
   const [marketData, setMarketData] = useState(null);
 
@@ -227,21 +227,27 @@ export default function OutilEstimationIA() {
     const indicators = {
       'ai-only': {
         icon: Brain,
-        color: 'amber',
         label: 'IA Seule',
-        description: 'Basé sur la base de connaissances GPT-4'
+        description: 'Basé sur la base de connaissances GPT-4',
+        bgClass: 'bg-amber-500/10',
+        borderClass: 'border-amber-500/30',
+        textClass: 'text-amber-400'
       },
       'ai-market': {
         icon: TrendingUp,
-        color: 'green',
         label: 'IA + Marché Réel',
-        description: 'Enrichi avec données Vestiaire Collective'
+        description: 'Enrichi avec données Vestiaire Collective',
+        bgClass: 'bg-green-500/10',
+        borderClass: 'border-green-500/30',
+        textClass: 'text-green-400'
       },
       'comparative': {
         icon: BarChart3,
-        color: 'blue',
         label: 'Analyse Comparative',
-        description: 'Comparé avec produits similaires actuels'
+        description: 'Comparé avec produits similaires actuels',
+        bgClass: 'bg-blue-500/10',
+        borderClass: 'border-blue-500/30',
+        textClass: 'text-blue-400'
       }
     };
     
@@ -249,14 +255,14 @@ export default function OutilEstimationIA() {
     const Icon = indicator.icon;
     
     return (
-      <div className={`flex items-center space-x-2 p-3 bg-${indicator.color}-500/10 border border-${indicator.color}-500/30 rounded-lg`}>
-        <Icon className={`w-5 h-5 text-${indicator.color}-400`} />
+      <div className={`flex items-center space-x-2 p-3 ${indicator.bgClass} border ${indicator.borderClass} rounded-lg`}>
+        <Icon className={`w-5 h-5 ${indicator.textClass}`} />
         <div className="flex-1">
-          <p className={`text-${indicator.color}-400 font-medium text-sm`}>{indicator.label}</p>
+          <p className={`${indicator.textClass} font-medium text-sm`}>{indicator.label}</p>
           <p className="text-gray-400 text-xs">{indicator.description}</p>
         </div>
         <div className="text-right">
-          <p className={`text-${indicator.color}-400 font-bold`}>{confidence}%</p>
+          <p className={`${indicator.textClass} font-bold`}>{confidence}%</p>
           <p className="text-gray-500 text-xs">Confiance</p>
         </div>
       </div>
@@ -436,7 +442,8 @@ export default function OutilEstimationIA() {
                 <select
                   className="w-full p-2 rounded bg-gray-900 text-white border border-gray-700 text-sm focus:border-amber-500 focus:outline-none"
                   value={matiere}
-                  onChange={(e) => setMatiere(e.target.value)>
+                  onChange={(e) => setMatiere(e.target.value)}
+                >
                   <option value="">-- Sélectionner --</option>
                   <option value="Cuir grainé">Cuir grainé</option>
                   <option value="Cuir lisse">Cuir lisse</option>
@@ -482,8 +489,8 @@ export default function OutilEstimationIA() {
                   <option value="Petites déchirures réparables">Petites déchirures réparables</option>
                   <option value="Déchirures importantes">Déchirures importantes</option>
                 </select>
-              </div
-                <div>
+              </div>
+              <div>
                 <Label className="mb-1 block text-gray-300 text-sm">Taches</Label>
                 <select
                   className="w-full p-2 rounded bg-gray-900 text-white border border-gray-700 text-sm focus:border-amber-500 focus:outline-none"
@@ -571,9 +578,10 @@ export default function OutilEstimationIA() {
                     className="absolute top-2 right-2 p-2 bg-red-500 hover:bg-red-600 text-white rounded-full transition-colors"
                   >
                     <X className="w-4 h-4" />
-                    </button>
+                  </button>
                 </div>
               )}
+              
               {imagePreview && (
                 <p className="text-green-400 text-sm flex items-center">
                   <Camera className="w-4 h-4 mr-2" />
@@ -600,11 +608,11 @@ export default function OutilEstimationIA() {
               </span>
             ) : 'Estimer via IA'}
           </Button>
+
           {result && (
             <div className="mt-6 space-y-4">
               <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
                 <p className="text-green-400 font-bold mb-3">✅ Estimation générée avec succès</p>
-                
                 {/* Indicateur de source */}
                 <div className="mb-4">
                   <SourceIndicator mode={result.estimationMode} confidence={result.confidence} />
@@ -629,6 +637,7 @@ export default function OutilEstimationIA() {
                   <p><strong className="text-amber-400">Prix de revente estimé :</strong> <span className="text-green-400">{result.revente}</span></p>
                   <p><strong className="text-amber-400">Prix d'achat conseillé :</strong> <span className="text-blue-400">{result.achat}</span></p>
                 </div>
+                
                 {result.estimation && (
                   <div className="mt-4 pt-4 border-t border-gray-700">
                     <p className="text-amber-400 font-bold mb-2">💎 Analyse détaillée :</p>
@@ -636,7 +645,6 @@ export default function OutilEstimationIA() {
                   </div>
                 )}
               </div>
-
               {/* Données marché si disponibles */}
               {marketData && marketData.produits && marketData.produits.length > 0 && (
                 <div className="bg-gray-900 rounded-xl p-4 border border-green-500/30">
@@ -695,10 +703,10 @@ export default function OutilEstimationIA() {
                   className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2"
                 >
                   Nouvelle estimation
-                  </Button>
+                </Button>
               </div>
             </div>
-          )}
+      )}
         </CardContent>
       </Card>
     </div>
