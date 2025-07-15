@@ -588,7 +588,8 @@ export default function OutilEstimationIA() {
                 </div>
               )}
               {imagePreview && (
-      
+                <p className="text-green-400 text-sm flex items-center">
+                  <Camera className="w-4 h-4 mr-2" />
                   Photo ajoutée - L'IA analysera visuellement l'article
                 </p>
               )}
