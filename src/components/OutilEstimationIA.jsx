@@ -173,18 +173,12 @@ export default function OutilEstimationIA() {
     if (data.estimation) {
       const estimationText = data.estimation;
       const prixMatch = estimationText.match(/(\d+[\s\d]*)\s*€/g);
-      let prix = prixMatch ? parseInt(prixMatch[0].replace(/\s/g, '').replace('€', '')) : 0;
+      const prix = prixMatch ? parseInt(prixMatch[0].replace(/\s/g, '').replace('€', '')) : 0;
       
-      // Correcteur pour les modèles vintage Louis Vuitton
-      if (marque === 'Louis Vuitton' && query.toLowerCase().includes('speedy') && periode && periode.includes('1990')) {
-        // Prix réalistes pour Speedy vintage
-        prix = Math.min(prix, 800); // Plafonner à 800€ max
-      }
-      
-      let reventeMin = Math.round(prix * 0.55); // Ajusté à 55% au lieu de 70%
-      let reventeMax = Math.round(prix * 0.75); // Ajusté à 75% au lieu de 85%
-      let achatMin = Math.round(prix * 0.4);    // Ajusté à 40% au lieu de 50%
-      let achatMax = Math.round(prix * 0.55);   // Ajusté à 55% au lieu de 60%
+      let reventeMin = Math.round(prix * 0.7);
+      let reventeMax = Math.round(prix * 0.85);
+      let achatMin = Math.round(prix * 0.5);
+      let achatMax = Math.round(prix * 0.6);
       
       // Ajuster selon les données marché si disponibles
       if (marketData && marketData.stats) {
@@ -588,7 +582,7 @@ export default function OutilEstimationIA() {
                 </div>
               )}
               {imagePreview && (
-                <p className="text-green-400 text-sm flex items-center">
+      <p className="text-green-400 text-sm flex items-center">
                   <Camera className="w-4 h-4 mr-2" />
                   Photo ajoutée - L'IA analysera visuellement l'article
                 </p>
@@ -618,15 +612,11 @@ export default function OutilEstimationIA() {
             <div className="mt-6 space-y-4">
               <div className="bg-gray-900 rounded-xl p-4 border border-gray-700">
                 <p className="text-green-400 font-bold mb-3">✅ Estimation générée avec succès</p>
-                {/* Avertissement pour le mode IA Seule */}
-                {result.estimationMode === 'ai-only' && (
-                  <div className="mb-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                    <p className="text-yellow-400 text-sm flex items-center">
-                      <AlertCircle className="w-4 h-4 mr-2" />
-                      Les prix peuvent être surestimés. Utilisez "IA + Marché" pour des prix réels.
-                    </p>
-                  </div>
-                )}
+                
+                {/* Indicateur de source */}
+                <div className="mb-4">
+                  <SourceIndicator mode={result.estimationMode} confidence={result.confidence} />
+                </div>
                 
                 {imagePreview && (
                   <div className="mb-4">
@@ -654,7 +644,8 @@ export default function OutilEstimationIA() {
                     <pre className="text-gray-300 whitespace-pre-wrap text-sm">{result.estimation}</pre>
                   </div>
                 )}
-                {/* Données marché si disponibles */}
+              </div>
+              {/* Données marché si disponibles */}
               {marketData && marketData.produits && marketData.produits.length > 0 && (
                 <div className="bg-gray-900 rounded-xl p-4 border border-green-500/30">
                   <h4 className="text-green-400 font-bold mb-3 flex items-center">
@@ -680,7 +671,8 @@ export default function OutilEstimationIA() {
                   )}
                 </div>
               )}
-                {/* Analyse comparative si disponible */}
+
+          {/* Analyse comparative si disponible */}
               {comparativeResults && comparativeResults.products && (
                 <div className="bg-gray-900 rounded-xl p-4 border border-blue-500/30">
                   <h4 className="text-blue-400 font-bold mb-3 flex items-center">
@@ -707,15 +699,17 @@ export default function OutilEstimationIA() {
               )}
 
               <div className="pt-4">
-            <Button
-              onClick={resetForm}
-              className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2"
-            >
-              Nouvelle estimation
-            </Button>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  </div>
-);
+                <Button 
+                  onClick={resetForm}
+                  className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2"
+                >
+                  Nouvelle estimation
+                </Button>
+              </div>
+            </div>
+      )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
