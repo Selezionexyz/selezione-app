@@ -717,5 +717,6 @@ export default function OutilEstimationIA() {
             </div>
           )}
     </div>
+      </div>
   );
         }
