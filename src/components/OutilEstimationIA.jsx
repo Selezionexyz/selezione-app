@@ -707,17 +707,15 @@ export default function OutilEstimationIA() {
               )}
 
               <div className="pt-4">
-                <Button 
-                  onClick={resetForm}
-                  className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2"
-                >
-                  Nouvelle estimation
-                </Button>
-              </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    </div>
-  );
-          }
+            <Button
+              onClick={resetForm}
+              className="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2"
+            >
+              Nouvelle estimation
+            </Button>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  </div>
+);
