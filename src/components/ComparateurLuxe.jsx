@@ -1,91 +1,11 @@
-// 📝 FICHIER: src/components/ComparateurLuxe.jsx
-// Remplacez TOUT le contenu de ce fichier par le code ci-dessous:
-
 import React, { useState } from 'react';
 import { 
   Upload, Search, Filter, Eye, Heart, Share2, 
   MessageCircle, Camera, X, Loader,
-  ShoppingCart, Package
+  ShoppingCart, Package, AlertCircle, CheckCircle,
+  ImageIcon, Trash2
 } from 'lucide-react';
 
-// 🆕 1. AJOUTER LA CLASSE ImageUploadService AU DÉBUT DU FICHIER
-class ImageUploadService {
-  constructor() {
-    this.API_BASE = 'https://selezione-ia-backend.onrender.com';
-  }
-
-  async compressImage(file, options = {}) {
-    const {
-      maxWidth = 1200,
-      maxHeight = 1200,
-      quality = 0.8,
-      format = 'image/jpeg'
-    } = options;
-
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-
-      img.onload = () => {
-        let { width, height } = img;
-        const ratio = Math.min(maxWidth / width, maxHeight / height);
-        
-        if (ratio < 1) {
-          width *= ratio;
-          height *= ratio;
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.drawImage(img, 0, 0, width, height);
-
-        canvas.toBlob((blob) => {
-          resolve({
-            blob,
-            dataURL: canvas.toDataURL(format, quality),
-            originalSize: file.size,
-            compressedSize: blob.size,
-            compressionRatio: Math.round((1 - blob.size / file.size) * 100)
-          });
-        }, format, quality);
-      };
-
-      img.onerror = reject;
-      img.src = URL.createObjectURL(file);
-    });
-  }
-
-  async uploadImages(files) {
-    try {
-      const formData = new FormData();
-      
-      for (let i = 0; i < files.length; i++) {
-        const compressed = await this.compressImage(files[i]);
-        const fileName = `image_${Date.now()}_${i}.jpg`;
-        formData.append('images', compressed.blob, fileName);
-      }
-
-      const response = await fetch(`${this.API_BASE}/api/upload-images`, {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error(`Erreur upload: ${response.status}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('Erreur upload:', error);
-      throw error;
-    }
-  }
-}
-
-// 🆕 2. MODIFIER LE COMPOSANT ComparateurLuxe (remplacer la fonction existante)
 const ComparateurLuxe = () => {
   const [activeTab, setActiveTab] = useState('acheter');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -93,12 +13,7 @@ const ComparateurLuxe = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
 
-  // 🆕 NOUVEAUX ÉTATS pour le système d'upload amélioré
-  const [imageUploadService] = useState(new ImageUploadService());
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [imageUrls, setImageUrls] = useState([]);
-
-  // États pour vendre (MODIFIER les états existants)
+  // États pour vendre - SIMPLIFIÉS
   const [newListing, setNewListing] = useState({
     title: '',
     brand: '',
@@ -106,7 +21,7 @@ const ComparateurLuxe = () => {
     condition: '',
     price: '',
     description: '',
-    photos: [], // Contiendra maintenant des URLs au lieu de base64
+    photos: [], // Contiendra des objets {file, preview}
     authenticity: '',
     location: '',
     shipping: true,
@@ -114,13 +29,18 @@ const ComparateurLuxe = () => {
     tags: []
   });
 
-  const [isUploading, setIsUploading] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [uploadErrors, setUploadErrors] = useState([]);
 
   // Configuration API
   const API_BASE = 'https://selezione-ia-backend.onrender.com';
 
-  // Données simulées (garder tel quel)
+  // Limites d'upload
+  const MAX_FILES = 6;
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+  const ACCEPTED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+  // Données simulées
   const listings = [
     {
       id: 1,
@@ -166,96 +86,141 @@ const ComparateurLuxe = () => {
     "Gucci", "Prada", "Bottega Veneta", "Balenciaga", "Celine"
   ];
 
-  const conditions = ["Neuf", "Excellent", "Très bon", "Bon", "Correct"];
+  const conditions = ["Neuf avec étiquettes", "Neuf sans étiquettes", "Excellent", "Très bon", "Bon", "Correct"];
 
-  // 🆕 3. REMPLACER handlePhotoUpload par cette nouvelle version
-  const handlePhotoUpload = async (event) => {
+  // 🆕 Fonction d'upload simplifiée
+  const handlePhotoUpload = (event) => {
     const files = Array.from(event.target.files);
-    if (files.length === 0) return;
+    const errors = [];
+    
+    // Réinitialiser les erreurs
+    setUploadErrors([]);
 
-    // Validation
-    if (files.length > 6) {
-      alert('Maximum 6 images autorisées');
+    // Vérifier le nombre total de fichiers
+    if (newListing.photos.length + files.length > MAX_FILES) {
+      errors.push(`Maximum ${MAX_FILES} photos autorisées`);
+      setUploadErrors(errors);
       return;
     }
 
-    const totalSize = files.reduce((acc, f) => acc + f.size, 0);
-    if (totalSize > 20 * 1024 * 1024) {
-      alert('Taille totale des fichiers trop importante (max 20MB)');
-      return;
-    }
+    const validFiles = [];
 
-    setIsUploading(true);
-    setUploadProgress(0);
+    files.forEach((file) => {
+      // Vérifier le type
+      if (!ACCEPTED_TYPES.includes(file.type)) {
+        errors.push(`${file.name} : Type non supporté`);
+        return;
+      }
 
-    try {
-      console.log('🚀 Début upload de', files.length, 'fichier(s)');
-      
-      // Upload avec le nouveau service
-      const result = await imageUploadService.uploadImages(files);
-      
-      if (result.success && result.urls) {
-        setImageUrls(prev => [...prev, ...result.urls]);
+      // Vérifier la taille
+      if (file.size > MAX_FILE_SIZE) {
+        errors.push(`${file.name} : Taille max 5MB`);
+        return;
+      }
+
+      // Créer un preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const photoObject = {
+          file: file,
+          preview: reader.result,
+          name: file.name,
+          size: file.size
+        };
+        
         setNewListing(prev => ({
           ...prev,
-          photos: [...prev.photos, ...result.urls]
+          photos: [...prev.photos, photoObject]
         }));
-        
-        alert(`✅ ${result.urls.length} image(s) uploadée(s) avec succès!`);
-        console.log('✅ URLs reçues:', result.urls);
-      } else {
-        throw new Error('Réponse invalide du serveur');
-      }
+      };
+      reader.readAsDataURL(file);
       
-    } catch (error) {
-      console.error('❌ Erreur upload:', error);
-      alert(`❌ Erreur upload: ${error.message}`);
-    } finally {
-      setIsUploading(false);
-      setUploadProgress(0);
+      validFiles.push(file);
+    });
+
+    if (errors.length > 0) {
+      setUploadErrors(errors);
     }
   };
 
-  // 🆕 4. REMPLACER publishListing par cette nouvelle version
+  // 🆕 Fonction pour supprimer une photo
+  const removePhoto = (index) => {
+    setNewListing(prev => ({
+      ...prev,
+      photos: prev.photos.filter((_, i) => i !== index)
+    }));
+  };
+
+  // 🆕 Fonction de publication simplifiée
   const publishListing = async () => {
     if (isPublishing) return;
     
-    console.log('📝 Publication...', newListing);
-    
-    // Validation des champs obligatoires
+    // Validation
     const requiredFields = [];
     if (!newListing.title?.trim()) requiredFields.push('Titre');
-    if (!newListing.brand?.trim()) requiredFields.push('Marque');
-    if (!newListing.category?.trim()) requiredFields.push('Catégorie');
-    if (!newListing.condition?.trim()) requiredFields.push('État');
+    if (!newListing.brand) requiredFields.push('Marque');
+    if (!newListing.category) requiredFields.push('Catégorie');
+    if (!newListing.condition) requiredFields.push('État');
     if (!newListing.price || parseFloat(newListing.price) <= 0) requiredFields.push('Prix valide');
     if (!newListing.description?.trim()) requiredFields.push('Description');
+    if (newListing.photos.length === 0) requiredFields.push('Au moins une photo');
 
     if (requiredFields.length > 0) {
       alert(`❌ Champs obligatoires manquants:\n• ${requiredFields.join('\n• ')}`);
       return;
     }
 
-    const listingData = {
-      user: 'user_' + Date.now(),
-      fichier: 'marketplace-listing',
-      selections: {
-        ...newListing,
-        id: 'listing_' + Date.now(),
-        price: parseFloat(newListing.price),
-        created_at: new Date().toISOString(),
-        status: 'active',
-        images: imageUrls // URLs séparées
-      }
-    };
-
-    // Payload beaucoup plus léger maintenant
-    const payloadSize = new Blob([JSON.stringify(listingData)]).size;
-    console.log(`✅ Payload size: ${Math.round(payloadSize/1024)}KB`);
-
     setIsPublishing(true);
 
     try {
+      // Créer FormData pour l'upload
+      const formData = new FormData();
+      
+      // Ajouter les données texte
+      formData.append('user', 'user_' + Date.now());
+      formData.append('fichier', 'marketplace-listing');
+      formData.append('title', newListing.title);
+      formData.append('brand', newListing.brand);
+      formData.append('category', newListing.category);
+      formData.append('condition', newListing.condition);
+      formData.append('price', newListing.price);
+      formData.append('description', newListing.description);
+      formData.append('location', newListing.location || 'France');
+      formData.append('shipping', newListing.shipping);
+      formData.append('negotiable', newListing.negotiable);
+      
+      // Ajouter les photos
+      newListing.photos.forEach((photo, index) => {
+        formData.append(`photo_${index}`, photo.file);
+      });
+
+      // Option 1: Envoyer avec FormData (si le backend supporte)
+      /*
+      const response = await fetch(`${API_BASE}/api/listing/create`, {
+        method: 'POST',
+        body: formData
+      });
+      */
+
+      // Option 2: Envoyer en JSON avec base64 (solution actuelle)
+      const listingData = {
+        user: 'user_' + Date.now(),
+        fichier: 'marketplace-listing',
+        selections: {
+          ...newListing,
+          id: 'listing_' + Date.now(),
+          price: parseFloat(newListing.price),
+          created_at: new Date().toISOString(),
+          status: 'active',
+          // Convertir seulement les previews, pas les fichiers complets
+          photos: newListing.photos.map(p => ({
+            preview: p.preview.substring(0, 100) + '...', // Tronquer pour l'exemple
+            name: p.name,
+            size: p.size
+          }))
+        }
+      };
+
       const response = await fetch(`${API_BASE}/api/commande`, {
         method: 'POST',
         headers: { 
@@ -268,30 +233,31 @@ const ComparateurLuxe = () => {
       if (response.ok) {
         alert('✅ Annonce publiée avec succès !');
         resetForm();
+        setActiveTab('acheter');
       } else {
         const errorText = await response.text();
         alert(`❌ Erreur publication: ${errorText}`);
       }
       
     } catch (error) {
+      console.error('Erreur:', error);
       alert(`❌ Erreur de connexion: ${error.message}`);
     } finally {
       setIsPublishing(false);
     }
   };
 
-  // 🆕 5. AJOUTER la fonction resetForm
+  // Fonction pour réinitialiser le formulaire
   const resetForm = () => {
     setNewListing({
       title: '', brand: '', category: '', condition: '', price: '',
       description: '', photos: [], authenticity: '', location: '',
       shipping: true, negotiable: false, tags: []
     });
-    setImageUrls([]);
-    setActiveTab('acheter');
+    setUploadErrors([]);
   };
 
-  // Interface d'achat (GARDER tel quel)
+  // Interface d'achat
   const BuyerInterface = () => (
     <div className="space-y-6">
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
@@ -374,7 +340,7 @@ const ComparateurLuxe = () => {
     </div>
   );
 
-  // 🆕 6. REMPLACER l'interface de vente par cette nouvelle version
+  // 🆕 Interface de vente SIMPLIFIÉE
   const SellerInterface = () => (
     <div className="space-y-6">
       <div className="bg-purple-500/10 rounded-xl p-6 border border-purple-500/30">
@@ -384,11 +350,12 @@ const ComparateurLuxe = () => {
 
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-purple-500/30 p-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Colonne gauche - Informations */}
           <div className="space-y-4">
             <h4 className="text-white font-bold text-lg mb-4">📋 Informations produit</h4>
             
             <div>
-              <label className="block text-white font-medium mb-2">Titre *</label>
+              <label className="block text-white font-medium mb-2">Titre de l'annonce *</label>
               <input
                 type="text"
                 value={newListing.title}
@@ -448,6 +415,7 @@ const ComparateurLuxe = () => {
                   value={newListing.price}
                   onChange={(e) => setNewListing({...newListing, price: e.target.value})}
                   placeholder="8500"
+                  min="1"
                   className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-purple-500"
                 />
               </div>
@@ -458,16 +426,51 @@ const ComparateurLuxe = () => {
               <textarea
                 value={newListing.description}
                 onChange={(e) => setNewListing({...newListing, description: e.target.value})}
-                placeholder="Décrivez l'article..."
-                className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 h-32 text-sm focus:outline-none focus:border-purple-500"
+                placeholder="Décrivez votre article en détail..."
+                rows="4"
+                className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-purple-500 resize-none"
               />
+            </div>
+
+            <div>
+              <label className="block text-white font-medium mb-2">Localisation</label>
+              <input
+                type="text"
+                value={newListing.location}
+                onChange={(e) => setNewListing({...newListing, location: e.target.value})}
+                placeholder="Paris, France"
+                className="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-purple-500"
+              />
+            </div>
+
+            <div className="space-y-3">
+              <label className="flex items-center space-x-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={newListing.shipping}
+                  onChange={(e) => setNewListing({...newListing, shipping: e.target.checked})}
+                  className="w-5 h-5 text-purple-500 bg-gray-900 border-gray-700 rounded focus:ring-purple-500"
+                />
+                <span className="text-white">Livraison possible</span>
+              </label>
+              
+              <label className="flex items-center space-x-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={newListing.negotiable}
+                  onChange={(e) => setNewListing({...newListing, negotiable: e.target.checked})}
+                  className="w-5 h-5 text-purple-500 bg-gray-900 border-gray-700 rounded focus:ring-purple-500"
+                />
+                <span className="text-white">Prix négociable</span>
+              </label>
             </div>
           </div>
 
-          {/* 🆕 NOUVELLE INTERFACE UPLOAD */}
+          {/* Colonne droite - Photos */}
           <div className="space-y-4">
-            <h4 className="text-white font-bold text-lg mb-4">📸 Photos (Nouveau système)</h4>
+            <h4 className="text-white font-bold text-lg mb-4">📸 Photos (max {MAX_FILES})</h4>
             
+            {/* Zone d'upload */}
             <div className="border-2 border-dashed border-purple-500/50 rounded-xl p-6 text-center bg-purple-500/5">
               <input
                 type="file"
@@ -476,124 +479,153 @@ const ComparateurLuxe = () => {
                 onChange={handlePhotoUpload}
                 className="hidden"
                 id="photo-upload"
-                disabled={isUploading}
               />
               <label htmlFor="photo-upload" className="cursor-pointer">
                 <Camera className="w-12 h-12 text-purple-400 mx-auto mb-4" />
                 <p className="text-purple-400 font-medium mb-2">
-                  {isUploading ? 'Upload en cours...' : 'Ajouter des photos'}
+                  Cliquez pour ajouter des photos
                 </p>
                 <p className="text-gray-400 text-sm">
-                  JPG, PNG jusqu'à 5MB par image • Max 6 images
+                  JPG, PNG, WEBP • Max 5MB par image
                 </p>
               </label>
             </div>
 
-            {isUploading && (
-              <div className="bg-purple-500/10 rounded-lg p-4 border border-purple-500/30">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-purple-400 text-sm">Upload en cours...</span>
-                  <span className="text-purple-400 text-sm">{uploadProgress}%</span>
-                </div>
-                <div className="w-full bg-gray-700 rounded-full h-2">
-                  <div 
-                    className="bg-purple-500 h-2 rounded-full transition-all duration-300"
-                    style={{width: `${uploadProgress}%`}}
-                  ></div>
-                </div>
+            {/* Erreurs d'upload */}
+            {uploadErrors.length > 0 && (
+              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+                {uploadErrors.map((error, index) => (
+                  <div key={index} className="flex items-start">
+                    <AlertCircle className="w-4 h-4 text-red-400 mr-2 mt-0.5 flex-shrink-0" />
+                    <p className="text-red-400 text-sm">{error}</p>
+                  </div>
+                ))}
               </div>
             )}
 
-            {imageUrls.length > 0 && (
+            {/* Aperçu des photos */}
+            {newListing.photos.length > 0 && (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-purple-400 font-medium">
-                    📸 {imageUrls.length} image(s) uploadée(s)
+                    {newListing.photos.length} photo{newListing.photos.length > 1 ? 's' : ''} ajoutée{newListing.photos.length > 1 ? 's' : ''}
                   </span>
                   <button 
-                    onClick={() => {
-                      setImageUrls([]);
-                      setNewListing(prev => ({...prev, photos: []}));
-                    }}
-                    className="text-red-400 text-sm hover:text-red-300"
+                    onClick={() => setNewListing({...newListing, photos: []})}
+                    className="text-red-400 text-sm hover:text-red-300 flex items-center"
                   >
-                    Supprimer tout
+                    <Trash2 className="w-4 h-4 mr-1" />
+                    Tout supprimer
                   </button>
                 </div>
+
                 <div className="grid grid-cols-3 gap-3">
-                  {imageUrls.map((url, index) => (
+                  {newListing.photos.map((photo, index) => (
                     <div key={index} className="relative group">
                       <img
-                        src={url}
-                        alt={`Upload ${index + 1}`}
-                        className="w-full h-20 object-cover rounded-lg"
-                        onError={(e) => {
-                          e.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjNEY0NjRGIi8+Cjx0ZXh0IHg9IjEyIiB5PSIxMyIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjOTQ5Mzk0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5JbWFnZTwvdGV4dD4KPHN2Zz4K';
-                        }}
+                        src={photo.preview}
+                        alt={`Photo ${index + 1}`}
+                        className="w-full h-24 object-cover rounded-lg"
                       />
-                      <button
-                        onClick={() => {
-                          const newUrls = imageUrls.filter((_, i) => i !== index);
-                          setImageUrls(newUrls);
-                          setNewListing(prev => ({...prev, photos: newUrls}));
-                        }}
-                        className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                        <button
+                          onClick={() => removePhoto(index)}
+                          className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                      {index === 0 && (
+                        <span className="absolute top-1 left-1 bg-purple-500 text-white text-xs px-2 py-0.5 rounded">
+                          Principal
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
+
+                <p className="text-gray-400 text-xs">
+                  💡 La première photo sera l'image principale de votre annonce
+                </p>
               </div>
             )}
+
+            {/* Instructions */}
+            <div className="bg-gray-900 rounded-lg p-4 space-y-2">
+              <h5 className="text-purple-400 font-medium text-sm mb-2">📌 Conseils photo</h5>
+              <ul className="text-gray-400 text-xs space-y-1">
+                <li>• Photos nettes et bien éclairées</li>
+                <li>• Montrez tous les angles importants</li>
+                <li>• Incluez les détails d'authenticité</li>
+                <li>• Photographiez les défauts éventuels</li>
+              </ul>
+            </div>
           </div>
         </div>
 
+        {/* Barre d'actions */}
         <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-700">
           <div className="text-gray-400 text-sm">
-            <p>Commission : 5%</p>
-            <p>Vous recevrez : {newListing.price ? (newListing.price * 0.95).toFixed(0) : '0'}€</p>
+            <p>Commission plateforme : 5%</p>
+            <p className="font-medium text-white">
+              Vous recevrez : {newListing.price ? `${(newListing.price * 0.95).toFixed(0)}€` : '0€'}
+            </p>
           </div>
           
           <div className="flex space-x-3">
             <button 
-              disabled={isPublishing}
-              className="px-6 py-3 bg-gray-700 text-white rounded-xl font-medium hover:bg-gray-600 disabled:opacity-50"
-            > 
-              💾 Brouillon
+              onClick={resetForm}
+              className="px-6 py-3 bg-gray-700 text-white rounded-xl font-medium hover:bg-gray-600"
+            >
+              Annuler
             </button>
             
             <button
               onClick={publishListing}
-              disabled={isPublishing || !newListing.title || !newListing.brand || !newListing.price}
-              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center justify-center min-w-[180px]"
+              disabled={isPublishing || !newListing.title || !newListing.brand || !newListing.price || newListing.photos.length === 0}
+              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl font-bold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[150px]"
             >
               {isPublishing ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                  <Loader className="w-5 h-5 animate-spin mr-2" />
                   Publication...
                 </>
               ) : (
                 <>
-                  🚀 Publier
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  Publier
                 </>
               )}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Statut de publication */}
+      {isPublishing && (
+        <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
+          <div className="flex items-center">
+            <Loader className="w-5 h-5 text-blue-400 animate-spin mr-3" />
+            <div>
+              <p className="text-blue-400 font-medium">Publication en cours...</p>
+              <p className="text-gray-400 text-sm">Votre annonce est en cours de traitement</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-// Garder le reste tel quel (modal produit, return, etc.)
+
   return (
     <div className="p-4 md:p-6 space-y-6">
       <div className="bg-gradient-to-r from-green-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-6 border border-green-500/20">
         <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
           🏪 MARKETPLACE SELEZIONE
         </h2>
-        <p className="text-gray-400">Plateforme professionnelle pour le luxe</p>
+        <p className="text-gray-400">Plateforme professionnelle pour le luxe • Commission 5%</p>
       </div>
 
+      {/* Tabs */}
       <div className="flex space-x-4">
         {[
           { id: 'acheter', label: '🛒 Acheter', icon: ShoppingCart },
@@ -614,9 +646,12 @@ const ComparateurLuxe = () => {
         ))}
       </div>
 
-      <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
+      {/* Contenu */}
+      <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30">
         {activeTab === 'acheter' ? <BuyerInterface /> : <SellerInterface />}
       </div>
+
+      {/* Modal produit */}
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-gray-900 rounded-2xl border border-green-500/30 max-w-4xl w-full max-h-[90vh] overflow-auto">
@@ -639,8 +674,45 @@ const ComparateurLuxe = () => {
                 <div className="space-y-6">
                   <div>
                     <span className="text-3xl font-bold text-white">{selectedProduct.price.toLocaleString()}€</span>
-                    <p className="text-gray-300 mt-4">{selectedProduct.description}</p>
+                    {selectedProduct.negotiable && (
+                      <span className="ml-3 text-yellow-400 text-sm">Prix négociable</span>
+                    )}
                   </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between py-2 border-b border-gray-700">
+                      <span className="text-gray-400">Marque</span>
+                      <span className="text-white font-medium">{selectedProduct.brand}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 border-b border-gray-700">
+                      <span className="text-gray-400">État</span>
+                      <span className="text-white font-medium">{selectedProduct.condition}</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 border-b border-gray-700">
+                      <span className="text-gray-400">Localisation</span>
+                      <span className="text-white font-medium">{selectedProduct.location}</span>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-white font-medium mb-2">Description</h4>
+                    <p className="text-gray-300">{selectedProduct.description}</p>
+                  </div>
+                  
+                  <div className="flex items-center justify-between text-sm text-gray-400">
+                    <div className="flex items-center space-x-4">
+                      <span className="flex items-center">
+                        <Eye className="w-4 h-4 mr-1" />
+                        {selectedProduct.views} vues
+                      </span>
+                      <span className="flex items-center">
+                        <Heart className="w-4 h-4 mr-1" />
+                        {selectedProduct.likes} likes
+                      </span>
+                    </div>
+                    <span>{selectedProduct.posted}</span>
+                  </div>
+                  
                   <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:opacity-90">
                     💬 Contacter le vendeur
                   </button>
@@ -655,5 +727,3 @@ const ComparateurLuxe = () => {
 };
 
 export default ComparateurLuxe;
-                  
-  
