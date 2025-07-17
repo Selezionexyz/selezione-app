@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText,
-  BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart
+  BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart, Package
 } from 'lucide-react';
 import OutilEstimationIA from '@/components/OutilEstimationIA';
 import Dashboard from './Dashboard';
@@ -9,6 +9,7 @@ import AssistantLuxe from './AssistantLuxe';
 import EstimationLuxe from './EstimationLuxe';
 import Academy from './Academy';
 import ComparateurLuxe from './ComparateurLuxe';
+import MarketplaceReception from './MarketplaceReception'; // 👈 NOUVEAU
 import FicheProduit from './FicheProduit';
 import Quiz from './Quiz';
 import ScraperVC from './ScraperVC';
@@ -33,7 +34,8 @@ const SaasLayout = () => {
     scraper: <ScraperVC />,
     quiz: <Quiz />,
     academy: <Academy />,
-    marketplace: <ComparateurLuxe />,
+    marketplace: <MarketplaceReception />,  // 👈 RÉCEPTION - Voir les annonces
+    vendre: <ComparateurLuxe />,           // 👈 VENTE - Publier des annonces
     estimationia: <OutilEstimationIA />,
   };
 
@@ -46,7 +48,8 @@ const SaasLayout = () => {
       { id: 'scraper', label: 'Analyseur Marché', icon: TrendingUp },
       { id: 'quiz', label: 'Quiz Expert', icon: Brain },
       { id: 'academy', label: 'Academy', icon: GraduationCap },
-      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart },
+      { id: 'marketplace', label: 'Marketplace 🏪', icon: ShoppingCart }, // Voir annonces
+      { id: 'vendre', label: 'Vendre 💰', icon: Package },               // Publier annonce
       { id: 'estimationia', label: 'Estimation IA 🔍', icon: Calculator },
     ];
 
@@ -93,6 +96,21 @@ const SaasLayout = () => {
             ))}
           </div>
         </div>
+
+        {/* Section utilisateur en bas de la sidebar */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-amber-500/20">
+          <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-lg p-3">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-lg">
+                {user.avatar}
+              </div>
+              <div>
+                <p className="text-sm font-medium text-white">{user.name}</p>
+                <p className="text-xs text-amber-400">{user.subscription}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };
@@ -106,6 +124,20 @@ const SaasLayout = () => {
         >
           <Menu className="w-6 h-6" />
         </button>
+        
+        {/* Titre de la page active */}
+        <div className="hidden lg:block">
+          <h1 className="text-xl font-bold text-white">
+            {activeView === 'marketplace' && '🏪 Marketplace - Réception'}
+            {activeView === 'vendre' && '💰 Vendre un Produit'}
+            {activeView === 'dashboard' && '📊 Dashboard'}
+            {activeView === 'agents' && '🤖 Agents IA'}
+            {activeView === 'outils' && '⚡ Outils IA'}
+            {activeView === 'estimationia' && '🔍 Estimation IA'}
+            {/* Ajoutez d'autres titres selon vos besoins */}
+          </h1>
+        </div>
+
         <div className="flex items-center space-x-4">
           <Bell className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer" />
           <div className="flex items-center space-x-3">
@@ -124,12 +156,12 @@ const SaasLayout = () => {
 
   const BottomNav = () => {
     const bottomItems = [
-      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart },
+      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart }, // Voir annonces
+      { id: 'vendre', label: 'Vendre', icon: Package },               // Publier annonce
       { id: 'outils', label: 'Outils IA', icon: Zap },
       { id: 'agents', label: 'Agents', icon: Bot },
       { id: 'estimationia', label: 'Estimation IA', icon: Calculator },
-      { id: 'academy', label: 'Academy', icon: GraduationCap },
-      { id: 'quiz', label: 'Quiz', icon: Brain }
+      { id: 'academy', label: 'Academy', icon: GraduationCap }
     ];
 
     return (
@@ -139,10 +171,14 @@ const SaasLayout = () => {
             <button
               key={idx}
               onClick={() => setActiveView(item.id)}
-              className="flex flex-col items-center space-y-1 px-3 py-2 rounded-xl transition-all"
+              className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-xl transition-all ${
+                activeView === item.id
+                  ? 'bg-amber-500/20 text-amber-400'
+                  : 'text-gray-400 hover:text-white'
+              }`}
             >
-              <item.icon className="w-6 h-6 text-gray-400" />
-              <span className="text-xs text-gray-400 font-medium">{item.label}</span>
+              <item.icon className="w-6 h-6" />
+              <span className="text-xs font-medium">{item.label}</span>
             </button>
           ))}
         </div>
