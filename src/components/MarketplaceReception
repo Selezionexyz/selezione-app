@@ -1,0 +1,573 @@
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { 
+  Search, Filter, Eye, Heart, MessageCircle, X, Loader,
+  Package, MapPin, Calendar, Star, RefreshCw, AlertCircle,
+  ShoppingCart, Tag, Clock, Truck, DollarSign
+} from 'lucide-react';
+
+const MarketplaceReception = () => {
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [lastRefresh, setLastRefresh] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  // Configuration API
+  const API_BASE = 'https://selezione-ia-backend.onrender.com';
+  const MAX_RETRIES = 3;
+  const RETRY_DELAY = 2000;
+
+  // Catégories pour le filtre
+  const categories = [
+    "Sacs à main", "Chaussures", "Prêt-à-porter", "Accessoires", 
+    "Bijoux", "Montres", "Parfums", "Maroquinerie"
+  ];
+
+  // 🔄 Fonction pour récupérer les annonces avec retry logic
+  const fetchListings = useCallback(async (isRetry = false) => {
+    if (!isRetry) {
+      setLoading(true);
+      setError(null);
+      setRetryCount(0);
+    }
+    
+    try {
+      console.log(`🔍 Tentative de récupération des annonces... (${isRetry ? `Retry ${retryCount + 1}` : 'Initial'})`);
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // Timeout 10s
+
+      const response = await fetch(`${API_BASE}/api/commandes`, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache'
+        },
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('📦 Données récupérées:', data);
+
+      // Validation et traitement des données
+      if (!data || (Array.isArray(data) && data.length === 0)) {
+        setListings([]);
+        setLastRefresh(new Date());
+        setLoading(false);
+        return;
+      }
+
+      // Traiter les données selon le format reçu
+      let rawListings = [];
+      if (Array.isArray(data)) {
+        rawListings = data;
+      } else if (data.commandes && Array.isArray(data.commandes)) {
+        rawListings = data.commandes;
+      } else if (data.data && Array.isArray(data.data)) {
+        rawListings = data.data;
+      } else {
+        console.warn('⚠️ Format de données inattendu:', data);
+        rawListings = [];
+      }
+
+      // Filtrer et transformer les annonces marketplace
+      const marketplaceListings = rawListings
+        .filter(item => {
+          // Filtrer les annonces marketplace
+          return item && (
+            item.fichier === 'marketplace-listing' || 
+            (item.selections && item.selections.title) ||
+            item.title
+          );
+        })
+        .map((item, index) => {
+          const selections = item.selections || {};
+          return {
+            id: selections.id || item.id || `listing_${Date.now()}_${index}`,
+            title: selections.title || item.title || 'Produit sans titre',
+            brand: selections.brand || item.brand || 'Marque inconnue',
+            category: selections.category || item.category || 'Non catégorisé',
+            price: parseFloat(selections.price || item.price || 0),
+            condition: selections.condition || item.condition || 'État non spécifié',
+            description: selections.description || item.description || 'Aucune description disponible',
+            location: selections.location || item.location || 'Localisation non spécifiée',
+            shipping: selections.shipping !== false,
+            negotiable: Boolean(selections.negotiable || item.negotiable),
+            photos: selections.photos || item.photos || [],
+            created_at: selections.created_at || item.timestamp || item.created_at || new Date().toISOString(),
+            user: item.user || 'Utilisateur anonyme',
+            // Champs additionnels
+            views: Math.floor(Math.random() * 500) + 10, // Simulation
+            likes: Math.floor(Math.random() * 50) + 1,
+            featured: index < 2 // Les 2 premiers sont en vedette
+          };
+        })
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Trier par date décroissante
+
+      setListings(marketplaceListings);
+      setLastRefresh(new Date());
+      setError(null);
+      setRetryCount(0);
+      
+      console.log(`✅ ${marketplaceListings.length} annonces chargées avec succès`);
+      
+    } catch (err) {
+      console.error('❌ Erreur lors de la récupération:', err);
+      
+      if (err.name === 'AbortError') {
+        setError('Délai d\'attente dépassé. Vérifiez votre connexion.');
+      } else if (retryCount < MAX_RETRIES && !isRetry) {
+        console.log(`🔄 Retry ${retryCount + 1}/${MAX_RETRIES} dans ${RETRY_DELAY}ms...`);
+        setRetryCount(prev => prev + 1);
+        setTimeout(() => {
+          fetchListings(true);
+        }, RETRY_DELAY);
+        return;
+      } else {
+        setError(err.message || 'Erreur de connexion au serveur');
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [retryCount]);
+
+  // 🎯 Charger les données au montage du composant
+  useEffect(() => {
+    fetchListings();
+  }, [fetchListings]);
+
+  // 🔍 Filtrer les annonces avec memoization pour optimiser les performances
+  const filteredListings = useMemo(() => {
+    return listings.filter(listing => {
+      const searchLower = searchQuery.toLowerCase();
+      const matchesSearch = searchQuery === '' || 
+        listing.title.toLowerCase().includes(searchLower) ||
+        listing.brand.toLowerCase().includes(searchLower) ||
+        listing.description.toLowerCase().includes(searchLower) ||
+        listing.condition.toLowerCase().includes(searchLower);
+      
+      const matchesCategory = selectedCategory === '' || listing.category === selectedCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [listings, searchQuery, selectedCategory]);
+
+  // 📅 Fonction pour formater la date (optimisée)
+  const formatDate = useCallback((dateString) => {
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return 'Date invalide';
+      
+      const now = new Date();
+      const diffMs = now - date;
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffHours = Math.floor(diffMs / 3600000);
+      const diffDays = Math.floor(diffMs / 86400000);
+
+      if (diffMins < 1) return 'À l\'instant';
+      if (diffMins < 60) return `Il y a ${diffMins} min`;
+      if (diffHours < 24) return `Il y a ${diffHours}h`;
+      if (diffDays < 7) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`;
+      return date.toLocaleDateString('fr-FR', { 
+        day: 'numeric', 
+        month: 'short',
+        year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+      });
+    } catch {
+      return 'Date inconnue';
+    }
+  }, []);
+
+  // 💰 Fonction pour formater le prix
+  const formatPrice = useCallback((price) => {
+    if (typeof price !== 'number' || isNaN(price)) return '0';
+    return price.toLocaleString('fr-FR');
+  }, []);
+
+  // 🎨 Interface de chargement améliorée
+  if (loading) {
+    return (
+      <div className="p-6 space-y-6">
+        <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-6 border border-blue-500/20">
+          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+            🏪 MARKETPLACE - Réception
+          </h2>
+          <p className="text-gray-400">Chargement des annonces publiées...</p>
+        </div>
+        
+        <div className="flex items-center justify-center py-12">
+          <div className="text-center">
+            <Loader className="w-12 h-12 text-blue-400 animate-spin mx-auto mb-4" />
+            <p className="text-white font-medium">Récupération des annonces...</p>
+            <p className="text-gray-400 text-sm">Connexion à {API_BASE}</p>
+            {retryCount > 0 && (
+              <p className="text-yellow-400 text-sm mt-2">
+                Tentative {retryCount + 1}/{MAX_RETRIES + 1}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ❌ Interface d'erreur améliorée
+  if (error) {
+    return (
+      <div className="p-6 space-y-6">
+        <div className="bg-gradient-to-r from-red-500/10 via-orange-500/10 to-yellow-500/10 rounded-2xl p-6 border border-red-500/20">
+          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-red-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent mb-2">
+            ❌ Erreur de chargement
+          </h2>
+          <p className="text-gray-400">Impossible de récupérer les annonces</p>
+        </div>
+        
+        <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
+          <div className="flex items-start">
+            <AlertCircle className="w-6 h-6 text-red-400 mr-3 mt-1 flex-shrink-0" />
+            <div className="flex-1">
+              <h3 className="text-red-400 font-bold mb-2">Erreur de connexion</h3>
+              <p className="text-gray-300 mb-4">{error}</p>
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => fetchListings()}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 flex items-center transition-colors"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Réessayer
+                </button>
+                <button
+                  onClick={() => {
+                    setError(null);
+                    setListings([]);
+                  }}
+                  className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+                >
+                  Continuer sans données
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-4 md:p-6 space-y-6">
+      {/* Header amélioré */}
+      <div className="bg-gradient-to-r from-green-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl p-6 border border-green-500/20">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+              🏪 MARKETPLACE - Réception
+            </h2>
+            <div className="flex flex-wrap items-center gap-4 text-sm">
+              <span className="text-gray-400">
+                {listings.length} annonce{listings.length > 1 ? 's' : ''} publiée{listings.length > 1 ? 's' : ''}
+              </span>
+              {filteredListings.length !== listings.length && (
+                <span className="text-blue-400">
+                  • {filteredListings.length} affiché{filteredListings.length > 1 ? 's' : ''}
+                </span>
+              )}
+              {lastRefresh && (
+                <span className="text-green-400">
+                  • MAJ: {lastRefresh.toLocaleTimeString('fr-FR')}
+                </span>
+              )}
+            </div>
+          </div>
+          <button
+            onClick={() => fetchListings()}
+            disabled={loading}
+            className="bg-gradient-to-r from-green-500 to-blue-500 text-white px-4 py-2 rounded-xl hover:opacity-90 flex items-center transition-opacity disabled:opacity-50"
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+            Actualiser
+          </button>
+        </div>
+      </div>
+
+      {/* Filtres de recherche améliorés */}
+      <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+          <div className="lg:col-span-2 relative">
+            <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Rechercher par titre, marque, description..."
+              className="w-full bg-gray-900 border border-gray-700 rounded-xl pl-10 pr-4 py-3 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-green-500 transition-colors"
+            />
+          </div>
+          
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-green-500 transition-colors"
+          >
+            <option value="">Toutes catégories</option>
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+
+          <div className="flex items-center justify-center bg-gray-800 rounded-xl px-4 py-3">
+            <span className="text-gray-400 text-sm font-medium">
+              {filteredListings.length} résultat{filteredListings.length > 1 ? 's' : ''}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Liste des annonces */}
+      {filteredListings.length === 0 ? (
+        <div className="bg-gray-900 rounded-xl border border-gray-700 p-12 text-center">
+          <Package className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-gray-400 mb-2">Aucune annonce trouvée</h3>
+          <p className="text-gray-500 mb-4">
+            {listings.length === 0 
+              ? "Aucune annonce n'a encore été publiée sur la marketplace"
+              : "Aucune annonce ne correspond à vos critères de recherche"
+            }
+          </p>
+          {searchQuery || selectedCategory ? (
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('');
+              }}
+              className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors"
+            >
+              Réinitialiser les filtres
+            </button>
+          ) : null}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredListings.map((product) => (
+            <div 
+              key={product.id} 
+              className="bg-gray-900 rounded-xl border border-gray-700 hover:border-green-500/50 transition-all duration-300 overflow-hidden group hover:shadow-lg hover:shadow-green-500/10"
+            >
+              {/* Image du produit */}
+              <div className="relative">
+                <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center">
+                  {product.photos && product.photos.length > 0 ? (
+                    <div className="text-6xl">📸</div>
+                  ) : (
+                    <div className="text-center text-gray-500">
+                      <Package className="w-16 h-16 mx-auto mb-2" />
+                      <p className="text-sm">Aucune photo</p>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Badges */}
+                <div className="absolute top-3 left-3 flex flex-col gap-2">
+                  {new Date() - new Date(product.created_at) < 24 * 60 * 60 * 1000 && (
+                    <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                      ✨ Nouveau
+                    </span>
+                  )}
+                  {product.featured && (
+                    <span className="bg-yellow-500 text-black px-2 py-1 rounded-full text-xs font-bold">
+                      ⭐ Vedette
+                    </span>
+                  )}
+                </div>
+
+                {/* Statistiques */}
+                <div className="absolute bottom-3 right-3 flex space-x-2">
+                  <span className="bg-black/70 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center">
+                    <Eye className="w-3 h-3 mr-1" />
+                    {product.views}
+                  </span>
+                  <span className="bg-black/70 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs flex items-center">
+                    <Heart className="w-3 h-3 mr-1" />
+                    {product.likes}
+                  </span>
+                </div>
+              </div>
+
+              {/* Contenu de la carte */}
+              <div className="p-4">
+                <div className="mb-3">
+                  <h3 className="font-bold text-white text-lg mb-1 group-hover:text-green-400 transition-colors line-clamp-2">
+                    {product.title}
+                  </h3>
+                  <p className="text-green-400 font-medium text-sm">{product.brand}</p>
+                  <p className="text-gray-500 text-xs">{product.category}</p>
+                </div>
+
+                {/* Prix et négociation */}
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-2xl font-bold text-white">
+                    {formatPrice(product.price)}€
+                  </span>
+                  {product.negotiable && (
+                    <span className="text-yellow-400 text-xs font-medium bg-yellow-400/10 px-2 py-1 rounded-full">
+                      Négociable
+                    </span>
+                  )}
+                </div>
+
+                {/* Informations supplémentaires */}
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-gray-400 text-xs">
+                    <Tag className="w-3 h-3 mr-2 flex-shrink-0" />
+                    <span className="truncate">{product.condition}</span>
+                  </div>
+                  <div className="flex items-center text-gray-400 text-xs">
+                    <MapPin className="w-3 h-3 mr-2 flex-shrink-0" />
+                    <span className="truncate">{product.location}</span>
+                  </div>
+                  <div className="flex items-center text-gray-400 text-xs">
+                    <Clock className="w-3 h-3 mr-2 flex-shrink-0" />
+                    <span>{formatDate(product.created_at)}</span>
+                  </div>
+                  {product.shipping && (
+                    <div className="flex items-center text-green-400 text-xs">
+                      <Truck className="w-3 h-3 mr-2 flex-shrink-0" />
+                      <span>Livraison possible</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Actions */}
+                <div className="flex space-x-2">
+                  <button 
+                    onClick={() => setSelectedProduct(product)}
+                    className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity text-sm"
+                  >
+                    Voir détails
+                  </button>
+                  <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    <MessageCircle className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Modal détails produit amélioré */}
+      {selectedProduct && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  <div className="bg-gray-900 rounded-2xl border border-green-500/30 max-w-4xl w-full max-h-[90vh] overflow-auto">
+            <div className="p-6">
+              {/* Header modal */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-white mb-1">{selectedProduct.title}</h3>
+                  <p className="text-green-400 font-medium">{selectedProduct.brand} • {selectedProduct.category}</p>
+                  <p className="text-gray-400 text-sm">Publié par {selectedProduct.user}</p>
+                </div>
+                <button
+                  onClick={() => setSelectedProduct(null)}
+                  className="p-2 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors ml-4"
+                >
+                  <X className="w-5 h-5 text-white" />
+                </button>
+              </div>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Image */}
+                <div className="aspect-square bg-gray-800 rounded-xl flex items-center justify-center">
+                  {selectedProduct.photos && selectedProduct.photos.length > 0 ? (
+                    <div className="text-8xl">📸</div>
+                  ) : (
+                    <div className="text-center text-gray-500">
+                      <Package className="w-24 h-24 mx-auto mb-4" />
+                      <p>Aucune photo disponible</p>
+                    </div>
+                  )}
+                </div>
+{/* Détails */}
+                <div className="space-y-6">
+                  <div>
+                    <span className="text-3xl font-bold text-white">
+                      {formatPrice(selectedProduct.price)}€
+                    </span>
+                    {selectedProduct.negotiable && (
+                      <span className="ml-3 text-yellow-400 text-sm bg-yellow-400/10 px-3 py-1 rounded-full">
+                        Prix négociable
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* Statistiques */}
+                  <div className="flex space-x-4 text-sm">
+                    <span className="flex items-center text-gray-400">
+                      <Eye className="w-4 h-4 mr-2" />
+                      {selectedProduct.views} vues
+                    </span>
+                    <span className="flex items-center text-gray-400">
+                      <Heart className="w-4 h-4 mr-2" />
+                      {selectedProduct.likes} likes
+                    </span>
+                  </div>
+{/* Tableau des informations */}
+                  <div className="space-y-3">
+                    {[
+                      ['Marque', selectedProduct.brand],
+                      ['Catégorie', selectedProduct.category],
+                      ['État', selectedProduct.condition],
+                      ['Localisation', selectedProduct.location],
+                      ['Livraison', selectedProduct.shipping ? '✅ Possible' : '❌ Non disponible'],
+                      ['Date publication', formatDate(selectedProduct.created_at)]
+                    ].map(([label, value]) => (
+                      <div key={label} className="flex items-center justify-between py-2 border-b border-gray-700">
+                        <span className="text-gray-400 font-medium">{label}</span>
+                        <span className="text-white font-medium">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Description */}
+                  <div>
+                    <h4 className="text-white font-bold mb-3 flex items-center">
+                      <MessageCircle className="w-5 h-5 mr-2" />
+                      Description
+                    </h4>
+                    <div className="text-gray-300 bg-gray-800 p-4 rounded-lg">
+                      <p className="whitespace-pre-wrap">{selectedProduct.description}</p>
+                    </div>
+                  </div>
+{/* Actions */}
+                  <div className="flex space-x-3">
+                    <button className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center justify-center">
+                      <MessageCircle className="w-5 h-5 mr-2" />
+                      Contacter le vendeur
+                    </button>
+                    <button className="bg-red-500 text-white px-6 py-3 rounded-xl hover:bg-red-600 transition-colors">
+                      <Heart className="w-5 h-5" />
+                    </button>
+                    <button className="bg-blue-500 text-white px-6 py-3 rounded-xl hover:bg-blue-600 transition-colors">
+                      <ShoppingCart className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MarketplaceReception;
