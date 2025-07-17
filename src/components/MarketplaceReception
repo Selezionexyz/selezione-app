@@ -1,4 +1,4 @@
-// ✅ Version finale complète : MarketplaceReception.jsx import React, { useState, useEffect, useCallback, useMemo } from 'react'; import { Search, RefreshCw, Eye, Heart, MessageCircle, X, Loader, Tag, MapPin, Clock, Truck, ShoppingCart, CheckCircle, AlertCircle } from 'lucide-react';
+// ✅ Version corrigée JSX-safe pour Render/Vite import React, { useState, useEffect, useCallback, useMemo } from 'react'; import { Search, RefreshCw, Eye, Heart, MessageCircle, X, Loader, Tag, MapPin, Clock, Truck, ShoppingCart, CheckCircle, AlertCircle } from 'lucide-react';
 
 const MarketplaceReception = () => { const [listings, setListings] = useState([]); const [loading, setLoading] = useState(true); const [error, setError] = useState(null); const [searchQuery, setSearchQuery] = useState(''); const [selectedProduct, setSelectedProduct] = useState(null); const API_BASE = 'https://selezione-ia-backend.onrender.com';
 
@@ -10,7 +10,7 @@ const formatPrice = (p) => ${parseFloat(p || 0).toLocaleString('fr-FR')}€; con
 
 const handleConfirmReception = async (id) => { try { await fetch(${API_BASE}/api/commande/valider/${id}, { method: 'POST' }); fetchListings(); } catch (e) { alert("Erreur lors de la confirmation."); } };
 
-const filteredListings = useMemo(() => { return listings.filter((p) => (p.title + p.brand + p.category).toLowerCase().includes(searchQuery.toLowerCase()) ); }, [searchQuery, listings]);
+const filteredListings = useMemo(() => { return listings.filter((p) => { const searchable = ${p.title} ${p.brand} ${p.category}.toLowerCase(); return searchable.includes(searchQuery.toLowerCase()); }); }, [searchQuery, listings]);
 
 return ( <div className="p-6 space-y-6"> <div className="flex justify-between items-center"> <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-purple-600"> 🛍️ Réception des Produits </h2> <button
 onClick={fetchListings}
