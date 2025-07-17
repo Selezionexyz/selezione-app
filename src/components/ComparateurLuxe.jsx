@@ -103,8 +103,6 @@ const ComparateurLuxe = () => {
       return;
     }
 
-    const validFiles = [];
-
     files.forEach((file) => {
       // Vérifier le type
       if (!ACCEPTED_TYPES.includes(file.type)) {
@@ -134,8 +132,6 @@ const ComparateurLuxe = () => {
         }));
       };
       reader.readAsDataURL(file);
-      
-      validFiles.push(file);
     });
 
     if (errors.length > 0) {
@@ -151,77 +147,51 @@ const ComparateurLuxe = () => {
     }));
   };
 
+  // Fonction pour publier l'annonce
   const publishListing = async () => {
-  if (isPublishing) return;
-  
-  // Validation
-  const requiredFields = [];
-  if (!newListing.title?.trim()) requiredFields.push('Titre');
-  if (!newListing.brand) requiredFields.push('Marque');
-  if (!newListing.category) requiredFields.push('Catégorie');
-  if (!newListing.condition) requiredFields.push('État');
-  if (!newListing.price || parseFloat(newListing.price) <= 0) requiredFields.push('Prix valide');
-  if (!newListing.description?.trim()) requiredFields.push('Description');
-
-  if (requiredFields.length > 0) {
-    alert(`❌ Champs obligatoires manquants:\n• ${requiredFields.join('\n• ')}`);
-    return;
-  }
-  
-  setIsPublishing(true);
-
-  try {
-    // Format EXACT attendu par le backend
-    const commandeData = {
-      user: `user_${Date.now()}`,
-      fichier: 'marketplace-listing',
-      selections: {
-        id: `listing_${Date.now()}`,
-        title: newListing.title,
-        brand: newListing.brand,
-        category: newListing.category,
-        condition: newListing.condition,
-        price: parseFloat(newListing.price),
-        description: newListing.description,
-        location: newListing.location || 'France',
-        shipping: newListing.shipping,
-        negotiable: newListing.negotiable,
-        created_at: new Date().toISOString(),
-        // Pour les photos, stocker juste les métadonnées
-        photos: newListing.photos.map(p => ({
-          name: p.name,
-          size: p.size
-          // PAS de base64 pour éviter la taille
-        }))
-      }
-    };
-
-    const response = await fetch(`${API_BASE}/api/commande`, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(commandeData)
-    });
+    if (isPublishing) return;
     
-    const data = await response.json();
-    
-    if (response.ok) {
-      alert('✅ Annonce publiée avec succès !');
-      resetForm();
-      setActiveTab('acheter');
-    } else {
-      alert(`❌ Erreur: ${data.error || 'Erreur inconnue'}`);
+    // Validation
+    const requiredFields = [];
+    if (!newListing.title?.trim()) requiredFields.push('Titre');
+    if (!newListing.brand) requiredFields.push('Marque');
+    if (!newListing.category) requiredFields.push('Catégorie');
+    if (!newListing.condition) requiredFields.push('État');
+    if (!newListing.price || parseFloat(newListing.price) <= 0) requiredFields.push('Prix valide');
+    if (!newListing.description?.trim()) requiredFields.push('Description');
+
+    if (requiredFields.length > 0) {
+      alert(`❌ Champs obligatoires manquants:\n• ${requiredFields.join('\n• ')}`);
+      return;
     }
     
-  } catch (error) {
-    console.error('Erreur:', error);
-    alert(`❌ Erreur de connexion: ${error.message}`);
-  } finally {
-    setIsPublishing(false);
-  }
-};
+    setIsPublishing(true);
+
+    try {
+      // Format EXACT attendu par le backend
+      const commandeData = {
+        user: `user_${Date.now()}`,
+        fichier: 'marketplace-listing',
+        selections: {
+          id: `listing_${Date.now()}`,
+          title: newListing.title,
+          brand: newListing.brand,
+          category: newListing.category,
+          condition: newListing.condition,
+          price: parseFloat(newListing.price),
+          description: newListing.description,
+          location: newListing.location || 'France',
+          shipping: newListing.shipping,
+          negotiable: newListing.negotiable,
+          created_at: new Date().toISOString(),
+          // Pour les photos, stocker juste les métadonnées
+          photos: newListing.photos.map(p => ({
+            name: p.name,
+            size: p.size
+            // PAS de base64 pour éviter la taille
+          }))
+        }
+      };
 
       const response = await fetch(`${API_BASE}/api/commande`, {
         method: 'POST',
@@ -229,16 +199,17 @@ const ComparateurLuxe = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify(listingData)
+        body: JSON.stringify(commandeData)
       });
+      
+      const data = await response.json();
       
       if (response.ok) {
         alert('✅ Annonce publiée avec succès !');
         resetForm();
         setActiveTab('acheter');
       } else {
-        const errorText = await response.text();
-        alert(`❌ Erreur publication: ${errorText}`);
+        alert(`❌ Erreur: ${data.error || 'Erreur inconnue'}`);
       }
       
     } catch (error) {
@@ -538,7 +509,7 @@ const ComparateurLuxe = () => {
                         </button>
                       </div>
                       {index === 0 && (
-                        <span className="absolute top-1 left-1 bg-purple-500 text-white text-xs px-2 py-0.5 rounded">
+                 <span className="absolute top-1 left-1 bg-purple-500 text-white text-xs px-2 py-0.5 rounded">
                           Principal
                         </span>
                       )}
@@ -564,7 +535,6 @@ const ComparateurLuxe = () => {
             </div>
           </div>
         </div>
-
         {/* Barre d'actions */}
         <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-700">
           <div className="text-gray-400 text-sm">
@@ -593,7 +563,7 @@ const ComparateurLuxe = () => {
                   Publication...
                 </>
               ) : (
-                <>
+              <>
                   <CheckCircle className="w-5 h-5 mr-2" />
                   Publier
                 </>
@@ -652,7 +622,6 @@ const ComparateurLuxe = () => {
       <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30">
         {activeTab === 'acheter' ? <BuyerInterface /> : <SellerInterface />}
       </div>
-
       {/* Modal produit */}
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -680,7 +649,6 @@ const ComparateurLuxe = () => {
                       <span className="ml-3 text-yellow-400 text-sm">Prix négociable</span>
                     )}
                   </div>
-                  
                   <div className="space-y-3">
                     <div className="flex items-center justify-between py-2 border-b border-gray-700">
                       <span className="text-gray-400">Marque</span>
@@ -717,7 +685,7 @@ const ComparateurLuxe = () => {
                   
                   <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:opacity-90">
                     💬 Contacter le vendeur
-                  </button>
+                    </button>
                 </div>
               </div>
             </div>
