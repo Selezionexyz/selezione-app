@@ -151,75 +151,77 @@ const ComparateurLuxe = () => {
     }));
   };
 
-  // 🆕 Fonction de publication simplifiée
   const publishListing = async () => {
-    if (isPublishing) return;
+  if (isPublishing) return;
+  
+  // Validation
+  const requiredFields = [];
+  if (!newListing.title?.trim()) requiredFields.push('Titre');
+  if (!newListing.brand) requiredFields.push('Marque');
+  if (!newListing.category) requiredFields.push('Catégorie');
+  if (!newListing.condition) requiredFields.push('État');
+  if (!newListing.price || parseFloat(newListing.price) <= 0) requiredFields.push('Prix valide');
+  if (!newListing.description?.trim()) requiredFields.push('Description');
+
+  if (requiredFields.length > 0) {
+    alert(`❌ Champs obligatoires manquants:\n• ${requiredFields.join('\n• ')}`);
+    return;
+  }
+  
+  setIsPublishing(true);
+
+  try {
+    // Format EXACT attendu par le backend
+    const commandeData = {
+      user: `user_${Date.now()}`,
+      fichier: 'marketplace-listing',
+      selections: {
+        id: `listing_${Date.now()}`,
+        title: newListing.title,
+        brand: newListing.brand,
+        category: newListing.category,
+        condition: newListing.condition,
+        price: parseFloat(newListing.price),
+        description: newListing.description,
+        location: newListing.location || 'France',
+        shipping: newListing.shipping,
+        negotiable: newListing.negotiable,
+        created_at: new Date().toISOString(),
+        // Pour les photos, stocker juste les métadonnées
+        photos: newListing.photos.map(p => ({
+          name: p.name,
+          size: p.size
+          // PAS de base64 pour éviter la taille
+        }))
+      }
+    };
+
+    const response = await fetch(`${API_BASE}/api/commande`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(commandeData)
+    });
     
-    // Validation
-    const requiredFields = [];
-    if (!newListing.title?.trim()) requiredFields.push('Titre');
-    if (!newListing.brand) requiredFields.push('Marque');
-    if (!newListing.category) requiredFields.push('Catégorie');
-    if (!newListing.condition) requiredFields.push('État');
-    if (!newListing.price || parseFloat(newListing.price) <= 0) requiredFields.push('Prix valide');
-    if (!newListing.description?.trim()) requiredFields.push('Description');
-    if (newListing.photos.length === 0) requiredFields.push('Au moins une photo');
-
-    if (requiredFields.length > 0) {
-      alert(`❌ Champs obligatoires manquants:\n• ${requiredFields.join('\n• ')}`);
-      return;
+    const data = await response.json();
+    
+    if (response.ok) {
+      alert('✅ Annonce publiée avec succès !');
+      resetForm();
+      setActiveTab('acheter');
+    } else {
+      alert(`❌ Erreur: ${data.error || 'Erreur inconnue'}`);
     }
-
-    setIsPublishing(true);
-
-    try {
-      // Créer FormData pour l'upload
-      const formData = new FormData();
-      
-      // Ajouter les données texte
-      formData.append('user', 'user_' + Date.now());
-      formData.append('fichier', 'marketplace-listing');
-      formData.append('title', newListing.title);
-      formData.append('brand', newListing.brand);
-      formData.append('category', newListing.category);
-      formData.append('condition', newListing.condition);
-      formData.append('price', newListing.price);
-      formData.append('description', newListing.description);
-      formData.append('location', newListing.location || 'France');
-      formData.append('shipping', newListing.shipping);
-      formData.append('negotiable', newListing.negotiable);
-      
-      // Ajouter les photos
-      newListing.photos.forEach((photo, index) => {
-        formData.append(`photo_${index}`, photo.file);
-      });
-
-      // Option 1: Envoyer avec FormData (si le backend supporte)
-      /*
-      const response = await fetch(`${API_BASE}/api/listing/create`, {
-        method: 'POST',
-        body: formData
-      });
-      */
-
-      // Option 2: Envoyer en JSON avec base64 (solution actuelle)
-      const listingData = {
-        user: 'user_' + Date.now(),
-        fichier: 'marketplace-listing',
-        selections: {
-          ...newListing,
-          id: 'listing_' + Date.now(),
-          price: parseFloat(newListing.price),
-          created_at: new Date().toISOString(),
-          status: 'active',
-          // Convertir seulement les previews, pas les fichiers complets
-          photos: newListing.photos.map(p => ({
-            preview: p.preview.substring(0, 100) + '...', // Tronquer pour l'exemple
-            name: p.name,
-            size: p.size
-          }))
-        }
-      };
+    
+  } catch (error) {
+    console.error('Erreur:', error);
+    alert(`❌ Erreur de connexion: ${error.message}`);
+  } finally {
+    setIsPublishing(false);
+  }
+};
 
       const response = await fetch(`${API_BASE}/api/commande`, {
         method: 'POST',
