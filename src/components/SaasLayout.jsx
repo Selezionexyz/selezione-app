@@ -8,9 +8,6 @@ import Dashboard from './Dashboard';
 import AssistantLuxe from './AssistantLuxe';
 import EstimationLuxe from './EstimationLuxe';
 import Academy from './Academy';
-// ❌ Supprimez ces deux imports :
-// import ComparateurLuxe from './ComparateurLuxe';
-// import MarketplaceReception from './MarketplaceReception';
 
 // ✅ Ajoutez seulement celui-ci :
 import Marketplace from './Marketplace';
