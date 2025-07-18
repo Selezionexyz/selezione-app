@@ -8,8 +8,13 @@ import Dashboard from './Dashboard';
 import AssistantLuxe from './AssistantLuxe';
 import EstimationLuxe from './EstimationLuxe';
 import Academy from './Academy';
-import ComparateurLuxe from './ComparateurLuxe';
-import MarketplaceReception from './MarketplaceReception'; // 👈 NOUVEAU
+// ❌ Supprimez ces deux imports :
+// import ComparateurLuxe from './ComparateurLuxe';
+// import MarketplaceReception from './MarketplaceReception';
+
+// ✅ Ajoutez seulement celui-ci :
+import Marketplace from './Marketplace';
+
 import FicheProduit from './FicheProduit';
 import Quiz from './Quiz';
 import ScraperVC from './ScraperVC';
@@ -34,8 +39,7 @@ const SaasLayout = () => {
     scraper: <ScraperVC />,
     quiz: <Quiz />,
     academy: <Academy />,
-    marketplace: <MarketplaceReception />,  // 👈 RÉCEPTION - Voir les annonces
-    vendre: <ComparateurLuxe />,           // 👈 VENTE - Publier des annonces
+    marketplace: <Marketplace />,  // ✅ Un seul composant pour tout !
     estimationia: <OutilEstimationIA />,
   };
 
@@ -48,8 +52,7 @@ const SaasLayout = () => {
       { id: 'scraper', label: 'Analyseur Marché', icon: TrendingUp },
       { id: 'quiz', label: 'Quiz Expert', icon: Brain },
       { id: 'academy', label: 'Academy', icon: GraduationCap },
-      { id: 'marketplace', label: 'Marketplace 🏪', icon: ShoppingCart }, // Voir annonces
-      { id: 'vendre', label: 'Vendre 💰', icon: Package },               // Publier annonce
+      { id: 'marketplace', label: 'Marketplace 🛍️', icon: ShoppingCart }, // ✅ Un seul menu
       { id: 'estimationia', label: 'Estimation IA 🔍', icon: Calculator },
     ];
 
@@ -128,13 +131,15 @@ const SaasLayout = () => {
         {/* Titre de la page active */}
         <div className="hidden lg:block">
           <h1 className="text-xl font-bold text-white">
-            {activeView === 'marketplace' && '🏪 Marketplace - Réception'}
-            {activeView === 'vendre' && '💰 Vendre un Produit'}
+            {activeView === 'marketplace' && '🛍️ Ma Marketplace'}
             {activeView === 'dashboard' && '📊 Dashboard'}
             {activeView === 'agents' && '🤖 Agents IA'}
             {activeView === 'outils' && '⚡ Outils IA'}
             {activeView === 'estimationia' && '🔍 Estimation IA'}
-            {/* Ajoutez d'autres titres selon vos besoins */}
+            {activeView === 'fiche' && '📄 Fiche Produit'}
+            {activeView === 'scraper' && '📈 Analyseur Marché'}
+            {activeView === 'quiz' && '🧠 Quiz Expert'}
+            {activeView === 'academy' && '🎓 Academy'}
           </h1>
         </div>
 
@@ -156,8 +161,7 @@ const SaasLayout = () => {
 
   const BottomNav = () => {
     const bottomItems = [
-      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart }, // Voir annonces
-      { id: 'vendre', label: 'Vendre', icon: Package },               // Publier annonce
+      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart }, // ✅ Un seul bouton
       { id: 'outils', label: 'Outils IA', icon: Zap },
       { id: 'agents', label: 'Agents', icon: Bot },
       { id: 'estimationia', label: 'Estimation IA', icon: Calculator },
