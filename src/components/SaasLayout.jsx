@@ -1,565 +1,251 @@
 import React, { useState } from 'react';
 import {
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText,
-  BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart,
-  Package, Search, Star, MessageCircle, Settings, User
+  BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart, 
+  Package, Star, Settings, User, CreditCard, LogOut, HelpCircle,
+  BarChart3, Award, Sparkles, Gem, Crown, Shield
 } from 'lucide-react';
 
-// Import des composants existants
+// Import de TOUS vos VRAIS composants existants
 import OutilEstimationIA from '@/components/OutilEstimationIA';
-import Marketplace from './Marketplace';
-
-// Dashboard complet
-const Dashboard = () => {
-  const stats = [
-    { label: 'Produits analysés', value: '2,547', icon: Package, color: 'from-blue-500 to-blue-600' },
-    { label: 'Estimations IA', value: '1,234', icon: Calculator, color: 'from-purple-500 to-purple-600' },
-    { label: 'Score moyen', value: '94%', icon: Star, color: 'from-amber-500 to-amber-600' },
-    { label: 'Économies réalisées', value: '45,678€', icon: TrendingUp, color: 'from-green-500 to-green-600' }
-  ];
-
-  return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">
-        Dashboard Selezione
-      </h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, idx) => (
-          <div key={idx} className={`bg-gradient-to-r ${stat.color} p-6 rounded-xl shadow-lg`}>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-white/80 text-sm">{stat.label}</p>
-                <p className="text-3xl font-bold text-white mt-2">{stat.value}</p>
-              </div>
-              <stat.icon className="w-10 h-10 text-white/50" />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-gray-800 p-6 rounded-xl">
-          <h2 className="text-xl font-semibold mb-4">Activité récente</h2>
-          <div className="space-y-3">
-            {[1,2,3,4].map(i => (
-              <div key={i} className="flex items-center justify-between p-3 bg-gray-700/50 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <span className="text-sm">Nouvelle estimation produit #{i}234</span>
-                </div>
-                <span className="text-xs text-gray-400">Il y a {i}h</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-gray-800 p-6 rounded-xl">
-          <h2 className="text-xl font-semibold mb-4">Performance IA</h2>
-          <div className="space-y-4">
-            <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm">Précision des estimations</span>
-                <span className="text-sm font-bold">98%</span>
-              </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
-                <div className="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full" style={{width: '98%'}}></div>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between mb-2">
-                <span className="text-sm">Vitesse de traitement</span>
-                <span className="text-sm font-bold">92%</span>
-              </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
-                <div className="bg-gradient-to-r from-blue-400 to-blue-600 h-2 rounded-full" style={{width: '92%'}}></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Assistant IA Luxe
-const AssistantLuxe = () => {
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: 'Bonjour ! Je suis votre assistant IA spécialisé dans le luxe. Comment puis-je vous aider ?' }
-  ]);
-
-  const sendMessage = () => {
-    if (message.trim()) {
-      setMessages([...messages, { role: 'user', content: message }]);
-      setTimeout(() => {
-        setMessages(prev => [...prev, { 
-          role: 'assistant', 
-          content: 'Je traite votre demande concernant le luxe...' 
-        }]);
-      }, 1000);
-      setMessage('');
-    }
-  };
-
-  return (
-    <div className="h-screen flex flex-col p-6">
-      <h1 className="text-3xl font-bold mb-6 bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">
-        Assistant Luxe IA
-      </h1>
-      
-      <div className="flex-1 bg-gray-800 rounded-xl p-6 overflow-y-auto space-y-4">
-        {messages.map((msg, idx) => (
-          <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-lg p-4 rounded-xl ${
-              msg.role === 'user' 
-                ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white' 
-                : 'bg-gray-700 text-gray-200'
-            }`}>
-              {msg.content}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-4 flex space-x-4">
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-          placeholder="Posez votre question sur le luxe..."
-          className="flex-1 p-4 bg-gray-800 rounded-xl border border-gray-700 focus:border-amber-500 focus:outline-none"
-        />
-        <button
-          onClick={sendMessage}
-          className="px-6 py-4 bg-gradient-to-r from-amber-600 to-orange-600 rounded-xl hover:opacity-90 transition-opacity"
-        >
-          <MessageCircle className="w-6 h-6" />
-        </button>
-      </div>
-    </div>
-  );
-};
-
-// Outils IA
-const EstimationLuxe = () => {
-  const tools = [
-    { 
-      name: 'Analyseur de Prix', 
-      desc: 'Analyse les prix du marché en temps réel',
-      icon: TrendingUp,
-      color: 'from-blue-500 to-blue-600'
-    },
-    { 
-      name: 'Vérificateur Authenticité', 
-      desc: 'Vérifie l\'authenticité des produits de luxe',
-      icon: Search,
-      color: 'from-purple-500 to-purple-600'
-    },
-    { 
-      name: 'Calculateur de Valeur', 
-      desc: 'Estime la valeur de revente',
-      icon: Calculator,
-      color: 'from-green-500 to-green-600'
-    },
-    { 
-      name: 'Comparateur Marché', 
-      desc: 'Compare les prix entre vendeurs',
-      icon: Package,
-      color: 'from-amber-500 to-amber-600'
-    }
-  ];
-
-  return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">
-        Outils IA Premium
-      </h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {tools.map((tool, idx) => (
-          <div key={idx} className={`bg-gradient-to-r ${tool.color} p-1 rounded-xl`}>
-            <div className="bg-gray-900 p-6 rounded-xl h-full">
-              <div className="flex items-center space-x-4 mb-4">
-                <div className={`p-3 bg-gradient-to-r ${tool.color} rounded-lg`}>
-                  <tool.icon className="w-8 h-8 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold">{tool.name}</h3>
-                  <p className="text-gray-400 text-sm">{tool.desc}</p>
-                </div>
-              </div>
-              <button className="w-full py-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors">
-                Utiliser cet outil
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// Générateur de Fiches Produit
-const FicheProduit = () => {
-  const [productData, setProductData] = useState({
-    name: '',
-    brand: '',
-    category: '',
-    description: ''
-  });
-
-  return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">
-        Générateur de Fiches Produit IA
-      </h1>
-      
-      <div className="bg-gray-800 rounded-xl p-6">
-        <form className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">Nom du produit</label>
-            <input
-              type="text"
-              className="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-amber-500 focus:outline-none"
-              placeholder="Ex: Sac Hermès Birkin"
-              value={productData.name}
-              onChange={(e) => setProductData({...productData, name: e.target.value})}
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-2">Marque</label>
-            <input
-              type="text"
-              className="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-amber-500 focus:outline-none"
-              placeholder="Ex: Hermès"
-              value={productData.brand}
-              onChange={(e) => setProductData({...productData, brand: e.target.value})}
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-2">Catégorie</label>
-            <select
-              className="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-amber-500 focus:outline-none"
-              value={productData.category}
-              onChange={(e) => setProductData({...productData, category: e.target.value})}
-            >
-              <option value="">Sélectionner une catégorie</option>
-              <option value="sacs">Sacs</option>
-              <option value="montres">Montres</option>
-              <option value="bijoux">Bijoux</option>
-              <option value="vetements">Vêtements</option>
-            </select>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-2">Description</label>
-            <textarea
-              className="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-amber-500 focus:outline-none h-32"
-              placeholder="Décrivez le produit..."
-              value={productData.description}
-              onChange={(e) => setProductData({...productData, description: e.target.value})}
-            />
-          </div>
-          
-          <button
-            type="button"
-            className="w-full py-4 bg-gradient-to-r from-amber-600 to-orange-600 rounded-lg hover:opacity-90 transition-opacity font-semibold"
-          >
-            Générer la fiche produit avec l'IA
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-// Quiz Expert
-const Quiz = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  
-  const questions = [
-    {
-      question: "Quelle maison de luxe a créé le sac Birkin ?",
-      options: ["Chanel", "Hermès", "Louis Vuitton", "Gucci"],
-      correct: 1
-    },
-    {
-      question: "En quelle année Rolex a-t-elle été fondée ?",
-      options: ["1895", "1905", "1915", "1925"],
-      correct: 1
-    }
-  ];
-
-  return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">
-        Quiz Expert Luxe
-      </h1>
-      
-      <div className="bg-gray-800 rounded-xl p-8 max-w-2xl mx-auto">
-        {currentQuestion < questions.length ? (
-          <>
-            <div className="mb-6">
-              <div className="flex justify-between text-sm text-gray-400 mb-4">
-                <span>Question {currentQuestion + 1}/{questions.length}</span>
-                <span>Score: {score}</span>
-              </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
-                <div 
-                  className="bg-gradient-to-r from-amber-400 to-orange-600 h-2 rounded-full transition-all"
-                  style={{width: `${((currentQuestion + 1) / questions.length) * 100}%`}}
-                ></div>
-              </div>
-            </div>
-            
-            <h2 className="text-xl font-semibold mb-6">{questions[currentQuestion].question}</h2>
-            
-            <div className="space-y-3">
-              {questions[currentQuestion].options.map((option, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    if (idx === questions[currentQuestion].correct) {
-                      setScore(score + 1);
-                    }
-                    setCurrentQuestion(currentQuestion + 1);
-                  }}
-                  className="w-full p-4 bg-gray-700 hover:bg-gray-600 rounded-lg text-left transition-colors"
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="text-center py-8">
-            <h2 className="text-2xl font-bold mb-4">Quiz terminé !</h2>
-            <p className="text-4xl font-bold text-amber-400 mb-6">{score}/{questions.length}</p>
-            <button
-              onClick={() => {
-                setCurrentQuestion(0);
-                setScore(0);
-              }}
-              className="px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 rounded-lg hover:opacity-90 transition-opacity"
-            >
-              Recommencer
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-// Analyseur de Marché
-const ScraperVC = () => {
-  const [url, setUrl] = useState('');
-  const [analyzing, setAnalyzing] = useState(false);
-
-  return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">
-        Analyseur de Marché IA
-      </h1>
-      
-      <div className="bg-gray-800 rounded-xl p-6">
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">URL du produit à analyser</label>
-            <div className="flex space-x-4">
-              <input
-                type="url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder="https://exemple.com/produit"
-                className="flex-1 p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-amber-500 focus:outline-none"
-              />
-              <button
-                onClick={() => {
-                  setAnalyzing(true);
-                  setTimeout(() => setAnalyzing(false), 3000);
-                }}
-                className="px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 rounded-lg hover:opacity-90 transition-opacity"
-              >
-                {analyzing ? 'Analyse...' : 'Analyser'}
-              </button>
-            </div>
-          </div>
-          
-          {analyzing && (
-            <div className="text-center py-8">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-amber-400"></div>
-              <p className="mt-4 text-gray-400">Analyse en cours...</p>
-            </div>
-          )}
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-gray-800 p-6 rounded-xl">
-          <h3 className="text-lg font-semibold mb-2">Prix moyen marché</h3>
-          <p className="text-2xl font-bold text-green-400">2,450€</p>
-        </div>
-        <div className="bg-gray-800 p-6 rounded-xl">
-          <h3 className="text-lg font-semibold mb-2">Tendance</h3>
-          <p className="text-2xl font-bold text-blue-400">↑ +12%</p>
-        </div>
-        <div className="bg-gray-800 p-6 rounded-xl">
-          <h3 className="text-lg font-semibold mb-2">Disponibilité</h3>
-          <p className="text-2xl font-bold text-amber-400">Rare</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Academy
-const Academy = () => {
-  const courses = [
-    { title: 'Introduction au luxe', duration: '2h', level: 'Débutant', progress: 100 },
-    { title: 'Authentification avancée', duration: '4h', level: 'Avancé', progress: 65 },
-    { title: 'Stratégies de revente', duration: '3h', level: 'Intermédiaire', progress: 30 },
-    { title: 'Tendances du marché', duration: '1h30', level: 'Débutant', progress: 0 }
-  ];
-
-  return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-600 bg-clip-text text-transparent">
-        Selezione Academy
-      </h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {courses.map((course, idx) => (
-          <div key={idx} className="bg-gray-800 rounded-xl p-6">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h3 className="text-xl font-semibold">{course.title}</h3>
-                <p className="text-gray-400 text-sm mt-1">{course.duration} • {course.level}</p>
-              </div>
-              {course.progress === 100 && (
-                <span className="bg-green-600/20 text-green-400 px-3 py-1 rounded-full text-sm">
-                  Terminé
-                </span>
-              )}
-            </div>
-            
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Progression</span>
-                <span>{course.progress}%</span>
-              </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
-                <div 
-                  className="bg-gradient-to-r from-amber-400 to-orange-600 h-2 rounded-full"
-                  style={{width: `${course.progress}%`}}
-                ></div>
-              </div>
-            </div>
-            
-            <button className="w-full mt-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
-              {course.progress === 0 ? 'Commencer' : course.progress === 100 ? 'Revoir' : 'Continuer'}
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+import Dashboard from './Dashboard';
+import AssistantLuxe from './AssistantLuxe';
+import Academy from './Academy';
+import FicheProduit from './FicheProduit';
+import Quiz from './Quiz';
+import ScraperVC from './ScraperVC';
+import ComparateurLuxe from './ComparateurLuxe';
 
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [notifications, setNotifications] = useState([
+    { id: 1, message: 'Nouvelle estimation disponible', time: 'Il y a 5 min', read: false },
+    { id: 2, message: 'Academy : Nouveau chapitre débloqué', time: 'Il y a 1h', read: false },
+    { id: 3, message: 'Marketplace : 3 nouveaux produits', time: 'Il y a 2h', read: true }
+  ]);
 
   const [user] = useState({
     name: 'Alexandre Dupont',
     avatar: '👑',
     level: 'Executive Member',
     credits: 99999,
-    subscription: 'SELEZIONE ULTIMATE'
+    subscription: 'SELEZIONE ULTIMATE',
+    email: 'alexandre.dupont@luxe.com',
+    joinDate: 'Membre depuis 2024',
+    achievements: 12,
+    completedCourses: 8
+  });
+
+  // Statistiques globales
+  const [globalStats] = useState({
+    totalEstimations: 2547,
+    savedAmount: 45678,
+    accuracyRate: 98.5,
+    marketTrend: '+12%'
   });
 
   const views = {
     dashboard: <Dashboard />,
     agents: <AssistantLuxe />,
-    outils: <EstimationLuxe />,
+    outils: <OutilEstimationIA />,
     fiche: <FicheProduit />,
     scraper: <ScraperVC />,
     quiz: <Quiz />,
     academy: <Academy />,
-    marketplace: <Marketplace />,
-    estimationia: <OutilEstimationIA />,
+    marketplace: <ComparateurLuxe />,
   };
 
   const Sidebar = () => {
     const menuItems = [
-      { id: 'dashboard', label: 'Dashboard', icon: Home },
-      { id: 'agents', label: 'Agents IA', icon: Bot },
-      { id: 'outils', label: 'Outils IA', icon: Zap },
-      { id: 'fiche', label: 'Fiche Produit', icon: FileText },
-      { id: 'scraper', label: 'Analyseur Marché', icon: TrendingUp },
-      { id: 'quiz', label: 'Quiz Expert', icon: Brain },
-      { id: 'academy', label: 'Academy', icon: GraduationCap },
-      { id: 'marketplace', label: 'Marketplace 🛍️', icon: ShoppingCart },
-      { id: 'estimationia', label: 'Estimation IA 🔍', icon: Calculator },
+      { 
+        id: 'dashboard', 
+        label: 'Dashboard', 
+        icon: Home,
+        description: 'Vue d\'ensemble',
+        badge: null
+      },
+      { 
+        id: 'agents', 
+        label: 'Agents IA', 
+        icon: Bot,
+        description: '3 experts IA',
+        badge: 'PRO'
+      },
+      { 
+        id: 'outils', 
+        label: 'Estimation IA', 
+        icon: Calculator,
+        description: 'GPT-4 + Marché',
+        badge: null
+      },
+      { 
+        id: 'fiche', 
+        label: 'Fiche Produit', 
+        icon: FileText,
+        description: 'Générateur auto',
+        badge: null
+      },
+      { 
+        id: 'scraper', 
+        label: 'Analyseur Marché', 
+        icon: TrendingUp,
+        description: 'Temps réel',
+        badge: 'LIVE'
+      },
+      { 
+        id: 'quiz', 
+        label: 'Quiz Expert', 
+        icon: Brain,
+        description: 'Testez-vous',
+        badge: null
+      },
+      { 
+        id: 'academy', 
+        label: 'Academy', 
+        icon: GraduationCap,
+        description: '20+ chapitres',
+        badge: 'NEW'
+      },
+      { 
+        id: 'marketplace', 
+        label: 'Marketplace', 
+        icon: ShoppingCart,
+        description: 'B2B Pro',
+        badge: null
+      },
+    ];
+
+    const bottomMenuItems = [
+      { icon: Settings, label: 'Paramètres', action: 'settings' },
+      { icon: HelpCircle, label: 'Support', action: 'support' },
+      { icon: LogOut, label: 'Déconnexion', action: 'logout' }
     ];
 
     return (
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-black/95 backdrop-blur-sm border-r border-amber-500/20 transform transition-transform duration-300 lg:translate-x-0 ${
+      <div className={`fixed inset-y-0 left-0 z-50 w-72 bg-black/95 backdrop-blur-xl border-r border-amber-500/20 transform transition-transform duration-300 lg:translate-x-0 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } overflow-y-auto`}>
-        <div className="p-6 border-b border-amber-500/20">
+        {/* Header */}
+        <div className="p-6 border-b border-amber-500/20 bg-gradient-to-r from-amber-500/10 to-orange-500/10">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Diamond className="w-8 h-8 text-amber-400" />
+              <div className="relative">
+                <Diamond className="w-10 h-10 text-amber-400" />
+                <Sparkles className="w-4 h-4 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
+              </div>
               <div>
-                <h2 className="text-lg font-bold text-white">SELEZIONE</h2>
-                <p className="text-amber-400 text-xs">Luxury Intelligence</p>
+                <h2 className="text-xl font-bold text-white">SELEZIONE</h2>
+                <p className="text-amber-400 text-xs">Luxury Intelligence Platform</p>
               </div>
             </div>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="p-2 text-gray-400 hover:text-white lg:hidden"
+              className="p-2 text-gray-400 hover:text-white lg:hidden transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        <div className="p-4">
-          <div className="space-y-2">
-            {menuItems.map((item) => (
+        {/* Stats rapides */}
+        <div className="p-4 grid grid-cols-2 gap-3 border-b border-amber-500/10">
+          <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-lg p-3">
+            <p className="text-amber-400 text-xs">Crédits IA</p>
+            <p className="text-white font-bold text-lg">{user.credits.toLocaleString()}</p>
+          </div>
+          <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg p-3">
+            <p className="text-green-400 text-xs">Précision</p>
+            <p className="text-white font-bold text-lg">{globalStats.accuracyRate}%</p>
+          </div>
+        </div>
+
+        {/* Menu principal */}
+        <div className="p-4 space-y-2">
+          {menuItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                setActiveView(item.id);
+                setSidebarOpen(false);
+              }}
+              className={`w-full group transition-all duration-200 ${
+                activeView === item.id
+                  ? 'bg-gradient-to-r from-amber-600 to-orange-600'
+                  : 'hover:bg-gray-800/50'
+              } rounded-xl`}
+            >
+              <div className="flex items-center justify-between p-3">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 rounded-lg transition-colors ${
+                    activeView === item.id
+                      ? 'bg-white/20'
+                      : 'bg-gray-700/50 group-hover:bg-gray-700'
+                  }`}>
+                    <item.icon className={`w-5 h-5 ${
+                      activeView === item.id ? 'text-white' : 'text-gray-300'
+                    }`} />
+                  </div>
+                  <div className="text-left">
+                    <p className={`font-medium text-sm ${
+                      activeView === item.id ? 'text-white' : 'text-gray-200'
+                    }`}>
+                      {item.label}
+                    </p>
+                    <p className={`text-xs ${
+                      activeView === item.id ? 'text-white/70' : 'text-gray-400'
+                    }`}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+                {item.badge && (
+                  <span className={`px-2 py-1 text-xs font-bold rounded-full ${
+                    item.badge === 'PRO' ? 'bg-purple-500 text-white' :
+                    item.badge === 'LIVE' ? 'bg-green-500 text-white' :
+                    item.badge === 'NEW' ? 'bg-blue-500 text-white' :
+                    'bg-gray-600 text-white'
+                  }`}>
+                    {item.badge}
+                  </span>
+                )}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Menu du bas */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 space-y-4 border-t border-amber-500/20">
+          {/* Actions rapides */}
+          <div className="flex justify-around">
+            {bottomMenuItems.map((item, idx) => (
               <button
-                key={item.id}
-                onClick={() => {
-                  setActiveView(item.id);
-                  setSidebarOpen(false);
-                }}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all text-left ${
-                  activeView === item.id
-                    ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white font-medium'
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
-                }`}
+                key={idx}
+                className="p-2 text-gray-400 hover:text-white transition-colors"
+                title={item.label}
               >
                 <item.icon className="w-5 h-5" />
-                <span className="text-sm">{item.label}</span>
               </button>
             ))}
           </div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-amber-500/20">
-          <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-lg p-3">
+
+          {/* Profil utilisateur */}
+          <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-xl p-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-lg">
-                {user.avatar}
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-xl">
+                  {user.avatar}
+                </div>
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-black"></div>
               </div>
-              <div>
+              <div className="flex-1">
                 <p className="text-sm font-medium text-white">{user.name}</p>
                 <p className="text-xs text-amber-400">{user.subscription}</p>
+                <div className="flex items-center space-x-2 mt-1">
+                  <Crown className="w-3 h-3 text-yellow-400" />
+                  <span className="text-xs text-gray-400">{user.level}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -569,66 +255,164 @@ const SaasLayout = () => {
   };
 
   const TopNav = () => (
-    <nav className="bg-black/95 backdrop-blur-sm border-b border-amber-500/20 px-4 py-3 lg:ml-64">
+    <nav className="bg-black/95 backdrop-blur-sm border-b border-amber-500/20 px-4 py-3 lg:ml-72">
       <div className="flex items-center justify-between">
         <button
           onClick={() => setSidebarOpen(true)}
-          className="p-2 text-gray-400 hover:text-white lg:hidden"
+          className="p-2 text-gray-400 hover:text-white lg:hidden transition-colors"
         >
           <Menu className="w-6 h-6" />
         </button>
-        <div className="hidden lg:block">
-          <h1 className="text-xl font-bold text-white">
-            {activeView === 'marketplace' && '🛍️ Ma Marketplace'}
-            {activeView === 'dashboard' && '📊 Dashboard'}
-            {activeView === 'agents' && '🤖 Agents IA'}
-            {activeView === 'outils' && '⚡ Outils IA'}
-            {activeView === 'estimationia' && '🔍 Estimation IA'}
-            {activeView === 'fiche' && '📄 Fiche Produit'}
-            {activeView === 'scraper' && '📈 Analyseur Marché'}
-            {activeView === 'quiz' && '🧠 Quiz Expert'}
-            {activeView === 'academy' && '🎓 Academy'}
-          </h1>
+        
+        {/* Titre de la page active avec icône */}
+        <div className="hidden lg:flex items-center space-x-3">
+          <div className="p-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-lg">
+            {activeView === 'dashboard' && <Home className="w-5 h-5 text-amber-400" />}
+            {activeView === 'agents' && <Bot className="w-5 h-5 text-amber-400" />}
+            {activeView === 'outils' && <Calculator className="w-5 h-5 text-amber-400" />}
+            {activeView === 'fiche' && <FileText className="w-5 h-5 text-amber-400" />}
+            {activeView === 'scraper' && <TrendingUp className="w-5 h-5 text-amber-400" />}
+            {activeView === 'quiz' && <Brain className="w-5 h-5 text-amber-400" />}
+            {activeView === 'academy' && <GraduationCap className="w-5 h-5 text-amber-400" />}
+            {activeView === 'marketplace' && <ShoppingCart className="w-5 h-5 text-amber-400" />}
+          </div>
+          <div>
+            <h1 className="text-xl font-bold text-white">
+              {activeView === 'marketplace' && '🏪 MARKETPLACE SELEZIONE'}
+              {activeView === 'dashboard' && '📊 Dashboard Intelligence'}
+              {activeView === 'agents' && '🤖 Agents IA Spécialisés'}
+              {activeView === 'outils' && '💎 ESTIMATION IA TEMPS RÉEL'}
+              {activeView === 'fiche' && '📋 GÉNÉRATEUR FICHE PRODUIT'}
+              {activeView === 'scraper' && '🌐 ANALYSEUR DE MARCHÉ PRO'}
+              {activeView === 'quiz' && '🧠 QUIZ EXPERTISE LUXE'}
+              {activeView === 'academy' && '🎓 SELEZIONE ACADEMY'}
+            </h1>
+            <p className="text-xs text-gray-400">
+              {activeView === 'marketplace' && 'Plateforme professionnelle B2B • Commission 5%'}
+              {activeView === 'dashboard' && 'Vue d\'ensemble de votre activité'}
+              {activeView === 'agents' && 'Trois intelligences expertes pour le luxe'}
+              {activeView === 'outils' && 'GPT-4 Turbo + Scraping marché réel'}
+              {activeView === 'fiche' && 'Création automatique optimisée SEO'}
+              {activeView === 'scraper' && 'Analyse temps réel Vestiaire Collective'}
+              {activeView === 'quiz' && 'Testez et certifiez vos connaissances'}
+              {activeView === 'academy' && 'Formation complète - 20+ chapitres'}
+            </p>
+          </div>
         </div>
 
         <div className="flex items-center space-x-4">
-          <Bell className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer" />
-          <div className="flex items-center space-x-3">
-            <div className="text-right">
-              <p className="text-sm font-medium text-white">{user.name}</p>
-              <p className="text-xs text-amber-400">{user.level}</p>
+          {/* Notifications */}
+          <div className="relative">
+            <button className="p-2 text-gray-400 hover:text-white transition-colors relative">
+              <Bell className="w-6 h-6" />
+              {notifications.filter(n => !n.read).length > 0 && (
+                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+              )}
+            </button>
+          </div>
+
+          {/* Statistiques rapides */}
+          <div className="hidden lg:flex items-center space-x-4 px-4 py-2 bg-gray-800/50 rounded-lg">
+            <div className="flex items-center space-x-2">
+              <BarChart3 className="w-4 h-4 text-green-400" />
+              <span className="text-sm text-gray-300">Tendance</span>
+              <span className="text-sm font-bold text-green-400">{globalStats.marketTrend}</span>
             </div>
-            <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-lg">
-              {user.avatar}
+            <div className="w-px h-4 bg-gray-700"></div>
+            <div className="flex items-center space-x-2">
+              <Gem className="w-4 h-4 text-amber-400" />
+              <span className="text-sm text-gray-300">Économisé</span>
+              <span className="text-sm font-bold text-amber-400">{globalStats.savedAmount}€</span>
             </div>
+          </div>
+
+          {/* Menu utilisateur */}
+          <div className="relative">
+            <button
+              onClick={() => setShowUserMenu(!showUserMenu)}
+              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
+            >
+              <div className="text-right hidden md:block">
+                <p className="text-sm font-medium text-white">{user.name}</p>
+                <p className="text-xs text-amber-400">{user.level}</p>
+              </div>
+              <div className="relative">
+                <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-lg">
+                  {user.avatar}
+                </div>
+                <Shield className="w-4 h-4 text-white absolute -bottom-1 -right-1 bg-amber-600 rounded-full p-0.5" />
+              </div>
+            </button>
+
+            {/* Dropdown menu utilisateur */}
+            {showUserMenu && (
+              <div className="absolute right-0 mt-2 w-64 bg-gray-900 border border-gray-700 rounded-xl shadow-xl overflow-hidden">
+                <div className="p-4 bg-gradient-to-r from-amber-500/10 to-orange-500/10">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-xl">
+                      {user.avatar}
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">{user.name}</p>
+                      <p className="text-xs text-amber-400">{user.email}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-2">
+                  <button className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                    <User className="w-4 h-4 text-gray-400" />
+                    <span className="text-sm text-gray-300">Mon profil</span>
+                  </button>
+                  <button className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                    <CreditCard className="w-4 h-4 text-gray-400" />
+                    <span className="text-sm text-gray-300">Abonnement</span>
+                  </button>
+                  <button className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors">
+                    <Award className="w-4 h-4 text-gray-400" />
+                    <span className="text-sm text-gray-300">Achievements ({user.achievements})</span>
+                  </button>
+                  <div className="border-t border-gray-700 mt-2 pt-2">
+                    <button className="w-full flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors text-red-400">
+                      <LogOut className="w-4 h-4" />
+                      <span className="text-sm">Déconnexion</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </nav>
   );
+
   const BottomNav = () => {
     const bottomItems = [
-      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart },
-      { id: 'outils', label: 'Outils IA', icon: Zap },
-      { id: 'agents', label: 'Agents', icon: Bot },
-      { id: 'estimationia', label: 'Estimation IA', icon: Calculator },
-      { id: 'academy', label: 'Academy', icon: GraduationCap }
+      { id: 'dashboard', label: 'Home', icon: Home },
+      { id: 'marketplace', label: 'Market', icon: ShoppingCart },
+      { id: 'outils', label: 'Estimer', icon: Calculator },
+      { id: 'agents', label: 'IA', icon: Bot },
+      { id: 'academy', label: 'Learn', icon: GraduationCap }
     ];
 
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-sm border-t border-amber-500/20 lg:ml-64">
-        <div className="flex justify-around items-center py-3 px-4">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-xl border-t border-amber-500/20 lg:ml-72">
+        <div className="flex justify-around items-center py-2 px-4">
           {bottomItems.map((item, idx) => (
             <button
               key={idx}
               onClick={() => setActiveView(item.id)}
               className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-xl transition-all ${
                 activeView === item.id
-                  ? 'bg-amber-500/20 text-amber-400'
+                  ? 'bg-gradient-to-r from-amber-600/20 to-orange-600/20 text-amber-400'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              <item.icon className="w-6 h-6" />
+              <div className={`p-2 rounded-lg ${
+                activeView === item.id ? 'bg-amber-500/20' : ''
+              }`}>
+                <item.icon className="w-5 h-5" />
+              </div>
               <span className="text-xs font-medium">{item.label}</span>
             </button>
           ))}
@@ -636,19 +420,26 @@ const SaasLayout = () => {
       </div>
     );
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative">
+      {/* Overlay pour mobile */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
+      {/* Sidebar */}
       <Sidebar />
+
+      {/* Top Navigation */}
       <TopNav />
 
-      <main className="lg:ml-64 pb-20 relative z-10 min-h-screen">
+      {/* Main Content */}
+      <main className="lg:ml-72 pb-20 relative z-10 min-h-screen">
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-500/5 pointer-events-none"></div>
         {Object.entries(views).map(([key, component]) => (
           <div key={key} style={{ display: activeView === key ? 'block' : 'none' }}>
             {component}
@@ -656,7 +447,16 @@ const SaasLayout = () => {
         ))}
       </main>
 
+      {/* Bottom Navigation Mobile */}
       <BottomNav />
+
+      {/* Click outside to close user menu */}
+      {showUserMenu && (
+        <div 
+          className="fixed inset-0 z-30" 
+          onClick={() => setShowUserMenu(false)}
+        />
+      )}
     </div>
   );
 };
