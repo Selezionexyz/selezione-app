@@ -6,7 +6,6 @@ import {
 import OutilEstimationIA from '@/components/OutilEstimationIA';
 import Dashboard from './Dashboard';
 import AssistantLuxe from './AssistantLuxe';
-import EstimationLuxe from './EstimationLuxe';
 import Academy from './Academy';
 
 // ✅ Ajoutez seulement celui-ci :
@@ -37,7 +36,7 @@ const SaasLayout = () => {
     quiz: <Quiz />,
     academy: <Academy />,
     marketplace: <Marketplace />,  // ✅ Un seul composant pour tout !
-    estimationia: <OutilEstimationIA />,
+    
   };
 
   const Sidebar = () => {
