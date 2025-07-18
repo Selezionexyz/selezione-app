@@ -3,17 +3,60 @@ import {
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText,
   BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart, Package
 } from 'lucide-react';
-import OutilEstimationIA from '@/components/OutilEstimationIA';
-import Dashboard from './Dashboard';
-import AssistantLuxe from './AssistantLuxe';
-import Academy from './Academy';
 
-// ✅ Ajoutez seulement celui-ci :
+// Import des composants existants
+import OutilEstimationIA from '@/components/OutilEstimationIA';
 import Marketplace from './Marketplace';
 
-import FicheProduit from './FicheProduit';
-import Quiz from './Quiz';
-import ScraperVC from './ScraperVC';
+// Création de composants temporaires pour éviter les erreurs
+const Dashboard = () => (
+  <div className="p-6 text-center">
+    <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+    <p className="text-gray-400">Tableau de bord en construction...</p>
+  </div>
+);
+
+const AssistantLuxe = () => (
+  <div className="p-6 text-center">
+    <h1 className="text-2xl font-bold mb-4">Assistant Luxe IA</h1>
+    <p className="text-gray-400">Assistant en construction...</p>
+  </div>
+);
+
+const EstimationLuxe = () => (
+  <div className="p-6 text-center">
+    <h1 className="text-2xl font-bold mb-4">Estimation Luxe</h1>
+    <p className="text-gray-400">Outil d'estimation en construction...</p>
+  </div>
+);
+
+const FicheProduit = () => (
+  <div className="p-6 text-center">
+    <h1 className="text-2xl font-bold mb-4">Fiche Produit</h1>
+    <p className="text-gray-400">Générateur de fiches en construction...</p>
+  </div>
+);
+
+const Quiz = () => (
+  <div className="p-6 text-center">
+    <h1 className="text-2xl font-bold mb-4">Quiz Expert</h1>
+    <p className="text-gray-400">Quiz en construction...</p>
+  </div>
+);
+
+const ScraperVC = () => (
+  <div className="p-6 text-center">
+    <h1 className="text-2xl font-bold mb-4">Analyseur Marché</h1>
+    <p className="text-gray-400">Scraper en construction...</p>
+  </div>
+);
+
+const Academy = () => (
+  <div className="p-6 text-center">
+    <h1 className="text-2xl font-bold mb-4">Academy</h1>
+    <p className="text-gray-400">Formation en construction...</p>
+  </div>
+);
 
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
@@ -35,8 +78,8 @@ const SaasLayout = () => {
     scraper: <ScraperVC />,
     quiz: <Quiz />,
     academy: <Academy />,
-    marketplace: <Marketplace />,  // ✅ Un seul composant pour tout !
-    
+    marketplace: <Marketplace />,
+    estimationia: <OutilEstimationIA />,
   };
 
   const Sidebar = () => {
@@ -48,7 +91,7 @@ const SaasLayout = () => {
       { id: 'scraper', label: 'Analyseur Marché', icon: TrendingUp },
       { id: 'quiz', label: 'Quiz Expert', icon: Brain },
       { id: 'academy', label: 'Academy', icon: GraduationCap },
-      { id: 'marketplace', label: 'Marketplace 🛍️', icon: ShoppingCart }, // ✅ Un seul menu
+      { id: 'marketplace', label: 'Marketplace 🛍️', icon: ShoppingCart },
       { id: 'estimationia', label: 'Estimation IA 🔍', icon: Calculator },
     ];
 
@@ -96,7 +139,6 @@ const SaasLayout = () => {
           </div>
         </div>
 
-        {/* Section utilisateur en bas de la sidebar */}
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-amber-500/20">
           <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-lg p-3">
             <div className="flex items-center space-x-3">
@@ -124,7 +166,6 @@ const SaasLayout = () => {
           <Menu className="w-6 h-6" />
         </button>
         
-        {/* Titre de la page active */}
         <div className="hidden lg:block">
           <h1 className="text-xl font-bold text-white">
             {activeView === 'marketplace' && '🛍️ Ma Marketplace'}
@@ -157,7 +198,7 @@ const SaasLayout = () => {
 
   const BottomNav = () => {
     const bottomItems = [
-      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart }, // ✅ Un seul bouton
+      { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart },
       { id: 'outils', label: 'Outils IA', icon: Zap },
       { id: 'agents', label: 'Agents', icon: Bot },
       { id: 'estimationia', label: 'Estimation IA', icon: Calculator },
