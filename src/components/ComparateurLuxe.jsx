@@ -220,7 +220,7 @@ const ComparateurLuxe = () => {
     }
   ]);
 
-  // 🔧 FONCTIONS UTILITAIRES
+  // AJOUT: Fonctions utilitaires
   const getAvailableModels = () => {
     if (!selectedBrand || !categoriesDatabase[selectedCategory]) return [];
     return categoriesDatabase[selectedCategory].models?.[selectedBrand] || [];
