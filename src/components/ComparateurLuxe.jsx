@@ -255,17 +255,6 @@ const ComparateurLuxe = () => {
     return categoriesDatabase[selectedCategory].brands || [];
   };
 
-  // 💝 Fonctions favoris
-  const toggleFavorite = (productId) => {
-    const newFavorites = new Set(favoriteProducts);
-    if (newFavorites.has(productId)) {
-      newFavorites.delete(productId);
-    } else {
-      newFavorites.add(productId);
-    }
-    setFavoriteProducts(newFavorites);
-  };
-
   // 🤖 Suggestion de prix IA
   const generateAiPriceEstimation = async () => {
     if (!newListing.brand || !newListing.model || !newListing.condition) return;
