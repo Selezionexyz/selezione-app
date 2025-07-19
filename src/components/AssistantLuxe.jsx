@@ -210,8 +210,19 @@ const AssistantLuxe = () => {
   const generateMessageFromFilters = () => {
     let msg = '';
     
-    if (selectedBrand) msg += selectedBrand + ' ';
-    if (selectedModel) msg += selectedModel + ' ';
+    if (selectedBrand) {
+      msg += selectedBrand + ' ';
+      
+      // Si pas de modèle sélectionné, essayer de le détecter
+      if (!selectedModel && modelsByBrand[selectedBrand]) {
+        // Pour Louis Vuitton, on met Speedy par défaut si pas de modèle
+        if (selectedBrand === 'Louis Vuitton') {
+          msg += 'Speedy ';
+        }
+      } else if (selectedModel) {
+        msg += selectedModel + ' ';
+      }
+    }
     if (selectedSize) msg += 'taille ' + selectedSize + ' ';
     if (selectedColor) msg += 'couleur ' + selectedColor + ' ';
     if (selectedCondition) {
@@ -247,6 +258,12 @@ const AssistantLuxe = () => {
     const finalMessage = showAdvancedSearch ? generateMessageFromFilters() : message;
     if (!finalMessage.trim()) return;
     
+    // Si on utilise les filtres et qu'on a au moins une marque, on peut analyser
+    if (showAdvancedSearch && !selectedBrand) {
+      alert("Veuillez sélectionner au moins une marque");
+      return;
+    }
+    
     const userMessage = {
       type: 'user',
       content: finalMessage,
@@ -257,22 +274,36 @@ const AssistantLuxe = () => {
     setMessage('');
     setIsThinking(true);
     
+    console.log('Analyse en cours...', { selectedBrand, selectedModel, finalMessage });
+    
     // Générer la réponse selon l'agent et les filtres
     setTimeout(() => {
       let response = '';
       const agent = agents.find(a => a.id === activeAgent);
       
       if (activeAgent === 'market') {
-        if (selectedBrand && selectedModel) {
+        // Extraire le modèle du message si pas sélectionné
+        let detectedModel = selectedModel;
+        if (!detectedModel && selectedBrand) {
+          const brandModels = modelsByBrand[selectedBrand] || [];
+          for (const model of brandModels) {
+            if (finalMessage.toLowerCase().includes(model.toLowerCase())) {
+              detectedModel = model;
+              break;
+            }
+          }
+        }
+        
+        if (selectedBrand && detectedModel) {
           const brandData = realMarketDatabase[selectedBrand];
-          const modelData = brandData?.[selectedModel];
+          const modelData = brandData?.[detectedModel];
           
           if (modelData) {
             const condition = selectedCondition || 'bon';
             const prices = modelData.prices[condition];
             
             response = `📊 ANALYSE MARCHÉ DÉTAILLÉE - ${new Date().toLocaleDateString('fr-FR')}\n\n`;
-            response += `🎯 Produit: ${selectedBrand} ${selectedModel}\n`;
+            response += `🎯 Produit: ${selectedBrand} ${detectedModel}\n`;
             if (selectedSize) response += `📏 Taille: ${selectedSize}\n`;
             if (selectedColor) response += `🎨 Couleur: ${selectedColor}\n`;
             response += `📍 État: ${filterOptions.conditions.find(c => c.value === condition)?.label || 'Bon état'}\n`;
@@ -315,7 +346,7 @@ const AssistantLuxe = () => {
               response += `• Bon pour revente rapide`;
             }
           } else {
-            response = `🔍 Modèle ${selectedModel} non trouvé pour ${selectedBrand}.\n\nModèles disponibles:\n`;
+            response = `🔍 Modèle ${detectedModel || 'non spécifié'} non trouvé pour ${selectedBrand}.\n\nModèles disponibles:\n`;
             const availableModels = modelsByBrand[selectedBrand] || [];
             availableModels.forEach(model => {
               response += `• ${model}\n`;
@@ -410,9 +441,20 @@ const AssistantLuxe = () => {
       else if (activeAgent === 'arbitrage') {
         response = `💹 OPPORTUNITÉS ARBITRAGE - ${new Date().toLocaleDateString('fr-FR')}\n\n`;
         
-        if (selectedBrand && selectedModel) {
+        // Extraire le modèle du message si pas sélectionné
+        let detectedModel = selectedModel;
+        if (!detectedModel && selectedBrand) {
+          const brandModels = modelsByBrand[selectedBrand] || [];
+          for (const model of brandModels) {
+            if (finalMessage.toLowerCase().includes(model.toLowerCase())) {
+              detectedModel = model;
+              break;
+            }
+          }
+        }
+if (selectedBrand && detectedModel) {
           const brandData = realMarketDatabase[selectedBrand];
-          const modelData = brandData?.[selectedModel];
+          const modelData = brandData?.[detectedModel];
           
           if (modelData) {
             const condition = selectedCondition || 'bon';
@@ -423,7 +465,7 @@ const AssistantLuxe = () => {
             const profitRestauration = condition === 'moyen' || condition === 'correct' ? 
               Math.round((prices.vente[0] * 1.5) - prices.achat[1] - 200) : 0;
             
-            response += `🎯 ${selectedBrand} ${selectedModel} - ANALYSE RENTABILITÉ\n\n`;
+            response += `🎯 ${selectedBrand} ${detectedModel} - ANALYSE RENTABILITÉ\n\n`;
             
             response += `📊 DONNÉES MARCHÉ:\n`;
             response += `• État: ${filterOptions.conditions.find(c => c.value === condition)?.label}\n`;
@@ -444,8 +486,7 @@ const AssistantLuxe = () => {
             response += `• 💰 PROFIT NET: ${profitLocal}€ - ${prices.vente[1] - prices.achat[0]}€\n`;
             response += `• 📈 ROI: +${Math.round(((prices.vente[0]/prices.achat[1])-1)*100)}%\n`;
             response += `• ⏱️ Délai: 3-7 jours\n\n`;
-            
-            if (profitRestauration > 0) {
+if (profitRestauration > 0) {
               response += `🔧 STRATÉGIE 3 - RESTAURATION:\n`;
               response += `• Achat état ${condition}: ${prices.achat[0]}€\n`;
               response += `• Coût restauration: ~200€\n`;
@@ -453,6 +494,7 @@ const AssistantLuxe = () => {
               response += `• 💰 PROFIT NET: ${profitRestauration}€\n`;
               response += `• 📈 ROI: +${Math.round((profitRestauration/(prices.achat[1]+200))*100)}%\n\n`;
             }
+            
             response += `🎯 RECOMMANDATION:\n`;
             const bestStrategy = profitJapon > profitLocal * 1.5 ? 'Import Japon' : 
                                profitRestauration > profitJapon && profitRestauration > profitLocal ? 'Restauration' : 
@@ -479,12 +521,12 @@ const AssistantLuxe = () => {
           response += `4️⃣ LV Multi Pochette\n`;
           response += `• Achat décomposée: 400€ → Complète: 1200€\n`;
           response += `• ROI: +200%\n\n`;
-          
-          response += `5️⃣ Dior Saddle (restauration)\n`;
+response += `5️⃣ Dior Saddle (restauration)\n`;
           response += `• Achat abîmé: 500€ + 200€ resto → Vente: 1500€\n`;
           response += `• ROI: +114%`;
         }
       }
+      
       else if (activeAgent === 'authenticator') {
         response = `🔍 GUIDE AUTHENTIFICATION AVANCÉ\n\n`;
         
@@ -512,8 +554,7 @@ const AssistantLuxe = () => {
             response += `• CC: bras droit sur gauche\n`;
             response += `• Chaîne: lourde, sans bruit\n`;
             response += `• Hologramme: iridescent\n\n`;
-            
-            response += `❌ CONTREFAÇON:\n`;
+response += `❌ CONTREFAÇON:\n`;
             response += `• Cuir plastifié/rigide\n`;
             response += `• CC mal proportionnés\n`;
             response += `• Vis apparentes\n`;
@@ -548,7 +589,7 @@ const AssistantLuxe = () => {
           response += `• Vidéo manipulation\n`;
           response += `• Historique du sac`;
         } else {
-          response += `📋 CHECKLIST UNIVERSELLE:\n\n`;
+response += `📋 CHECKLIST UNIVERSELLE:\n\n`;
           response += `1️⃣ PRIX: -70% du marché = FAUX\n`;
           response += `2️⃣ VENDEUR: Compte récent = Méfiance\n`;
           response += `3️⃣ PHOTOS: Floues/stock = Red flag\n`;
@@ -573,7 +614,7 @@ const AssistantLuxe = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black p-4 md:p-6 space-y-6">
+<div className="min-h-screen bg-black p-4 md:p-6 space-y-6">
       {/* Header */}
       <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
         <div className="flex items-center justify-between">
@@ -592,6 +633,7 @@ const AssistantLuxe = () => {
           </div>
         </div>
       </div>
+
       {/* Agents Cards */}
       <div className="grid grid-cols-2 gap-4">
         {agents.map((agent) => (
@@ -607,7 +649,7 @@ const AssistantLuxe = () => {
               borderColor: activeAgent === agent.id ? agent.color : undefined
             }}
           >
-            <div className="text-3xl mb-3">{agent.emoji}</div>
+<div className="text-3xl mb-3">{agent.emoji}</div>
             <h3 
               className="font-bold mb-1 text-sm"
               style={{ color: activeAgent === agent.id ? agent.color : '#10B981' }}
@@ -619,6 +661,7 @@ const AssistantLuxe = () => {
           </button>
         ))}
       </div>
+
       {/* Advanced Search Toggle */}
       <div className="flex justify-center">
         <button
@@ -641,7 +684,7 @@ const AssistantLuxe = () => {
               className="text-sm text-gray-400 hover:text-white"
             >
               Réinitialiser
-            </button>
+</button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -674,7 +717,7 @@ const AssistantLuxe = () => {
                   setSelectedModel('');
                 }}
                 disabled={!selectedCategory}
-                className="w-full bg-black border border-gray-700 rounded-lg px-3 py-2 text-white disabled:opacity-50"
+className="w-full bg-black border border-gray-700 rounded-lg px-3 py-2 text-white disabled:opacity-50"
               >
                 <option value="">Sélectionner marque</option>
                 {selectedCategory && brandsDatabase[selectedCategory]?.map(brand => (
@@ -682,6 +725,7 @@ const AssistantLuxe = () => {
                 ))}
               </select>
             </div>
+
             {/* Model */}
             <div>
               <label className="text-gray-400 text-sm mb-2 block">Modèle</label>
@@ -707,12 +751,13 @@ const AssistantLuxe = () => {
                 disabled={!selectedCategory}
                 className="w-full bg-black border border-gray-700 rounded-lg px-3 py-2 text-white disabled:opacity-50"
               >
-                <option value="">Sélectionner taille</option>
+<option value="">Sélectionner taille</option>
                 {getAvailableSizes().map(size => (
                   <option key={size} value={size}>{size}</option>
                 ))}
               </select>
             </div>
+
             {/* Condition */}
             <div>
               <label className="text-gray-400 text-sm mb-2 block">État</label>
@@ -742,8 +787,9 @@ const AssistantLuxe = () => {
                 {filterOptions.colors.map(color => (
                   <option key={color} value={color}>{color}</option>
                 ))}
-              </select>
+</select>
             </div>
+
             {/* Odor */}
             <div>
               <label className="text-gray-400 text-sm mb-2 block">Odeur</label>
@@ -777,11 +823,10 @@ const AssistantLuxe = () => {
                 ))}
               </select>
             </div>
-          </div>
-          {/* Quick Analysis Button */}
+{/* Quick Analysis Button */}
           <button
             onClick={sendMessage}
-            disabled={!selectedBrand || !selectedModel || isThinking}
+            disabled={!selectedBrand || isThinking}
             className="w-full bg-gradient-to-r from-orange-600 to-orange-700 text-white py-3 rounded-xl font-bold hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
           >
             <Search className="w-5 h-5" />
@@ -813,7 +858,7 @@ const AssistantLuxe = () => {
                     className="font-bold text-xs mb-2"
                     style={{ color: agents.find(a => a.id === msg.agent)?.color }}
                   >
-                    {agents.find(a => a.id === msg.agent)?.name}
+{agents.find(a => a.id === msg.agent)?.name}
                   </div>
                 )}
                 <div className="text-sm whitespace-pre-wrap">{msg.content}</div>
@@ -846,7 +891,7 @@ const AssistantLuxe = () => {
               className="flex-1 bg-black border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 text-sm"
               disabled={showAdvancedSearch}
             />
-            <button
+<button
               onClick={sendMessage}
               disabled={isThinking || (!message.trim() && !showAdvancedSearch)}
               className="bg-gradient-to-r from-orange-600 to-orange-700 text-white px-6 py-3 rounded-xl font-bold hover:opacity-90 transition-opacity disabled:opacity-50"
@@ -866,4 +911,3 @@ const AssistantLuxe = () => {
 };
 
 export default AssistantLuxe;
-      
