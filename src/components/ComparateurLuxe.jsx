@@ -220,6 +220,9 @@ const ComparateurLuxe = () => {
     }
   ]);
 
+  // ÉTAT FAVORIS MANQUANT
+  const [favoriteProducts, setFavoriteProducts] = useState(new Set());
+
   // AJOUT: Fonctions utilitaires
   const getAvailableModels = () => {
     if (!selectedBrand || !categoriesDatabase[selectedCategory]) return [];
