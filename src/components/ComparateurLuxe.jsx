@@ -223,6 +223,17 @@ const ComparateurLuxe = () => {
   // ÉTAT FAVORIS MANQUANT
   const [favoriteProducts, setFavoriteProducts] = useState(new Set());
 
+  // FONCTION FAVORIS MANQUANTE
+  const toggleFavorite = (productId) => {
+    const newFavorites = new Set(favoriteProducts);
+    if (newFavorites.has(productId)) {
+      newFavorites.delete(productId);
+    } else {
+      newFavorites.add(productId);
+    }
+    setFavoriteProducts(newFavorites);
+  };
+
   // AJOUT: Fonctions utilitaires
   const getAvailableModels = () => {
     if (!selectedBrand || !categoriesDatabase[selectedCategory]) return [];
