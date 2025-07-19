@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  Upload, Search, Filter, Eye, Heart, Share2, 
-  MessageCircle, Camera, X, Loader,
-  ShoppingCart, Package, AlertCircle, CheckCircle,
-  ImageIcon, Trash2
+  Upload, Search, Filter, Eye, Heart, Share2, MessageCircle, Camera, X, Loader,
+  ShoppingCart, Package, AlertCircle, CheckCircle, ImageIcon, Trash2, Star,
+  MapPin, Clock, Zap, Award, Shield, Crown, Sparkles, TrendingUp, Calendar,
+  Grid3X3, List, SortAsc, SortDesc, Bell, Bookmark, Send, Phone, Mail,
+  ThumbsUp, ThumbsDown, MoreHorizontal, Edit, Copy, ExternalLink
 } from 'lucide-react';
 
 const ComparateurLuxe = () => {
