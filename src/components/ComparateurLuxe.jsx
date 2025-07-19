@@ -53,49 +53,32 @@ const ComparateurLuxe = () => {
   const MAX_FILE_SIZE = 8 * 1024 * 1024; // AJOUT: Augmenté à 8MB
   const ACCEPTED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
-  // 🗄️ BASE DE DONNÉES ULTRA-COMPLÈTE
+  // AJOUT: Base de données ultra-complète comme Agent IA
   const categoriesDatabase = {
     "Sacs à main": {
-      brands: ["Hermès", "Chanel", "Louis Vuitton", "Dior", "Saint Laurent", "Gucci", "Prada", "Bottega Veneta", "Celine", "Fendi", "Givenchy", "Valentino", "Balenciaga", "Loewe", "Jacquemus", "The Row", "Mansur Gavriel", "Staud", "Polène", "By Far"],
+      brands: ["Hermès", "Chanel", "Louis Vuitton", "Dior", "Saint Laurent", "Gucci", "Prada", "Bottega Veneta", "Celine", "Fendi"],
       models: {
-        "Hermès": ["Birkin 25", "Birkin 30", "Birkin 35", "Birkin 40", "Kelly 25", "Kelly 28", "Kelly 32", "Kelly 35", "Constance 18", "Constance 24", "Evelyne PM", "Evelyne GM", "Garden Party PM", "Garden Party MM", "Picotin 18", "Picotin 22", "Lindy 26", "Lindy 30", "Bolide 27", "Bolide 31"],
-        "Chanel": ["Classic Flap Small", "Classic Flap Medium", "Classic Flap Jumbo", "Classic Flap Maxi", "Boy Small", "Boy Medium", "Boy Large", "19 Small", "19 Large", "19 Maxi", "Deauville Small", "Deauville Large", "Gabrielle Small", "Gabrielle Medium", "22 Small", "22 Large", "Vanity Case", "Camera Case"],
-        "Louis Vuitton": ["Speedy 25", "Speedy 30", "Speedy 35", "Speedy 40", "Neverfull PM", "Neverfull MM", "Neverfull GM", "Alma PM", "Alma MM", "Alma GM", "Capucines PM", "Capucines MM", "Capucines GM", "Twist PM", "Twist MM", "Petite Malle", "OnTheGo PM", "OnTheGo MM", "OnTheGo GM", "Multi Pochette"]
+        "Hermès": ["Birkin 25", "Birkin 30", "Birkin 35", "Kelly 25", "Kelly 28", "Kelly 32", "Constance", "Evelyne", "Garden Party", "Picotin"],
+        "Chanel": ["Classic Flap Small", "Classic Flap Medium", "Classic Flap Jumbo", "Boy Small", "Boy Medium", "Boy Large", "19 Small", "19 Large", "Deauville", "Gabrielle"],
+        "Louis Vuitton": ["Speedy 25", "Speedy 30", "Speedy 35", "Neverfull PM", "Neverfull MM", "Neverfull GM", "Alma PM", "Alma MM", "Capucines PM", "Capucines MM"]
       },
-      sizes: ["Mini", "Small", "Medium", "Large", "XL", "25cm", "30cm", "35cm", "40cm", "PM", "MM", "GM"],
-      materials: ["Cuir Caviar", "Agneau", "Cuir Epi", "Toile Monogram", "Toile Damier", "Cuir Togo", "Cuir Clemence", "Cuir Box", "Cuir Epsom", "Python", "Crocodile", "Veau", "Daim"]
+      sizes: ["XS", "Small", "Medium", "Large", "XL", "25cm", "30cm", "35cm", "40cm"],
+      materials: ["Cuir Caviar", "Agneau", "Cuir Epi", "Toile Monogram", "Toile Damier", "Cuir Togo", "Cuir Clemence"]
     },
     "Chaussures": {
-      brands: ["Christian Louboutin", "Manolo Blahnik", "Jimmy Choo", "Gianvito Rossi", "Saint Laurent", "Gucci", "Prada", "Valentino", "Balenciaga", "Celine", "The Row", "Bottega Veneta", "Aquazzura", "Amina Muaddi", "Malone Souliers"],
-      models: {
-        "Christian Louboutin": ["Pigalle 85", "Pigalle 100", "Pigalle 120", "So Kate 85", "So Kate 120", "Decollete 85", "Decollete 100", "Iriza 70", "Iriza 100", "Simple Pump 85", "Simple Pump 100"],
-        "Saint Laurent": ["Opyum 85", "Opyum 110", "Tribute 75", "Tribute 105", "Cassandra 75", "Cassandra 100", "Jane 90", "Jane 105"]
-      },
+      brands: ["Christian Louboutin", "Manolo Blahnik", "Jimmy Choo", "Gianvito Rossi", "Saint Laurent", "Gucci", "Prada", "Valentino"],
       sizes: ["35", "35.5", "36", "36.5", "37", "37.5", "38", "38.5", "39", "39.5", "40", "40.5", "41", "41.5", "42", "42.5", "43", "44", "45"],
-      materials: ["Cuir", "Cuir Verni", "Daim", "Satin", "Velours", "Toile", "Python", "Crocodile"]
+      materials: ["Cuir", "Cuir Verni", "Daim", "Satin", "Velours"]
     },
     "Bijoux": {
-      brands: ["Cartier", "Van Cleef & Arpels", "Bulgari", "Tiffany & Co", "Chanel", "Dior", "Hermès", "Chopard", "Piaget", "Graff", "Harry Winston", "Boucheron", "Pomellato", "Messika", "Repossi"],
-      models: {
-        "Cartier": ["Love Bracelet", "Juste un Clou", "Trinity Ring", "Panthère Ring", "Santos Necklace", "Ballon Bleu Necklace"],
-        "Van Cleef & Arpels": ["Alhambra Necklace", "Alhambra Bracelet", "Vintage Alhambra", "Sweet Alhambra", "Magic Alhambra", "Between the Finger Ring"]
-      },
-      sizes: ["46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65"],
-      materials: ["Or Jaune", "Or Blanc", "Or Rose", "Platine", "Argent", "Diamant", "Saphir", "Émeraude", "Rubis", "Perle"]
+      brands: ["Cartier", "Van Cleef & Arpels", "Bulgari", "Tiffany & Co", "Chanel", "Dior", "Hermès"],
+      sizes: ["46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"],
+      materials: ["Or Jaune", "Or Blanc", "Or Rose", "Platine", "Argent", "Diamant"]
     },
     "Montres": {
-      brands: ["Rolex", "Patek Philippe", "Audemars Piguet", "Richard Mille", "Cartier", "Omega", "Breitling", "Jaeger-LeCoultre", "Vacheron Constantin", "A. Lange & Söhne", "IWC", "Panerai", "Tudor", "TAG Heuer", "Hublot"],
-      models: {
-        "Rolex": ["Submariner", "GMT-Master II", "Daytona", "Datejust", "Day-Date", "Explorer", "Sea-Dweller", "Yacht-Master", "Milgauss", "Air-King"],
-        "Patek Philippe": ["Nautilus", "Aquanaut", "Calatrava", "Complications", "Grand Complications"]
-      },
-      sizes: ["26mm", "28mm", "31mm", "34mm", "36mm", "37mm", "38mm", "39mm", "40mm", "41mm", "42mm", "43mm", "44mm", "45mm", "46mm", "47mm"],
-      materials: ["Acier", "Or Jaune", "Or Blanc", "Or Rose", "Platine", "Titane", "Céramique", "Carbone"]
-    },
-    "Prêt-à-porter": {
-      brands: ["Chanel", "Dior", "Saint Laurent", "Gucci", "Prada", "Valentino", "Balenciaga", "Celine", "The Row", "Khaite", "Loro Piana", "Brunello Cucinelli", "Max Mara", "Isabel Marant", "Ganni", "Jacquemus", "Bottega Veneta", "Loewe", "JW Anderson", "Acne Studios"],
-      sizes: ["XXS", "XS", "S", "M", "L", "XL", "XXL", "34", "36", "38", "40", "42", "44", "46", "48", "50"],
-      materials: ["Laine", "Cachemire", "Soie", "Coton", "Lin", "Velours", "Tweed", "Dentelle", "Cuir", "Fourrure", "Mohair", "Alpaga"]
+      brands: ["Rolex", "Patek Philippe", "Audemars Piguet", "Richard Mille", "Cartier", "Omega", "Breitling", "Jaeger-LeCoultre"],
+      sizes: ["36mm", "38mm", "39mm", "40mm", "41mm", "42mm", "44mm", "45mm"],
+      materials: ["Acier", "Or Jaune", "Or Blanc", "Or Rose", "Platine", "Titane", "Céramique"]
     }
   };
 
