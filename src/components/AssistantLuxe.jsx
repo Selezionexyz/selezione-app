@@ -823,7 +823,9 @@ className="w-full bg-black border border-gray-700 rounded-lg px-3 py-2 text-whit
                 ))}
               </select>
             </div>
-{/* Quick Analysis Button */}
+          </div>
+
+          {/* Quick Analysis Button */}
           <button
             onClick={sendMessage}
             disabled={!selectedBrand || isThinking}
