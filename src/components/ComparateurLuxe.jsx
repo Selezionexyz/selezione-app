@@ -93,6 +93,7 @@ const ComparateurLuxe = () => {
     "Rose", "Violet", "Gris", "Jaune", "Orange", "Multicolore", "Or", "Argent"
   ];
 
+  // AJOUT: Années 1970-2030 par décennie
   const years = [];
   for (let year = 1970; year <= 2030; year += 10) {
     years.push(`${year}-${year + 9}`);
