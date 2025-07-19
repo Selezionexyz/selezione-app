@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
-  Upload, Search, Filter, Eye, Heart, Share2, MessageCircle, Camera, X, Loader,
-  ShoppingCart, Package, AlertCircle, CheckCircle, ImageIcon, Trash2, Star,
-  MapPin, Clock, Zap, Award, Shield, Crown, Sparkles, TrendingUp, Calendar,
-  Grid3X3, List, SortAsc, SortDesc, Bell, Bookmark, Send, Phone, Mail,
-  ThumbsUp, ThumbsDown, MoreHorizontal, Edit, Copy, ExternalLink
+  Upload, Search, Filter, Eye, Heart, Share2, 
+  MessageCircle, Camera, X, Loader,
+  ShoppingCart, Package, AlertCircle, CheckCircle,
+  ImageIcon, Trash2
 } from 'lucide-react';
 
 const ComparateurLuxe = () => {
@@ -13,67 +12,46 @@ const ComparateurLuxe = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
-  const [viewMode, setViewMode] = useState('grid');
-  const [sortBy, setSortBy] = useState('recent');
-  
-  // États pour favoris et interactions
-  const [favoriteProducts, setFavoriteProducts] = useState(new Set());
-  const [notifications, setNotifications] = useState([]);
-  const [chatMode, setChatMode] = useState(false);
-  const [selectedSeller, setSelectedSeller] = useState(null);
 
-  // États filtres ultra-avancés
+  // AJOUT: États filtres avancés comme Agent IA
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedMaterial, setSelectedMaterial] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
-  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-  const [locationFilter, setLocationFilter] = useState('');
-  const [shippingOnly, setShippingOnly] = useState(false);
-  const [negotiableOnly, setNegotiableOnly] = useState(false);
-  const [verifiedSellers, setVerifiedSellers] = useState(false);
 
-  // États pour vendre - ULTRA-ENRICHIS
+  // États pour vendre - SIMPLIFIÉS
   const [newListing, setNewListing] = useState({
     title: '',
     brand: '',
     category: '',
-    model: '',
-    size: '',
+    model: '',      // AJOUT
+    size: '',       // AJOUT
+    color: '',      // AJOUT
+    material: '',   // AJOUT
+    year: '',       // AJOUT
     condition: '',
-    color: '',
-    material: '',
-    year: '',
     price: '',
-    originalPrice: '',
     description: '',
     photos: [],
     authenticity: '',
     location: '',
     shipping: true,
-    shippingCost: '',
     negotiable: false,
-    tags: [],
-    serialNumber: '',
-    purchaseDate: '',
-    defects: '',
-    improvements: ''
+    tags: []
   });
 
   const [isPublishing, setIsPublishing] = useState(false);
   const [uploadErrors, setUploadErrors] = useState([]);
-  const [aiPriceSuggestion, setAiPriceSuggestion] = useState(null);
-  const [similarProducts, setSimilarProducts] = useState([]);
 
   // Configuration API
   const API_BASE = 'https://selezione-ia-backend.onrender.com';
 
   // Limites d'upload améliorées
-  const MAX_FILES = 10;
-  const MAX_FILE_SIZE = 8 * 1024 * 1024; // 8MB
-  const ACCEPTED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/heic'];
+  const MAX_FILES = 10;  // AJOUT: Augmenté de 6 à 10
+  const MAX_FILE_SIZE = 8 * 1024 * 1024; // AJOUT: Augmenté à 8MB
+  const ACCEPTED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
   // 🗄️ BASE DE DONNÉES ULTRA-COMPLÈTE
   const categoriesDatabase = {
