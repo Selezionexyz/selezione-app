@@ -82,21 +82,15 @@ const ComparateurLuxe = () => {
     }
   };
 
-  const conditionsDetailed = [
-    { value: 'neuf-etiquettes', label: 'Neuf avec étiquettes', description: '100% neuf, jamais porté, étiquettes attachées' },
-    { value: 'neuf-sans-etiquettes', label: 'Neuf sans étiquettes', description: '100% neuf, jamais porté, pas d\'étiquettes' },
-    { value: 'excellent', label: 'Excellent état', description: 'Comme neuf, aucun signe d\'usure visible' },
-    { value: 'tres-bon', label: 'Très bon état', description: 'Légères traces d\'usage, très bien entretenu' },
-    { value: 'bon', label: 'Bon état', description: 'Signes d\'usage normaux, bien entretenu' },
-    { value: 'correct', label: 'État correct', description: 'Usage visible mais fonctionnel' },
-    { value: 'usage-visible', label: 'Usage visible', description: 'Défauts visibles mais utilisable' }
+  // AJOUT: États détaillés
+  const conditions = [
+    "Neuf avec étiquettes", "Neuf sans étiquettes", "Excellent", "Très bon", "Bon", "Correct", "Usage visible"
   ];
 
+  // AJOUT: Couleurs complètes
   const colors = [
-    "Noir", "Blanc", "Beige", "Taupe", "Marron", "Camel", "Rouge", "Bordeaux", 
-    "Rose", "Fuchsia", "Bleu", "Marine", "Turquoise", "Vert", "Kaki", "Violet", 
-    "Lilas", "Gris", "Anthracite", "Jaune", "Orange", "Corail", "Multicolore", 
-    "Or", "Argent", "Bronze", "Cuivre", "Transparent"
+    "Noir", "Blanc", "Beige", "Marron", "Camel", "Rouge", "Bleu", "Vert", 
+    "Rose", "Violet", "Gris", "Jaune", "Orange", "Multicolore", "Or", "Argent"
   ];
 
   const years = [];
