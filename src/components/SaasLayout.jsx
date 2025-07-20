@@ -319,6 +319,7 @@ const SaasLayout = () => {
             {activeView === 'chat' && <MessageCircle className="w-5 h-5 text-amber-400" />}
             {activeView === 'academy' && <GraduationCap className="w-5 h-5 text-amber-400" />}
             {activeView === 'compte' && <User className="w-5 h-5 text-amber-400" />}
+            {activeView === 'tendances' && <TrendingUp className="w-5 h-5 text-amber-400" />}
             {activeView === 'pricing' && <Crown className="w-5 h-5 text-amber-400" />}
             {/* Legacy support */}
             {activeView === 'agents' && <Bot className="w-5 h-5 text-amber-400" />}
