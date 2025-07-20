@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText,
-  BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart, 
+  BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart, ShoppingBag,
   Package, Star, Settings, User, CreditCard, LogOut, HelpCircle,
-  BarChart3, Award, Sparkles, Gem, Crown, Shield, MessageCircle
+  BarChart3, Award, Sparkles, Gem, Crown, Shield, MessageCircle, Target
 } from 'lucide-react';
 
 // Import de TOUS vos VRAIS composants existants
