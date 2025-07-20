@@ -1163,6 +1163,101 @@ const ComparateurLuxe = () => {
                 </button>
               </div>
             </div>
+
+            {/* Articles publiés */}
+            {publishedListings.length > 0 && (
+              <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-green-500/30 p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-white font-bold text-xl flex items-center">
+                    <Package className="w-5 h-5 mr-2" />
+                    📦 Mes Articles Publiés ({publishedListings.length})
+                  </h3>
+                  <span className="text-green-400 text-sm font-medium">
+                    ✅ En ligne
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {publishedListings.map((listing) => (
+                    <div key={listing.id} className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-purple-500/50 transition-all group">
+                      <div className="aspect-square bg-gray-800 rounded-lg flex items-center justify-center text-4xl mb-3 group-hover:scale-105 transition-transform">
+                        {listing.photos?.[0]?.preview ? (
+                          <img src={listing.photos[0].preview} alt={listing.title} className="w-full h-full object-cover rounded-lg" />
+                        ) : (
+                          '📷'
+                        )}
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <h4 className="text-white font-medium text-sm leading-tight line-clamp-2">
+                          {listing.title}
+                        </h4>
+                        
+                        <div className="flex items-center justify-between">
+                          <span className="text-green-400 font-bold">
+                            {listing.price}€
+                          </span>
+                          <div className="flex items-center text-xs text-gray-400">
+                            <Eye className="w-3 h-3 mr-1" />
+                            {listing.views || 0}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="bg-blue-600/20 text-blue-400 px-2 py-1 rounded">
+                            {listing.condition}
+                          </span>
+                          <span className="text-gray-400">
+                            {new Date(listing.created_at).toLocaleDateString('fr-FR')}
+                          </span>
+                        </div>
+                        
+                        <div className="flex gap-2 pt-2">
+                          <button 
+                            onClick={() => setSelectedProduct(listing)}
+                            className="flex-1 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 px-3 py-2 rounded-lg text-xs font-medium transition-colors"
+                          >
+                            Voir
+                          </button>
+                          <button className="bg-green-600/20 hover:bg-green-600/30 text-green-400 px-3 py-2 rounded-lg text-xs font-medium transition-colors">
+                            Partager
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="mt-6 p-4 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-xl border border-green-500/30">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-300">
+                      💡 Astuce: Partagez vos annonces sur les réseaux sociaux pour plus de visibilité
+                    </span>
+                    <span className="text-green-400 font-medium">
+                      Commission: 5%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Message si aucun article publié */}
+            {publishedListings.length === 0 && (
+              <div className="bg-black/60 backdrop-blur-sm rounded-xl border border-gray-500/30 p-8 text-center">
+                <Package className="w-16 h-16 text-gray-500 mx-auto mb-4" />
+                <h3 className="text-white font-bold text-lg mb-2">
+                  Aucun article publié
+                </h3>
+                <p className="text-gray-400 mb-4">
+                  Remplissez le formulaire ci-dessus pour publier votre premier article
+                </p>
+                <div className="flex justify-center space-x-4 text-sm text-gray-500">
+                  <span>• Commission: 5%</span>
+                  <span>• Paiement sécurisé</span>
+                  <span>• Support client</span>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
