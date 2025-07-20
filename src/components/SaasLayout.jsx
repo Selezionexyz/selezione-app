@@ -16,6 +16,7 @@ import Quiz from './Quiz';
 import ScraperVC from './ScraperVC';
 import ComparateurLuxe from './ComparateurLuxe';
 import PageVente from './PageVente';
+import OutilTchat from './OutilTchat';
 
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
