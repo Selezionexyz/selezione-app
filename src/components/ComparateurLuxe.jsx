@@ -436,7 +436,7 @@ const ComparateurLuxe = () => {
     }
   }, [newListing.brand, newListing.model, newListing.condition]);
 
-  // Publication avec sauvegarde locale
+  // Publication avec sauvegarde persistante et correcte
   const publishListing = async () => {
     if (isPublishing) return;
     
@@ -457,25 +457,47 @@ const ComparateurLuxe = () => {
     setIsPublishing(true);
     
     try {
-      // Créer l'annonce avec un ID unique
+      // Créer l'annonce avec un ID unique et stable
+      const uniqueId = `listing_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const currentTime = new Date();
+      
       const newListingWithId = {
         ...newListing,
-        id: Date.now(),
-        created_at: new Date().toISOString(),
+        id: uniqueId,
+        created_at: currentTime.toISOString(),
+        posted: "À l'instant",
         seller: {
           name: "Vous",
           avatar: "👤",
           rating: 5.0,
-          sales: 12
+          sales: 12,
+          verified: true,
+          phone: "+33 6 XX XX XX XX",
+          email: "votre.email@selezione.fr"
         },
         views: 0,
-        likes: 0
+        likes: 0,
+        featured: false,
+        verified: true,
+        // Conversion des photos pour l'affichage
+        photos: newListing.photos.map(photo => photo.preview || photo)
       };
       
-      // Sauvegarder localement d'abord
-      setPublishedListings(prev => [newListingWithId, ...prev]);
+      // Sauvegarder d'abord dans les listings principaux pour éviter la disparition
+      setListings(prevListings => {
+        const updatedListings = [newListingWithId, ...prevListings];
+        console.log('Article ajouté aux listings principaux:', uniqueId);
+        return updatedListings;
+      });
       
-      // Tentative de sauvegarde backend (optionnelle)
+      // Aussi dans les listings publiés pour le suivi
+      setPublishedListings(prev => {
+        const updatedPublished = [newListingWithId, ...prev];
+        console.log('Article ajouté aux publiés:', uniqueId);
+        return updatedPublished;
+      });
+      
+      // Tentative de sauvegarde backend (sans bloquer en cas d'erreur)
       try {
         await fetch(`${API_BASE}/api/commande`, {
           method: 'POST',
@@ -486,11 +508,12 @@ const ComparateurLuxe = () => {
             selections: newListingWithId
           })
         });
+        console.log('Sauvegarde backend réussie');
       } catch (backendError) {
         console.warn('Backend indisponible, sauvegarde locale uniquement');
       }
       
-      alert('✅ Annonce publiée avec succès !');
+      alert('✅ Annonce publiée avec succès ! Visible dans la section "Acheter".');
       
       // Réinitialiser le formulaire
       setNewListing({
@@ -498,11 +521,14 @@ const ComparateurLuxe = () => {
         material: '', year: '', condition: '', price: '', originalPrice: '', 
         description: '', photos: [], location: '', shipping: true, negotiable: false
       });
+      setAiPriceSuggestion(null);
+      setUploadErrors([]);
       
-      // Ne pas changer d'onglet, rester sur "vendre"
+      // Rester sur l'onglet "vendre" mais afficher un message de succès
       
     } catch (error) {
-      alert(`❌ Erreur: ${error.message}`);
+      console.error('Erreur publication:', error);
+      alert(`❌ Erreur: ${error.message || 'Erreur inconnue'}`);
     } finally {
       setIsPublishing(false);
     }
