@@ -138,6 +138,13 @@ const SaasLayout = () => {
         badge: 'NEW'
       },
       { 
+        id: 'tendances', 
+        label: 'Suivi Tendances', 
+        icon: TrendingUp,
+        description: 'Produits émergents',
+        badge: 'HOT'
+      },
+      { 
         id: 'pricing', 
         label: 'Pricing Selezione', 
         icon: Crown,
