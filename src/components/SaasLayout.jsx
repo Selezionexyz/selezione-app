@@ -76,82 +76,105 @@ const SaasLayout = () => {
 
   const Sidebar = () => {
     const menuItems = [
+      // 📊 BUSINESS
       { 
         id: 'dashboard', 
         label: 'Dashboard', 
         icon: Home,
         description: 'Vue d\'ensemble',
-        badge: null
-      },
-      { 
-        id: 'marketplace', 
-        label: 'Marketplace', 
-        icon: ShoppingBag,
-        description: 'B2B Pro',
-        badge: null
+        theme: 'business'
       },
       { 
         id: 'estimation', 
         label: 'Estimation IA', 
         icon: Zap,
         description: 'GPT-4 + Marché',
-        badge: null
+        badge: 'PRO',
+        theme: 'business'
       },
+      { 
+        id: 'marketplace', 
+        label: 'Marketplace', 
+        icon: ShoppingBag,
+        description: 'B2B Pro',
+        theme: 'business'
+      },
+      
+      // 🛠️ OUTILS PRO
       { 
         id: 'calculateur', 
         label: 'Calculateur Marge', 
         icon: Calculator,
-        description: 'Calcul automatique',
-        badge: null
+        description: 'URSAFF inclus',
+        theme: 'outils'
       },
       { 
-        id: 'fichiers', 
-        label: 'Fichiers & Commandes', 
-        icon: FileText,
-        description: 'Gestion documents',
-        badge: null
-      },
-      { 
-        id: 'outils-business', 
-        label: 'Outils Business', 
-        icon: Target,
-        description: 'Suite professionnelle',
-        badge: 'PRO'
-      },
-      { 
-        id: 'agent', 
-        label: 'Assistant IA', 
-        icon: Bot,
-        description: '3 experts IA',
-        badge: 'PRO'
-      },
-      { 
-        id: 'chat', 
-        label: 'Community Chat', 
-        icon: MessageCircle,
-        description: 'Support 24/7',
-        badge: 'LIVE'
-      },
-      { 
-        id: 'academy', 
-        label: 'Academy', 
-        icon: GraduationCap,
-        description: '20+ chapitres',
-        badge: 'NEW'
+        id: 'scanner', 
+        label: 'Scanner Code-Barres', 
+        icon: Camera,
+        description: 'Identification auto',
+        badge: 'NEW',
+        theme: 'outils'
       },
       { 
         id: 'tendances', 
         label: 'Suivi Tendances', 
         icon: TrendingUp,
         description: 'Produits émergents',
-        badge: 'HOT'
+        badge: 'HOT',
+        theme: 'outils'
       },
+      
+      // 📁 GESTION
+      { 
+        id: 'fichiers', 
+        label: 'Fichiers & Commandes', 
+        icon: FileText,
+        description: 'Docs + Panier',
+        theme: 'gestion'
+      },
+      { 
+        id: 'crm', 
+        label: 'CRM Fournisseurs', 
+        icon: Users,
+        description: 'Gestion contacts',
+        theme: 'gestion'
+      },
+      { 
+        id: 'academy', 
+        label: 'Academy', 
+        icon: GraduationCap,
+        description: '20+ chapitres',
+        badge: 'NEW',
+        theme: 'gestion'
+      },
+      
+      // 💬 SUPPORT
+      { 
+        id: 'chat', 
+        label: 'Community Chat', 
+        icon: MessageCircle,
+        description: 'Support live',
+        badge: 'LIVE',
+        theme: 'support'
+      },
+      { 
+        id: 'agent', 
+        label: 'Assistant IA', 
+        icon: Bot,
+        description: '3 experts IA',
+        badge: 'PRO',
+        theme: 'support'
+      },
+      
+      // ⚙️ COMPTE  
       { 
         id: 'pricing', 
         label: 'Pricing Selezione', 
         icon: Crown,
         description: 'Nos formules',
-        badge: 'VIP'
+        badge: 'VIP',
+        theme: 'compte'
       }
     ];
 
