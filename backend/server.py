@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 import requests
+import aiohttp
 import asyncio
 from typing import Optional
 import random
