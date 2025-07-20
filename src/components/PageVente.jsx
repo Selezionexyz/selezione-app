@@ -111,7 +111,7 @@ const PageVente = () => {
     },
     {
       q: 'Les fournisseurs sont-ils vraiment fiables ?',
-      r: 'Tous nos fournisseurs sont vérifiés et testés personnellement. 500+ contacts en Europe et Asie avec lesquels je travaille depuis 5+ ans. Authentification garantie.'
+      r: 'Tous nos 22 fournisseurs sont vérifiés et testés personnellement. Contacts premium en Europe et Asie avec lesquels je travaille depuis 5+ ans. Authentification garantie.'
     },
     {
       q: 'Puis-je annuler à tout moment ?',
