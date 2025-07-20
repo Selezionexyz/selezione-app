@@ -3,7 +3,7 @@ import {
   User, Mail, Lock, Phone, MapPin, DollarSign, Star, Crown,
   Shield, Award, Calendar, Settings, Edit, Save, X, Check,
   Instagram, Facebook, Twitter, Linkedin, Globe, Camera,
-  CreditCard, Gift, Target, TrendingUp, Users, Bell
+  CreditCard, Gift, Target, TrendingUp, Users, Bell, MessageCircle
 } from 'lucide-react';
 
 const ComptesMembres = () => {
