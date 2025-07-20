@@ -1,0 +1,409 @@
+import React, { useState } from 'react';
+import { BookOpen, ArrowRight, ChevronRight, Star, Trophy, Target, Brain, Briefcase, TrendingUp } from 'lucide-react';
+
+const Academy = () => {
+  const [selectedModule, setSelectedModule] = useState(null);
+  const [selectedChapter, setSelectedChapter] = useState(null);
+
+  const modules = [
+    {
+      id: 1,
+      title: 'Histoire de la Mode - Top 20 Marques',
+      description: 'Evolution des grandes maisons de luxe',
+      chapters: 4,
+      duration: '8h',
+      level: 'Debutant',
+      color: 'amber',
+      progress: 0,
+      icon: Star,
+      chapters_list: [
+        { 
+          id: 1, 
+          title: 'Les 3 Geants - Hermes, Chanel, Louis Vuitton', 
+          content: 'Histoire complete des trois piliers du luxe mondial depuis leurs origines.'
+        },
+        { 
+          id: 2, 
+          title: 'Maisons Italiennes - Gucci, Prada, Bottega Veneta', 
+          content: 'Le savoir-faire italien et l art du cuir de luxe.'
+        },
+        { 
+          id: 3, 
+          title: 'Horlogerie Suisse - Rolex, Patek Philippe, AP', 
+          content: 'Precision, tradition et excellence horlogere.'
+        },
+        { 
+          id: 4, 
+          title: 'Nouveaux Acteurs - Jacquemus, Bottega New Era', 
+          content: 'Les marques qui redefinissent le luxe contemporain.'
+        }
+      ]
+    },
+    {
+      id: 2,
+      title: 'Authentification & Expertise',
+      description: 'Maitrise des techniques d authentification',
+      chapters: 5,
+      duration: '12h',
+      level: 'Intermediaire',
+      color: 'green',
+      progress: 0,
+      icon: Target,
+      chapters_list: [
+        {
+          id: 1,
+          title: 'Methodes Traditionnelles',
+          content: 'Coutures, materiaux, hardware - les fondamentaux.'
+        },
+        {
+          id: 2,
+          title: 'Technologies IA & Scanning',
+          content: 'Entrupy, applications mobiles et outils modernes.'
+        },
+        {
+          id: 3,
+          title: 'Contrefacons Avancees',
+          content: 'Reconnaitre les fakes de haute qualite.'
+        },
+        {
+          id: 4,
+          title: 'Certification Professionnelle',
+          content: 'Devenir expert reconnu par les institutions.'
+        },
+        {
+          id: 5,
+          title: 'Cas Pratiques & Exercices',
+          content: 'Tests reels sur 100+ pieces authentiques vs fakes.'
+        }
+      ]
+    },
+    {
+      id: 3,
+      title: 'Business & Monetisation',
+      description: 'Transformer l expertise en revenus',
+      chapters: 6,
+      duration: '15h',
+      level: 'Avance',
+      color: 'blue',
+      progress: 0,
+      icon: Briefcase,
+      chapters_list: [
+        {
+          id: 1,
+          title: 'Creation d Entreprise Luxe',
+          content: 'Statuts, assurances, aspects legaux du commerce de luxe.'
+        },
+        {
+          id: 2,
+          title: 'Sourcing & Approvisionnement',
+          content: 'Outlets, wholesale, contacts privilegies.'
+        },
+        {
+          id: 3,
+          title: 'Plateformes de Vente',
+          content: 'Vestiaire, Vinted, Instagram - optimisation maximale.'
+        },
+        {
+          id: 4,
+          title: 'Arbitrage International',
+          content: 'Profiter des differentiels de prix geographiques.'
+        },
+        {
+          id: 5,
+          title: 'Services Premium',
+          content: 'Personal shopping, authentification, consulting.'
+        },
+        {
+          id: 6,
+          title: 'Scaling & Automatisation',
+          content: 'Passer de 5k euros a 50k euros+ de revenus mensuels.'
+        }
+      ]
+    },
+    {
+      id: 4,
+      title: 'IA & Technologies du Futur',
+      description: 'L avenir technologique du luxe',
+      chapters: 4,
+      duration: '10h',
+      level: 'Avance',
+      color: 'purple',
+      progress: 0,
+      icon: Brain,
+      chapters_list: [
+        {
+          id: 1,
+          title: 'IA pour Authentification',
+          content: 'Computer Vision, Machine Learning appliques au luxe.'
+        },
+        {
+          id: 2,
+          title: 'Blockchain & Tracabilite',
+          content: 'Certificats numeriques, NFT et propriete digitale.'
+        },
+        {
+          id: 3,
+          title: 'Metavers & Experiences Virtuelles',
+          content: 'Vendre du luxe digital et creer des experiences immersives.'
+        },
+        {
+          id: 4,
+          title: 'Automation Business',
+          content: 'Scripts, bots et outils pour automatiser les profits.'
+        }
+      ]
+    },
+    {
+      id: 5,
+      title: 'Investissement & Collection',
+      description: 'Faire fructifier son capital dans le luxe',
+      chapters: 3,
+      duration: '6h',
+      level: 'Expert',
+      color: 'indigo',
+      progress: 0,
+      icon: TrendingUp,
+      chapters_list: [
+        {
+          id: 1,
+          title: 'Strategies d Investissement',
+          content: 'Quelles pieces acheter pour maximiser le ROI.'
+        },
+        {
+          id: 2,
+          title: 'Portfolio Diversification',
+          content: 'Repartir les risques entre marques et categories.'
+        },
+        {
+          id: 3,
+          title: 'Exit Strategies',
+          content: 'Quand et comment vendre pour optimiser les profits.'
+        }
+      ]
+    }
+  ];
+
+  const getColorClasses = (color, type = 'bg') => {
+    const colorMap = {
+      amber: type === 'bg' ? 'bg-gradient-to-r from-amber-500 to-orange-500' : 'text-amber-600',
+      green: type === 'bg' ? 'bg-gradient-to-r from-emerald-500 to-green-600' : 'text-emerald-600',
+      blue: type === 'bg' ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'text-blue-600',
+      purple: type === 'bg' ? 'bg-gradient-to-r from-purple-500 to-pink-600' : 'text-purple-600',
+      indigo: type === 'bg' ? 'bg-gradient-to-r from-indigo-500 to-purple-600' : 'text-indigo-600',
+    };
+    return colorMap[color] || colorMap.blue;
+  };
+
+  const getLevelBadgeColor = (level) => {
+    switch(level) {
+      case 'Debutant': return 'bg-green-100 text-green-800';
+      case 'Intermediaire': return 'bg-yellow-100 text-yellow-800';
+      case 'Avance': return 'bg-orange-100 text-orange-800';
+      case 'Expert': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  if (selectedChapter) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+        <div className="max-w-4xl mx-auto">
+          <button
+            onClick={() => setSelectedChapter(null)}
+            className="mb-6 flex items-center gap-2 text-white hover:text-purple-300 transition-colors"
+          >
+            <ArrowRight className="w-4 h-4 rotate-180" />
+            Retour aux chapitres
+          </button>
+          
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+            <h1 className="text-3xl font-bold text-white mb-4">
+              {selectedChapter.title}
+            </h1>
+            
+            <div className="prose prose-lg prose-invert max-w-none">
+              <div className="text-gray-300 leading-relaxed whitespace-pre-wrap">
+                {selectedChapter.content}
+              </div>
+            </div>
+            
+            <div className="mt-8 p-6 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl border border-purple-500/30">
+              <h3 className="text-xl font-semibold text-white mb-3">
+                📚 Ressources Complementaires
+              </h3>
+              <div className="space-y-2 text-gray-300">
+                <p>• Exercices pratiques disponibles</p>
+                <p>• Quiz d evaluation en fin de chapitre</p>
+                <p>• Communaute d entraide Selezione</p>
+                <p>• Support expert 24/7</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (selectedModule) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+        <div className="max-w-6xl mx-auto">
+          <button
+            onClick={() => setSelectedModule(null)}
+            className="mb-6 flex items-center gap-2 text-white hover:text-purple-300 transition-colors"
+          >
+            <ArrowRight className="w-4 h-4 rotate-180" />
+            Retour aux modules
+          </button>
+
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 mb-8">
+            <div className="flex items-start gap-6">
+              <div className={`p-4 rounded-2xl ${getColorClasses(selectedModule.color)}`}>
+                <selectedModule.icon className="w-8 h-8 text-white" />
+              </div>
+              
+              <div className="flex-1">
+                <h1 className="text-3xl font-bold text-white mb-2">
+                  {selectedModule.title}
+                </h1>
+                <p className="text-gray-300 text-lg mb-4">
+                  {selectedModule.description}
+                </p>
+                
+                <div className="flex gap-4 text-sm">
+                  <span className={`px-3 py-1 rounded-full ${getLevelBadgeColor(selectedModule.level)}`}>
+                    {selectedModule.level}
+                  </span>
+                  <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full">
+                    {selectedModule.duration}
+                  </span>
+                  <span className="px-3 py-1 bg-blue-600 text-white rounded-full">
+                    {selectedModule.chapters} chapitres
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            {selectedModule.chapters_list.map((chapter) => (
+              <div
+                key={chapter.id}
+                onClick={() => setSelectedChapter(chapter)}
+                className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 hover:bg-white/20 transition-all cursor-pointer group"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-purple-300 transition-colors">
+                      Chapitre {chapter.id}: {chapter.title}
+                    </h3>
+                    <p className="text-gray-400">
+                      {chapter.content}
+                    </p>
+                  </div>
+                  
+                  <ChevronRight className="w-6 h-6 text-gray-400 group-hover:text-white transition-colors" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-white mb-4">
+            🎓 Selezione Academy
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            La formation la plus complete pour maitriser le marche du luxe. 
+            De debutant a expert en 6 mois.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {modules.map((module) => (
+            <div
+              key={module.id}
+              onClick={() => setSelectedModule(module)}
+              className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all cursor-pointer group hover:scale-105"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className={`p-3 rounded-xl ${getColorClasses(module.color)} group-hover:scale-110 transition-transform`}>
+                  <module.icon className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-white">{module.id}</div>
+                  <div className="text-sm text-gray-400">Module</div>
+                </div>
+              </div>
+
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
+                {module.title}
+              </h3>
+              
+              <p className="text-gray-300 mb-4 text-sm leading-relaxed">
+                {module.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className={`px-2 py-1 text-xs rounded-full ${getLevelBadgeColor(module.level)}`}>
+                  {module.level}
+                </span>
+                <span className="px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded-full">
+                  {module.duration}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-purple-300 font-medium">
+                  {module.chapters} chapitres
+                </span>
+                <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-white group-hover:translate-x-1 transition-all" />
+              </div>
+
+              <div className="mt-4 bg-gray-700 rounded-full h-2 overflow-hidden">
+                <div 
+                  className={`h-full ${getColorClasses(module.color)} transition-all duration-500`}
+                  style={{ width: `${module.progress}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 grid md:grid-cols-3 gap-8">
+          <div className="bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-2xl p-6 border border-purple-500/30">
+            <Trophy className="w-12 h-12 text-yellow-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Certification</h3>
+            <p className="text-gray-300 text-sm">
+              Obtenez votre certification Selezione reconnue par l industrie du luxe.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 rounded-2xl p-6 border border-blue-500/30">
+            <BookOpen className="w-12 h-12 text-blue-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Ressources</h3>
+            <p className="text-gray-300 text-sm">
+              Acces a vie aux ressources, mises a jour et communaute exclusive.
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-br from-green-600/20 to-emerald-600/20 rounded-2xl p-6 border border-green-500/30">
+            <Target className="w-12 h-12 text-green-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Support</h3>
+            <p className="text-gray-300 text-sm">
+              Mentorat personnalise et support expert 24/7 pour votre succes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Academy;
