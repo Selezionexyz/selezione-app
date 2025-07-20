@@ -452,9 +452,9 @@ const SaasLayout = () => {
   const BottomNav = () => {
     const bottomItems = [
       { id: 'dashboard', label: 'Home', icon: Home },
-      { id: 'marketplace', label: 'Market', icon: ShoppingCart },
-      { id: 'outils', label: 'Estimer', icon: Calculator },
-      { id: 'agents', label: 'IA', icon: Bot },
+      { id: 'marketplace', label: 'Market', icon: ShoppingBag },
+      { id: 'estimation', label: 'Estimer', icon: Zap },
+      { id: 'agent', label: 'IA', icon: Bot },
       { id: 'academy', label: 'Learn', icon: GraduationCap }
     ];
 
