@@ -1,427 +1,533 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Card, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
-  MessageCircle, Send, Bot, User, Paperclip, 
-  Image as ImageIcon, Phone, Video, Settings,
-  Smile, Search, MoreHorizontal, Shield, Clock
+  Send, Users, Crown, MessageCircle, Pin, Star, Image, File,
+  Settings, Search, Bell, Hash, Plus, Smile, MoreVertical,
+  Shield, Zap, Award, Target, AlertCircle, CheckCircle, Clock
 } from 'lucide-react';
 
-export default function OutilTchat() {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      text: "👋 Bienvenue sur SELEZIONE Chat ! Je suis votre assistant virtuel. Comment puis-je vous aider aujourd'hui ?",
-      sender: 'bot',
-      timestamp: new Date(Date.now() - 60000),
-      type: 'text'
-    }
-  ]);
-  
-  const [newMessage, setNewMessage] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [selectedContact, setSelectedContact] = useState('support');
+const OutilTchat = () => {
+  const [activeChannel, setActiveChannel] = useState('general');
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  
+  const [isTyping, setIsTyping] = useState([]);
   const messagesEndRef = useRef(null);
-  const fileInputRef = useRef(null);
 
-  // Contacts disponibles
-  const contacts = [
-    {
-      id: 'support',
-      name: 'Support SELEZIONE',
-      avatar: '🎯',
-      status: 'en ligne',
-      type: 'support',
-      lastSeen: 'En ligne'
+  // Utilisateur connecté (simulé)
+  const currentUser = {
+    id: 'user_1',
+    name: 'Alexandre Dupont',
+    avatar: '👑',
+    role: 'Ultimate Member',
+    level: 'Expert',
+    verified: true
+  };
+
+  // Canaux de discussion
+  const channels = [
+    { 
+      id: 'announcements', 
+      name: '📢 Annonces', 
+      description: 'Annonces officielles SELEZIONE',
+      locked: true,
+      memberCount: 342,
+      icon: '📢'
     },
-    {
-      id: 'expert',
-      name: 'Expert Authentification',
-      avatar: '🔍',
-      status: 'occupé',
-      type: 'expert',
-      lastSeen: 'Vu il y a 5 min'
+    { 
+      id: 'general', 
+      name: '💬 Général', 
+      description: 'Discussion générale luxe',
+      locked: false,
+      memberCount: 156,
+      icon: '💬'
     },
-    {
-      id: 'vendeur1',
-      name: 'Marie D.',
-      avatar: '👩‍💼',
-      status: 'en ligne',
-      type: 'vendeur',
-      lastSeen: 'En ligne'
+    { 
+      id: 'hermes', 
+      name: '🧡 Hermès Club', 
+      description: 'Spécialistes Hermès',
+      locked: false,
+      memberCount: 89,
+      icon: '🧡'
     },
-    {
-      id: 'vendeur2',
-      name: 'Thomas L.',
-      avatar: '👨‍💼',
-      status: 'absent',
-      type: 'vendeur',
-      lastSeen: 'Vu il y a 1h'
+    { 
+      id: 'chanel', 
+      name: '🖤 Chanel Expert', 
+      description: 'Experts Chanel',
+      locked: false,
+      memberCount: 67,
+      icon: '🖤'
+    },
+    { 
+      id: 'marketplace', 
+      name: '🛒 Marketplace', 
+      description: 'Ventes et achats',
+      locked: false,
+      memberCount: 234,
+      icon: '🛒'
+    },
+    { 
+      id: 'vip', 
+      name: '💎 VIP Lounge', 
+      description: 'Membres Premium uniquement',
+      locked: true,
+      memberCount: 43,
+      icon: '💎'
     }
   ];
 
-  // Réponses automatiques intelligentes
-  const autoResponses = {
-    'authentification': [
-      "🔍 Pour l'authentification, je peux vous mettre en relation avec notre expert certifié.",
-      "Quels éléments souhaitez-vous faire authentifier ? (photos, série, etc.)"
+  // Messages simulés réalistes
+  const initialMessages = {
+    'announcements': [
+      {
+        id: 'ann_1',
+        userId: 'admin',
+        username: 'SELEZIONE Team',
+        avatar: '🏢',
+        role: 'Admin',
+        message: '🚀 NOUVELLE FONCTIONNALITÉ : Dashboard Intelligence avec feed Instagram temps réel des grandes marques de luxe ! \n\nDécouvrez les derniers posts de Hermès, Chanel, LV directement dans votre dashboard. Plus jamais de trend manqué ! 💎',
+        timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
+        pinned: true,
+        reactions: [
+          { emoji: '🔥', count: 23, users: ['user_1', 'user_2'] },
+          { emoji: '💎', count: 15, users: ['user_3'] }
+        ]
+      },
+      {
+        id: 'ann_2',
+        userId: 'admin',
+        username: 'SELEZIONE Team',
+        avatar: '🏢',
+        role: 'Admin',
+        message: '📊 MISE À JOUR : L\'outil d\'estimation IA a été complètement refondu ! \n\n✅ Base de données élargie\n✅ Précision améliorée à 95%\n✅ Interface ultra-professionnelle\n✅ Plus de plantages\n\nTestez dès maintenant ! 🚀',
+        timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
+        pinned: false,
+        reactions: [
+          { emoji: '✅', count: 31, users: ['user_1', 'user_4'] },
+          { emoji: '🚀', count: 18, users: [] }
+        ]
+      }
     ],
-    'prix': [
-      "💰 Pour une estimation précise, utilisez notre outil IA d'estimation.",
-      "De quel produit de luxe souhaitez-vous connaître la valeur ?"
+    'general': [
+      {
+        id: 'gen_1',
+        userId: 'user_2',
+        username: 'Marie L.',
+        avatar: '👩‍💼',
+        role: 'Expert Seller',
+        message: 'Salut la team ! Quelqu\'un a testé la nouvelle estimation IA ? J\'ai l\'impression qu\'elle est beaucoup plus précise maintenant 🤔',
+        timestamp: new Date(Date.now() - 30 * 60 * 1000),
+        pinned: false,
+        reactions: [
+          { emoji: '👍', count: 7, users: ['user_1'] }
+        ]
+      },
+      {
+        id: 'gen_2',
+        userId: 'user_3',
+        username: 'Antoine R.',
+        avatar: '👨‍💻',
+        role: 'Premium Member',
+        message: '@Marie L. Oui je viens de tester sur un Birkin 30, elle a trouvé 12.5k€ ce qui correspond exactement aux prix du marché ! Très impressionnant 🔥',
+        timestamp: new Date(Date.now() - 25 * 60 * 1000),
+        pinned: false,
+        reactions: [
+          { emoji: '🔥', count: 5, users: ['user_2'] }
+        ]
+      },
+      {
+        id: 'gen_3',
+        userId: 'user_1',
+        username: 'Alexandre Dupont',
+        avatar: '👑',
+        role: 'Ultimate Member',
+        message: 'Le nouveau dashboard est incroyable ! Les posts Instagram d\'Hermès en temps réel me permettent de suivre les trends instantanément 📊✨',
+        timestamp: new Date(Date.now() - 15 * 60 * 1000),
+        pinned: false,
+        reactions: [
+          { emoji: '✨', count: 8, users: ['user_2', 'user_3'] },
+          { emoji: '📊', count: 3, users: [] }
+        ]
+      }
     ],
-    'vente': [
-      "🏪 Pour vendre sur notre marketplace, rendez-vous dans l'onglet 'Vendre'.",
-      "Commission de seulement 5% et paiement sécurisé garanti !"
+    'hermes': [
+      {
+        id: 'her_1',
+        userId: 'user_4',
+        username: 'Sophie M.',
+        avatar: '🧡',
+        role: 'Hermès Expert',
+        message: 'ALERTE STOCK 🚨\n\nBirkin 30 Togo Noir avec hardware palladié disponible chez mon contact à Tokyo. Prix exceptionnel : 9.8k€ (vs 13k€ boutique)\n\nMP si intéressé, stock limité ! ⚡',
+        timestamp: new Date(Date.now() - 45 * 60 * 1000),
+        pinned: true,
+        reactions: [
+          { emoji: '🔥', count: 12, users: ['user_1', 'user_2'] },
+          { emoji: '💰', count: 8, users: ['user_3'] }
+        ]
+      }
     ],
-    'livraison': [
-      "📦 Livraison sécurisée partout en France sous 48-72h.",
-      "Assurance intégrale et suivi en temps réel inclus."
-    ],
-    'retour': [
-      "↩️ Retours gratuits sous 14 jours si non-conforme à la description.",
-      "Garantie authenticité 100% ou remboursement intégral."
-    ],
-    'default': [
-      "👋 Merci pour votre message ! Un conseiller va vous répondre rapidement.",
-      "En attendant, vous pouvez explorer nos outils d'estimation et d'authentification."
+    'marketplace': [
+      {
+        id: 'mar_1',
+        userId: 'user_5',
+        username: 'Lucas B.',
+        avatar: '💼',
+        role: 'Pro Dealer',
+        message: '🔥 VENTE FLASH 🔥\n\nChanel Classic Flap Medium Caviar Beige\n• État : Excellent (9/10)\n• Année : 2022\n• Prix : 6.2k€ (négociable)\n• Authentification garantie\n\nPhotos en MP ! 📸',
+        timestamp: new Date(Date.now() - 20 * 60 * 1000),
+        pinned: false,
+        reactions: [
+          { emoji: '💎', count: 6, users: [] }
+        ]
+      }
     ]
   };
 
-  // Scroll automatique vers le bas
+  // Utilisateurs en ligne simulés
+  const mockOnlineUsers = [
+    { id: 'user_1', name: 'Alexandre D.', avatar: '👑', role: 'Ultimate', status: 'online' },
+    { id: 'user_2', name: 'Marie L.', avatar: '👩‍💼', role: 'Expert', status: 'online' },
+    { id: 'user_3', name: 'Antoine R.', avatar: '👨‍💻', role: 'Premium', status: 'idle' },
+    { id: 'user_4', name: 'Sophie M.', avatar: '🧡', role: 'Expert', status: 'online' },
+    { id: 'user_5', name: 'Lucas B.', avatar: '💼', role: 'Pro', status: 'online' },
+    { id: 'user_6', name: 'Emma K.', avatar: '💎', role: 'VIP', status: 'dnd' },
+    { id: 'admin', name: 'SELEZIONE', avatar: '🏢', role: 'Admin', status: 'online' }
+  ];
+
+  // Initialisation
+  useEffect(() => {
+    setMessages(initialMessages);
+    setOnlineUsers(mockOnlineUsers);
+    
+    // Simulation typing indicator
+    const typingInterval = setInterval(() => {
+      if (Math.random() > 0.95) {
+        setIsTyping(['Marie L.']);
+        setTimeout(() => setIsTyping([]), 3000);
+      }
+    }, 10000);
+
+    return () => clearInterval(typingInterval);
+  }, []);
+
+  // Scroll automatique
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, activeChannel]);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  // Envoi de message
+  const sendMessage = () => {
+    if (!message.trim()) return;
 
-  // Détection de mots-clés pour réponses automatiques
-  const getAutoResponse = (text) => {
-    const lowerText = text.toLowerCase();
-    
-    if (lowerText.includes('authentification') || lowerText.includes('authentique') || lowerText.includes('fake')) {
-      return autoResponses.authentification;
-    }
-    if (lowerText.includes('prix') || lowerText.includes('estimation') || lowerText.includes('valeur')) {
-      return autoResponses.prix;
-    }
-    if (lowerText.includes('vendre') || lowerText.includes('vente')) {
-      return autoResponses.vente;
-    }
-    if (lowerText.includes('livraison') || lowerText.includes('expédition') || lowerText.includes('transport')) {
-      return autoResponses.livraison;
-    }
-    if (lowerText.includes('retour') || lowerText.includes('remboursement') || lowerText.includes('garantie')) {
-      return autoResponses.retour;
-    }
-    
-    return autoResponses.default;
-  };
-
-  // Envoyer un message
-  const sendMessage = async () => {
-    if (!newMessage.trim()) return;
-
-    // Ajouter le message utilisateur
-    const userMessage = {
-      id: Date.now(),
-      text: newMessage,
-      sender: 'user',
+    const newMessage = {
+      id: `msg_${Date.now()}`,
+      userId: currentUser.id,
+      username: currentUser.name,
+      avatar: currentUser.avatar,
+      role: currentUser.role,
+      message: message.trim(),
       timestamp: new Date(),
-      type: 'text'
+      pinned: false,
+      reactions: []
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setNewMessage('');
-    setIsTyping(true);
+    setMessages(prev => ({
+      ...prev,
+      [activeChannel]: [...(prev[activeChannel] || []), newMessage]
+    }));
 
-    // Simuler temps de réponse
-    setTimeout(() => {
-      const responses = getAutoResponse(newMessage);
-      
-      responses.forEach((response, index) => {
-        setTimeout(() => {
-          const botMessage = {
-            id: Date.now() + index + 1,
-            text: response,
-            sender: 'bot',
-            timestamp: new Date(),
-            type: 'text'
-          };
-          setMessages(prev => [...prev, botMessage]);
-          
-          if (index === responses.length - 1) {
-            setIsTyping(false);
+    setMessage('');
+  };
+
+  // Réaction à un message
+  const addReaction = (messageId, emoji) => {
+    setMessages(prev => ({
+      ...prev,
+      [activeChannel]: prev[activeChannel].map(msg => {
+        if (msg.id === messageId) {
+          const existingReaction = msg.reactions.find(r => r.emoji === emoji);
+          if (existingReaction) {
+            if (existingReaction.users.includes(currentUser.id)) {
+              // Retirer la réaction
+              existingReaction.users = existingReaction.users.filter(u => u !== currentUser.id);
+              existingReaction.count = Math.max(0, existingReaction.count - 1);
+            } else {
+              // Ajouter la réaction
+              existingReaction.users.push(currentUser.id);
+              existingReaction.count += 1;
+            }
+          } else {
+            // Nouvelle réaction
+            msg.reactions.push({
+              emoji,
+              count: 1,
+              users: [currentUser.id]
+            });
           }
-        }, (index + 1) * 1000);
-      });
-    }, 800);
-  };
-
-  // Gestion des fichiers
-  const handleFileUpload = (e) => {
-    const files = Array.from(e.target.files);
-    
-    files.forEach(file => {
-      const fileMessage = {
-        id: Date.now() + Math.random(),
-        text: `📎 ${file.name}`,
-        sender: 'user',
-        timestamp: new Date(),
-        type: 'file',
-        fileInfo: {
-          name: file.name,
-          size: file.size,
-          type: file.type
+          // Nettoyer les réactions à 0
+          msg.reactions = msg.reactions.filter(r => r.count > 0);
         }
-      };
-      
-      setMessages(prev => [...prev, fileMessage]);
-    });
+        return msg;
+      })
+    }));
   };
 
-  // Formater la date
-  const formatTime = (date) => {
-    return date.toLocaleTimeString('fr-FR', { 
+  const formatTime = (timestamp) => {
+    return timestamp.toLocaleTimeString('fr-FR', { 
       hour: '2-digit', 
       minute: '2-digit' 
     });
   };
 
-  // Contact sélectionné
-  const currentContact = contacts.find(c => c.id === selectedContact);
-  const getStatusColor = (status) => {
-    switch(status) {
-      case 'en ligne': return 'bg-green-400';
-      case 'occupé': return 'bg-yellow-400';
-      case 'absent': return 'bg-gray-400';
-      default: return 'bg-gray-400';
-    }
+  const getRoleColor = (role) => {
+    const colors = {
+      'Admin': 'text-red-400',
+      'Ultimate Member': 'text-purple-400',
+      'Expert Seller': 'text-amber-400',
+      'Premium Member': 'text-blue-400',
+      'Hermès Expert': 'text-orange-400',
+      'VIP': 'text-pink-400',
+      'Pro Dealer': 'text-green-400'
+    };
+    return colors[role] || 'text-gray-400';
   };
 
-  const emojis = ['😊', '😍', '🤔', '👍', '👎', '❤️', '😂', '😮', '🔥', '💎', '👏', '🎉'];
+  const getStatusColor = (status) => {
+    const colors = {
+      'online': 'bg-green-400',
+      'idle': 'bg-yellow-400',
+      'dnd': 'bg-red-400',
+      'offline': 'bg-gray-400'
+    };
+    return colors[status] || 'bg-gray-400';
+  };
 
   return (
-    <div className="p-4 md:p-6">
-      <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl p-6 border border-blue-500/20 mb-6">
-        <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
-          💬 SELEZIONE Chat
-        </h2>
-        <p className="text-gray-400">Support client • Experts • Communauté • Chat temps réel</p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Liste des contacts */}
-        <div className="lg:col-span-1">
-          <Card className="bg-black/60 backdrop-blur-sm border-blue-500/30 h-[600px]">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-white font-bold">Contacts</h3>
-                <button className="text-gray-400 hover:text-white">
-                  <Search className="w-5 h-5" />
-                </button>
-              </div>
-              
-              <div className="space-y-2">
-                {contacts.map((contact) => (
-                  <button
-                    key={contact.id}
-                    onClick={() => setSelectedContact(contact.id)}
-                    className={`w-full p-3 rounded-lg text-left transition-all ${
-                      selectedContact === contact.id 
-                        ? 'bg-blue-600/30 border border-blue-500/50' 
-                        : 'hover:bg-gray-800/50'
-                    }`}
-                  >
-                    <div className="flex items-center space-x-3">
-                      <div className="relative">
-                        <span className="text-2xl">{contact.avatar}</span>
-                        <span className={`absolute -bottom-1 -right-1 w-3 h-3 ${getStatusColor(contact.status)} rounded-full border-2 border-gray-900`} />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-white font-medium text-sm">{contact.name}</p>
-                        <p className="text-gray-400 text-xs">{contact.lastSeen}</p>
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-              
-              <div className="mt-6 p-3 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-lg border border-green-500/30">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Shield className="w-4 h-4 text-green-400" />
-                  <span className="text-green-400 font-medium text-sm">Chat sécurisé</span>
-                </div>
-                <p className="text-gray-300 text-xs">
-                  Vos conversations sont chiffrées de bout en bout
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+    <div className="h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white flex">
+      {/* Sidebar - Canaux */}
+      <div className="w-80 bg-black/60 backdrop-blur-sm border-r border-gray-700/50 flex flex-col">
+        {/* Header */}
+        <div className="p-4 border-b border-gray-700/50">
+          <h1 className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent flex items-center">
+            <MessageCircle className="w-6 h-6 mr-2 text-purple-400" />
+            SELEZIONE COMMUNITY
+          </h1>
+          <p className="text-gray-400 text-sm mt-1">
+            {onlineUsers.filter(u => u.status === 'online').length} membres en ligne
+          </p>
         </div>
 
-        {/* Zone de chat */}
-        <div className="lg:col-span-3">
-          <Card className="bg-black/60 backdrop-blur-sm border-blue-500/30 h-[600px] flex flex-col">
-            {/* Header du chat */}
-            <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-              <div className="flex items-center space-x-3">
+        {/* Canaux */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="p-4 space-y-2">
+            <div className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-3">
+              Canaux de Discussion
+            </div>
+            
+            {channels.map((channel) => (
+              <button
+                key={channel.id}
+                onClick={() => setActiveChannel(channel.id)}
+                className={`w-full text-left p-3 rounded-lg transition-colors group ${
+                  activeChannel === channel.id
+                    ? 'bg-purple-600/20 border border-purple-500/30 text-white'
+                    : 'hover:bg-gray-800/50 text-gray-300'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-lg">{channel.icon}</span>
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <span className="font-medium text-sm">{channel.name}</span>
+                        {channel.locked && <Shield className="w-3 h-3 text-amber-400" />}
+                      </div>
+                      <p className="text-gray-400 text-xs">{channel.description}</p>
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    {channel.memberCount}
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Utilisateurs en ligne */}
+        <div className="border-t border-gray-700/50 p-4">
+          <div className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-3">
+            En ligne ({onlineUsers.filter(u => u.status === 'online').length})
+          </div>
+          <div className="space-y-2 max-h-40 overflow-y-auto">
+            {onlineUsers.filter(u => u.status === 'online').map((user) => (
+              <div key={user.id} className="flex items-center space-x-3">
                 <div className="relative">
-                  <span className="text-3xl">{currentContact?.avatar}</span>
-                  <span className={`absolute -bottom-1 -right-1 w-4 h-4 ${getStatusColor(currentContact?.status)} rounded-full border-2 border-gray-900`} />
+                  <span className="text-lg">{user.avatar}</span>
+                  <div className={`absolute -bottom-1 -right-1 w-3 h-3 ${getStatusColor(user.status)} rounded-full border border-gray-800`}></div>
                 </div>
                 <div>
-                  <h3 className="text-white font-bold">{currentContact?.name}</h3>
-                  <p className="text-gray-400 text-sm">{currentContact?.status}</p>
+                  <div className="text-sm text-white font-medium">{user.name}</div>
+                  <div className={`text-xs ${getRoleColor(user.role)}`}>{user.role}</div>
                 </div>
               </div>
-              
-              <div className="flex space-x-2">
-                <button className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800">
-                  <Phone className="w-5 h-5" />
-                </button>
-                <button className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800">
-                  <Video className="w-5 h-5" />
-                </button>
-                <button className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800">
-                  <MoreHorizontal className="w-5 h-5" />
-                </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Zone de chat principale */}
+      <div className="flex-1 flex flex-col">
+        {/* Header du canal */}
+        <div className="bg-black/40 backdrop-blur-sm border-b border-gray-700/50 p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <span className="text-2xl">
+                {channels.find(c => c.id === activeChannel)?.icon}
+              </span>
+              <div>
+                <h2 className="text-lg font-bold text-white">
+                  {channels.find(c => c.id === activeChannel)?.name}
+                </h2>
+                <p className="text-gray-400 text-sm">
+                  {channels.find(c => c.id === activeChannel)?.description}
+                </p>
               </div>
             </div>
+            <div className="flex items-center space-x-2">
+              <button className="p-2 text-gray-400 hover:text-white transition-colors">
+                <Search className="w-5 h-5" />
+              </button>
+              <button className="p-2 text-gray-400 hover:text-white transition-colors">
+                <Settings className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div className={`flex space-x-2 max-w-xs lg:max-w-md ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                    <div className="flex-shrink-0">
-                      {message.sender === 'user' ? (
-                        <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                          <User className="w-4 h-4 text-white" />
-                        </div>
-                      ) : (
-                        <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-                          <Bot className="w-4 h-4 text-white" />
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className={`rounded-2xl px-4 py-2 ${
-                      message.sender === 'user' 
-                        ? 'bg-blue-600 text-white' 
-                        : 'bg-gray-700 text-gray-100'
-                    }`}>
-                      <p className="text-sm leading-relaxed">{message.text}</p>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs opacity-70">
-                          {formatTime(message.timestamp)}
-                        </span>
-                        {message.sender === 'user' && (
-                          <span className="text-xs opacity-70">✓</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              
-              {/* Indicateur de frappe */}
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="flex space-x-2">
-                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-                      <Bot className="w-4 h-4 text-white" />
-                    </div>
-                    <div className="bg-gray-700 rounded-2xl px-4 py-2">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}} />
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}} />
-                      </div>
-                    </div>
-                  </div>
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {(messages[activeChannel] || []).map((msg) => (
+            <div key={msg.id} className={`group ${msg.pinned ? 'bg-amber-500/5 border border-amber-500/20 rounded-lg p-3' : ''}`}>
+              {msg.pinned && (
+                <div className="flex items-center space-x-2 text-amber-400 text-xs mb-2">
+                  <Pin className="w-3 h-3" />
+                  <span>Message épinglé</span>
                 </div>
               )}
               
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Saisie de message */}
-            <div className="p-4 border-t border-gray-700">
-              {/* Sélecteur emoji */}
-              {showEmojiPicker && (
-                <div className="mb-3 p-3 bg-gray-800 rounded-lg">
-                  <div className="grid grid-cols-6 gap-2">
-                    {emojis.map((emoji, index) => (
-                      <button
-                        key={index}
-                        onClick={() => {
-                          setNewMessage(prev => prev + emoji);
-                          setShowEmojiPicker(false);
-                        }}
-                        className="text-xl hover:bg-gray-700 rounded p-2 transition-colors"
-                      >
-                        {emoji}
-                      </button>
-                    ))}
-                  </div>
+              <div className="flex items-start space-x-3">
+                <div className="relative">
+                  <span className="text-2xl">{msg.avatar}</span>
+                  {msg.role === 'Admin' && (
+                    <Shield className="w-3 h-3 text-red-400 absolute -bottom-1 -right-1" />
+                  )}
                 </div>
-              )}
-              
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800"
-                >
-                  <Paperclip className="w-5 h-5" />
-                </button>
-                
-                <button
-                  onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                  className="p-2 text-gray-400 hover:text-white rounded-lg hover:bg-gray-800"
-                >
-                  <Smile className="w-5 h-5" />
-                </button>
                 
                 <div className="flex-1">
-                  <Input
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-                    placeholder="Tapez votre message..."
-                    className="bg-gray-800 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
-                  />
+                  <div className="flex items-center space-x-2 mb-1">
+                    <span className="font-bold text-white">{msg.username}</span>
+                    <span className={`text-xs ${getRoleColor(msg.role)} bg-gray-800/50 px-2 py-0.5 rounded`}>
+                      {msg.role}
+                    </span>
+                    <span className="text-gray-500 text-xs">{formatTime(msg.timestamp)}</span>
+                  </div>
+                  
+                  <div className="text-gray-200 whitespace-pre-line leading-relaxed">
+                    {msg.message}
+                  </div>
+                  
+                  {/* Réactions */}
+                  {msg.reactions && msg.reactions.length > 0 && (
+                    <div className="flex items-center space-x-2 mt-2">
+                      {msg.reactions.map((reaction, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => addReaction(msg.id, reaction.emoji)}
+                          className={`flex items-center space-x-1 px-2 py-1 rounded-full text-xs transition-colors ${
+                            reaction.users.includes(currentUser.id)
+                              ? 'bg-purple-600/30 border border-purple-500/50'
+                              : 'bg-gray-800/50 hover:bg-gray-700/50'
+                          }`}
+                        >
+                          <span>{reaction.emoji}</span>
+                          <span className="text-gray-300">{reaction.count}</span>
+                        </button>
+                      ))}
+                      <button
+                        className="p-1 text-gray-400 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
+                        onClick={() => {
+                          const emojis = ['👍', '❤️', '😂', '🔥', '💎', '✨'];
+                          const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                          addReaction(msg.id, randomEmoji);
+                        }}
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
                 </div>
-                
-                <Button
-                  onClick={sendMessage}
-                  disabled={!newMessage.trim()}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2"
-                >
-                  <Send className="w-5 h-5" />
-                </Button>
               </div>
-              
+            </div>
+          ))}
+
+          {/* Indicateur de frappe */}
+          {isTyping.length > 0 && (
+            <div className="flex items-center space-x-2 text-gray-400 text-sm">
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              </div>
+              <span>{isTyping.join(', ')} {isTyping.length === 1 ? 'tape...' : 'tapent...'}</span>
+            </div>
+          )}
+          
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Zone de saisie */}
+        <div className="bg-black/40 backdrop-blur-sm border-t border-gray-700/50 p-4">
+          <div className="flex items-center space-x-3">
+            <button className="p-2 text-gray-400 hover:text-white transition-colors">
+              <Plus className="w-5 h-5" />
+            </button>
+            
+            <div className="flex-1 relative">
               <input
-                ref={fileInputRef}
-                type="file"
-                multiple
-                accept="image/*,.pdf,.doc,.docx"
-                onChange={handleFileUpload}
-                className="hidden"
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                placeholder={`Écrire dans ${channels.find(c => c.id === activeChannel)?.name}...`}
+                className="w-full bg-gray-800/50 text-white px-4 py-3 rounded-lg border border-gray-600/50 focus:border-purple-500/50 outline-none transition-colors"
               />
             </div>
-          </Card>
+            
+            <button className="p-2 text-gray-400 hover:text-white transition-colors">
+              <Smile className="w-5 h-5" />
+            </button>
+            
+            <button className="p-2 text-gray-400 hover:text-white transition-colors">
+              <Image className="w-5 h-5" />
+            </button>
+            
+            <button
+              onClick={sendMessage}
+              disabled={!message.trim()}
+              className="bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-2 rounded-lg transition-colors"
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default OutilTchat;
