@@ -113,7 +113,7 @@ const ComparateurLuxe = () => {
   ];
 
   // Données produits
-  const [listings] = useState([
+  const [listings, setListings] = useState([
     {
       id: 1,
       title: "Chanel Classic Flap Medium Caviar",
@@ -128,8 +128,8 @@ const ComparateurLuxe = () => {
       originalPrice: 7500,
       condition: "Excellent",
       location: "Paris",
-      photos: ["🖤"],
-      description: "Authentique sac Chanel Classic Flap en cuir caviar noir. État impeccable.",
+      photos: ["https://via.placeholder.com/300x300/000000/FFFFFF?text=Chanel+Classic"],
+      description: "Authentique sac Chanel Classic Flap en cuir caviar noir. État impeccable, hardware doré, dustbag inclus.",
       views: 234,
       likes: 45,
       posted: "Il y a 2 jours",
@@ -141,7 +141,9 @@ const ComparateurLuxe = () => {
         rating: 4.8,
         sales: 23,
         verified: true,
-        avatar: "👩‍💼"
+        avatar: "👩‍💼",
+        phone: "+33 6 12 34 56 78",
+        email: "marie.l@selezione.fr"
       }
     },
     {
@@ -158,8 +160,8 @@ const ComparateurLuxe = () => {
       originalPrice: 1200,
       condition: "Bon",
       location: "Lyon",
-      photos: ["🤎"],
-      description: "Louis Vuitton Speedy 30 vintage en toile monogram authentique.",
+      photos: ["https://via.placeholder.com/300x300/8B4513/FFFFFF?text=LV+Speedy"],
+      description: "Louis Vuitton Speedy 30 vintage en toile monogram authentique. Patine naturelle.",
       views: 123,
       likes: 28,
       posted: "Il y a 3 jours",
@@ -171,7 +173,105 @@ const ComparateurLuxe = () => {
         rating: 4.6,
         sales: 12,
         verified: false,
-        avatar: "👩"
+        avatar: "👩",
+        phone: "+33 6 98 76 54 32",
+        email: "sophie.k@selezione.fr"
+      }
+    },
+    {
+      id: 3,
+      title: "Hermès Birkin 30 Togo Gold",
+      brand: "Hermès",
+      category: "Sacs à main",
+      model: "Birkin 30",
+      size: "30cm",
+      color: "Gold",
+      material: "Cuir Togo",
+      year: "2020-2029",
+      price: 12500,
+      originalPrice: 15000,
+      condition: "Neuf",
+      location: "Monaco",
+      photos: ["https://via.placeholder.com/300x300/DAA520/FFFFFF?text=Hermes+Birkin"],
+      description: "Hermès Birkin 30 en cuir Togo coloris Gold. État neuf, jamais porté, tous accessoires.",
+      views: 890,
+      likes: 156,
+      posted: "Il y a 1 jour",
+      negotiable: false,
+      featured: true,
+      verified: true,
+      seller: {
+        name: "Luxury Store",
+        rating: 4.9,
+        sales: 45,
+        verified: true,
+        avatar: "👑",
+        phone: "+33 6 11 22 33 44",
+        email: "store@luxury-paris.com"
+      }
+    },
+    {
+      id: 4,
+      title: "Rolex Submariner Date 126610LN",
+      brand: "Rolex",
+      category: "Montres",
+      model: "Submariner Date",
+      size: "40mm",
+      color: "Noir",
+      material: "Acier",
+      year: "2020-2029",
+      price: 8900,
+      originalPrice: 9350,
+      condition: "Excellent",
+      location: "Genève",
+      photos: ["https://via.placeholder.com/300x300/000000/FFFFFF?text=Rolex+Sub"],
+      description: "Rolex Submariner Date référence 126610LN. Boîte et papiers, garantie internationale.",
+      views: 445,
+      likes: 89,
+      posted: "Il y a 5 jours",
+      negotiable: true,
+      featured: true,
+      verified: true,
+      seller: {
+        name: "TimeKeeper",
+        rating: 4.9,
+        sales: 67,
+        verified: true,
+        avatar: "⌚",
+        phone: "+41 22 123 45 67",
+        email: "contact@timekeeper.ch"
+      }
+    },
+    {
+      id: 5,
+      title: "Bottega Veneta Pouch Large",
+      brand: "Bottega Veneta",
+      category: "Sacs à main",
+      model: "The Pouch",
+      size: "Large",
+      color: "Vert",
+      material: "Cuir Intrecciato",
+      year: "2020-2029",
+      price: 2200,
+      originalPrice: 2850,
+      condition: "Très bon",
+      location: "Milan",
+      photos: ["https://via.placeholder.com/300x300/228B22/FFFFFF?text=BV+Pouch"],
+      description: "Bottega Veneta Pouch en cuir intrecciato vert. Pièce iconique Daniel Lee era.",
+      views: 167,
+      likes: 34,
+      posted: "Il y a 1 semaine",
+      negotiable: true,
+      featured: false,
+      verified: true,
+      seller: {
+        name: "Milano Luxury",
+        rating: 4.7,
+        sales: 29,
+        verified: true,
+        avatar: "🇮🇹",
+        phone: "+39 02 123 456 78",
+        email: "info@milanoluxury.it"
       }
     }
   ]);
