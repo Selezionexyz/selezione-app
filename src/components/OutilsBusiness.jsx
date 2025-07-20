@@ -11,7 +11,60 @@ const OutilsBusiness = () => {
   const [scanResult, setScanResult] = useState(null);
   const [scanLoading, setScanLoading] = useState(false);
 
-  // Données simulées pour les outils
+  // SCANNER RÉEL avec API Backend
+  const handleScanBarcode = async (barcode) => {
+    if (!barcode || barcode.length < 8) {
+      setScanResult({
+        found: false,
+        message: "Code-barres invalide. Doit contenir au moins 8 chiffres."
+      });
+      return;
+    }
+
+    setScanLoading(true);
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/scan-barcode`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ barcode: barcode.trim() })
+      });
+      
+      const result = await response.json();
+      setScanResult(result);
+      
+      if (result.found && result.luxury_detected) {
+        // Bonus: estimation automatique si produit luxe détecté
+        setTimeout(() => {
+          setScanResult(prev => ({
+            ...prev,
+            estimated_price: "Estimation automatique disponible - cliquez sur Estimer"
+          }));
+        }, 1500);
+      }
+      
+    } catch (error) {
+      setScanResult({
+        found: false,
+        message: "Erreur de connexion. Vérifiez votre connexion internet.",
+        error: error.message
+      });
+    }
+    setScanLoading(false);
+  };
+
+  // Simulation camera scan (en production, utiliser une lib comme QuaggaJS)
+  const simulateCamera = () => {
+    const testBarcodes = [
+      "3386460065436", // Chanel N°5  
+      "3348901419372", // Dior Sauvage
+      "3474636397457", // Hermès Terre d'Hermès
+      "0123456789012", // Test générique
+    ];
+    const randomBarcode = testBarcodes[Math.floor(Math.random() * testBarcodes.length)];
+    handleScanBarcode(randomBarcode);
+  };
   const [suppliers, setSuppliers] = useState([
     {
       id: 'sup_1',
