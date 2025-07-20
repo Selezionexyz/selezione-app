@@ -7,11 +7,13 @@ import {
 } from 'lucide-react';
 
 const ComparateurLuxe = () => {
-  const [activeTab, setActiveTab] = useState('acheter');
+  // Toujours commencer par la vue "vendre" comme demandé
+  const [activeTab, setActiveTab] = useState('vendre');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
+  const [publishedListings, setPublishedListings] = useState([]);
 
   // États filtres avancés Agent IA
   const [selectedBrand, setSelectedBrand] = useState('');
@@ -21,7 +23,7 @@ const ComparateurLuxe = () => {
   const [selectedMaterial, setSelectedMaterial] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
 
-  // États pour vendre
+  // États pour vendre - formulaire principal
   const [newListing, setNewListing] = useState({
     title: '',
     brand: '',
