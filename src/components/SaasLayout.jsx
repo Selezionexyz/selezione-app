@@ -59,19 +59,14 @@ const SaasLayout = () => {
     marketplace: <ComparateurLuxe />,
     estimation: <OutilEstimationIA />,
     calculateur: <CalculateurMarge />,
-    fichiers: <HebergeurPanier />,
-    'outils-business': <OutilsBusiness />,
-    agent: <AssistantLuxe />,
-    chat: <OutilTchat />,
-    academy: <Academy />,
-    compte: <ComptesMembres />,
+    scanner: <OutilsBusiness />, // Scanner intégré dans Outils Business pour l'instant
     tendances: <SuiviTendances />,
-    pricing: <PageVente />,
-    agents: <AssistantLuxe />,
-    outils: <OutilEstimationIA />,
-    fiche: <FicheProduit />,
-    vente: <PageVente />,
-    tchat: <OutilTchat />,
+    fichiers: <HebergeurPanier />,
+    crm: <OutilsBusiness />, // CRM intégré dans Outils Business pour l'instant
+    academy: <Academy />,
+    chat: <OutilTchat />,
+    agent: <AssistantLuxe />,
+    pricing: <PageVente />
   };
 
   const Sidebar = () => {
