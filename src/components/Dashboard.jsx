@@ -340,165 +340,307 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Stats du marché en temps réel */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-green-500/30">
-          <div className="flex items-center justify-between mb-2">
-            <TrendingUp className="w-5 h-5 text-green-400" />
-            <span className="text-xs text-green-400 font-bold">{marketData.trend}</span>
+      {/* Métriques marché temps réel premium */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        {marketInsights.map((insight, index) => (
+          <div key={index} className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-gray-700/50 hover:border-amber-500/30 transition-colors">
+            <div className="flex items-center justify-between mb-3">
+              <insight.icon className={`w-6 h-6 ${insight.color}`} />
+              <span className={`text-xs px-2 py-1 rounded-full ${
+                insight.trend === 'up' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+              }`}>
+                {insight.change}
+              </span>
+            </div>
+            <p className={`text-2xl font-bold ${insight.color} mb-1`}>{insight.value}</p>
+            <p className="text-gray-400 text-sm font-medium mb-2">{insight.metric}</p>
+            <p className="text-gray-500 text-xs">{insight.description}</p>
           </div>
-          <p className="text-white font-bold text-lg">{marketData.luxuryIndex}</p>
-          <p className="text-gray-400 text-xs">Indice Luxe SELEZIONE</p>
-        </div>
-        
-        <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-blue-500/30">
-          <div className="flex items-center justify-between mb-2">
-            <BarChart3 className="w-5 h-5 text-blue-400" />
-            <span className="text-xs text-blue-400">24h</span>
-          </div>
-          <p className="text-white font-bold text-lg">{marketData.volume}</p>
-          <p className="text-gray-400 text-xs">Volume transactions</p>
-        </div>
-
-        <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-purple-500/30">
-          <div className="flex items-center justify-between mb-2">
-            <Instagram className="w-5 h-5 text-purple-400" />
-            <span className="text-xs text-purple-400">POSTS</span>
-          </div>
-          <p className="text-white font-bold text-lg">{instagramPosts.length}</p>
-          <p className="text-gray-400 text-xs">Marques trackées</p>
-        </div>
-
-        <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-amber-500/30">
-          <div className="flex items-center justify-between mb-2">
-            <Globe className="w-5 h-5 text-amber-400" />
-            <span className="text-xs text-amber-400 animate-pulse">LIVE</span>
-          </div>
-          <p className="text-white font-bold text-lg">{fashionNews.length}</p>
-          <p className="text-gray-400 text-xs">Actualités mode</p>
-        </div>
+        ))}
       </div>
 
-      {/* Feed Instagram Luxe RÉEL */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
+      {/* Instagram Feed Premium */}
+      <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 mb-6">
+        <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-white flex items-center">
-            <Instagram className="w-6 h-6 mr-2 text-purple-400" />
-            Feed Instagram Luxe - Temps Réel
+            <Instagram className="w-6 h-6 mr-3 text-purple-400" />
+            Feed Instagram Luxe • Posts Authentiques
           </h2>
           <div className="flex items-center space-x-3">
-            <span className="text-xs text-gray-400">
-              {LUXURY_BRANDS.length} marques • Auto MAJ 5min
+            <span className="text-xs text-gray-400 bg-gray-800/50 px-3 py-1 rounded-full">
+              {instagramPosts.length} marques • Temps réel
             </span>
-            <button
-              onClick={fetchInstagramPosts}
-              disabled={loadingInstagram}
-              className="p-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
-              title="Actualiser Instagram"
-            >
-              <RefreshCw className={`w-4 h-4 text-white ${loadingInstagram ? 'animate-spin' : ''}`} />
-            </button>
           </div>
         </div>
 
-        {loadingInstagram ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-              <div key={i} className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-gray-700 animate-pulse">
-                <div className="w-full h-48 bg-gray-700 rounded-lg mb-3"></div>
-                <div className="flex items-center space-x-2 mb-2">
-                  <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-                  <div className="w-24 h-4 bg-gray-700 rounded"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {instagramPosts.map((post) => (
+            <div key={post.id} className="bg-gray-900/50 rounded-xl overflow-hidden border border-gray-700/50 hover:border-purple-500/50 transition-all group">
+              <div className="relative">
+                <img 
+                  src={post.image} 
+                  alt={`${post.brand} post`}
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 flex items-center space-x-1">
+                  {post.verified && <Star className="w-3 h-3 text-blue-400" />}
+                  <span className="text-xs text-white">{post.category}</span>
                 </div>
-                <div className="w-full h-4 bg-gray-700 rounded mb-2"></div>
-                <div className="w-3/4 h-3 bg-gray-700 rounded"></div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {instagramPosts.map((post) => (
-              <div key={post.id} className="bg-black/60 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-purple-500/50 transition-all group">
-                {/* Image du post */}
-                <div className="relative">
-                  <img 
-                    src={post.image} 
-                    alt={`${post.brand} post`}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1">
-                    <span className="text-xs text-white font-medium">{post.category}</span>
-                  </div>
-                  <div className="absolute bottom-2 left-2 right-2">
-                    <div className="bg-black/70 backdrop-blur-sm rounded-lg p-2">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-xs">
-                          @
-                        </div>
-                        <span className="text-white text-sm font-medium">{post.brand}</span>
-                        <span className="text-gray-400 text-xs">@{post.handle}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Contenu du post */}
-                <div className="p-4">
-                  <p className="text-gray-300 text-sm mb-3 line-clamp-2 leading-relaxed">
-                    {post.caption}
-                  </p>
-                  
-                  {/* Hashtags */}
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {post.hashtags.slice(0, 3).map((tag, idx) => (
-                      <span key={idx} className="text-xs text-purple-400 hover:text-purple-300 cursor-pointer">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Stats et actions */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4 text-gray-400 text-xs">
-                      <div className="flex items-center space-x-1">
-                        <Heart className="w-4 h-4" />
-                        <span>{post.likes.toLocaleString()}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <MessageCircle className="w-4 h-4" />
-                        <span>{post.comments.toLocaleString()}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1 text-gray-500 text-xs">
-                      <Clock className="w-3 h-3" />
-                      <span>{post.posted}</span>
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-700">
+                <div className="absolute bottom-3 left-3 right-3">
+                  <div className="bg-black/80 backdrop-blur-sm rounded-lg p-2">
                     <div className="flex items-center space-x-2">
-                      <button className="p-2 text-gray-400 hover:text-red-400 transition-colors">
-                        <Heart className="w-4 h-4" />
-                      </button>
-                      <button className="p-2 text-gray-400 hover:text-blue-400 transition-colors">
-                        <Share className="w-4 h-4" />
-                      </button>
-                      <button className="p-2 text-gray-400 hover:text-amber-400 transition-colors">
-                        <Bookmark className="w-4 h-4" />
-                      </button>
+                      <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                        <Instagram className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="text-white text-sm font-medium">{post.brand}</span>
+                      <span className="text-gray-400 text-xs">@{post.handle}</span>
                     </div>
-                    <button className="text-xs text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
-                      <ExternalLink className="w-3 h-3" />
-                      <span>Voir sur IG</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4">
+                <p className="text-gray-300 text-sm mb-3 line-clamp-3 leading-relaxed">
+                  {post.caption}
+                </p>
+
+                <div className="flex items-center justify-between text-gray-400 text-xs mb-3">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-1">
+                      <Heart className="w-4 h-4" />
+                      <span>{post.likes.toLocaleString()}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <MessageCircle className="w-4 h-4" />
+                      <span>{post.comments.toLocaleString()}</span>
+                    </div>
+                  </div>
+                  <span className="flex items-center space-x-1">
+                    <Clock className="w-3 h-3" />
+                    <span>{post.posted}</span>
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between pt-3 border-t border-gray-700">
+                  <div className="flex items-center space-x-2">
+                    <button className="p-2 text-gray-400 hover:text-red-400 transition-colors rounded-lg hover:bg-gray-800/50">
+                      <Heart className="w-4 h-4" />
+                    </button>
+                    <button className="p-2 text-gray-400 hover:text-blue-400 transition-colors rounded-lg hover:bg-gray-800/50">
+                      <Share className="w-4 h-4" />
                     </button>
                   </div>
+                  <button 
+                    onClick={() => window.open(`https://instagram.com/${post.handle}`, '_blank')}
+                    className="text-xs text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1 px-2 py-1 rounded-lg hover:bg-purple-500/10"
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    <span>Voir post</span>
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Actualités Luxe Premium avec Articles Complets */}
+      <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 mb-6">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-white flex items-center">
+            <Award className="w-6 h-6 mr-3 text-amber-400" />
+            Intelligence Luxe • Actualités Exclusives
+          </h2>
+          <div className="flex items-center space-x-3">
+            <select 
+              value="all"
+              className="text-xs bg-gray-800/50 text-white px-3 py-2 rounded-lg border border-gray-600/50 focus:border-amber-500/50 outline-none"
+            >
+              <option value="all">Toutes les actualités</option>
+              <option value="marché">Marché & Finance</option>
+              <option value="prix">Évolution Prix</option>
+              <option value="tech">Innovation & Tech</option>
+            </select>
+            <span className="text-xs text-gray-400 bg-gray-800/50 px-3 py-1 rounded-full">
+              {premiumNews.length} articles • Sources vérifiées
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {premiumNews.map((article) => (
+            <div 
+              key={article.id}
+              className="bg-gray-900/50 rounded-xl overflow-hidden border border-gray-700/50 hover:border-amber-500/50 transition-all cursor-pointer group"
+              onClick={() => openFullArticle(article)}
+            >
+              {/* Badges */}
+              <div className="relative">
+                <img 
+                  src={article.image} 
+                  alt={article.title}
+                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
+                
+                {/* Badges overlay */}
+                <div className="absolute top-3 left-3 right-3 flex items-start justify-between">
+                  <div className="flex items-center space-x-2">
+                    <span className="bg-amber-500/90 text-white text-xs px-2 py-1 rounded-full font-medium">
+                      {article.category}
+                    </span>
+                    {article.premium && (
+                      <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2 py-1 rounded-full font-medium">
+                        ✨ PREMIUM
+                      </span>
+                    )}
+                  </div>
+                  {article.trending && (
+                    <span className="bg-red-500 text-white text-xs px-2 py-1 rounded-full animate-pulse">
+                      🔥 TRENDING
+                    </span>
+                  )}
+                </div>
+
+                {/* Reading time overlay */}
+                <div className="absolute bottom-3 left-3">
+                  <span className="bg-black/70 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full flex items-center space-x-1">
+                    <Clock className="w-3 h-3" />
+                    <span>{article.readTime}</span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-5">
+                <h3 className="font-bold text-white text-base mb-3 group-hover:text-amber-400 transition-colors leading-tight line-clamp-2">
+                  {article.title}
+                </h3>
+                
+                <p className="text-gray-400 text-sm mb-4 line-clamp-3 leading-relaxed">
+                  {article.summary}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1 mb-4">
+                  {article.tags.slice(0, 3).map((tag, idx) => (
+                    <span key={idx} className="text-xs bg-gray-800/50 text-gray-400 px-2 py-1 rounded-lg hover:bg-amber-500/20 hover:text-amber-400 transition-colors">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Article meta */}
+                <div className="flex items-center justify-between pt-3 border-t border-gray-700">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-amber-400 text-xs font-medium">{article.source}</span>
+                    <span className="text-gray-500 text-xs">•</span>
+                    <span className="text-gray-500 text-xs">{article.publishedAt}</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-1 text-gray-500 text-xs">
+                      <Eye className="w-3 h-3" />
+                      <span>{article.engagement}</span>
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-amber-400 transition-colors" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-center mt-6 pt-4 border-t border-gray-700/50">
+          <p className="text-xs text-gray-500 flex items-center">
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></span>
+            Sources premium • Actualisation 10min • Contenu exclusif SELEZIONE
+          </p>
+        </div>
+      </div>
+
+      {/* Analytics Marché Premium */}
+      <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
+        <h3 className="text-lg font-bold text-white mb-6 flex items-center">
+          <BarChart3 className="w-6 h-6 mr-3 text-amber-400" />
+          Analytics Marché • Performance Temps Réel
+        </h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/50">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-white font-medium">Indice Hermès</span>
+              <TrendingUp className="w-5 h-5 text-amber-400" />
+            </div>
+            <div className="flex items-baseline space-x-2">
+              <span className="text-2xl font-bold text-amber-400">{luxuryData.hermesIndex}</span>
+              <span className="text-green-400 text-sm font-medium">+8.3%</span>
+            </div>
+            <p className="text-gray-500 text-xs mt-1">vs mois précédent</p>
+          </div>
+
+          <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/50">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-white font-medium">Volume Marché</span>
+              <DollarSign className="w-5 h-5 text-green-400" />
+            </div>
+            <div className="flex items-baseline space-x-2">
+              <span className="text-2xl font-bold text-green-400">€{luxuryData.marketVolume}M</span>
+              <span className="text-green-400 text-sm font-medium">+23%</span>
+            </div>
+            <p className="text-gray-500 text-xs mt-1">transactions mensuelles</p>
+          </div>
+
+          <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/50">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-white font-medium">Marque Tendance</span>
+              <Crown className="w-5 h-5 text-purple-400" />
+            </div>
+            <div className="flex items-baseline space-x-2">
+              <span className="text-2xl font-bold text-purple-400">{luxuryData.trendingBrand}</span>
+            </div>
+            <p className="text-gray-500 text-xs mt-1">leader ce mois-ci</p>
+          </div>
+        </div>
+
+        {/* Performance des grandes marques */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {['Hermès', 'Chanel', 'Louis Vuitton', 'Rolex'].map((brand, index) => {
+            const performances = [
+              { brand: 'Hermès', index: luxuryData.hermesIndex, growth: '+18.2%', color: 'text-amber-400' },
+              { brand: 'Chanel', index: luxuryData.chanelIndex, growth: '+12.4%', color: 'text-pink-400' },
+              { brand: 'Louis Vuitton', index: luxuryData.lvIndex, growth: '+15.7%', color: 'text-yellow-400' },
+              { brand: 'Rolex', index: 138.9, growth: '+11.3%', color: 'text-green-400' }
+            ];
+            const perf = performances[index];
+            
+            return (
+              <div key={brand} className="bg-gray-900/30 rounded-lg p-4 hover:bg-gray-900/50 transition-colors">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-white font-medium text-sm">{perf.brand}</span>
+                  <span className={`text-xs font-bold ${perf.color}`}>{perf.growth}</span>
+                </div>
+                <p className={`text-lg font-bold ${perf.color} mb-1`}>{perf.index}</p>
+                <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-1000" 
+                    style={{ width: `${(perf.index / 150) * 100}%` }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-6 pt-4 border-t border-gray-700/50 text-center">
+          <p className="text-xs text-gray-500">
+            Données actualisées • Basé sur 22 fournisseurs premium • Algorithme propriétaire SELEZIONE
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
 
       {/* Actualités Mode Professionnelles */}
       <div className="space-y-4">
