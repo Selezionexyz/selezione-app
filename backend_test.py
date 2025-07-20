@@ -11,7 +11,7 @@ import time
 from typing import Dict, Any
 
 # Test configuration
-BACKEND_URL = "https://selezione-ia-backend.onrender.com"  # Production backend
+BACKEND_URL = "http://localhost:8001"  # Local backend
 API_BASE = f"{BACKEND_URL}/api"
 
 class BackendTester:
