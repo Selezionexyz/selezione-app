@@ -297,9 +297,8 @@ const SaasLayout = () => {
               {activeView === 'agents' && 'Trois intelligences expertes pour le luxe'}
               {activeView === 'outils' && 'GPT-4 Turbo + Scraping marché réel'}
               {activeView === 'fiche' && 'Création automatique optimisée SEO'}
-              {activeView === 'scraper' && 'Analyse temps réel Vestiaire Collective'}
-              {activeView === 'quiz' && 'Testez et certifiez vos connaissances'}
               {activeView === 'academy' && 'Formation complète - 20+ chapitres'}
+              {activeView === 'tchat' && 'Support client • Experts • Communauté'}
             </p>
           </div>
         </div>
