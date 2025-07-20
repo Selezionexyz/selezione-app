@@ -52,7 +52,7 @@ const PageVente = () => {
         'Support prioritaire < 2h'
       ],
       bonus: [
-        'Liste 500+ fournisseurs Europe + Asie',
+        'Réseau 22 fournisseurs premium Europe + Asie',
         'Templates négociation',
         'Calculateur ROI exclusif'
       ]
