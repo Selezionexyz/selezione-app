@@ -53,11 +53,10 @@ const SaasLayout = () => {
     agents: <AssistantLuxe />,
     outils: <OutilEstimationIA />,
     fiche: <FicheProduit />,
-    scraper: <ScraperVC />,
-    quiz: <Quiz />,
     academy: <Academy />,
     marketplace: <ComparateurLuxe />,
     vente: <PageVente />,
+    tchat: <OutilTchat />,
   };
 
   const Sidebar = () => {
