@@ -177,58 +177,63 @@ export default function OutilEstimationIA() {
 
   const handleEstimation = async () => {
     if (!query.trim() || !marque) {
-      alert('❌ Veuillez remplir au minimum le produit et la marque');
+      alert('Veuillez renseigner la description et la marque');
       return;
     }
-    
+
     setLoading(true);
     setResult(null);
+    setError('');
+    setMarketData(null);
+    setComparativeResults(null);
 
-    // Toujours utiliser l'estimation locale intelligente pour plus de fiabilité
     try {
-      const description = `${marque} ${query} - État: ${etat}${periode ? `, Période: ${periode}` : ''}`;
+      // Système de fallback intelligent PRIORITAIRE pour éviter les plantages
+      console.log('Démarrage estimation avec fallback intelligent');
       
-      // Essayer le backend en premier (optionnel)
-      let backendResult = null;
+      const fallbackResult = generateIntelligentFallback(query, marque, periode, etat);
+      
+      const formattedResult = {
+        name: `${marque} - ${query}`,
+        prixBoutique: fallbackResult.prixBoutique,
+        revente: fallbackResult.revente,
+        achat: fallbackResult.achat,
+        estimation: fallbackResult.estimation,
+        periode: periode || 'Non spécifiée',
+        estimationMode: 'intelligent_local',
+        confidence: 85
+      };
+      
+      setResult(formattedResult);
+      
+      // Tentative d'amélioration avec API en arrière-plan (SANS bloquer)
       try {
-        const res = await fetch('https://selezione-ia-backend.onrender.com/estimation-luxe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ description })
-        });
-        
-        if (res.ok) {
-          const data = await res.json();
-          if (data && !data.error) {
-            backendResult = data;
-          }
-        }
-      } catch (backendError) {
-        console.warn('Backend indisponible, utilisation estimation locale');
-      }
+        const response = await Promise.race([
+          fetch(`${API_BASE}/estimation-luxe`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ description: query }),
+          }),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000))
+        ]);
 
-      // Utiliser l'estimation locale intelligente
-      const mockResult = getMockEstimation(description);
-      
-      // Si le backend fonctionne, enrichir avec ses données
-      if (backendResult) {
-        setResult({
-          ...mockResult,
-          backendData: backendResult,
-          source: 'IA + Backend',
-          confidence: 95
-        });
-      } else {
-        setResult({
-          ...mockResult,
-          source: 'IA Locale',
-          confidence: 88
-        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log('API enhancement available');
+          // Améliorer le résultat mais ne pas remplacer complètement
+          setResult(prev => ({
+            ...prev,
+            estimation: data.estimation || prev.estimation,
+            confidence: 95
+          }));
+        }
+      } catch (apiError) {
+        console.log('API enhancement indisponible, utilisation locale uniquement');
       }
       
-    } catch (error) {
-      console.error('Erreur estimation:', error);
-      alert('❌ Erreur lors de l\'estimation');
+    } catch (mainError) {
+      console.error('Erreur système estimation:', mainError);
+      setError('Erreur temporaire. Veuillez réessayer dans quelques instants.');
     } finally {
       setLoading(false);
     }
