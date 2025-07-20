@@ -559,6 +559,8 @@ class BackendTester:
         self.test_estimation_api()  # Priority test
         self.test_chat_api()
         self.test_market_data_api()
+        self.test_marketplace_functionality()
+        self.test_performance_stability()
         self.test_error_handling()
         
         # Print summary
