@@ -81,25 +81,53 @@ const SaasLayout = () => {
         badge: null
       },
       { 
-        id: 'agents', 
-        label: 'Agents IA', 
+        id: 'marketplace', 
+        label: 'Marketplace', 
+        icon: ShoppingBag,
+        description: 'B2B Pro',
+        badge: null
+      },
+      { 
+        id: 'estimation', 
+        label: 'Estimation IA', 
+        icon: Zap,
+        description: 'GPT-4 + Marché',
+        badge: null
+      },
+      { 
+        id: 'calculateur', 
+        label: 'Calculateur Marge', 
+        icon: Calculator,
+        description: 'Calcul automatique',
+        badge: null
+      },
+      { 
+        id: 'fichiers', 
+        label: 'Fichiers & Commandes', 
+        icon: FileText,
+        description: 'Gestion documents',
+        badge: null
+      },
+      { 
+        id: 'outils-business', 
+        label: 'Outils Business', 
+        icon: Target,
+        description: 'Suite professionnelle',
+        badge: 'PRO'
+      },
+      { 
+        id: 'agent', 
+        label: 'Assistant IA', 
         icon: Bot,
         description: '3 experts IA',
         badge: 'PRO'
       },
       { 
-        id: 'outils', 
-        label: 'Estimation IA', 
-        icon: Calculator,
-        description: 'GPT-4 + Marché',
-        badge: null
-      },
-      { 
-        id: 'fiche', 
-        label: 'Fiche Produit', 
-        icon: FileText,
-        description: 'Générateur auto',
-        badge: null
+        id: 'chat', 
+        label: 'Community Chat', 
+        icon: MessageCircle,
+        description: 'Support 24/7',
+        badge: 'LIVE'
       },
       { 
         id: 'academy', 
@@ -109,23 +137,16 @@ const SaasLayout = () => {
         badge: 'NEW'
       },
       { 
-        id: 'marketplace', 
-        label: 'Marketplace', 
-        icon: ShoppingCart,
-        description: 'B2B Pro',
+        id: 'compte', 
+        label: 'Mon Compte', 
+        icon: User,
+        description: 'Profil & paramètres',
         badge: null
       },
       { 
-        id: 'tchat', 
-        label: 'Chat Support', 
-        icon: MessageCircle,
-        description: 'Support 24/7',
-        badge: 'LIVE'
-      },
-      { 
-        id: 'vente', 
-        label: 'Pricing SELEZIONE', 
-        icon: CreditCard,
+        id: 'pricing', 
+        label: 'Pricing Selezione', 
+        icon: Crown,
         description: 'Nos formules',
         badge: 'HOT'
       },
