@@ -54,11 +54,19 @@ const SaasLayout = () => {
 
   const views = {
     dashboard: <Dashboard />,
+    marketplace: <ComparateurLuxe />,
+    estimation: <OutilEstimationIA />,
+    calculateur: <CalculateurMarge />,
+    fichiers: <HebergeurPanier />,
+    'outils-business': <OutilsBusiness />,
+    agent: <AssistantLuxe />,
+    chat: <OutilTchat />,
+    academy: <Academy />,
+    compte: <ComptesMembres />,
+    pricing: <PageVente />,
     agents: <AssistantLuxe />,
     outils: <OutilEstimationIA />,
     fiche: <FicheProduit />,
-    academy: <Academy />,
-    marketplace: <ComparateurLuxe />,
     vente: <PageVente />,
     tchat: <OutilTchat />,
   };
