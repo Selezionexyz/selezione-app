@@ -60,10 +60,10 @@ const SaasLayout = () => {
     marketplace: <ComparateurLuxe />,
     estimation: <OutilEstimationIA />,
     calculateur: <CalculateurMarge />,
-    scanner: <OutilsBusiness />, // Scanner intégré dans Outils Business pour l'instant
+    scanner: <ScannerCodeBarres />,
     tendances: <SuiviTendances />,
     fichiers: <HebergeurPanier />,
-    crm: <OutilsBusiness />, // CRM intégré dans Outils Business pour l'instant
+    crm: <CRMFournisseurs />,
     academy: <Academy />,
     chat: <OutilTchat />,
     agent: <AssistantLuxe />,
