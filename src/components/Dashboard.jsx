@@ -3,7 +3,7 @@ import {
   TrendingUp, BarChart3, Eye, Clock, Globe, Star, Instagram, ExternalLink,
   Heart, MessageCircle, Share, Bookmark, Camera, Users, ArrowUpRight,
   PlayCircle, Image, Calendar, MapPin, Tag, Award, Crown, Zap,
-  DollarSign, Package, ShoppingBag, Target, Activity
+  DollarSign, Package, ShoppingBag, Target, Activity, Newspaper, RefreshCw
 } from 'lucide-react';
 
 const Dashboard = () => {
