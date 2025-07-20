@@ -277,6 +277,7 @@ const SaasLayout = () => {
             {activeView === 'quiz' && <Brain className="w-5 h-5 text-amber-400" />}
             {activeView === 'academy' && <GraduationCap className="w-5 h-5 text-amber-400" />}
             {activeView === 'marketplace' && <ShoppingCart className="w-5 h-5 text-amber-400" />}
+            {activeView === 'tchat' && <MessageCircle className="w-5 h-5 text-amber-400" />}
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">
