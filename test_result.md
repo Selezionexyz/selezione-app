@@ -1,52 +1,98 @@
-# 🚀 MARKETPLACE SELEZIONE ULTRA - PROJET TERMINÉ ✅
+backend:
+  - task: "Backend Health Check"
+    implemented: true
+    working: false
+    file: "backend/main.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: Production backend on Render.com is Express.js, not FastAPI. Root endpoint works but all /api/ endpoints return 404. Backend deployment mismatch detected."
 
-## 📋 **RÉSUMÉ UTILISATEUR**
-**Demande initiale :** Améliorer et pousser au maximum l'outil d'estimation de produits de luxe dans le prêt-à-porter, en ajoutant tous les paramètres de l'Agent IA et plus encore.
+  - task: "Estimation IA API"
+    implemented: true
+    working: false
+    file: "backend/main.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: /api/estimation endpoint returns 404. This explains why estimation 'tourne dans le vide' - frontend calls non-existent endpoints. Deployed backend is Express.js, not FastAPI."
 
-## ✅ **MISSION ACCOMPLIE - MARKETPLACE ULTRA-PUISSANTE**
+  - task: "Chat/Assistant IA API"
+    implemented: true
+    working: false
+    file: "backend/main.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: /api/chat endpoint returns 404. Assistant IA cannot work because endpoint doesn't exist on deployed backend."
 
-### 🎯 **FONCTIONNALITÉS ULTRA-AVANCÉES AJOUTÉES :**
+  - task: "Market Data API"
+    implemented: true
+    working: false
+    file: "backend/main.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: /api/market-data endpoint returns 404. Dashboard stats cannot load."
 
-**🤖 FILTRES AGENT IA INTÉGRÉS :**
-- ✅ Modèles spécifiques par marque (Birkin 30, Speedy 25, Classic Flap Medium, etc.)
-- ✅ Tailles précises (25cm, 30cm, 35-45 chaussures, etc.)  
-- ✅ Matières détaillées (Cuir Caviar, Cuir Togo, Toile Monogram, etc.)
-- ✅ Couleurs complètes (28 couleurs vs 8 de base)
-- ✅ **ANNÉES 1970-2030 par décennie** comme demandé spécifiquement
+  - task: "Business Tools APIs"
+    implemented: true
+    working: false
+    file: "backend/main.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: All 5 business tools fail because they depend on missing /api/ endpoints. Root cause: wrong backend deployed."
 
-**📸 UPLOAD ULTRA-PUISSANT :**
-- ✅ **10 photos max** (au lieu de 6 standard)
-- ✅ **8MB par photo** (au lieu de 5MB)
-- ✅ Formats : JPG, PNG, WEBP, HEIC
-- ✅ Prévisualisation avec réorganisation
-- ✅ Gestion d'erreurs avancée
+frontend:
+  - task: "Frontend Integration"
+    implemented: true
+    working: "NA"
+    file: "src/App.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Not tested - frontend testing not in scope. Issue is backend deployment mismatch."
 
-**🤖 ESTIMATION PRIX IA CORRIGÉE :**
-- ✅ Contexte "SECONDE MAIN UNIQUEMENT" ajouté
-- ✅ Suggestion automatique lors de la saisie
-- ✅ Fourchette de prix intelligente
-- ✅ Confidence score IA
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
 
-**💎 DESIGN ULTRA-MODERNE :**
-- ✅ Interface glassmorphisme avec backdrop-blur
-- ✅ Gradients dynamiques (green/purple/pink)
-- ✅ Stats temps réel dans le header
-- ✅ Badges et animations fluides
-- ✅ Modal produit ultra-détaillée
+test_plan:
+  current_focus:
+    - "Backend Health Check"
+    - "Estimation IA API"
+    - "Chat/Assistant IA API"
+    - "Market Data API"
+    - "Business Tools APIs"
+  stuck_tasks:
+    - "All backend tasks - deployment mismatch"
+  test_all: false
+  test_priority: "high_first"
 
-## 🗄️ **BASE DE DONNÉES ULTRA-COMPLÈTE**
-
-### **CATÉGORIES :** 4 principales
-- **Sacs à main :** 10 marques, 30+ modèles spécifiques
-- **Chaussures :** 8 marques, 15+ modèles spécifiques  
-- **Bijoux :** 7 marques, 6+ modèles spécifiques
-- **Montres :** 8 marques, 10+ modèles spécifiques
-
-### **ANNÉES 1970-2030 :**
-```
-1970-1979, 1980-1989, 1990-1999, 2000-2009, 
-2010-2019, 2020-2029, 2030-2039
-```
+agent_communication:
+  - agent: "testing"
+    message: "CRITICAL DEPLOYMENT MISMATCH DISCOVERED: The production backend at https://selezione-ia-backend.onrender.com is running Express.js (confirmed by x-powered-by header), but the local code is FastAPI. This explains ALL user-reported issues: 1) Estimation IA 'tourne dans le vide' because /api/estimation returns 404, 2) 5 business tools don't work because all /api/ endpoints are missing, 3) Only root endpoint works. SOLUTION: Either deploy the correct FastAPI backend or update frontend to work with existing Express.js backend."
 
 ### **MATIÈRES PAR CATÉGORIE :**
 - Sacs : Cuir Caviar, Cuir Togo, Toile Monogram, Cuir Epi, etc.
