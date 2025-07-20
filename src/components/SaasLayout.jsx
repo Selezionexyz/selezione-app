@@ -64,6 +64,7 @@ const SaasLayout = () => {
     chat: <OutilTchat />,
     academy: <Academy />,
     compte: <ComptesMembres />,
+    tendances: <SuiviTendances />,
     pricing: <PageVente />,
     agents: <AssistantLuxe />,
     outils: <OutilEstimationIA />,
