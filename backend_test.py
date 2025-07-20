@@ -844,6 +844,7 @@ class BackendTester:
         self.test_market_data_api()
         self.test_marketplace_functionality()
         self.test_performance_stability()
+        self.test_new_professional_apis()  # NEW PROFESSIONAL APIs
         self.test_error_handling()
         
         # Print summary
