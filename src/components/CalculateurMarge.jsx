@@ -519,7 +519,7 @@ ANALYSE:
                       <AlertCircle className="w-4 h-4 text-orange-400" />
                     )}
                     <span className="text-gray-300">
-                      ROI excellent (>50%): {results.roi_excellent ? 'Excellent' : 'Modéré'}
+                      ROI excellent (&gt;50%): {results.roi_excellent ? 'Excellent' : 'Modéré'}
                     </span>
                   </div>
                   
