@@ -315,8 +315,180 @@ class BackendTester:
                 f"Exception: {str(e)}"
             )
     
+    def test_marketplace_functionality(self):
+        """Test 5: Marketplace-specific functionality"""
+        print("\n🛍️ Testing Marketplace Functionality")
+        
+        # Test estimation with extreme values
+        extreme_cases = [
+            {
+                "name": "Very Old Item (1970)",
+                "data": {
+                    "marque": "Hermès",
+                    "modele": "Kelly",
+                    "condition": "vintage",
+                    "annee": "1970"
+                }
+            },
+            {
+                "name": "Future Item (2030)",
+                "data": {
+                    "marque": "Chanel",
+                    "modele": "Classic Flap",
+                    "condition": "neuf",
+                    "annee": "2030"
+                }
+            },
+            {
+                "name": "Poor Condition Item",
+                "data": {
+                    "marque": "Louis Vuitton",
+                    "modele": "Speedy",
+                    "condition": "usagé",
+                    "couleur": "monogram"
+                }
+            }
+        ]
+        
+        for test_case in extreme_cases:
+            try:
+                response = requests.post(
+                    f"{API_BASE}/estimation",
+                    json=test_case["data"],
+                    timeout=15
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if (data.get("estimation_min", 0) > 0 and 
+                        data.get("estimation_max", 0) > data.get("estimation_min", 0)):
+                        self.log_result(
+                            f"Marketplace - {test_case['name']}", 
+                            True, 
+                            f"Handles extreme case: {data['estimation_min']}-{data['estimation_max']}€"
+                        )
+                    else:
+                        self.log_result(
+                            f"Marketplace - {test_case['name']}", 
+                            False, 
+                            f"Invalid price range for extreme case: {data}"
+                        )
+                else:
+                    self.log_result(
+                        f"Marketplace - {test_case['name']}", 
+                        False, 
+                        f"HTTP {response.status_code} for extreme case"
+                    )
+                    
+            except Exception as e:
+                self.log_result(
+                    f"Marketplace - {test_case['name']}", 
+                    False, 
+                    f"Exception: {str(e)}"
+                )
+    
+    def test_performance_stability(self):
+        """Test 6: Performance and Stability"""
+        print("\n⚡ Testing Performance and Stability")
+        
+        # Test multiple rapid requests (simulating high load)
+        try:
+            start_time = time.time()
+            successful_requests = 0
+            
+            for i in range(5):  # 5 rapid requests
+                response = requests.post(
+                    f"{API_BASE}/estimation",
+                    json={
+                        "marque": "Chanel",
+                        "modele": "Classic Flap",
+                        "condition": "excellent état"
+                    },
+                    timeout=10
+                )
+                
+                if response.status_code == 200:
+                    successful_requests += 1
+            
+            end_time = time.time()
+            total_time = end_time - start_time
+            
+            if successful_requests == 5:
+                self.log_result(
+                    "Performance - Rapid Requests", 
+                    True, 
+                    f"Handled 5 rapid requests in {total_time:.2f}s (avg: {total_time/5:.2f}s per request)"
+                )
+            else:
+                self.log_result(
+                    "Performance - Rapid Requests", 
+                    False, 
+                    f"Only {successful_requests}/5 requests succeeded"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Performance - Rapid Requests", 
+                False, 
+                f"Exception during load test: {str(e)}"
+            )
+        
+        # Test API consistency (same input should give similar results)
+        try:
+            test_data = {
+                "marque": "Hermès",
+                "modele": "Birkin 30",
+                "condition": "excellent état",
+                "couleur": "noir",
+                "annee": "2020"
+            }
+            
+            results = []
+            for i in range(3):
+                response = requests.post(
+                    f"{API_BASE}/estimation",
+                    json=test_data,
+                    timeout=10
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    results.append(data.get("prix_moyen", 0))
+            
+            if len(results) == 3:
+                # Check if results are consistent (within 10% variance)
+                avg_price = sum(results) / len(results)
+                max_variance = max(abs(price - avg_price) for price in results)
+                variance_percent = (max_variance / avg_price) * 100 if avg_price > 0 else 100
+                
+                if variance_percent <= 10:
+                    self.log_result(
+                        "Performance - Consistency", 
+                        True, 
+                        f"Results consistent: {results} (variance: {variance_percent:.1f}%)"
+                    )
+                else:
+                    self.log_result(
+                        "Performance - Consistency", 
+                        False, 
+                        f"Results inconsistent: {results} (variance: {variance_percent:.1f}%)"
+                    )
+            else:
+                self.log_result(
+                    "Performance - Consistency", 
+                    False, 
+                    f"Could not complete consistency test: {len(results)}/3 requests succeeded"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Performance - Consistency", 
+                False, 
+                f"Exception during consistency test: {str(e)}"
+            )
+    
     def test_error_handling(self):
-        """Test 5: Error Handling"""
+        """Test 7: Error Handling"""
         print("\n🚨 Testing Error Handling")
         
         # Test invalid estimation request
