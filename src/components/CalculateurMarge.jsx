@@ -508,7 +508,7 @@ ANALYSE:
                       <AlertCircle className="w-4 h-4 text-orange-400" />
                     )}
                     <span className="text-gray-300">
-                      Marge saine (>20%): {results.marge_saine ? 'Oui' : 'Faible'}
+                      Marge saine (&gt;20%): {results.marge_saine ? 'Oui' : 'Faible'}
                     </span>
                   </div>
                   
