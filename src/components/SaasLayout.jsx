@@ -21,6 +21,7 @@ import CalculateurMarge from './CalculateurMarge';
 import HebergeurPanier from './HebergeurPanier';
 import OutilsBusiness from './OutilsBusiness';
 import ComptesMembres from './ComptesMembres';
+import SuiviTendances from './SuiviTendances';
 
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
