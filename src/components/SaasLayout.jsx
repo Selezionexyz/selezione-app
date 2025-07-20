@@ -303,13 +303,22 @@ const SaasLayout = () => {
         <div className="hidden lg:flex items-center space-x-3">
           <div className="p-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-lg">
             {activeView === 'dashboard' && <Home className="w-5 h-5 text-amber-400" />}
+            {activeView === 'marketplace' && <ShoppingBag className="w-5 h-5 text-amber-400" />}
+            {activeView === 'estimation' && <Zap className="w-5 h-5 text-amber-400" />}
+            {activeView === 'calculateur' && <Calculator className="w-5 h-5 text-amber-400" />}
+            {activeView === 'fichiers' && <FileText className="w-5 h-5 text-amber-400" />}
+            {activeView === 'outils-business' && <Target className="w-5 h-5 text-amber-400" />}
+            {activeView === 'agent' && <Bot className="w-5 h-5 text-amber-400" />}
+            {activeView === 'chat' && <MessageCircle className="w-5 h-5 text-amber-400" />}
+            {activeView === 'academy' && <GraduationCap className="w-5 h-5 text-amber-400" />}
+            {activeView === 'compte' && <User className="w-5 h-5 text-amber-400" />}
+            {activeView === 'pricing' && <Crown className="w-5 h-5 text-amber-400" />}
+            {/* Legacy support */}
             {activeView === 'agents' && <Bot className="w-5 h-5 text-amber-400" />}
             {activeView === 'outils' && <Calculator className="w-5 h-5 text-amber-400" />}
             {activeView === 'fiche' && <FileText className="w-5 h-5 text-amber-400" />}
             {activeView === 'scraper' && <TrendingUp className="w-5 h-5 text-amber-400" />}
             {activeView === 'quiz' && <Brain className="w-5 h-5 text-amber-400" />}
-            {activeView === 'academy' && <GraduationCap className="w-5 h-5 text-amber-400" />}
-            {activeView === 'marketplace' && <ShoppingCart className="w-5 h-5 text-amber-400" />}
             {activeView === 'tchat' && <MessageCircle className="w-5 h-5 text-amber-400" />}
           </div>
           <div>
