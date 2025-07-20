@@ -22,7 +22,8 @@ import CalculateurMarge from './CalculateurMarge';
 import HebergeurPanier from './HebergeurPanier';
 import OutilsBusiness from './OutilsBusiness';
 import ComptesMembres from './ComptesMembres';
-import SuiviTendances from './SuiviTendances';
+import ScannerCodeBarres from './ScannerCodeBarres';
+import CRMFournisseurs from './CRMFournisseurs';
 
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
