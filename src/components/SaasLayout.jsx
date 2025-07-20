@@ -145,6 +145,12 @@ const SaasLayout = () => {
       }
     ];
 
+    // Fonction pour changer de vue
+    const handleMenuClick = (viewId) => {
+      setActiveView(viewId);
+      setSidebarOpen(false); // Fermer sur mobile
+    };
+
     const bottomMenuItems = [
       { icon: Settings, label: 'Paramètres', action: 'settings' },
       { icon: HelpCircle, label: 'Support', action: 'support' },
