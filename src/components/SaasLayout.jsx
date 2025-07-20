@@ -3,7 +3,7 @@ import {
   Menu, X, Home, Brain, Calculator, TrendingUp, FileText,
   BookOpen, Bell, Diamond, Zap, Bot, GraduationCap, ShoppingCart, 
   Package, Star, Settings, User, CreditCard, LogOut, HelpCircle,
-  BarChart3, Award, Sparkles, Gem, Crown, Shield
+  BarChart3, Award, Sparkles, Gem, Crown, Shield, MessageCircle
 } from 'lucide-react';
 
 // Import de TOUS vos VRAIS composants existants
