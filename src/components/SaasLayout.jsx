@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 
 // Import de TOUS vos VRAIS composants existants
-import OutilEstimationIA from '@/components/OutilEstimationIA';
+import OutilEstimationIA from './OutilEstimationIA';
 import Dashboard from './Dashboard';
 import AssistantLuxe from './AssistantLuxe';
 import Academy from './Academy';
