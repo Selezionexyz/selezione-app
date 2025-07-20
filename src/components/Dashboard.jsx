@@ -374,25 +374,6 @@ const Dashboard = () => {
           ))}
         </div>
       </div>
-
-      {/* Actions Rapides */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          { id: 'outils', label: 'Estimation IA', icon: Zap, count: 'GPT-4 Turbo', color: 'amber' },
-          { id: 'agents', label: 'Agents IA', icon: Bot, count: '4 experts', color: 'green' },
-          { id: 'academy', label: 'Academy', icon: GraduationCap, count: '20 chapitres', color: 'blue' },
-          { id: 'marketplace', label: 'Marketplace', icon: ShoppingCart, count: 'B2B Pro', color: 'purple' }
-        ].map((action) => (
-          <button
-            key={action.id}
-            className={`bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-${action.color}-500/30 hover:border-${action.color}-500/50 transition-all group`}
-          >
-            <action.icon className={`w-8 h-8 text-${action.color}-400 mb-2 group-hover:scale-110 transition-transform`} />
-            <h3 className="text-white font-bold text-sm mb-1">{action.label}</h3>
-            <p className="text-gray-400 text-xs">{action.count}</p>
-          </button>
-        ))}
-      </div>
     </div>
   );
 };
