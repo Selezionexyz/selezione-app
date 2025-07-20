@@ -228,9 +228,13 @@ const SaasLayout = () => {
           </div>
         </div>
 
-        {/* Menu principal */}
-        <div className="p-4 space-y-2">
-          {menuItems.map((item) => (
+        {/* Menu principal avec thèmes */}
+        <div className="p-4 space-y-1">
+          {/* Séparateur BUSINESS */}
+          <div className="px-2 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
+            📊 Business
+          </div>
+          {menuItems.filter(item => item.theme === 'business').map((item) => (
             <button
               key={item.id}
               onClick={() => {
@@ -268,14 +272,244 @@ const SaasLayout = () => {
                   </div>
                 </div>
                 {item.badge && (
-                  <span className={`px-2 py-1 text-xs font-bold rounded-full ${
-                    item.badge === 'PRO' ? 'bg-purple-500 text-white' :
-                    item.badge === 'LIVE' ? 'bg-green-500 text-white' :
-                    item.badge === 'NEW' ? 'bg-blue-500 text-white' :
-                    'bg-gray-600 text-white'
+                  <div className={`px-2 py-1 text-xs font-bold rounded-full ${
+                    item.badge === 'PRO' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' :
+                    item.badge === 'NEW' ? 'bg-green-500/20 text-green-300 border border-green-500/30' :
+                    item.badge === 'LIVE' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
+                    item.badge === 'HOT' ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30' :
+                    item.badge === 'VIP' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
+                    'bg-gray-500/20 text-gray-300'
                   }`}>
                     {item.badge}
-                  </span>
+                  </div>
+                )}
+              </div>
+            </button>
+          ))}
+
+          {/* Séparateur OUTILS PRO */}
+          <div className="px-2 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider mt-4">
+            🛠️ Outils Pro
+          </div>
+          {menuItems.filter(item => item.theme === 'outils').map((item) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                setActiveView(item.id);
+                setSidebarOpen(false);
+              }}
+              className={`w-full group transition-all duration-200 ${
+                activeView === item.id
+                  ? 'bg-gradient-to-r from-purple-600 to-blue-600'
+                  : 'hover:bg-gray-800/50'
+              } rounded-xl`}
+            >
+              <div className="flex items-center justify-between p-3">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 rounded-lg transition-colors ${
+                    activeView === item.id
+                      ? 'bg-white/20'
+                      : 'bg-gray-700/50 group-hover:bg-gray-700'
+                  }`}>
+                    <item.icon className={`w-5 h-5 ${
+                      activeView === item.id ? 'text-white' : 'text-gray-300'
+                    }`} />
+                  </div>
+                  <div className="text-left">
+                    <p className={`font-medium text-sm ${
+                      activeView === item.id ? 'text-white' : 'text-gray-200'
+                    }`}>
+                      {item.label}
+                    </p>
+                    <p className={`text-xs ${
+                      activeView === item.id ? 'text-white/70' : 'text-gray-400'
+                    }`}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+                {item.badge && (
+                  <div className={`px-2 py-1 text-xs font-bold rounded-full ${
+                    item.badge === 'PRO' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' :
+                    item.badge === 'NEW' ? 'bg-green-500/20 text-green-300 border border-green-500/30' :
+                    item.badge === 'LIVE' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
+                    item.badge === 'HOT' ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30' :
+                    item.badge === 'VIP' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
+                    'bg-gray-500/20 text-gray-300'
+                  }`}>
+                    {item.badge}
+                  </div>
+                )}
+              </div>
+            </button>
+          ))}
+
+          {/* Séparateur GESTION */}
+          <div className="px-2 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider mt-4">
+            📁 Gestion
+          </div>
+          {menuItems.filter(item => item.theme === 'gestion').map((item) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                setActiveView(item.id);
+                setSidebarOpen(false);
+              }}
+              className={`w-full group transition-all duration-200 ${
+                activeView === item.id
+                  ? 'bg-gradient-to-r from-green-600 to-emerald-600'
+                  : 'hover:bg-gray-800/50'
+              } rounded-xl`}
+            >
+              <div className="flex items-center justify-between p-3">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 rounded-lg transition-colors ${
+                    activeView === item.id
+                      ? 'bg-white/20'
+                      : 'bg-gray-700/50 group-hover:bg-gray-700'
+                  }`}>
+                    <item.icon className={`w-5 h-5 ${
+                      activeView === item.id ? 'text-white' : 'text-gray-300'
+                    }`} />
+                  </div>
+                  <div className="text-left">
+                    <p className={`font-medium text-sm ${
+                      activeView === item.id ? 'text-white' : 'text-gray-200'
+                    }`}>
+                      {item.label}
+                    </p>
+                    <p className={`text-xs ${
+                      activeView === item.id ? 'text-white/70' : 'text-gray-400'
+                    }`}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+                {item.badge && (
+                  <div className={`px-2 py-1 text-xs font-bold rounded-full ${
+                    item.badge === 'PRO' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' :
+                    item.badge === 'NEW' ? 'bg-green-500/20 text-green-300 border border-green-500/30' :
+                    item.badge === 'LIVE' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
+                    item.badge === 'HOT' ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30' :
+                    item.badge === 'VIP' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
+                    'bg-gray-500/20 text-gray-300'
+                  }`}>
+                    {item.badge}
+                  </div>
+                )}
+              </div>
+            </button>
+          ))}
+
+          {/* Séparateur SUPPORT */}
+          <div className="px-2 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider mt-4">
+            💬 Support
+          </div>
+          {menuItems.filter(item => item.theme === 'support').map((item) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                setActiveView(item.id);
+                setSidebarOpen(false);
+              }}
+              className={`w-full group transition-all duration-200 ${
+                activeView === item.id
+                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600'
+                  : 'hover:bg-gray-800/50'
+              } rounded-xl`}
+            >
+              <div className="flex items-center justify-between p-3">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 rounded-lg transition-colors ${
+                    activeView === item.id
+                      ? 'bg-white/20'
+                      : 'bg-gray-700/50 group-hover:bg-gray-700'
+                  }`}>
+                    <item.icon className={`w-5 h-5 ${
+                      activeView === item.id ? 'text-white' : 'text-gray-300'
+                    }`} />
+                  </div>
+                  <div className="text-left">
+                    <p className={`font-medium text-sm ${
+                      activeView === item.id ? 'text-white' : 'text-gray-200'
+                    }`}>
+                      {item.label}
+                    </p>
+                    <p className={`text-xs ${
+                      activeView === item.id ? 'text-white/70' : 'text-gray-400'
+                    }`}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+                {item.badge && (
+                  <div className={`px-2 py-1 text-xs font-bold rounded-full ${
+                    item.badge === 'PRO' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' :
+                    item.badge === 'NEW' ? 'bg-green-500/20 text-green-300 border border-green-500/30' :
+                    item.badge === 'LIVE' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
+                    item.badge === 'HOT' ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30' :
+                    item.badge === 'VIP' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
+                    'bg-gray-500/20 text-gray-300'
+                  }`}>
+                    {item.badge}
+                  </div>
+                )}
+              </div>
+            </button>
+          ))}
+
+          {/* Séparateur COMPTE */}
+          <div className="px-2 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider mt-4">
+            ⚙️ Compte
+          </div>
+          {menuItems.filter(item => item.theme === 'compte').map((item) => (
+            <button
+              key={item.id}
+              onClick={() => {
+                setActiveView(item.id);
+                setSidebarOpen(false);
+              }}
+              className={`w-full group transition-all duration-200 ${
+                activeView === item.id
+                  ? 'bg-gradient-to-r from-amber-600 to-yellow-600'
+                  : 'hover:bg-gray-800/50'
+              } rounded-xl`}
+            >
+              <div className="flex items-center justify-between p-3">
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 rounded-lg transition-colors ${
+                    activeView === item.id
+                      ? 'bg-white/20'
+                      : 'bg-gray-700/50 group-hover:bg-gray-700'
+                  }`}>
+                    <item.icon className={`w-5 h-5 ${
+                      activeView === item.id ? 'text-white' : 'text-gray-300'
+                    }`} />
+                  </div>
+                  <div className="text-left">
+                    <p className={`font-medium text-sm ${
+                      activeView === item.id ? 'text-white' : 'text-gray-200'
+                    }`}>
+                      {item.label}
+                    </p>
+                    <p className={`text-xs ${
+                      activeView === item.id ? 'text-white/70' : 'text-gray-400'
+                    }`}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+                {item.badge && (
+                  <div className={`px-2 py-1 text-xs font-bold rounded-full ${
+                    item.badge === 'PRO' ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30' :
+                    item.badge === 'NEW' ? 'bg-green-500/20 text-green-300 border border-green-500/30' :
+                    item.badge === 'LIVE' ? 'bg-red-500/20 text-red-300 border border-red-500/30' :
+                    item.badge === 'HOT' ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30' :
+                    item.badge === 'VIP' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
+                    'bg-gray-500/20 text-gray-300'
+                  }`}>
+                    {item.badge}
+                  </div>
                 )}
               </div>
             </button>
