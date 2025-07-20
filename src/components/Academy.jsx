@@ -101,7 +101,7 @@ const Academy = () => {
         {
           id: 3,
           title: 'Plateformes de Vente',
-          content: 'Vestiaire, Vinted, Instagram - optimisation maximale.'
+          content: 'Outils de vente en ligne - optimisation maximale.'
         },
         {
           id: 4,
@@ -229,7 +229,7 @@ const Academy = () => {
             
             <div className="mt-8 p-6 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl border border-purple-500/30">
               <h3 className="text-xl font-semibold text-white mb-3">
-                📚 Ressources Complementaires
+                Ressources Complementaires
               </h3>
               <div className="space-y-2 text-gray-300">
                 <p>• Exercices pratiques disponibles</p>
