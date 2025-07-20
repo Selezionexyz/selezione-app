@@ -170,11 +170,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Backend Health Check"
-    - "Estimation IA API"
-    - "Chat/Assistant IA API"
-    - "Market Data API"
-    - "Business Tools APIs"
+    - "NEW Professional Barcode Scanner API"
+    - "NEW Professional Luxury News API"
+    - "NEW Professional Market Indices API"
+    - "NEW Professional Trending Products API"
+    - "NEW Professional Market Data Integration"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
