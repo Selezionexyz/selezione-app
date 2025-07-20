@@ -342,14 +342,23 @@ const SaasLayout = () => {
               {activeView === 'vente' && '💰 PRICING & FORMULES'}
             </h1>
             <p className="text-xs text-gray-400">
-              {activeView === 'marketplace' && 'Plateforme professionnelle B2B • Commission 5%'}
-              {activeView === 'vente' && 'Découvrez nos formules et tarifs'}
               {activeView === 'dashboard' && 'Vue d\'ensemble de votre activité'}
+              {activeView === 'marketplace' && 'Plateforme professionnelle B2B • Commission 5%'}
+              {activeView === 'estimation' && 'GPT-4 Turbo + Scraping marché réel'}
+              {activeView === 'calculateur' && 'Calcul automatique des marges bénéficiaires'}
+              {activeView === 'fichiers' && 'Gestion des documents et commandes'}
+              {activeView === 'outils-business' && 'Suite complète d\'outils professionnels'}
+              {activeView === 'agent' && 'Trois intelligences expertes pour le luxe'}
+              {activeView === 'chat' && 'Communauté • Support • Experts'}
+              {activeView === 'academy' && 'Formation complète - 20+ chapitres'}
+              {activeView === 'compte' && 'Profil utilisateur et paramètres'}
+              {activeView === 'pricing' && 'Découvrez nos formules et tarifs'}
+              {/* Legacy support */}
               {activeView === 'agents' && 'Trois intelligences expertes pour le luxe'}
               {activeView === 'outils' && 'GPT-4 Turbo + Scraping marché réel'}
               {activeView === 'fiche' && 'Création automatique optimisée SEO'}
-              {activeView === 'academy' && 'Formation complète - 20+ chapitres'}
               {activeView === 'tchat' && 'Support client • Experts • Communauté'}
+              {activeView === 'vente' && 'Découvrez nos formules et tarifs'}
             </p>
           </div>
         </div>
