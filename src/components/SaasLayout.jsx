@@ -323,14 +323,23 @@ const SaasLayout = () => {
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">
-              {activeView === 'marketplace' && '🏪 MARKETPLACE SELEZIONE'}
-            {activeView === 'vente' && '💰 PRICING & FORMULES'}
               {activeView === 'dashboard' && '📊 Dashboard Intelligence'}
+              {activeView === 'marketplace' && '🏪 MARKETPLACE SELEZIONE'}
+              {activeView === 'estimation' && '💎 ESTIMATION IA TEMPS RÉEL'}
+              {activeView === 'calculateur' && '🧮 CALCULATEUR MARGE'}
+              {activeView === 'fichiers' && '📁 FICHIERS & COMMANDES'}
+              {activeView === 'outils-business' && '🎯 OUTILS BUSINESS'}
+              {activeView === 'agent' && '🤖 ASSISTANT IA'}
+              {activeView === 'chat' && '💬 COMMUNITY CHAT'}
+              {activeView === 'academy' && '🎓 SELEZIONE ACADEMY'}
+              {activeView === 'compte' && '👤 MON COMPTE'}
+              {activeView === 'pricing' && '💰 PRICING SELEZIONE'}
+              {/* Legacy support */}
               {activeView === 'agents' && '🤖 Agents IA Spécialisés'}
               {activeView === 'outils' && '💎 ESTIMATION IA TEMPS RÉEL'}
               {activeView === 'fiche' && '📋 GÉNÉRATEUR FICHE PRODUIT'}
-              {activeView === 'academy' && '🎓 SELEZIONE ACADEMY'}
               {activeView === 'tchat' && '💬 CHAT SUPPORT'}
+              {activeView === 'vente' && '💰 PRICING & FORMULES'}
             </h1>
             <p className="text-xs text-gray-400">
               {activeView === 'marketplace' && 'Plateforme professionnelle B2B • Commission 5%'}
