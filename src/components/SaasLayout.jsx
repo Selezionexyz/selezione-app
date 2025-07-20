@@ -341,6 +341,7 @@ const SaasLayout = () => {
               {activeView === 'chat' && '💬 COMMUNITY CHAT'}
               {activeView === 'academy' && '🎓 SELEZIONE ACADEMY'}
               {activeView === 'compte' && '👤 MON COMPTE'}
+              {activeView === 'tendances' && '📈 SUIVI TENDANCES'}
               {activeView === 'pricing' && '💰 PRICING SELEZIONE'}
               {/* Legacy support */}
               {activeView === 'agents' && '🤖 Agents IA Spécialisés'}
