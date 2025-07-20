@@ -279,11 +279,11 @@ const Dashboard = () => {
 
         <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-purple-500/30">
           <div className="flex items-center justify-between mb-2">
-            <Star className="w-5 h-5 text-purple-400" />
-            <span className="text-xs text-purple-400">TOP</span>
+            <Instagram className="w-5 h-5 text-purple-400" />
+            <span className="text-xs text-purple-400">POSTS</span>
           </div>
-          <p className="text-white font-bold text-lg">Hermès</p>
-          <p className="text-gray-400 text-xs">Marque tendance</p>
+          <p className="text-white font-bold text-lg">{instagramPosts.length}</p>
+          <p className="text-gray-400 text-xs">Marques trackées</p>
         </div>
 
         <div className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-amber-500/30">
@@ -291,9 +291,130 @@ const Dashboard = () => {
             <Globe className="w-5 h-5 text-amber-400" />
             <span className="text-xs text-amber-400 animate-pulse">LIVE</span>
           </div>
-          <p className="text-white font-bold text-lg">8.4k</p>
-          <p className="text-gray-400 text-xs">Utilisateurs actifs</p>
+          <p className="text-white font-bold text-lg">{fashionNews.length}</p>
+          <p className="text-gray-400 text-xs">Actualités mode</p>
         </div>
+      </div>
+
+      {/* Feed Instagram Luxe RÉEL */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-white flex items-center">
+            <Instagram className="w-6 h-6 mr-2 text-purple-400" />
+            Feed Instagram Luxe - Temps Réel
+          </h2>
+          <div className="flex items-center space-x-3">
+            <span className="text-xs text-gray-400">
+              {LUXURY_BRANDS.length} marques • Auto MAJ 5min
+            </span>
+            <button
+              onClick={fetchInstagramPosts}
+              disabled={loadingInstagram}
+              className="p-2 bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+              title="Actualiser Instagram"
+            >
+              <RefreshCw className={`w-4 h-4 text-white ${loadingInstagram ? 'animate-spin' : ''}`} />
+            </button>
+          </div>
+        </div>
+
+        {loadingInstagram ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+              <div key={i} className="bg-black/60 backdrop-blur-sm rounded-xl p-4 border border-gray-700 animate-pulse">
+                <div className="w-full h-48 bg-gray-700 rounded-lg mb-3"></div>
+                <div className="flex items-center space-x-2 mb-2">
+                  <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
+                  <div className="w-24 h-4 bg-gray-700 rounded"></div>
+                </div>
+                <div className="w-full h-4 bg-gray-700 rounded mb-2"></div>
+                <div className="w-3/4 h-3 bg-gray-700 rounded"></div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {instagramPosts.map((post) => (
+              <div key={post.id} className="bg-black/60 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-purple-500/50 transition-all group">
+                {/* Image du post */}
+                <div className="relative">
+                  <img 
+                    src={post.image} 
+                    alt={`${post.brand} post`}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute top-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1">
+                    <span className="text-xs text-white font-medium">{post.category}</span>
+                  </div>
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <div className="bg-black/70 backdrop-blur-sm rounded-lg p-2">
+                      <div className="flex items-center space-x-2 mb-1">
+                        <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-xs">
+                          @
+                        </div>
+                        <span className="text-white text-sm font-medium">{post.brand}</span>
+                        <span className="text-gray-400 text-xs">@{post.handle}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Contenu du post */}
+                <div className="p-4">
+                  <p className="text-gray-300 text-sm mb-3 line-clamp-2 leading-relaxed">
+                    {post.caption}
+                  </p>
+                  
+                  {/* Hashtags */}
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {post.hashtags.slice(0, 3).map((tag, idx) => (
+                      <span key={idx} className="text-xs text-purple-400 hover:text-purple-300 cursor-pointer">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Stats et actions */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4 text-gray-400 text-xs">
+                      <div className="flex items-center space-x-1">
+                        <Heart className="w-4 h-4" />
+                        <span>{post.likes.toLocaleString()}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <MessageCircle className="w-4 h-4" />
+                        <span>{post.comments.toLocaleString()}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-1 text-gray-500 text-xs">
+                      <Clock className="w-3 h-3" />
+                      <span>{post.posted}</span>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-700">
+                    <div className="flex items-center space-x-2">
+                      <button className="p-2 text-gray-400 hover:text-red-400 transition-colors">
+                        <Heart className="w-4 h-4" />
+                      </button>
+                      <button className="p-2 text-gray-400 hover:text-blue-400 transition-colors">
+                        <Share className="w-4 h-4" />
+                      </button>
+                      <button className="p-2 text-gray-400 hover:text-amber-400 transition-colors">
+                        <Bookmark className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <button className="text-xs text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
+                      <ExternalLink className="w-3 h-3" />
+                      <span>Voir sur IG</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* News IA en temps réel */}
