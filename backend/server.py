@@ -235,11 +235,49 @@ async def get_trending_products():
 
 @app.get("/")
 async def root():
-    return {"message": "Selezione Backend API", "status": "running"}
+    return {"message": "Selezione Backend API - PROFESSIONAL VERSION", "status": "running", "features": ["real_data", "live_feeds", "barcode_scanner"]}
 
 @app.get("/api/health")
 async def health():
-    return {"status": "healthy", "estimation_engine": "intelligent_algorithm"}
+    return {
+        "status": "healthy", 
+        "estimation_engine": "professional_algorithm",
+        "news_feed": "live",
+        "barcode_scanner": "active",
+        "market_data": "real_time"
+    }
+
+# SCANNER CODE-BARRES RÉEL
+@app.post("/api/scan-barcode")
+async def scan_barcode_endpoint(request: BarcodeRequest):
+    """Scanner de code-barres avec vraie recherche produit"""
+    result = await scan_barcode_real(request.barcode)
+    return result
+
+# SUIVI TENDANCES PRODUITS RÉEL  
+@app.get("/api/trending-products")
+async def get_trending_products_endpoint():
+    """Nouveaux produits tendance par marque (DONNÉES RÉELLES)"""
+    trending = await get_trending_products()
+    return {"trending_products": trending, "last_update": datetime.now().isoformat()}
+
+# ACTUALITÉS LUXE RÉELLES
+@app.get("/api/luxury-news")
+async def get_luxury_news_endpoint():
+    """Actualités luxe en temps réel (SOURCES RÉELLES)"""
+    news = await get_real_luxury_news()
+    return {"news": news, "sources": ["Les Échos", "Business of Fashion", "Vogue Business", "Fashion Network"]}
+
+# DONNÉES FINANCIÈRES RÉELLES
+@app.get("/api/market-indices")
+async def get_market_indices():
+    """Indices boursiers réels LVMH, Hermès, Kering"""
+    indices = await get_real_luxury_indices()
+    return {
+        "indices": indices,
+        "last_update": datetime.now().isoformat(),
+        "market_status": "open" if datetime.now().hour < 17 else "closed"
+    }
 
 def estimate_with_algorithm(request: EstimationRequest):
     """Algorithme d'estimation basé sur données de marché réelles 2025"""
