@@ -487,8 +487,263 @@ class BackendTester:
                 f"Exception during consistency test: {str(e)}"
             )
     
+    def test_new_professional_apis(self):
+        """Test 7: NEW PROFESSIONAL APIs - Real Data Sources"""
+        print("\n🔥 Testing NEW PROFESSIONAL APIs (Real Data)")
+        
+        # Test 1: Barcode Scanner API
+        print("\n📱 Testing Barcode Scanner API")
+        barcode_tests = [
+            {
+                "name": "Chanel Perfume Barcode",
+                "barcode": "3386460065436",
+                "expected_luxury": True
+            },
+            {
+                "name": "Dior Perfume Barcode", 
+                "barcode": "3348901419372",
+                "expected_luxury": True
+            },
+            {
+                "name": "Unknown Barcode",
+                "barcode": "1234567890123",
+                "expected_luxury": False
+            }
+        ]
+        
+        for test in barcode_tests:
+            try:
+                response = requests.post(
+                    f"{API_BASE}/scan-barcode",
+                    json={"barcode": test["barcode"]},
+                    timeout=15
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get("found"):
+                        product = data.get("product", {})
+                        if product.get("name") and product.get("brand"):
+                            self.log_result(
+                                f"Barcode Scanner - {test['name']}", 
+                                True, 
+                                f"Found: {product['brand']} - {product['name']}"
+                            )
+                        else:
+                            self.log_result(
+                                f"Barcode Scanner - {test['name']}", 
+                                False, 
+                                "Product found but missing name/brand"
+                            )
+                    else:
+                        # Not found is OK for unknown barcodes
+                        if test["expected_luxury"]:
+                            self.log_result(
+                                f"Barcode Scanner - {test['name']}", 
+                                False, 
+                                f"Expected luxury product not found: {data.get('message', 'No message')}"
+                            )
+                        else:
+                            self.log_result(
+                                f"Barcode Scanner - {test['name']}", 
+                                True, 
+                                f"Correctly handled unknown barcode: {data.get('message', 'Not found')}"
+                            )
+                else:
+                    self.log_result(
+                        f"Barcode Scanner - {test['name']}", 
+                        False, 
+                        f"HTTP {response.status_code}: {response.text}"
+                    )
+                    
+            except Exception as e:
+                self.log_result(
+                    f"Barcode Scanner - {test['name']}", 
+                    False, 
+                    f"Exception: {str(e)}"
+                )
+        
+        # Test 2: Luxury News API
+        print("\n📰 Testing Luxury News API")
+        try:
+            response = requests.get(f"{API_BASE}/luxury-news", timeout=15)
+            
+            if response.status_code == 200:
+                data = response.json()
+                news_items = data.get("news", [])
+                sources = data.get("sources", [])
+                
+                if news_items and len(news_items) > 0:
+                    # Check news structure
+                    first_news = news_items[0]
+                    required_fields = ["title", "summary", "source", "time", "category"]
+                    
+                    if all(field in first_news for field in required_fields):
+                        # Check if sources are professional
+                        professional_sources = ["Les Échos", "Business of Fashion", "Vogue Business", "Fashion Network"]
+                        has_professional_sources = any(source in str(sources) for source in professional_sources)
+                        
+                        if has_professional_sources:
+                            self.log_result(
+                                "Luxury News API", 
+                                True, 
+                                f"Retrieved {len(news_items)} news items from professional sources: {sources}"
+                            )
+                        else:
+                            self.log_result(
+                                "Luxury News API", 
+                                False, 
+                                f"Sources not professional enough: {sources}"
+                            )
+                    else:
+                        missing = [f for f in required_fields if f not in first_news]
+                        self.log_result(
+                            "Luxury News API", 
+                            False, 
+                            f"News items missing required fields: {missing}"
+                        )
+                else:
+                    self.log_result(
+                        "Luxury News API", 
+                        False, 
+                        "No news items returned"
+                    )
+            else:
+                self.log_result(
+                    "Luxury News API", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Luxury News API", 
+                False, 
+                f"Exception: {str(e)}"
+            )
+        
+        # Test 3: Market Indices API (Real Stock Data)
+        print("\n📈 Testing Market Indices API")
+        try:
+            response = requests.get(f"{API_BASE}/market-indices", timeout=15)
+            
+            if response.status_code == 200:
+                data = response.json()
+                indices = data.get("indices", {})
+                
+                # Check for real luxury companies
+                expected_companies = ["LVMH", "Hermès", "Kering"]
+                found_companies = [company for company in expected_companies if company in indices]
+                
+                if len(found_companies) == len(expected_companies):
+                    # Validate data structure
+                    valid_data = True
+                    for company, data_point in indices.items():
+                        if not all(key in data_point for key in ["price", "change", "volume"]):
+                            valid_data = False
+                            break
+                        
+                        # Check if price is realistic (LVMH should be 400-800€, Hermès 1500-2500€)
+                        price = data_point.get("price", 0)
+                        if company == "LVMH" and not (400 <= price <= 800):
+                            valid_data = False
+                        elif company == "Hermès" and not (1500 <= price <= 2500):
+                            valid_data = False
+                        elif company == "Kering" and not (300 <= price <= 700):
+                            valid_data = False
+                    
+                    if valid_data:
+                        self.log_result(
+                            "Market Indices API", 
+                            True, 
+                            f"Real stock data for {found_companies}: LVMH={indices['LVMH']['price']}€, Hermès={indices['Hermès']['price']}€"
+                        )
+                    else:
+                        self.log_result(
+                            "Market Indices API", 
+                            False, 
+                            "Stock prices seem unrealistic or data structure invalid"
+                        )
+                else:
+                    self.log_result(
+                        "Market Indices API", 
+                        False, 
+                        f"Missing luxury companies. Found: {found_companies}, Expected: {expected_companies}"
+                    )
+            else:
+                self.log_result(
+                    "Market Indices API", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Market Indices API", 
+                False, 
+                f"Exception: {str(e)}"
+            )
+        
+        # Test 4: Trending Products API
+        print("\n🔥 Testing Trending Products API")
+        try:
+            response = requests.get(f"{API_BASE}/trending-products", timeout=15)
+            
+            if response.status_code == 200:
+                data = response.json()
+                trending_products = data.get("trending_products", [])
+                
+                if trending_products and len(trending_products) > 0:
+                    # Check product structure
+                    first_product = trending_products[0]
+                    required_fields = ["brand", "product", "trend_score", "category", "estimated_price"]
+                    
+                    if all(field in first_product for field in required_fields):
+                        # Check if brands are luxury
+                        luxury_brands = ["Hermès", "Chanel", "Louis Vuitton", "Dior", "Gucci"]
+                        found_luxury = [p for p in trending_products if p.get("brand") in luxury_brands]
+                        
+                        if found_luxury:
+                            self.log_result(
+                                "Trending Products API", 
+                                True, 
+                                f"Retrieved {len(trending_products)} trending products from luxury brands: {[p['brand'] for p in found_luxury]}"
+                            )
+                        else:
+                            self.log_result(
+                                "Trending Products API", 
+                                False, 
+                                f"No luxury brands found in trending products: {[p.get('brand') for p in trending_products]}"
+                            )
+                    else:
+                        missing = [f for f in required_fields if f not in first_product]
+                        self.log_result(
+                            "Trending Products API", 
+                            False, 
+                            f"Trending products missing required fields: {missing}"
+                        )
+                else:
+                    self.log_result(
+                        "Trending Products API", 
+                        False, 
+                        "No trending products returned"
+                    )
+            else:
+                self.log_result(
+                    "Trending Products API", 
+                    False, 
+                    f"HTTP {response.status_code}: {response.text}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Trending Products API", 
+                False, 
+                f"Exception: {str(e)}"
+            )
+
     def test_error_handling(self):
-        """Test 7: Error Handling"""
+        """Test 8: Error Handling"""
         print("\n🚨 Testing Error Handling")
         
         # Test invalid estimation request
@@ -545,6 +800,34 @@ class BackendTester:
         except Exception as e:
             self.log_result(
                 "Error Handling - 404", 
+                False, 
+                f"Exception: {str(e)}"
+            )
+        
+        # Test invalid barcode request
+        try:
+            response = requests.post(
+                f"{API_BASE}/scan-barcode",
+                json={},  # Empty request
+                timeout=10
+            )
+            
+            if response.status_code == 422:  # Validation error expected
+                self.log_result(
+                    "Error Handling - Invalid Barcode", 
+                    True, 
+                    "Properly returns 422 for invalid barcode request"
+                )
+            else:
+                self.log_result(
+                    "Error Handling - Invalid Barcode", 
+                    False, 
+                    f"Expected 422, got {response.status_code}"
+                )
+                
+        except Exception as e:
+            self.log_result(
+                "Error Handling - Invalid Barcode", 
                 False, 
                 f"Exception: {str(e)}"
             )
