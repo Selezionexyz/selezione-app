@@ -17,6 +17,10 @@ import ScraperVC from './ScraperVC';
 import ComparateurLuxe from './ComparateurLuxe';
 import PageVente from './PageVente';
 import OutilTchat from './OutilTchat';
+import CalculateurMarge from './CalculateurMarge';
+import HebergeurPanier from './HebergeurPanier';
+import OutilsBusiness from './OutilsBusiness';
+import ComptesMembres from './ComptesMembres';
 
 const SaasLayout = () => {
   const [activeView, setActiveView] = useState('dashboard');
