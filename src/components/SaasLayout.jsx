@@ -143,8 +143,6 @@ const SaasLayout = () => {
         description: 'Nos formules',
         badge: 'VIP'
       }
-        badge: 'HOT'
-      },
     ];
 
     const bottomMenuItems = [
