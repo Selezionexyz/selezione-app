@@ -157,6 +157,19 @@ export default function OutilEstimationIA() {
     }
   };
 
+  // Fonction intelligente de fallback
+  const generateIntelligentFallback = (query, marque, periode, etat) => {
+    const description = `${marque} ${query} - État: ${etat}${periode ? `, Période: ${periode}` : ''}`;
+    const mockResult = getMockEstimation(description);
+    
+    return {
+      prixBoutique: `${mockResult.prixEstime * 1.5}€`,
+      revente: `${Math.round(mockResult.prixEstime * 0.7)}€ - ${Math.round(mockResult.prixEstime * 0.85)}€`,
+      achat: `${Math.round(mockResult.prixEstime * 0.5)}€ - ${Math.round(mockResult.prixEstime * 0.6)}€`,
+      estimation: mockResult.estimation
+    };
+  };
+
   const removeImage = () => {
     setImagePreview(null);
     setImageFile(null);
