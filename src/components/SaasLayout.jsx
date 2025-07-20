@@ -90,20 +90,6 @@ const SaasLayout = () => {
         badge: null
       },
       { 
-        id: 'scraper', 
-        label: 'Analyseur Marché', 
-        icon: TrendingUp,
-        description: 'Temps réel',
-        badge: 'LIVE'
-      },
-      { 
-        id: 'quiz', 
-        label: 'Quiz Expert', 
-        icon: Brain,
-        description: 'Testez-vous',
-        badge: null
-      },
-      { 
         id: 'academy', 
         label: 'Academy', 
         icon: GraduationCap,
@@ -116,6 +102,13 @@ const SaasLayout = () => {
         icon: ShoppingCart,
         description: 'B2B Pro',
         badge: null
+      },
+      { 
+        id: 'tchat', 
+        label: 'Chat Support', 
+        icon: MessageCircle,
+        description: 'Support 24/7',
+        badge: 'LIVE'
       },
       { 
         id: 'vente', 
