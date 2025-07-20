@@ -137,17 +137,12 @@ const SaasLayout = () => {
         badge: 'NEW'
       },
       { 
-        id: 'compte', 
-        label: 'Mon Compte', 
-        icon: User,
-        description: 'Profil & paramètres',
-        badge: null
-      },
-      { 
         id: 'pricing', 
         label: 'Pricing Selezione', 
         icon: Crown,
         description: 'Nos formules',
+        badge: 'VIP'
+      }
         badge: 'HOT'
       },
     ];
