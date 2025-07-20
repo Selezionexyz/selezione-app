@@ -287,9 +287,8 @@ const SaasLayout = () => {
               {activeView === 'agents' && '🤖 Agents IA Spécialisés'}
               {activeView === 'outils' && '💎 ESTIMATION IA TEMPS RÉEL'}
               {activeView === 'fiche' && '📋 GÉNÉRATEUR FICHE PRODUIT'}
-              {activeView === 'scraper' && '🌐 ANALYSEUR DE MARCHÉ PRO'}
-              {activeView === 'quiz' && '🧠 QUIZ EXPERTISE LUXE'}
               {activeView === 'academy' && '🎓 SELEZIONE ACADEMY'}
+              {activeView === 'tchat' && '💬 CHAT SUPPORT'}
             </h1>
             <p className="text-xs text-gray-400">
               {activeView === 'marketplace' && 'Plateforme professionnelle B2B • Commission 5%'}
