@@ -28,6 +28,10 @@ export default function OutilEstimationIA() {
   const [estimationMode, setEstimationMode] = useState('ai-market');
   const [comparativeResults, setComparativeResults] = useState(null);
   const [marketData, setMarketData] = useState(null);
+  const [error, setError] = useState('');
+
+  // Configuration API
+  const API_BASE = 'https://selezione-ia-backend.onrender.com';
 
   // Fonction mock pour simuler l'estimation IA 
   const getMockEstimation = (description) => {
