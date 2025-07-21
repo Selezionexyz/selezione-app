@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   TrendingUp, DollarSign, Calculator, Target, BarChart3, 
   Calendar, Clock, Zap, Award, Star, Eye, RefreshCw,
-  LineChart, PieChart, ArrowUp, ArrowDown, AlertTriangle,
-  CheckCircle, Crown, Sparkles, Brain, TrendingDown
+  ArrowUp, ArrowDown, AlertTriangle, CheckCircle, Crown
 } from 'lucide-react';
 
 const SimulateurInvestissement = () => {
