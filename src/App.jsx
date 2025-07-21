@@ -64,7 +64,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <SaasLayout user={user} onLogout={handleLogout} />
+      <SafeSaasLayout user={user} onLogout={handleLogout} />
     </div>
   );
 }
