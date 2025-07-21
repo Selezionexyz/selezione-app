@@ -335,28 +335,31 @@ class BackendTester:
             {
                 "name": "Very Old Item (1970)",
                 "data": {
-                    "marque": "Hermès",
-                    "modele": "Kelly",
+                    "brand": "Hermès",
+                    "model": "Kelly",
                     "condition": "vintage",
-                    "annee": "1970"
+                    "year": 1970,
+                    "photos": []
                 }
             },
             {
                 "name": "Future Item (2030)",
                 "data": {
-                    "marque": "Chanel",
-                    "modele": "Classic Flap",
+                    "brand": "Chanel",
+                    "model": "Classic Flap",
                     "condition": "neuf",
-                    "annee": "2030"
+                    "year": 2030,
+                    "photos": []
                 }
             },
             {
                 "name": "Poor Condition Item",
                 "data": {
-                    "marque": "Louis Vuitton",
-                    "modele": "Speedy",
-                    "condition": "usagé",
-                    "couleur": "monogram"
+                    "brand": "Louis Vuitton",
+                    "model": "Speedy",
+                    "condition": "acceptable",
+                    "year": 2015,
+                    "photos": []
                 }
             }
         ]
