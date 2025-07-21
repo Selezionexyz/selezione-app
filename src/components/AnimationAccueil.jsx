@@ -402,6 +402,87 @@ const AnimationAccueil = ({ onComplete }) => {
       </button>
 
       <style>{`
+        /* ANIMATIONS NÉON RÉVOLUTIONNAIRES */
+        @keyframes neon-glow {
+          0%, 100% { 
+            text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+          }
+          50% { 
+            text-shadow: 0 0 20px currentColor, 0 0 30px currentColor, 0 0 40px currentColor;
+          }
+        }
+        
+        @keyframes neon-border-animate {
+          0%, 100% { 
+            box-shadow: 0 0 10px currentColor, inset 0 0 10px currentColor;
+          }
+          50% { 
+            box-shadow: 0 0 20px currentColor, inset 0 0 15px currentColor;
+          }
+        }
+        
+        @keyframes neon-pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+        
+        .neon-glow {
+          animation: neon-glow 2s ease-in-out infinite alternate;
+        }
+        
+        .neon-text {
+          text-shadow: 0 0 10px #fbbf24, 0 0 20px #fbbf24;
+        }
+        
+        .neon-icon {
+          filter: drop-shadow(0 0 10px currentColor) drop-shadow(0 0 20px currentColor);
+          animation: neon-pulse 3s ease-in-out infinite;
+        }
+        
+        .neon-border {
+          animation: neon-border-animate 2s ease-in-out infinite alternate;
+        }
+        
+        .neon-border-red {
+          box-shadow: 0 0 15px #ef4444, inset 0 0 10px #ef4444;
+          animation: neon-border-animate 3s ease-in-out infinite alternate;
+        }
+        
+        .neon-border-green {
+          box-shadow: 0 0 15px #22c55e, inset 0 0 10px #22c55e;
+          animation: neon-border-animate 3s ease-in-out infinite alternate;
+        }
+        
+        .neon-border-blue {
+          box-shadow: 0 0 15px #3b82f6, inset 0 0 10px #3b82f6;
+          animation: neon-border-animate 3s ease-in-out infinite alternate;
+        }
+        
+        .neon-border-purple {
+          box-shadow: 0 0 15px #a855f7, inset 0 0 10px #a855f7;
+          animation: neon-border-animate 3s ease-in-out infinite alternate;
+        }
+        
+        .neon-border-purple-strong {
+          box-shadow: 0 0 25px #a855f7, inset 0 0 15px #a855f7;
+          animation: neon-border-animate 2s ease-in-out infinite alternate;
+        }
+        
+        .neon-border-orange {
+          box-shadow: 0 0 15px #f97316, inset 0 0 10px #f97316;
+          animation: neon-border-animate 3s ease-in-out infinite alternate;
+        }
+        
+        .neon-border-yellow {
+          box-shadow: 0 0 15px #eab308, inset 0 0 10px #eab308;
+          animation: neon-border-animate 3s ease-in-out infinite alternate;
+        }
+        
+        .neon-border-amber {
+          box-shadow: 0 0 15px #f59e0b, inset 0 0 10px #f59e0b;
+          animation: neon-border-animate 3s ease-in-out infinite alternate;
+        }
+        
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-20px) rotate(180deg); }
@@ -423,22 +504,49 @@ const AnimationAccueil = ({ onComplete }) => {
           to { opacity: 1; transform: scale(1); }
         }
         
-        .animate-float {
-          animation: float linear infinite;
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes fade-in {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 2s ease-in-out;
         }
         
         .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-          opacity: 0;
+          animation: fade-in-up 1s ease-out;
         }
         
         .animate-count-up {
-          animation: count-up 0.6s ease-out forwards;
-          opacity: 0;
+          animation: count-up 2s ease-out;
         }
         
         .animate-spin-slow {
-          animation: spin 3s linear infinite;
+          animation: spin-slow 4s linear infinite;
+        }
+        
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        
+        /* STYLES POUR LES GRADIENTS */
+        .gradient-text {
+          background: linear-gradient(45deg, #fbbf24, #f59e0b, #f97316);
+          background-size: 400% 400%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: gradient-shift 3s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
         }
       `}</style>
     </div>
