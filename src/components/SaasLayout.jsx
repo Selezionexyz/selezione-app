@@ -21,34 +21,7 @@ import PageVente from './PageVente';
 const SaasLayout = ({ user, onLogout }) => {
   const [activeView, setActiveView] = useState('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  // Vérifier si l'utilisateur a accès à une fonctionnalité
-  const hasAccess = (feature) => {
-    if (!user) return false;
-    
-    // Utilisateurs premium ont accès à tout
-    if (user.plan === 'premium') return true;
-    
-    // Utilisateurs en essai avec limitations
-    if (user.plan === 'essai') {
-      const access = user.features[feature];
-      if (typeof access === 'boolean') return access;
-      if (typeof access === 'number') return access > 0 || access === -1;
-    }
-    
-    return false;
-  };
-
-  // Obtenir le badge de limitation pour l'essai
-  const getTrialBadge = (feature) => {
-    if (!user || user.plan !== 'essai') return null;
-    
-    const access = user.features[feature];
-    if (typeof access === 'number' && access > 0) {
-      return `${access} restants`;
-    }
-    return null;
-  };
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const views = {
     dashboard: <Dashboard />,
