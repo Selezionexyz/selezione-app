@@ -21,8 +21,7 @@ import RapportROIIntelligence from './RapportROIIntelligence';
 import GenerateurEtiquettesPro from './GenerateurEtiquettesPro';
 import AssistantAuthentificationIA from './AssistantAuthentificationIA';
 import SimulateurInvestissement from './SimulateurInvestissement';
-import SuiviTendances from './SuiviTendances';
-import RadarOpportunites from './RadarOpportunites';
+import SuiviTendancesRevolutionnaire from './SuiviTendancesRevolutionnaire';
 
 const SaasLayout = ({ user, onLogout }) => {
   const [activeView, setActiveView] = useState('dashboard');
