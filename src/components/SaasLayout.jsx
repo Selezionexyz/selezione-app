@@ -220,9 +220,73 @@ const SaasLayout = ({ user, onLogout }) => {
             </div>
             
             <div className="flex items-center space-x-3">
-              <div className="bg-black/30 rounded-lg p-2 border border-gray-700">
-                <p className="text-xs text-gray-400">Membre Executive</p>
-                <p className="text-white font-bold text-sm">Alexandre Dupont</p>
+              {/* Informations utilisateur */}
+              <div className="bg-black/30 rounded-lg p-3 border border-gray-700">
+                <div className="flex items-center space-x-2">
+                  <span className="text-2xl">{user?.avatar || '👤'}</span>
+                  <div>
+                    <p className="text-white font-bold text-sm">{user?.nom || 'Utilisateur'}</p>
+                    <div className="flex items-center space-x-2">
+                      <p className="text-xs text-gray-400">{user?.subscription || 'Plan Gratuit'}</p>
+                      {user?.plan === 'essai' && (
+                        <div className="flex items-center space-x-1">
+                          <Clock className="w-3 h-3 text-amber-400" />
+                          <span className="text-xs text-amber-400 font-medium">
+                            {user.trial_days_left}j
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Bouton upgrade pour utilisateurs essai */}
+              {user?.plan === 'essai' && (
+                <button className="px-3 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-700 hover:to-pink-700 text-sm font-medium flex items-center space-x-1">
+                  <Crown className="w-4 h-4" />
+                  <span>Upgrade</span>
+                </button>
+              )}
+              
+              {/* Menu utilisateur */}
+              <div className="relative">
+                <button 
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="p-2 text-gray-400 hover:text-white transition-colors"
+                >
+                  <Settings className="w-5 h-5" />
+                </button>
+                
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg border border-gray-700 z-50">
+                    <div className="py-2">
+                      <div className="px-4 py-2 border-b border-gray-700">
+                        <p className="text-white font-medium text-sm">{user?.nom}</p>
+                        <p className="text-gray-400 text-xs">{user?.email}</p>
+                      </div>
+                      <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 transition-colors">
+                        Mon Profil
+                      </button>
+                      <button className="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 transition-colors">
+                        Paramètres
+                      </button>
+                      {user?.plan === 'essai' && (
+                        <button className="w-full text-left px-4 py-2 text-sm text-purple-400 hover:bg-gray-700 transition-colors font-medium">
+                          Passer au Premium
+                        </button>
+                      )}
+                      <div className="border-t border-gray-700 mt-2">
+                        <button 
+                          onClick={onLogout}
+                          className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-gray-700 transition-colors"
+                        >
+                          Déconnexion
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
