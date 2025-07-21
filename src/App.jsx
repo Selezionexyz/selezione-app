@@ -69,11 +69,9 @@ function App() {
 
   // Si authentifié, afficher l'application
   return (
-    <ErrorBoundary>
-      <div className="min-h-screen bg-black text-white">
-        <SaasLayout user={user} onLogout={handleLogout} />
-      </div>
-    </ErrorBoundary>
+    <div className="min-h-screen bg-black text-white">
+      <SimpleLayout user={user} onLogout={handleLogout} />
+    </div>
   );
 }
 
