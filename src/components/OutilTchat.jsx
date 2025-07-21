@@ -310,9 +310,26 @@ Restez dans la course ! 🚀`,
       reactions: {}
     };
 
-    setMessages(prev => [...prev, newMessage]);
+    // STOCKAGE RÉEL dans localStorage pour persistance
+    const channelKey = `selezione_chat_${activeChannel}`;
+    const existingMessages = JSON.parse(localStorage.getItem(channelKey) || '[]');
+    const updatedMessages = [...existingMessages, newMessage];
+    localStorage.setItem(channelKey, JSON.stringify(updatedMessages));
+
+    setMessages(updatedMessages);
     setMessage('');
   };
+
+  // CHARGER messages réels au changement de canal
+  useEffect(() => {
+    const channelKey = `selezione_chat_${activeChannel}`;
+    const storedMessages = JSON.parse(localStorage.getItem(channelKey) || '[]');
+    const channelData = chatData[activeChannel] || [];
+    
+    // Combiner messages système + messages utilisateurs
+    const allMessages = [...channelData, ...storedMessages];
+    setMessages(allMessages);
+  }, [activeChannel]);
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
