@@ -273,13 +273,14 @@ const ScannerCodeBarres = () => {
   const quickSearch = (reference) => {
     setSearchReference(reference);
     setTimeout(() => {
-      searchByReference();
+      scanProduct();
     }, 100);
   };
 
+  // Gérer la touche Entrée
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      searchByReference();
+      scanProduct();
     }
   };
 
