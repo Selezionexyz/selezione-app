@@ -133,9 +133,9 @@ const AnimationAccueil = ({ onComplete }) => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { number: '2,847', label: 'Membres Actifs', icon: Users, color: 'text-blue-400', growth: '+145%' },
-              { number: '€2.3M', label: 'Volume Mensuel', icon: Globe, color: 'text-green-400', growth: '+87%' },
-              { number: '22', label: 'Fournisseurs Premium', icon: Crown, color: 'text-amber-400', growth: 'Exclusif' },
+              { number: '350', label: 'Membres Actifs', icon: Users, color: 'text-blue-400', growth: 'Sept 2023' },
+              { number: '€820K', label: 'Volume Mensuel', icon: Globe, color: 'text-green-400', growth: '+87%' },
+              { number: '40+', label: 'Fournisseurs Premium', icon: Crown, color: 'text-amber-400', growth: 'Vérifiés' },
               { number: '96%', label: 'Satisfaction Client', icon: Heart, color: 'text-red-400', growth: '+12%' }
             ].map((stat, index) => (
               <div 
