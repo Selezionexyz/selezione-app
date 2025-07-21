@@ -448,6 +448,16 @@ async def get_luxury_opportunities():
     set_cache(cache_key, result, ttl_minutes=8)
     return result
 
+# Root endpoint
+@app.get("/")
+async def root():
+    return {
+        "message": "Selezione Backend API v2.1.0 - Real Integrations",
+        "status": "running",
+        "features": ["real_trends", "real_news", "real_prices", "opportunities"],
+        "timestamp": datetime.now().isoformat()
+    }
+
 # Garder les anciennes APIs pour compatibility
 @app.get("/api/health")
 async def health_check():
