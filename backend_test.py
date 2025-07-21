@@ -459,11 +459,11 @@ class BackendTester:
         # Test API consistency (same input should give similar results)
         try:
             test_data = {
-                "marque": "Hermès",
-                "modele": "Birkin 30",
-                "condition": "excellent état",
-                "couleur": "noir",
-                "annee": "2020"
+                "brand": "Hermès",
+                "model": "Birkin 30",
+                "condition": "excellent",
+                "year": 2020,
+                "photos": []
             }
             
             results = []
