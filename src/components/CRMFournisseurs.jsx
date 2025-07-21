@@ -14,21 +14,36 @@ const CRMFournisseurs = () => {
   const [selectedFournisseur, setSelectedFournisseur] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
-  // Vérification des permissions utilisateur
+  // Vérification des permissions utilisateur ULTRA STRICTE
   useEffect(() => {
     const savedUser = localStorage.getItem('selezione_user');
     if (savedUser) {
       const user = JSON.parse(savedUser);
+      
+      // ACCÈS ULTRA RESTRICTIF - Seulement CEO et Ultra Premium payants
+      const isUltraPremium = (
+        user.role === 'CEO' || 
+        user.role === 'Admin/CEO' ||
+        user.subscription === 'Ultra Premium' ||
+        user.plan === 'ultra_premium' ||
+        (user.email && user.email.includes('ceo')) ||
+        (user.name && user.name.toLowerCase().includes('ceo'))
+      );
+      
       setUserAccess({
-        plan: user.plan,
-        role: user.role,
-        hasUltraPremiumAccess: user.plan === 'admin' || user.plan === 'ultra_premium' || user.role === 'CEO'
+        plan: user.plan || user.subscription || 'trial',
+        role: user.role || 'user',
+        hasUltraPremiumAccess: isUltraPremium,
+        userEmail: user.email,
+        userName: user.name
       });
     } else {
       setUserAccess({
         plan: 'trial',
         role: 'user',
-        hasUltraPremiumAccess: false
+        hasUltraPremiumAccess: false,
+        userEmail: '',
+        userName: ''
       });
     }
   }, []);
