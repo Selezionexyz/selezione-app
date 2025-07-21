@@ -21,6 +21,7 @@ import RapportROIIntelligence from './RapportROIIntelligence';
 import GenerateurEtiquettesPro from './GenerateurEtiquettesPro';
 import AssistantAuthentificationIA from './AssistantAuthentificationIA';
 import SimulateurInvestissement from './SimulateurInvestissement';
+import QuoiVendreAdvisor from './QuoiVendreAdvisor';
 import SuiviTendancesRevolutionnaire from './SuiviTendancesRevolutionnaire';
 
 const SaasLayout = ({ user, onLogout }) => {
