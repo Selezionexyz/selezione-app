@@ -229,14 +229,14 @@ const SuiviTendances = () => {
               <TrendingUp className="w-8 h-8 text-purple-400" />
             </div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Suivi Tendances Luxe
+              Suivi Tendances Luxe RÉELLES
             </h1>
-            <span className="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm border border-red-500/30">
-              🔥 LIVE
+            <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm border border-green-500/30">
+              🔥 GOOGLE TRENDS API
             </span>
           </div>
           <p className="text-gray-400">
-            Tendances temps réel • Sources : Vogue, Google, Instagram, TikTok • Mis à jour : {lastUpdate.toLocaleTimeString()}
+            Données temps réel Google Trends • Mis à jour : {lastUpdate.toLocaleTimeString()}
           </p>
         </div>
         
@@ -249,6 +249,17 @@ const SuiviTendances = () => {
           <span>Actualiser</span>
         </button>
       </div>
+
+      {/* Statut de l'API */}
+      {error && (
+        <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-4">
+          <div className="flex items-center space-x-2">
+            <Bell className="w-5 h-5 text-red-400" />
+            <p className="text-red-400 font-medium">Erreur API: {error}</p>
+          </div>
+          <p className="text-red-300 text-sm mt-1">Utilisation des données de cache.</p>
+        </div>
+      )}
 
       {/* Filtres */}
       <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700">
