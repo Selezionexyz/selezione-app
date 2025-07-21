@@ -540,42 +540,49 @@ class BackendTester:
         
         for test in barcode_tests:
             try:
-                response = requests.post(
-                    f"{API_BASE}/scan-barcode",
-                    json={"barcode": test["barcode"]},
+                response = requests.get(
+                    f"{API_BASE}/scan-barcode?barcode={test['barcode']}",
                     timeout=15
                 )
                 
                 if response.status_code == 200:
                     data = response.json()
-                    if data.get("found"):
-                        product = data.get("product", {})
-                        if product.get("name") and product.get("brand"):
-                            self.log_result(
-                                f"Barcode Scanner - {test['name']}", 
-                                True, 
-                                f"Found: {product['brand']} - {product['name']}"
-                            )
+                    if data.get("success"):
+                        result_data = data.get("data", {})
+                        if result_data.get("found"):
+                            product = result_data.get("product", {})
+                            if product.get("name") and product.get("brand"):
+                                self.log_result(
+                                    f"Barcode Scanner - {test['name']}", 
+                                    True, 
+                                    f"Found: {product['brand']} - {product['name']}"
+                                )
+                            else:
+                                self.log_result(
+                                    f"Barcode Scanner - {test['name']}", 
+                                    False, 
+                                    "Product found but missing name/brand"
+                                )
                         else:
-                            self.log_result(
-                                f"Barcode Scanner - {test['name']}", 
-                                False, 
-                                "Product found but missing name/brand"
-                            )
+                            # Not found is OK for unknown barcodes
+                            if test["expected_luxury"]:
+                                self.log_result(
+                                    f"Barcode Scanner - {test['name']}", 
+                                    False, 
+                                    f"Expected luxury product not found: {result_data.get('message', 'No message')}"
+                                )
+                            else:
+                                self.log_result(
+                                    f"Barcode Scanner - {test['name']}", 
+                                    True, 
+                                    f"Correctly handled unknown barcode: {result_data.get('message', 'Not found')}"
+                                )
                     else:
-                        # Not found is OK for unknown barcodes
-                        if test["expected_luxury"]:
-                            self.log_result(
-                                f"Barcode Scanner - {test['name']}", 
-                                False, 
-                                f"Expected luxury product not found: {data.get('message', 'No message')}"
-                            )
-                        else:
-                            self.log_result(
-                                f"Barcode Scanner - {test['name']}", 
-                                True, 
-                                f"Correctly handled unknown barcode: {data.get('message', 'Not found')}"
-                            )
+                        self.log_result(
+                            f"Barcode Scanner - {test['name']}", 
+                            False, 
+                            f"API returned error: {data.get('error', 'Unknown error')}"
+                        )
                 else:
                     self.log_result(
                         f"Barcode Scanner - {test['name']}", 
