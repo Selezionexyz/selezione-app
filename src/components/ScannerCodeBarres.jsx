@@ -597,7 +597,7 @@ const ScannerCodeBarres = () => {
       {!productData && !loading && (
         <div className="text-center py-12">
           <div className="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Barcode className="w-12 h-12 text-gray-600" />
+            <Scan className="w-12 h-12 text-gray-600" />
           </div>
           <h3 className="text-xl font-semibold text-gray-400 mb-2">
             Saisissez une référence produit
