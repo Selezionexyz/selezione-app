@@ -57,6 +57,12 @@ function App() {
     setIsAuthenticated(false);
   };
 
+  // Fonction appelée quand l'animation d'accueil se termine
+  const handleWelcomeComplete = () => {
+    localStorage.setItem('selezione_welcome_shown', 'true');
+    setShowWelcome(false);
+  };
+
   // Écran de chargement
   if (loading) {
     return (
