@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import SaasLayout from "./components/SaasLayout";
+import SafeSaasLayout from "./components/SafeSaasLayout";
 import AuthPage from "./components/AuthPage";
 
 function App() {
