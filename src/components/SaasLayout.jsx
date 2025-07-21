@@ -38,43 +38,49 @@ const SaasLayout = ({ user, onLogout }) => {
     pricing: <PageVente />
   };
 
-  // Menu organisé par thèmes
+  // Menu organisé par thèmes - VERSION FINALE NETTOYÉE
   const menuThemes = [
     {
-      title: '📊 BUSINESS',
+      title: '📊 BUSINESS INTELLIGENCE',
       items: [
-        { id: 'dashboard', label: 'Dashboard', icon: Home, description: 'Vue d\'ensemble' },
-        { id: 'estimation', label: 'Estimation IA', icon: Zap, description: 'GPT-4 + Marché', badge: 'PRO' },
-        { id: 'marketplace', label: 'Marketplace', icon: ShoppingBag, description: 'B2B Pro' }
+        { id: 'dashboard', label: 'Dashboard Intelligence', icon: Home, description: 'Tendances temps réel', badge: 'LIVE' },
+        { id: 'estimation', label: 'Estimation IA', icon: Zap, description: 'GPT-4 Turbo', badge: 'IA' },
+        { id: 'analyseur-prix', label: 'Analyseur Prix Concurrence', icon: Search, description: '50+ sites comparés', badge: 'NEW' },
+        { id: 'rapport-roi', label: 'Rapport ROI Intelligence', icon: TrendingUp, description: 'Prédictions IA', badge: 'PRO' }
       ]
     },
     {
-      title: '🛠️ OUTILS PRO',
+      title: '🛠️ OUTILS PROFESSIONNELS',
       items: [
-        { id: 'calculateur', label: 'Calculateur Marge', icon: Calculator, description: 'URSAFF inclus' },
-        { id: 'scanner', label: 'Scanner Code-Barres', icon: Camera, description: 'Identification auto', badge: 'NEW' },
-        { id: 'tendances', label: 'Suivi Tendances', icon: TrendingUp, description: 'Produits émergents', badge: 'HOT' }
+        { id: 'marketplace', label: 'Marketplace B2B', icon: ShoppingBag, description: '22 fournisseurs premium', badge: 'B2B' },
+        { id: 'scanner', label: 'Scanner Référence', icon: Camera, description: 'Base données complète', badge: 'NEW' },
+        { id: 'auth-ia', label: 'Authentification IA', icon: Shield, description: '10,000+ modèles', badge: 'IA+' },
+        { id: 'simulateur', label: 'Simulateur Investissement', icon: Calculator, description: 'Prédictions 2 ans', badge: 'HOT' }
       ]
     },
     {
-      title: '📁 GESTION',
+      title: '📈 GESTION & ANALYTICS',
       items: [
-        { id: 'fichiers', label: 'Fichiers & Commandes', icon: FileText, description: 'Docs + Panier' },
-        { id: 'crm', label: 'CRM Fournisseurs', icon: Users, description: 'Gestion contacts' },
-        { id: 'academy', label: 'Academy', icon: GraduationCap, description: '20+ chapitres', badge: 'NEW' }
+        { id: 'tendances', label: 'Suivi Tendances Luxe', icon: Activity, description: 'Vogue + Google + Instagram', badge: 'LIVE' },
+        { id: 'radar', label: 'Radar Opportunités', icon: Target, description: 'Scan auto 100+ sites', badge: 'AUTO' },
+        { id: 'calculateur', label: 'Calculateur Marge', icon: Calculator, description: 'Optimisation profits' },
+        { id: 'fichiers', label: 'Fichiers & Commandes', icon: FileText, description: 'Documents + Panier', badge: 'PRO' }
       ]
     },
     {
-      title: '💬 SUPPORT',
+      title: '🔧 OUTILS PRO+',
       items: [
-        { id: 'chat', label: 'Community Chat', icon: MessageCircle, description: 'Support live', badge: 'LIVE' },
-        { id: 'agent', label: 'Assistant IA', icon: Bot, description: '3 experts IA', badge: 'PRO' }
+        { id: 'etiquettes', label: 'Générateur Étiquettes', icon: Tag, description: 'QR codes + templates', badge: 'NEW' },
+        { id: 'crm', label: 'CRM Fournisseurs', icon: Users, description: 'Ultra Premium uniquement', badge: 'VIP' },
+        { id: 'chat', label: 'Community Chat', icon: MessageCircle, description: 'Réseau professionnel' },
+        { id: 'agent', label: 'Assistant Luxe IA', icon: Bot, description: '100+ marques database' }
       ]
     },
     {
-      title: '⚙️ COMPTE',
+      title: '🎓 FORMATION & SUPPORT',
       items: [
-        { id: 'pricing', label: 'Pricing Selezione', icon: Crown, description: 'Nos formules', badge: 'VIP' }
+        { id: 'academy', label: 'Academy Selezione', icon: GraduationCap, description: '20+ modules interactifs' },
+        { id: 'pricing', label: 'Pricing Selezione', icon: Crown, description: 'Plans & Tarification', badge: 'PLANS' }
       ]
     }
   ];
