@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
   Menu, X, Home, Zap, Calculator, TrendingUp, FileText,
-  GraduationCap, MessageCircle, Bot, Crown, ShoppingBag, Camera, Users
+  GraduationCap, MessageCircle, Bot, Crown, ShoppingBag, Camera, Users,
+  Settings, Clock
 } from 'lucide-react';
 
 import Dashboard from './Dashboard';
