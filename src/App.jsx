@@ -43,9 +43,8 @@ function App() {
   const handleAuth = (userData) => {
     setUser(userData);
     setIsAuthenticated(true);
-    // Redirection automatique vers le dashboard
     setTimeout(() => {
-      window.location.reload(); // Pour s'assurer que tout est bien initialisé
+      window.location.reload();
     }, 1000);
   };
 
