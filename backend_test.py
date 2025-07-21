@@ -476,7 +476,9 @@ class BackendTester:
                 
                 if response.status_code == 200:
                     data = response.json()
-                    results.append(data.get("prix_moyen", 0))
+                    if data.get("success"):
+                        result_data = data.get("data", {})
+                        results.append(result_data.get("estimated_price", 0))
             
             if len(results) == 3:
                 # Check if results are consistent (within 10% variance)
