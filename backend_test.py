@@ -423,9 +423,11 @@ class BackendTester:
                 response = requests.post(
                     f"{API_BASE}/estimation",
                     json={
-                        "marque": "Chanel",
-                        "modele": "Classic Flap",
-                        "condition": "excellent état"
+                        "brand": "Chanel",
+                        "model": "Classic Flap",
+                        "condition": "excellent",
+                        "year": 2020,
+                        "photos": []
                     },
                     timeout=10
                 )
