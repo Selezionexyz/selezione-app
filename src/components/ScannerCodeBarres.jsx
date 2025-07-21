@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { 
-  Search, Barcode, Star, DollarSign, TrendingUp, 
+  Search, Scan, Star, DollarSign, TrendingUp, 
   Package, Award, Clock, Shield, Eye, ExternalLink,
   Camera, Loader, CheckCircle, AlertCircle, RefreshCw,
   ShoppingBag, Target, Crown
