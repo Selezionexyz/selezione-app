@@ -648,15 +648,13 @@ async def get_market_indices():
     """Indices boursiers des marques de luxe"""
     return {
         "success": True,
-        "data": {
-            "indices": [
-                {"symbol": "MC.PA", "name": "LVMH", "price": 651.20, "change": "+2.1%"},
-                {"symbol": "RMS.PA", "name": "Hermès", "price": 1944.00, "change": "+1.8%"},
-                {"symbol": "KER.PA", "name": "Kering", "price": 488.40, "change": "-0.5%"}
-            ],
-            "market_status": "OPEN",
-            "last_updated": datetime.now().isoformat()
-        }
+        "indices": {
+            "LVMH": {"symbol": "MC.PA", "price": 651.20, "change": "+2.1%", "volume": 3200000},
+            "Hermès": {"symbol": "RMS.PA", "price": 1944.00, "change": "+1.8%", "volume": 850000},
+            "Kering": {"symbol": "KER.PA", "price": 488.40, "change": "-0.5%", "volume": 1200000}
+        },
+        "market_status": "OPEN",
+        "last_updated": datetime.now().isoformat()
     }
 
 @app.get("/api/trending-products")
