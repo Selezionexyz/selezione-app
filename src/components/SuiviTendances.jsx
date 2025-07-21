@@ -400,29 +400,14 @@ const SuiviTendances = () => {
         )}
       </div>
 
-      {/* Résumé insights */}
-      <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700">
-        <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-          <BarChart3 className="w-5 h-5 mr-2 text-purple-400" />
-          Insights Tendances
-        </h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div>
-            <p className="text-gray-400 text-sm mb-2">Marque la plus tendance :</p>
-            <p className="text-purple-400 font-bold text-lg">Hermès</p>
-          </div>
-          
-          <div>
-            <p className="text-gray-400 text-sm mb-2">Catégorie en hausse :</p>
-            <p className="text-purple-400 font-bold text-lg">Maroquinerie (+45%)</p>
-          </div>
-          
-          <div>
-            <p className="text-gray-400 text-sm mb-2">Source principale :</p>
-            <p className="text-purple-400 font-bold text-lg">Instagram Stories</p>
-          </div>
-        </div>
+      {/* Footer */}
+      <div className="text-center py-6 border-t border-gray-700">
+        <p className="text-gray-400">
+          🔄 Données mises à jour automatiquement toutes les 15 minutes
+        </p>
+        <p className="text-gray-500 text-sm mt-1">
+          Powered by Google Trends API • {getFilteredTrends().length} tendances trackées
+        </p>
       </div>
     </div>
   );
