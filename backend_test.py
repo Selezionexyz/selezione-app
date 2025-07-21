@@ -74,46 +74,46 @@ class BackendTester:
         """Test 2: Estimation IA API - Priority Test"""
         print("\n🤖 Testing Estimation IA API (Priority Test)")
         
-        # Test cases with different brands and products
+        # Test cases with correct English field names matching backend
         test_cases = [
             {
                 "name": "Hermès Birkin",
                 "data": {
-                    "marque": "Hermès",
-                    "modele": "Birkin 30",
-                    "condition": "excellent état",
-                    "couleur": "noir",
-                    "taille": "30cm",
-                    "annee": "2020",
-                    "description": "Sac Hermès Birkin 30 en cuir Togo noir"
+                    "brand": "Hermès",
+                    "model": "Birkin 30",
+                    "condition": "excellent",
+                    "year": 2020,
+                    "photos": []
                 }
             },
             {
                 "name": "Chanel Classic Flap",
                 "data": {
-                    "marque": "Chanel",
-                    "modele": "Classic Flap Medium",
-                    "condition": "très bon état",
-                    "couleur": "beige",
-                    "annee": "2018"
+                    "brand": "Chanel",
+                    "model": "Classic Flap Medium",
+                    "condition": "très bon",
+                    "year": 2018,
+                    "photos": []
                 }
             },
             {
                 "name": "Louis Vuitton Speedy",
                 "data": {
-                    "marque": "Louis Vuitton",
-                    "modele": "Speedy 25",
-                    "condition": "bon état",
-                    "couleur": "monogram",
-                    "annee": "2015"
+                    "brand": "Louis Vuitton",
+                    "model": "Speedy 25",
+                    "condition": "bon",
+                    "year": 2015,
+                    "photos": []
                 }
             },
             {
                 "name": "Unknown Brand (Fallback Test)",
                 "data": {
-                    "marque": "TestBrand",
-                    "modele": "TestModel",
-                    "condition": "bon état"
+                    "brand": "TestBrand",
+                    "model": "TestModel",
+                    "condition": "bon",
+                    "year": 2020,
+                    "photos": []
                 }
             }
         ]
