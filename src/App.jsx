@@ -78,6 +78,11 @@ function App() {
     );
   }
 
+  // Afficher l'animation d'accueil si c'est la première fois
+  if (showWelcome) {
+    return <AnimationAccueil onComplete={handleWelcomeComplete} />;
+  }
+
   // Si non authentifié, afficher la page d'inscription/connexion
   if (!isAuthenticated) {
     return <AuthPage onAuth={handleAuth} />;
