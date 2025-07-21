@@ -128,33 +128,41 @@ class BackendTester:
                 
                 if response.status_code == 200:
                     data = response.json()
-                    required_fields = ["estimation_min", "estimation_max", "prix_moyen", "confiance"]
-                    
-                    if all(field in data for field in required_fields):
-                        # Validate price ranges
-                        if (data["estimation_min"] > 0 and 
-                            data["estimation_max"] > data["estimation_min"] and
-                            data["prix_moyen"] >= data["estimation_min"] and
-                            data["prix_moyen"] <= data["estimation_max"]):
-                            
-                            self.log_result(
-                                f"Estimation - {test_case['name']}", 
-                                True, 
-                                f"Price range: {data['estimation_min']}-{data['estimation_max']}€, Confidence: {data['confiance']}%",
-                                data
-                            )
+                    if data.get("success"):
+                        result_data = data.get("data", {})
+                        required_fields = ["estimated_price", "price_range", "confidence"]
+                        
+                        if all(field in result_data for field in required_fields):
+                            # Validate price ranges
+                            price_range = result_data.get("price_range", {})
+                            if (result_data["estimated_price"] > 0 and 
+                                price_range.get("min", 0) > 0 and
+                                price_range.get("max", 0) > price_range.get("min", 0)):
+                                
+                                self.log_result(
+                                    f"Estimation - {test_case['name']}", 
+                                    True, 
+                                    f"Price range: {price_range['min']}-{price_range['max']}€, Confidence: {result_data['confidence']}%",
+                                    result_data
+                                )
+                            else:
+                                self.log_result(
+                                    f"Estimation - {test_case['name']}", 
+                                    False, 
+                                    f"Invalid price range: {result_data}"
+                                )
                         else:
+                            missing = [f for f in required_fields if f not in result_data]
                             self.log_result(
                                 f"Estimation - {test_case['name']}", 
                                 False, 
-                                f"Invalid price range: {data}"
+                                f"Missing fields: {missing}"
                             )
                     else:
-                        missing = [f for f in required_fields if f not in data]
                         self.log_result(
                             f"Estimation - {test_case['name']}", 
                             False, 
-                            f"Missing fields: {missing}"
+                            f"API returned error: {data.get('error', 'Unknown error')}"
                         )
                 elif response.status_code == 500:
                     self.log_result(
