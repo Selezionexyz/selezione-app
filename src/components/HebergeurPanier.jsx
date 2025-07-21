@@ -401,9 +401,189 @@ Généré automatiquement le ${new Date().toLocaleString('fr-FR')}
                     className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-blue-500 appearance-none"
                   >
                     <option value="">Sélectionnez une marque</option>
-                    {brands.map(brand => (
-                      <option key={brand} value={brand}>{brand}</option>
-                    ))}
+                    
+                    {/* MAROQUINERIE ULTRA LUXE */}
+                    <optgroup label="🔥 MAROQUINERIE ULTRA LUXE">
+                      <option value="Hermès">Hermès</option>
+                      <option value="Chanel">Chanel</option>
+                      <option value="Louis Vuitton">Louis Vuitton</option>
+                      <option value="Dior">Dior</option>
+                      <option value="Bottega Veneta">Bottega Veneta</option>
+                      <option value="Goyard">Goyard</option>
+                      <option value="Moynat">Moynat</option>
+                      <option value="Berluti">Berluti</option>
+                    </optgroup>
+                    
+                    {/* MAROQUINERIE PREMIUM */}
+                    <optgroup label="👑 MAROQUINERIE PREMIUM">
+                      <option value="Gucci">Gucci</option>
+                      <option value="Saint Laurent">Saint Laurent</option>
+                      <option value="Prada">Prada</option>
+                      <option value="Miu Miu">Miu Miu</option>
+                      <option value="Loewe">Loewe</option>
+                      <option value="Celine">Céline</option>
+                      <option value="Balenciaga">Balenciaga</option>
+                      <option value="Givenchy">Givenchy</option>
+                      <option value="Valentino">Valentino</option>
+                      <option value="Burberry">Burberry</option>
+                      <option value="Fendi">Fendi</option>
+                      <option value="JW Anderson">JW Anderson</option>
+                      <option value="Jacquemus">Jacquemus</option>
+                      <option value="The Row">The Row</option>
+                      <option value="Mansur Gavriel">Mansur Gavriel</option>
+                    </optgroup>
+                    
+                    {/* MONTRES ULTRA LUXE */}
+                    <optgroup label="⌚ MONTRES ULTRA LUXE">
+                      <option value="Patek Philippe">Patek Philippe</option>
+                      <option value="Audemars Piguet">Audemars Piguet</option>
+                      <option value="Vacheron Constantin">Vacheron Constantin</option>
+                      <option value="A. Lange & Söhne">A. Lange & Söhne</option>
+                      <option value="Jaeger-LeCoultre">Jaeger-LeCoultre</option>
+                      <option value="Richard Mille">Richard Mille</option>
+                      <option value="F.P. Journe">F.P. Journe</option>
+                      <option value="Philippe Dufour">Philippe Dufour</option>
+                    </optgroup>
+                    
+                    {/* MONTRES PREMIUM */}
+                    <optgroup label="⏱️ MONTRES PREMIUM">
+                      <option value="Rolex">Rolex</option>
+                      <option value="Cartier">Cartier</option>
+                      <option value="Omega">Omega</option>
+                      <option value="Tudor">Tudor</option>
+                      <option value="Breitling">Breitling</option>
+                      <option value="IWC">IWC</option>
+                      <option value="Panerai">Panerai</option>
+                      <option value="Hublot">Hublot</option>
+                      <option value="Tag Heuer">TAG Heuer</option>
+                      <option value="Zenith">Zenith</option>
+                      <option value="Chopard">Chopard</option>
+                      <option value="Bvlgari">Bvlgari</option>
+                      <option value="Piaget">Piaget</option>
+                      <option value="Van Cleef & Arpels">Van Cleef & Arpels</option>
+                    </optgroup>
+                    
+                    {/* BIJOUX ULTRA LUXE */}
+                    <optgroup label="💎 BIJOUX ULTRA LUXE">
+                      <option value="Tiffany & Co.">Tiffany & Co.</option>
+                      <option value="Harry Winston">Harry Winston</option>
+                      <option value="Graff">Graff</option>
+                      <option value="De Beers">De Beers</option>
+                      <option value="Mikimoto">Mikimoto</option>
+                      <option value="Boucheron">Boucheron</option>
+                      <option value="Chaumet">Chaumet</option>
+                      <option value="Mauboussin">Mauboussin</option>
+                      <option value="Messika">Messika</option>
+                      <option value="Repossi">Repossi</option>
+                    </optgroup>
+                    
+                    {/* PRÊT-À-PORTER FEMME */}
+                    <optgroup label="👗 PRÊT-À-PORTER FEMME">
+                      <option value="Tom Ford">Tom Ford</option>
+                      <option value="Giorgio Armani">Giorgio Armani</option>
+                      <option value="Versace">Versace</option>
+                      <option value="Dolce & Gabbana">Dolce & Gabbana</option>
+                      <option value="Alexander McQueen">Alexander McQueen</option>
+                      <option value="Stella McCartney">Stella McCartney</option>
+                      <option value="Isabel Marant">Isabel Marant</option>
+                      <option value="Zimmermann">Zimmermann</option>
+                      <option value="Ganni">Ganni</option>
+                      <option value="Self-Portrait">Self-Portrait</option>
+                      <option value="Khaite">Khaite</option>
+                      <option value="Totême">Totême</option>
+                      <option value="Lemaire">Lemaire</option>
+                      <option value="Proenza Schouler">Proenza Schouler</option>
+                    </optgroup>
+                    
+                    {/* PRÊT-À-PORTER HOMME */}
+                    <optgroup label="🤵 PRÊT-À-PORTER HOMME">
+                      <option value="Brunello Cucinelli">Brunello Cucinelli</option>
+                      <option value="Loro Piana">Loro Piana</option>
+                      <option value="Kiton">Kiton</option>
+                      <option value="Brioni">Brioni</option>
+                      <option value="Ermenegildo Zegna">Ermenegildo Zegna</option>
+                      <option value="Canali">Canali</option>
+                      <option value="Isaia">Isaia</option>
+                      <option value="Stone Island">Stone Island</option>
+                      <option value="C.P. Company">C.P. Company</option>
+                      <option value="Acne Studios">Acne Studios</option>
+                      <option value="Our Legacy">Our Legacy</option>
+                      <option value="Maison Margiela">Maison Margiela</option>
+                    </optgroup>
+                    
+                    {/* CHAUSSURES */}
+                    <optgroup label="👞 CHAUSSURES LUXE">
+                      <option value="Christian Louboutin">Christian Louboutin</option>
+                      <option value="Jimmy Choo">Jimmy Choo</option>
+                      <option value="Manolo Blahnik">Manolo Blahnik</option>
+                      <option value="Gianvito Rossi">Gianvito Rossi</option>
+                      <option value="Roger Vivier">Roger Vivier</option>
+                      <option value="Aquazzura">Aquazzura</option>
+                      <option value="Golden Goose">Golden Goose</option>
+                      <option value="Maison Margiela">Maison Margiela</option>
+                      <option value="Common Projects">Common Projects</option>
+                      <option value="Off-White">Off-White</option>
+                      <option value="Amiri">Amiri</option>
+                      <option value="Fear of God">Fear of God</option>
+                    </optgroup>
+                    
+                    {/* STREETWEAR LUXE */}
+                    <optgroup label="🔥 STREETWEAR LUXE">
+                      <option value="Supreme">Supreme</option>
+                      <option value="Bape">BAPE</option>
+                      <option value="Gallery Dept">Gallery Dept</option>
+                      <option value="Chrome Hearts">Chrome Hearts</option>
+                      <option value="Rhude">Rhude</option>
+                      <option value="Essentials">Essentials</option>
+                      <option value="Stussy">Stüssy</option>
+                      <option value="Kith">Kith</option>
+                      <option value="Palace">Palace</option>
+                      <option value="Mastermind">Mastermind</option>
+                      <option value="Undercover">Undercover</option>
+                      <option value="Neighborhood">Neighborhood</option>
+                    </optgroup>
+                    
+                    {/* PARFUMS LUXE */}
+                    <optgroup label="🌸 PARFUMS LUXE">
+                      <option value="Creed">Creed</option>
+                      <option value="Tom Ford">Tom Ford</option>
+                      <option value="Maison Francis Kurkdjian">Maison Francis Kurkdjian</option>
+                      <option value="Byredo">Byredo</option>
+                      <option value="Le Labo">Le Labo</option>
+                      <option value="Diptyque">Diptyque</option>
+                      <option value="Amouage">Amouage</option>
+                      <option value="Clive Christian">Clive Christian</option>
+                      <option value="Bond No. 9">Bond No. 9</option>
+                      <option value="Serge Lutens">Serge Lutens</option>
+                    </optgroup>
+                    
+                    {/* MARQUES ÉMERGENTES */}
+                    <optgroup label="🌟 MARQUES ÉMERGENTES">
+                      <option value="Staud">Staud</option>
+                      <option value="Cult Gaia">Cult Gaia</option>
+                      <option value="Rejina Pyo">Rejina Pyo</option>
+                      <option value="Nanushka">Nanushka</option>
+                      <option value="By Far">By Far</option>
+                      <option value="Wandler">Wandler</option>
+                      <option value="ATP Atelier">ATP Atelier</option>
+                      <option value="Hereu">Hereu</option>
+                      <option value="Ratio et Motus">Ratio et Motus</option>
+                      <option value="Little Liffner">Little Liffner</option>
+                    </optgroup>
+                    
+                    {/* ARTISANS FRANÇAIS */}
+                    <optgroup label="🇫🇷 ARTISANS FRANÇAIS">
+                      <option value="Polène">Polène</option>
+                      <option value="Atelier Paulin">Atelier Paulin</option>
+                      <option value="Officine Générale">Officine Générale</option>
+                      <option value="AMI Paris">AMI Paris</option>
+                      <option value="Gauchere">Gauchere</option>
+                      <option value="Kenzo">Kenzo</option>
+                      <option value="A.P.C.">A.P.C.</option>
+                      <option value="Sézane">Sézane</option>
+                      <option value="Rouje">Rouje</option>
+                      <option value="Ba&sh">Ba&sh</option>
+                    </optgroup>
                   </select>
                   <ChevronDown className="w-4 h-4 absolute right-3 top-4 text-gray-400" />
                 </div>
