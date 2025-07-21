@@ -21,6 +21,7 @@ import RapportROIIntelligence from './RapportROIIntelligence';
 import GenerateurEtiquettesPro from './GenerateurEtiquettesPro';
 import AssistantAuthentificationIA from './AssistantAuthentificationIA';
 import SimulateurInvestissement from './SimulateurInvestissement';
+import SiteB2BFournisseur from './SiteB2BFournisseur';
 import PhotoPerfectVendeur from './PhotoPerfectVendeur';
 import QuoiVendreAdvisor from './QuoiVendreAdvisor';
 import SuiviTendancesRevolutionnaire from './SuiviTendancesRevolutionnaire';
