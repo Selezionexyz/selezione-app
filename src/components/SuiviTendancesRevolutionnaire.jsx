@@ -329,7 +329,7 @@ const SuiviTendancesRevolutionnaire = () => {
       {/* TENDANCES EXPLOSIVES */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-white flex items-center">
-          <Fire className="w-6 h-6 mr-2 text-red-400" />
+          <Zap className="w-6 h-6 mr-2 text-red-400" />
           EXPLOSIONS ACTUELLES
           <span className="ml-3 px-2 py-1 bg-red-500 text-white text-xs rounded-full animate-pulse">
             HOT 🔥
