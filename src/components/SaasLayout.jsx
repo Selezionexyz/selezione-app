@@ -98,6 +98,7 @@ const SaasLayout = ({ user, onLogout }) => {
       title: '🛠️ OUTILS PROFESSIONNELS',
       items: [
         { id: 'marketplace', label: 'Marketplace B2B', icon: ShoppingBag, description: '22 fournisseurs premium', badge: 'B2B' },
+        { id: 'site-b2b', label: 'Site B2B Fournisseur', icon: Globe, description: 'B2BFashion.online intégré', badge: 'NEW' },
         { id: 'scanner', label: 'Scanner Référence', icon: Camera, description: 'Base données complète', badge: 'NEW' },
         { id: 'auth-ia', label: 'Authentification IA', icon: Shield, description: '10,000+ modèles', badge: 'IA+' },
         { id: 'simulateur', label: 'Simulateur Investissement', icon: Calculator, description: 'Prédictions 2 ans', badge: 'HOT' }
