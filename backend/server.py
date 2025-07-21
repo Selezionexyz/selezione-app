@@ -49,6 +49,18 @@ LUXURY_BRANDS = [
     "Rolex", "Patek Philippe", "Cartier"
 ]
 
+# Models pour les endpoints manquants
+class EstimationRequest(BaseModel):
+    brand: str
+    model: str
+    condition: str
+    year: int
+    photos: List[str] = []
+
+class ChatRequest(BaseModel):
+    message: str
+    session_id: str = ""
+
 # Sites de prix à surveiller
 PRICE_MONITORING_SITES = [
     {
