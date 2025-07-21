@@ -662,23 +662,23 @@ async def get_trending_products():
     """Produits tendance en temps réel"""
     return {
         "success": True,
-        "data": {
-            "products": [
-                {
-                    "brand": "Hermès",
-                    "name": "Birkin 25 Togo",
-                    "trend_score": 92,
-                    "price_estimate": "8000-12000",
-                    "social_mentions": 156
-                },
-                {
-                    "brand": "Chanel",
-                    "name": "Classic Flap Medium",
-                    "trend_score": 89,
-                    "price_estimate": "3500-4500",
-                    "social_mentions": 203
-                }
-            ],
-            "last_updated": datetime.now().isoformat()
-        }
+        "trending_products": [
+            {
+                "brand": "Hermès",
+                "product": "Birkin 25 Togo",
+                "trend_score": 92,
+                "category": "Handbags",
+                "estimated_price": "8000-12000",
+                "social_mentions": 156
+            },
+            {
+                "brand": "Chanel",
+                "product": "Classic Flap Medium",
+                "trend_score": 89,
+                "category": "Handbags", 
+                "estimated_price": "3500-4500",
+                "social_mentions": 203
+            }
+        ],
+        "last_updated": datetime.now().isoformat()
     }
