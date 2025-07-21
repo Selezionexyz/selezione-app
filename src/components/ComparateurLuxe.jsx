@@ -1207,8 +1207,12 @@ const ComparateurLuxe = () => {
                   {publishedListings.map((listing) => (
                     <div key={listing.id} className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-purple-500/50 transition-all group">
                       <div className="aspect-square bg-gray-800 rounded-lg flex items-center justify-center text-4xl mb-3 group-hover:scale-105 transition-transform">
-                        {listing.photos?.[0]?.preview ? (
-                          <img src={listing.photos[0].preview} alt={listing.title} className="w-full h-full object-cover rounded-lg" />
+                        {listing.photos?.[0] ? (
+                          <img 
+                            src={listing.photos[0].preview || listing.photos[0]} 
+                            alt={listing.title} 
+                            className="w-full h-full object-cover rounded-lg" 
+                          />
                         ) : (
                           '📷'
                         )}
