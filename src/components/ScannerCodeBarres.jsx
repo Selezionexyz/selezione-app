@@ -223,10 +223,10 @@ const ScannerCodeBarres = () => {
     'H001BK25', 'C002CF30', 'LV003SP25', 'D004SD28', 'BV005JD22'
   ];
 
-  // Recherche par référence
-  const searchByReference = async () => {
+  // FONCTION DE SCAN AVEC API BACKEND RÉELLE
+  const scanProduct = async () => {
     if (!searchReference.trim()) {
-      setError('Veuillez saisir une référence produit');
+      setError('Veuillez entrer une référence produit');
       return;
     }
 
@@ -234,35 +234,39 @@ const ScannerCodeBarres = () => {
     setError('');
     
     try {
-      // Simulation délai API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const reference = searchReference.toUpperCase().replace(/\s+/g, '');
-      const product = LUXURY_PRODUCTS_DATABASE[reference];
-      
-      if (product) {
-        setProductData(product);
-        
-        // Ajouter à l'historique
-        setSearchHistory(prev => [
-          { reference, timestamp: new Date(), found: true },
-          ...prev.slice(0, 4)
-        ]);
-      } else {
-        setProductData(null);
-        setError(`Référence "${reference}" non trouvée dans notre base de données.`);
-        
-        // Ajouter à l'historique même si non trouvé
-        setSearchHistory(prev => [
-          { reference, timestamp: new Date(), found: false },
-          ...prev.slice(0, 4)
-        ]);
+      // Appel à l'API backend réelle
+      const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const response = await fetch(`${backendUrl}/api/scan-barcode`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          barcode: searchReference.trim()
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur API: ${response.status}`);
       }
-    } catch (err) {
-      setError('Erreur lors de la recherche. Veuillez réessayer.');
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setProductData(result.data);
+        setSearchHistory(prev => [searchReference.trim(), ...prev.slice(0, 4)]);
+        setSearchReference('');
+      } else {
+        setError(result.error || 'Produit non trouvé dans la base de données');
+        setProductData(null);
+      }
+    } catch (error) {
+      console.error('Erreur scan:', error);
+      setError('Erreur de connexion à l\'API. Vérifiez votre connexion.');
+      setProductData(null);
+    } finally {
+      setLoading(false);
     }
-    
-    setLoading(false);
   };
 
   // Quick search depuis historique ou suggestions
