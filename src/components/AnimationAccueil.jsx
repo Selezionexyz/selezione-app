@@ -42,7 +42,7 @@ const AnimationAccueil = ({ onComplete }) => {
             </h2>
             <p className="text-xl text-gray-300 leading-relaxed">
               SELEZIONE révolutionne le marché du luxe de seconde main avec une plateforme B2B 
-              dotée d'intelligence artificielle avancée, connectant 2,847 professionnels à travers le monde.
+              dotée d'intelligence artificielle avancée, connectant 350 professionnels depuis septembre 2023.
             </p>
           </div>
           
