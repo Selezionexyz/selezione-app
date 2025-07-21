@@ -338,7 +338,7 @@ const ScannerCodeBarres = () => {
               />
             </div>
             <button
-              onClick={searchByReference}
+              onClick={scanProduct}
               disabled={loading}
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded-lg transition-colors flex items-center space-x-2"
             >
