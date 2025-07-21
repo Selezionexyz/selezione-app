@@ -103,6 +103,7 @@ const SaasLayout = ({ user, onLogout }) => {
       title: '📈 GESTION & ANALYTICS',
       items: [
         { id: 'tendances', label: 'Suivi Tendances Luxe', icon: Activity, description: 'Vogue + Google + Instagram', badge: 'LIVE' },
+        { id: 'quoi-vendre', label: 'Quoi Vendre Advisor', icon: Target, description: 'IA + Scraping Vinted/Joli Closet', badge: 'HOT' },
         { id: 'radar', label: 'Radar Opportunités', icon: Target, description: 'Scan auto 100+ sites', badge: 'AUTO' },
         { id: 'calculateur', label: 'Calculateur Marge', icon: Calculator, description: 'Optimisation profits' },
         { id: 'fichiers', label: 'Fichiers & Commandes', icon: FileText, description: 'Documents + Panier', badge: 'PRO' }
