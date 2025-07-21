@@ -71,6 +71,7 @@ const SaasLayout = ({ user, onLogout }) => {
     tendances: <SuiviTendancesRevolutionnaire />,
     radar: <RadarOpportunites />,
     'quoi-vendre': <QuoiVendreAdvisor />,
+    'photo-perfect': <PhotoPerfectVendeur />,
     fichiers: <HebergeurPanier />,
     etiquettes: <GenerateurEtiquettesPro />,
     crm: <CRMFournisseurs />,
