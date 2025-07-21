@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import SaasLayout from "./components/SaasLayout";
+import AuthPage from "./components/AuthPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
