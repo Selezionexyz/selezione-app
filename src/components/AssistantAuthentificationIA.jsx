@@ -71,7 +71,7 @@ const AssistantAuthentificationIA = () => {
       confidence_indicators: {
         authentic_probability: 95,
         risk_factors: ['Provenance douteuse', 'Prix anormalement bas'],
-        verification_cost: '150€'
+        verification_cost: '120€'
       }
     },
 
