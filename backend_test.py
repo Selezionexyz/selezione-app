@@ -374,18 +374,27 @@ class BackendTester:
                 
                 if response.status_code == 200:
                     data = response.json()
-                    if (data.get("estimation_min", 0) > 0 and 
-                        data.get("estimation_max", 0) > data.get("estimation_min", 0)):
-                        self.log_result(
-                            f"Marketplace - {test_case['name']}", 
-                            True, 
-                            f"Handles extreme case: {data['estimation_min']}-{data['estimation_max']}€"
-                        )
+                    if data.get("success"):
+                        result_data = data.get("data", {})
+                        price_range = result_data.get("price_range", {})
+                        if (price_range.get("min", 0) > 0 and 
+                            price_range.get("max", 0) > price_range.get("min", 0)):
+                            self.log_result(
+                                f"Marketplace - {test_case['name']}", 
+                                True, 
+                                f"Handles extreme case: {price_range['min']}-{price_range['max']}€"
+                            )
+                        else:
+                            self.log_result(
+                                f"Marketplace - {test_case['name']}", 
+                                False, 
+                                f"Invalid price range for extreme case: {result_data}"
+                            )
                     else:
                         self.log_result(
                             f"Marketplace - {test_case['name']}", 
                             False, 
-                            f"Invalid price range for extreme case: {data}"
+                            f"API returned error: {data.get('error', 'Unknown error')}"
                         )
                 else:
                     self.log_result(
