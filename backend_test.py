@@ -268,46 +268,49 @@ class BackendTester:
             
             if response.status_code == 200:
                 data = response.json()
-                required_fields = ["luxury_index", "trend", "volume", "top_brand", "active_users"]
-                
-                if all(field in data for field in required_fields):
-                    # Validate data types and ranges
-                    valid_data = True
-                    issues = []
+                if data.get("success"):
+                    result_data = data.get("data", {})
+                    required_fields = ["luxury_index", "trend_percentage", "volume_millions", "top_brand", "active_users"]
                     
-                    # Check luxury_index is a number
-                    if not isinstance(data["luxury_index"], (int, float)):
-                        valid_data = False
-                        issues.append("luxury_index not numeric")
-                    
-                    # Check trend format
-                    if not data["trend"].startswith(("+", "-")):
-                        valid_data = False
-                        issues.append("trend format invalid")
-                    
-                    # Check volume format
-                    if not data["volume"].endswith("€"):
-                        valid_data = False
-                        issues.append("volume format invalid")
-                    
-                    if valid_data:
-                        self.log_result(
-                            "Market Data", 
-                            True, 
-                            f"All market data fields valid: Index {data['luxury_index']}, Trend {data['trend']}"
-                        )
+                    if all(field in result_data for field in required_fields):
+                        # Validate data types and ranges
+                        valid_data = True
+                        issues = []
+                        
+                        # Check luxury_index is a number
+                        if not isinstance(result_data["luxury_index"], (int, float)):
+                            valid_data = False
+                            issues.append("luxury_index not numeric")
+                        
+                        # Check trend_percentage is a number
+                        if not isinstance(result_data["trend_percentage"], (int, float)):
+                            valid_data = False
+                            issues.append("trend_percentage not numeric")
+                        
+                        if valid_data:
+                            self.log_result(
+                                "Market Data", 
+                                True, 
+                                f"All market data fields valid: Index {result_data['luxury_index']}, Trend {result_data['trend_percentage']}%"
+                            )
+                        else:
+                            self.log_result(
+                                "Market Data", 
+                                False, 
+                                f"Data validation issues: {issues}"
+                            )
                     else:
+                        missing = [f for f in required_fields if f not in result_data]
                         self.log_result(
                             "Market Data", 
                             False, 
-                            f"Data validation issues: {issues}"
+                            f"Missing fields: {missing}"
                         )
                 else:
-                    missing = [f for f in required_fields if f not in data]
                     self.log_result(
                         "Market Data", 
                         False, 
-                        f"Missing fields: {missing}"
+                        f"API returned error: {data.get('error', 'Unknown error')}"
                     )
             else:
                 self.log_result(
