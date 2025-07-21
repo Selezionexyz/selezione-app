@@ -378,21 +378,30 @@ const Dashboard = () => {
 
           <div className="space-y-4">
             {luxuryNews.map((news) => (
-              <div key={news.id} className="bg-gray-900/50 rounded-lg p-4 border border-gray-600 hover:border-blue-500/50 transition-all group cursor-pointer">
+              <a 
+                key={news.id} 
+                href={news.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block bg-gray-900/50 rounded-lg p-4 border border-gray-600 hover:border-blue-500/50 transition-all group cursor-pointer hover:shadow-lg hover:shadow-blue-500/10"
+              >
                 <div className="flex space-x-3">
                   <img 
                     src={news.image}
                     alt={news.title}
-                    className="w-16 h-16 object-cover rounded-lg"
+                    className="w-16 h-16 object-cover rounded-lg group-hover:scale-105 transition-transform"
                   />
                   <div className="flex-1">
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="font-semibold text-white text-sm leading-tight group-hover:text-blue-400 transition-colors">
                         {news.title}
                       </h3>
-                      {news.trending && (
-                        <span className="text-red-400 animate-pulse">🔥</span>
-                      )}
+                      <div className="flex items-center space-x-2">
+                        {news.trending && (
+                          <span className="text-red-400 animate-pulse">🔥</span>
+                        )}
+                        <ExternalLink className="w-3 h-3 text-gray-500 group-hover:text-blue-400 transition-colors" />
+                      </div>
                     </div>
                     
                     <p className="text-xs text-gray-400 mb-2 line-clamp-2">
@@ -410,7 +419,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
 
