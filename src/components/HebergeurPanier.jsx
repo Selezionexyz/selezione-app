@@ -494,7 +494,11 @@ Pour plus d'informations, téléchargez le fichier complet.`}
                             
                             {/* Actions */}
                             <div className="flex items-center space-x-2">
-                              <button className="p-2 text-gray-400 hover:text-blue-400 transition-colors">
+                              <button 
+                                onClick={() => viewFile(file)}
+                                className="p-2 text-gray-400 hover:text-blue-400 transition-colors"
+                                title="Consulter le fichier"
+                              >
                                 <Eye className="w-4 h-4" />
                               </button>
                               <button 
