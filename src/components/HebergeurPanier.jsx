@@ -833,6 +833,59 @@ Pour plus d'informations, téléchargez le fichier complet.`}
           )}
         </div>
       )}
+
+      {/* Modal de prévisualisation des fichiers */}
+      {showFileViewer && selectedFile && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+          <div className="bg-gray-900 rounded-xl border border-gray-700 max-w-6xl w-full mx-4 max-h-[90vh] flex flex-col">
+            
+            {/* En-tête du modal */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-700">
+              <div>
+                <h3 className="text-lg font-bold text-white">{selectedFile.name}</h3>
+                <p className="text-gray-400 text-sm">
+                  {formatFileSize(selectedFile.size)} • {selectedFile.type}
+                </p>
+              </div>
+              <button
+                onClick={closeFileViewer}
+                className="p-2 text-gray-400 hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Contenu du fichier */}
+            <div className="flex-1 p-6 overflow-auto">
+              {renderFilePreview(selectedFile)}
+            </div>
+
+            {/* Actions du modal */}
+            <div className="flex items-center justify-between p-6 border-t border-gray-700">
+              <div className="flex items-center space-x-2 text-sm text-gray-400">
+                <Calendar className="w-4 h-4" />
+                <span>Ajouté le {selectedFile.uploadDate.toLocaleDateString('fr-FR')}</span>
+                <span>•</span>
+                <span>{selectedFile.downloads} téléchargements</span>
+              </div>
+              
+              <div className="flex items-center space-x-3">
+                <button 
+                  onClick={() => shareFile(selectedFile)}
+                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors flex items-center space-x-2"
+                >
+                  <Share2 className="w-4 h-4" />
+                  <span>Partager</span>
+                </button>
+                <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center space-x-2">
+                  <Download className="w-4 h-4" />
+                  <span>Télécharger</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
