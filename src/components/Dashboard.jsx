@@ -70,7 +70,7 @@ const Dashboard = () => {
     const loadAPIData = async () => {
       setLoading(true);
       try {
-        const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+        const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || 'http://localhost:8001';
         
         // Test de connexion API
         const healthResponse = await fetch(`${backendUrl}/api/health`, { 
