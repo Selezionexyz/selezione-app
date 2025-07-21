@@ -152,10 +152,10 @@ const AuthPage = ({ onAuth }) => {
   ];
 
   const stats = [
-    { number: "2847", label: "Membres actifs" },
-    { number: "22", label: "Fournisseurs premium" },
+    { number: "350", label: "Membres actifs" },
+    { number: "40+", label: "Fournisseurs premium" },
     { number: "96%", label: "Satisfaction client" },
-    { number: "€2.3M", label: "Volume traité/mois" }
+    { number: "€820K", label: "Volume traité/mois" }
   ];
 
   return (
