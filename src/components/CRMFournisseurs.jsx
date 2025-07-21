@@ -6,11 +6,168 @@ import {
 } from 'lucide-react';
 
 const CRMFournisseurs = () => {
+  // Vérification du niveau d'accès utilisateur
+  const [userAccess, setUserAccess] = useState(null);
   const [fournisseurs, setFournisseurs] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedFournisseur, setSelectedFournisseur] = useState(null);
   const [showForm, setShowForm] = useState(false);
+
+  // Vérification des permissions utilisateur
+  useEffect(() => {
+    const savedUser = localStorage.getItem('selezione_user');
+    if (savedUser) {
+      const user = JSON.parse(savedUser);
+      setUserAccess({
+        plan: user.plan,
+        role: user.role,
+        hasUltraPremiumAccess: user.plan === 'admin' || user.plan === 'ultra_premium' || user.role === 'CEO'
+      });
+    } else {
+      setUserAccess({
+        plan: 'trial',
+        role: 'user',
+        hasUltraPremiumAccess: false
+      });
+    }
+  }, []);
+
+  // Si pas d'accès Ultra Premium, afficher la page de restriction
+  if (userAccess && !userAccess.hasUltraPremiumAccess) {
+    return (
+      <div className="p-6 space-y-6 bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white min-h-screen">
+        
+        {/* Page de restriction d'accès */}
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="bg-gradient-to-br from-purple-600/20 via-pink-600/20 to-red-600/20 rounded-2xl p-12 border border-purple-500/30">
+            
+            {/* Icône de restriction */}
+            <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-8">
+              <Users className="w-16 h-16 text-white" />
+            </div>
+
+            {/* Titre principal */}
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-4">
+              CRM Fournisseurs Ultra Premium
+            </h1>
+
+            {/* Message de restriction */}
+            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 mb-8">
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                <AlertCircle className="w-8 h-8 text-amber-400" />
+                <h2 className="text-2xl font-bold text-amber-400">Accès Restreint</h2>
+              </div>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Le <strong>CRM Fournisseurs</strong> est réservé exclusivement aux membres <strong>Ultra Premium</strong> et aux comptes <strong>High-Ticket</strong>.
+                <br />Cette fonctionnalité avancée vous donne accès à notre réseau de 22 fournisseurs premium vérifiés.
+              </p>
+            </div>
+
+            {/* Votre niveau actuel */}
+            <div className="bg-gray-800/50 rounded-xl p-6 mb-8">
+              <h3 className="text-xl font-semibold text-white mb-4">Votre niveau actuel :</h3>
+              <div className="flex items-center justify-center space-x-4">
+                <div className="px-4 py-2 bg-gray-700 rounded-lg">
+                  <span className="text-gray-300">Plan : </span>
+                  <span className="text-white font-bold capitalize">{userAccess.plan}</span>
+                </div>
+                <div className="px-4 py-2 bg-gray-700 rounded-lg">
+                  <span className="text-gray-300">Rôle : </span>
+                  <span className="text-white font-bold capitalize">{userAccess.role}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Avantages Ultra Premium */}
+            <div className="text-left mb-8">
+              <h3 className="text-2xl font-bold text-purple-400 mb-6 text-center">
+                Avantages Ultra Premium CRM
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gray-800/30 rounded-lg p-4 border border-purple-500/20">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <Users className="w-6 h-6 text-purple-400" />
+                    <h4 className="text-white font-bold">22 Fournisseurs Premium</h4>
+                  </div>
+                  <p className="text-gray-300 text-sm">
+                    Accès exclusif à notre réseau de fournisseurs vérifiés et authentifiés
+                  </p>
+                </div>
+
+                <div className="bg-gray-800/30 rounded-lg p-4 border border-purple-500/20">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <Star className="w-6 h-6 text-yellow-400" />
+                    <h4 className="text-white font-bold">Conditions Privilégiées</h4>
+                  </div>
+                  <p className="text-gray-300 text-sm">
+                    Tarifs négociés, délais réduits, priorité sur les nouveautés
+                  </p>
+                </div>
+
+                <div className="bg-gray-800/30 rounded-lg p-4 border border-purple-500/20">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <TrendingUp className="w-6 h-6 text-green-400" />
+                    <h4 className="text-white font-bold">Analytics Avancées</h4>
+                  </div>
+                  <p className="text-gray-300 text-sm">
+                    Suivi performance, CA par fournisseur, prédictions marché
+                  </p>
+                </div>
+
+                <div className="bg-gray-800/30 rounded-lg p-4 border border-purple-500/20">
+                  <div className="flex items-center space-x-3 mb-3">
+                    <MessageCircle className="w-6 h-6 text-blue-400" />
+                    <h4 className="text-white font-bold">Support Dédié</h4>
+                  </div>
+                  <p className="text-gray-300 text-sm">
+                    Relation manager personnel, ligne directe, support 24/7
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Call-to-action */}
+            <div className="space-y-4">
+              <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 text-lg">
+                🚀 Passer à Ultra Premium
+              </button>
+              
+              <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
+                <span>À partir de 2,999€/mois</span>
+                <span>•</span>
+                <span>ROI moyen +340%</span>
+                <span>•</span>
+                <span>Setup en 24h</span>
+              </div>
+            </div>
+
+            {/* Contact commercial */}
+            <div className="bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-xl p-6 mt-8">
+              <h4 className="text-lg font-bold text-white mb-3">
+                Besoin d'informations ?
+              </h4>
+              <p className="text-gray-300 mb-4">
+                Contactez notre équipe commerciale pour une démonstration personnalisée
+              </p>
+              <div className="flex items-center justify-center space-x-6">
+                <div className="flex items-center space-x-2">
+                  <Phone className="w-4 h-4 text-green-400" />
+                  <span className="text-white">+33 1 86 95 12 34</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Mail className="w-4 h-4 text-blue-400" />
+                  <span className="text-white">premium@selezione.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const [formData, setFormData] = useState({
     nom: '',
     email: '',
