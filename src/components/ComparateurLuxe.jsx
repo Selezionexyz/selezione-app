@@ -751,9 +751,17 @@ const ComparateurLuxe = () => {
               {getFilteredListings().map((product) => (
                 <div key={product.id} className="bg-gray-900 rounded-xl border border-gray-700 hover:border-green-500/50 transition-all duration-300 overflow-hidden group">
                   <div className="relative aspect-square bg-gray-800">
-                    <div className="w-full h-full flex items-center justify-center text-6xl">
-                      {product.photos[0]}
-                    </div>
+                    {product.photos && product.photos[0] ? (
+                      <img 
+                        src={product.photos[0].preview || product.photos[0]}
+                        alt={product.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-6xl text-gray-600">
+                        📷
+                      </div>
+                    )}
                     
                     <div className="absolute top-3 left-3 flex flex-col space-y-2">
                       {product.featured && (
