@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Target, Search, TrendingUp, MapPin, Users, Calendar,
   Zap, Star, Eye, Heart, ShoppingBag, Filter, RefreshCw,
-  AlertCircle, CheckCircle, Crown, Fire, Award, DollarSign,
+  AlertCircle, CheckCircle, Crown, Award, DollarSign,
   BarChart3, Clock, Sparkles, ArrowUp, ArrowDown, Globe
 } from 'lucide-react';
 
