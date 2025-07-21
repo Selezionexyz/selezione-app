@@ -69,6 +69,7 @@ const SaasLayout = ({ user, onLogout }) => {
     simulateur: <SimulateurInvestissement />,
     tendances: <SuiviTendancesRevolutionnaire />,
     radar: <RadarOpportunites />,
+    'quoi-vendre': <QuoiVendreAdvisor />,
     fichiers: <HebergeurPanier />,
     etiquettes: <GenerateurEtiquettesPro />,
     crm: <CRMFournisseurs />,
