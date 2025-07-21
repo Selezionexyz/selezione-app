@@ -3,7 +3,7 @@ import {
   Camera, Upload, Eye, Zap, Star, AlertCircle, CheckCircle,
   TrendingUp, Award, Target, Sparkles, RefreshCw, Download,
   Image, Sun, Moon, Aperture, Focus, Palette, Layout,
-  ArrowUp, ArrowDown, RotateCw, Crop, Filter, Magic,
+  ArrowUp, ArrowDown, RotateCw, Crop, Filter,
   ThumbsUp, ThumbsDown, Lightbulb, Play, Pause
 } from 'lucide-react';
 
