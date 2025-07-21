@@ -315,7 +315,7 @@ const SuiviTendances = () => {
         {loading ? (
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-500 mx-auto"></div>
-            <p className="text-gray-400 mt-4">Chargement des tendances...</p>
+            <p className="text-gray-400 mt-4">Récupération des données Google Trends...</p>
           </div>
         ) : (
           getFilteredTrends().map((trend, index) => (
