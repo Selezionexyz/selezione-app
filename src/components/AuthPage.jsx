@@ -73,33 +73,72 @@ const AuthPage = ({ onAuth }) => {
       // Simulation API connexion
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Utilisateur de demo
-      const demoUser = {
-        id: 1,
-        nom: 'Alexandre Dupont',
-        email: formData.email,
-        entreprise: 'Luxury Business',
-        plan: 'premium',
-        trial_days_left: 0,
-        features: {
-          dashboard: true,
-          estimation: -1, // Illimité
-          marketplace: true,
-          scanner: -1, // Illimité
-          crm: true,
-          academy: true,
-          support: true,
-          advanced_tools: true
-        },
-        credits: 99999,
-        subscription: 'SELEZIONE ULTIMATE',
-        avatar: '👑'
-      };
+      let user;
 
-      localStorage.setItem('selezione_user', JSON.stringify(demoUser));
+      // Compte Admin CEO Selezione
+      if (formData.email.toLowerCase() === 'selezioneceo' && formData.password === 'Luxurysaas') {
+        user = {
+          id: 'admin-001',
+          nom: 'CEO Selezione',
+          email: 'selezioneceo@selezione.com',
+          entreprise: 'SELEZIONE SAS',
+          plan: 'admin',
+          role: 'CEO',
+          trial_days_left: 0,
+          features: {
+            dashboard: true,
+            estimation: -1, // Illimité
+            marketplace: true,
+            scanner: -1, // Illimité
+            crm: true,
+            academy: true,
+            support: true,
+            advanced_tools: true,
+            admin_panel: true,
+            user_management: true,
+            analytics: true,
+            system_config: true
+          },
+          permissions: {
+            create_users: true,
+            delete_users: true,
+            modify_plans: true,
+            access_analytics: true,
+            system_admin: true
+          },
+          credits: 999999,
+          subscription: '🔥 SELEZIONE CEO ADMIN',
+          avatar: '👑'
+        };
+      } else {
+        // Utilisateur de demo standard
+        user = {
+          id: 1,
+          nom: 'Alexandre Dupont',
+          email: formData.email,
+          entreprise: 'Luxury Business',
+          plan: 'premium',
+          trial_days_left: 0,
+          features: {
+            dashboard: true,
+            estimation: -1, // Illimité
+            marketplace: true,
+            scanner: -1, // Illimité
+            crm: true,
+            academy: true,
+            support: true,
+            advanced_tools: true
+          },
+          credits: 99999,
+          subscription: 'SELEZIONE ULTIMATE',
+          avatar: '👑'
+        };
+      }
+
+      localStorage.setItem('selezione_user', JSON.stringify(user));
       localStorage.setItem('selezione_auth', 'true');
 
-      onAuth(demoUser);
+      onAuth(user);
     } catch (error) {
       alert('Erreur de connexion');
     }
