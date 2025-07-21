@@ -330,19 +330,24 @@ const AuthPage = ({ onAuth }) => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Adresse email *
+                  {isLogin ? 'Email ou ID Admin' : 'Adresse email'} *
                 </label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
-                    type="email"
+                    type={isLogin ? 'text' : 'email'}
                     required
                     value={formData.email}
                     onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))}
                     className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500/20"
-                    placeholder="votre@email.com"
+                    placeholder={isLogin ? "votre@email.com ou selezioneceo" : "votre@email.com"}
                   />
                 </div>
+                {isLogin && (
+                  <p className="mt-1 text-xs text-amber-400">
+                    💡 Admin: utilisez "selezioneceo" comme identifiant
+                  </p>
+                )}
               </div>
 
               <div>
