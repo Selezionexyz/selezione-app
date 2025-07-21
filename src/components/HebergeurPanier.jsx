@@ -13,6 +13,8 @@ const HebergeurPanier = () => {
   const [orders, setOrders] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [showFileViewer, setShowFileViewer] = useState(false);
   const fileInputRef = useRef(null);
 
   // Commande en cours
