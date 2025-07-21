@@ -190,8 +190,8 @@ const AuthPage = ({ onAuth }) => {
               </h2>
               
               <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                Rejoignez 2800+ professionnels qui utilisent SELEZIONE pour maximiser leurs profits 
-                dans la revente de luxe avec notre IA et nos 22 fournisseurs premium.
+                Rejoignez 350+ professionnels qui utilisent SELEZIONE pour maximiser leurs profits 
+                dans la revente de luxe avec notre IA et nos 40+ fournisseurs premium.
               </p>
             </div>
 
