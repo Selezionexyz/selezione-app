@@ -7,62 +7,86 @@ import {
 
 const AnimationAccueil = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [showContent, setShowContent] = useState(true); // Afficher immédiatement !
+  const [showContent, setShowContent] = useState(true);
   const [animationComplete, setAnimationComplete] = useState(false);
 
   const steps = [
     {
       id: 'logo',
-      duration: 2000,
+      duration: 4000, // Ralenti !
       content: (
         <div className="flex flex-col items-center justify-center">
-          <div className="w-32 h-32 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-3xl flex items-center justify-center mb-6 animate-pulse shadow-2xl shadow-amber-500/50">
-            <span className="text-white font-black text-6xl">S</span>
+          <div className="w-40 h-40 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 rounded-3xl flex items-center justify-center mb-8 animate-pulse shadow-2xl shadow-amber-500/50 neon-border">
+            <span className="text-white font-black text-7xl drop-shadow-2xl">S</span>
           </div>
-          <h1 className="text-5xl font-black bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent mb-2 animate-bounce">
+          <h1 className="text-6xl font-black bg-gradient-to-r from-amber-400 via-orange-400 to-red-400 bg-clip-text text-transparent mb-4 animate-bounce neon-glow">
             SELEZIONE
           </h1>
-          <p className="text-xl text-gray-400 animate-fade-in">La Révolution du Luxe B2B</p>
+          <p className="text-2xl text-gray-300 animate-fade-in neon-text">La Révolution du Luxe B2B</p>
+          <div className="mt-8 w-32 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full animate-pulse"></div>
         </div>
       )
     },
     
     {
       id: 'mission',
-      duration: 3500,
+      duration: 5000,
       content: (
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="mb-8">
-            <Sparkles className="w-16 h-16 text-amber-400 mx-auto mb-4 animate-spin-slow" />
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Bienvenue dans l'Avenir du{' '}
+        <div className="text-center max-w-5xl mx-auto">
+          <div className="mb-10">
+            <Sparkles className="w-20 h-20 text-amber-400 mx-auto mb-6 animate-spin-slow neon-icon" />
+            <h2 className="text-5xl font-bold text-white mb-6 neon-glow">
+              Qu'est-ce que{' '}
               <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
-                Luxe d'Occasion
-              </span>
+                SELEZIONE
+              </span> ?
             </h2>
-            <p className="text-xl text-gray-300 leading-relaxed">
-              SELEZIONE révolutionne le marché du luxe de seconde main avec une plateforme B2B 
-              dotée d'intelligence artificielle avancée, connectant 350 professionnels depuis septembre 2023.
+            <p className="text-2xl text-gray-300 leading-relaxed mb-8">
+              🎯 <strong>SELEZIONE</strong> est la première plateforme B2B française spécialisée dans le luxe d'occasion.
+            </p>
+            <p className="text-xl text-gray-400 leading-relaxed">
+              Nous connectons revendeurs débutants, professionnels Vestiaire Collective et boutiques physiques 
+              avec des outils d'IA révolutionnaires pour maximiser leurs profits dans l'univers du luxe de seconde main.
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gray-800/50 rounded-xl p-6 border border-amber-500/20 animate-fade-in-up" style={{animationDelay: '0.5s'}}>
-              <Crown className="w-12 h-12 text-amber-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Plateforme #1</h3>
-              <p className="text-gray-400">Leader mondial du luxe B2B avec 96% de satisfaction client</p>
-            </div>
-            
-            <div className="bg-gray-800/50 rounded-xl p-6 border border-blue-500/20 animate-fade-in-up" style={{animationDelay: '1s'}}>
-              <Zap className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">IA Avancée</h3>
-              <p className="text-gray-400">GPT-4 Turbo + algorithmes propriétaires pour l'expertise</p>
-            </div>
-            
-            <div className="bg-gray-800/50 rounded-xl p-6 border border-purple-500/20 animate-fade-in-up" style={{animationDelay: '1.5s'}}>
-              <TrendingUp className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">ROI Exceptionnel</h3>
-              <p className="text-gray-400">Rentabilité moyenne +340% pour nos membres premium</p>
+        </div>
+      )
+    },
+
+    {
+      id: 'probleme',
+      duration: 5000,
+      content: (
+        <div className="text-center max-w-5xl mx-auto">
+          <div className="mb-10">
+            <Target className="w-20 h-20 text-red-400 mx-auto mb-6 animate-pulse neon-icon" />
+            <h2 className="text-5xl font-bold text-white mb-6 neon-glow">
+              Le Problème que nous{' '}
+              <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
+                Résolvons
+              </span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="bg-red-500/10 rounded-xl p-6 border border-red-500/30 neon-border-red">
+                <h3 className="text-2xl font-bold text-red-400 mb-4">❌ AVANT SELEZIONE</h3>
+                <ul className="text-gray-300 space-y-3 text-left">
+                  <li>• Pas de données sur quoi acheter/vendre</li>
+                  <li>• Photos amateurs qui ne vendent pas</li>
+                  <li>• Aucune idée des vraies tendances</li>
+                  <li>• Pas d'accès aux fournisseurs B2B</li>
+                  <li>• Marges incertaines et risques élevés</li>
+                </ul>
+              </div>
+              <div className="bg-green-500/10 rounded-xl p-6 border border-green-500/30 neon-border-green">
+                <h3 className="text-2xl font-bold text-green-400 mb-4">✅ AVEC SELEZIONE</h3>
+                <ul className="text-gray-300 space-y-3 text-left">
+                  <li>• IA prédit quoi vendre avec 92% précision</li>
+                  <li>• Photos analysées par IA Vision pro</li>
+                  <li>• Google Trends en temps réel</li>
+                  <li>• 156 fournisseurs B2B connectés</li>
+                  <li>• Marges calculées automatiquement</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -70,44 +94,191 @@ const AnimationAccueil = ({ onComplete }) => {
     },
 
     {
-      id: 'features',
-      duration: 4000,
+      id: 'outils',
+      duration: 5000,
       content: (
         <div className="text-center max-w-6xl mx-auto">
           <div className="mb-8">
-            <Target className="w-16 h-16 text-purple-400 mx-auto mb-4 animate-pulse" />
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Écosystème Complet{' '}
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                18 Outils Professionnels
+            <Crown className="w-20 h-20 text-amber-400 mx-auto mb-6 animate-bounce neon-icon" />
+            <h2 className="text-5xl font-bold text-white mb-6 neon-glow">
+              Nos{' '}
+              <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+                Outils Révolutionnaires
               </span>
             </h2>
-            <p className="text-xl text-gray-300">
-              De l'intelligence marché à l'authentification IA, tout ce dont vous avez besoin pour dominer le luxe
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-blue-500/10 rounded-xl p-6 border border-blue-500/30 neon-border-blue animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+              <Target className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Quoi Vendre Advisor</h3>
+              <p className="text-gray-400 text-sm">IA + Scraping Vinted/Joli Closet pour savoir exactement quoi acheter</p>
+            </div>
+            <div className="bg-green-500/10 rounded-xl p-6 border border-green-500/30 neon-border-green animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+              <Eye className="w-12 h-12 text-green-400 mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Photo Perfect Vendeur</h3>
+              <p className="text-gray-400 text-sm">IA Vision analyse vos photos et prédit l'impact sur les ventes</p>
+            </div>
+            <div className="bg-purple-500/10 rounded-xl p-6 border border-purple-500/30 neon-border-purple animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+              <TrendingUp className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Tendances Révolution</h3>
+              <p className="text-gray-400 text-sm">Google Trends + Instagram + Vogue en streaming temps réel</p>
+            </div>
+            <div className="bg-orange-500/10 rounded-xl p-6 border border-orange-500/30 neon-border-orange animate-fade-in-up" style={{animationDelay: '0.8s'}}>
+              <Globe className="w-12 h-12 text-orange-400 mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Site B2B Fournisseur</h3>
+              <p className="text-gray-400 text-sm">Accès direct aux 156 fournisseurs européens</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // PAGE DE VENTE 1/3
+    {
+      id: 'vente1',
+      duration: 4500,
+      content: (
+        <div className="text-center max-w-5xl mx-auto">
+          <div className="mb-8">
+            <Rocket className="w-20 h-20 text-green-400 mx-auto mb-6 animate-bounce neon-icon" />
+            <h2 className="text-5xl font-bold text-white mb-6 neon-glow">
+              Transformez votre{' '}
+              <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                Business Luxe
+              </span>
+            </h2>
+            <p className="text-2xl text-gray-300 mb-8">
+              🚀 Rejoignez les <strong>350+ professionnels</strong> qui ont déjà révolutionné leur activité
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {[
-              { name: 'Dashboard Intelligence', icon: BarChart3, color: 'text-blue-400', badge: 'LIVE' },
-              { name: 'Estimation IA', icon: Zap, color: 'text-amber-400', badge: 'GPT-4' },
-              { name: 'Marketplace B2B', icon: Crown, color: 'text-purple-400', badge: '22 FOUR.' },
-              { name: 'Authentification IA', icon: Shield, color: 'text-green-400', badge: '10K+' },
-              { name: 'ROI Intelligence', icon: TrendingUp, color: 'text-red-400', badge: 'PRED.' },
-              { name: 'Radar Opportunités', icon: Target, color: 'text-cyan-400', badge: '100 SITES' }
-            ].map((tool, index) => (
-              <div 
-                key={index}
-                className="bg-gray-800/50 rounded-lg p-4 border border-gray-700 hover:border-amber-500/50 transition-all animate-fade-in-up" 
-                style={{animationDelay: `${index * 0.2}s`}}
-              >
-                <tool.icon className={`w-8 h-8 ${tool.color} mx-auto mb-2`} />
-                <h3 className="text-sm font-bold text-white mb-1">{tool.name}</h3>
-                <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-1 rounded-full border border-amber-500/30">
-                  {tool.badge}
-                </span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-xl p-6 border border-green-500/30 neon-border-green">
+              <div className="text-4xl font-bold text-green-400 mb-2">+168%</div>
+              <div className="text-white font-semibold mb-2">Marge Moyenne</div>
+              <div className="text-gray-400 text-sm">Nos membres atteignent 168% de marge en moyenne grâce à nos outils IA</div>
+            </div>
+            <div className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl p-6 border border-blue-500/30 neon-border-blue">
+              <div className="text-4xl font-bold text-blue-400 mb-2">€820K</div>
+              <div className="text-white font-semibold mb-2">Volume Mensuel</div>
+              <div className="text-gray-400 text-sm">Nos membres génèrent 820k€ de chiffre d'affaires mensuel</div>
+            </div>
+            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl p-6 border border-purple-500/30 neon-border-purple">
+              <div className="text-4xl font-bold text-purple-400 mb-2">96%</div>
+              <div className="text-white font-semibold mb-2">Satisfaction</div>
+              <div className="text-gray-400 text-sm">96% de nos membres recommandent SELEZIONE</div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // PAGE DE VENTE 2/3
+    {
+      id: 'vente2',
+      duration: 4500,
+      content: (
+        <div className="text-center max-w-5xl mx-auto">
+          <div className="mb-8">
+            <Users className="w-20 h-20 text-blue-400 mx-auto mb-6 animate-pulse neon-icon" />
+            <h2 className="text-5xl font-bold text-white mb-6 neon-glow">
+              Pour{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Tous Profils
+              </span>
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-yellow-500/10 rounded-xl p-6 border border-yellow-500/30 neon-border-yellow animate-fade-in-up">
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-xl">🌱</span>
               </div>
-            ))}
+              <h3 className="text-2xl font-bold text-yellow-400 mb-3">Débutant Vinted</h3>
+              <ul className="text-gray-300 space-y-2 text-left text-sm">
+                <li>• Découvrir quoi acheter/vendre</li>
+                <li>• Apprendre les bases du luxe</li>
+                <li>• Photos qui attirent les lycéens</li>
+                <li>• Budget 50-300€ optimisé</li>
+              </ul>
+            </div>
+            <div className="bg-purple-500/10 rounded-xl p-6 border border-purple-500/30 neon-border-purple animate-fade-in-up" style={{animationDelay: '0.3s'}}>
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <Crown className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-purple-400 mb-3">Pro Vestiaire</h3>
+              <ul className="text-gray-300 space-y-2 text-left text-sm">
+                <li>• Optimiser les prix premium</li>
+                <li>• Tendances luxe temps réel</li>
+                <li>• Clientèle 25-45 ans aisée</li>
+                <li>• Marges jusqu'à 200%</li>
+              </ul>
+            </div>
+            <div className="bg-blue-500/10 rounded-xl p-6 border border-blue-500/30 neon-border-blue animate-fade-in-up" style={{animationDelay: '0.6s'}}>
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <span className="text-white font-bold text-xl">🏪</span>
+              </div>
+              <h3 className="text-2xl font-bold text-blue-400 mb-3">Boutique</h3>
+              <ul className="text-gray-300 space-y-2 text-left text-sm">
+                <li>• Fournisseurs B2B directs</li>
+                <li>• Gestion stock intelligente</li>
+                <li>• Analytics avancées</li>
+                <li>• Multi-canaux optimisés</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // PAGE DE VENTE 3/3
+    {
+      id: 'vente3',
+      duration: 4500,
+      content: (
+        <div className="text-center max-w-5xl mx-auto">
+          <div className="mb-8">
+            <Award className="w-20 h-20 text-amber-400 mx-auto mb-6 animate-spin-slow neon-icon" />
+            <h2 className="text-5xl font-bold text-white mb-6 neon-glow">
+              Pourquoi Choisir{' '}
+              <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+                SELEZIONE
+              </span> ?
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div className="bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-xl p-6 border border-amber-500/30 neon-border-amber text-left">
+              <h3 className="text-2xl font-bold text-amber-400 mb-4">🚀 Innovation Technologique</h3>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Première IA spécialisée luxe d'occasion</li>
+                <li>• Google Trends intégré en temps réel</li>
+                <li>• Vision AI pour analyse photo pro</li>
+                <li>• Scraping automatique Vinted/Joli Closet</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-green-500/20 to-teal-500/20 rounded-xl p-6 border border-green-500/30 neon-border-green text-left">
+              <h3 className="text-2xl font-bold text-green-400 mb-4">💰 Résultats Garantis</h3>
+              <ul className="text-gray-300 space-y-2">
+                <li>• +168% marge moyenne prouvée</li>
+                <li>• ROI visible dès la première semaine</li>
+                <li>• Réduction des risques de 75%</li>
+                <li>• Support 24/7 inclus</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-purple-600/30 to-pink-600/30 rounded-2xl p-8 border border-purple-500/50 neon-border-purple-strong">
+            <h3 className="text-3xl font-bold text-white mb-4">🎯 OFFRE SPÉCIALE LANCEMENT</h3>
+            <p className="text-xl text-gray-300 mb-6">
+              Rejoignez les premiers 100 membres et bénéficiez d'un accès à vie aux outils premium !
+            </p>
+            <div className="flex justify-center items-center space-x-4">
+              <span className="text-2xl text-gray-400 line-through">€197/mois</span>
+              <span className="text-4xl font-bold text-green-400">€97/mois</span>
+              <span className="px-4 py-2 bg-red-500 text-white font-bold rounded-full animate-pulse">-50%</span>
+            </div>
           </div>
         </div>
       )
@@ -115,106 +286,40 @@ const AnimationAccueil = ({ onComplete }) => {
 
     {
       id: 'stats',
-      duration: 3500,
-      content: (
-        <div className="text-center max-w-5xl mx-auto">
-          <div className="mb-8">
-            <Award className="w-16 h-16 text-gold-400 mx-auto mb-4 animate-bounce" />
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Chiffres qui{' '}
-              <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
-                Parlent d'Eux-Mêmes
-              </span>
-            </h2>
-            <p className="text-xl text-gray-300">
-              Une croissance exceptionnelle portée par l'innovation et la satisfaction client
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { number: '350', label: 'Membres Actifs', icon: Users, color: 'text-blue-400', growth: 'Sept 2023' },
-              { number: '€820K', label: 'Volume Mensuel', icon: Globe, color: 'text-green-400', growth: '+87%' },
-              { number: '40+', label: 'Fournisseurs Premium', icon: Crown, color: 'text-amber-400', growth: 'Vérifiés' },
-              { number: '96%', label: 'Satisfaction Client', icon: Heart, color: 'text-red-400', growth: '+12%' }
-            ].map((stat, index) => (
-              <div 
-                key={index}
-                className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 animate-count-up" 
-                style={{animationDelay: `${index * 0.3}s`}}
-              >
-                <stat.icon className={`w-12 h-12 ${stat.color} mx-auto mb-4`} />
-                <p className="text-3xl font-black text-white mb-1">{stat.number}</p>
-                <p className="text-gray-400 text-sm mb-2">{stat.label}</p>
-                <span className="text-green-400 text-xs bg-green-500/20 px-2 py-1 rounded-full">
-                  {stat.growth}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )
-    },
-
-    {
-      id: 'cta',
-      duration: 3000,
+      duration: 4000,
       content: (
         <div className="text-center max-w-4xl mx-auto">
           <div className="mb-8">
-            <Rocket className="w-20 h-20 text-orange-400 mx-auto mb-6 animate-pulse" />
-            <h2 className="text-5xl font-bold text-white mb-6">
-              Prêt à Révolutionner{' '}
-              <span className="bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 bg-clip-text text-transparent">
-                Votre Business ?
+            <BarChart3 className="w-20 h-20 text-purple-400 mx-auto mb-6 animate-bounce neon-icon" />
+            <h2 className="text-5xl font-bold text-white mb-6 neon-glow">
+              Nos{' '}
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Résultats
               </span>
             </h2>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Rejoignez l'élite des professionnels du luxe et découvrez pourquoi SELEZIONE 
-              est devenu la référence mondiale en moins de 2 ans.
+            <p className="text-xl text-gray-300 leading-relaxed mb-8">
+              Depuis septembre 2023, SELEZIONE transforme le business de ses membres
             </p>
           </div>
           
-          <div className="bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-red-500/20 rounded-2xl p-8 border border-amber-500/30 mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              <div className="text-center">
-                <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-2" />
-                <p className="text-white font-semibold">Accès Immédiat</p>
-                <p className="text-gray-400 text-sm">Toutes fonctionnalités débloquées</p>
-              </div>
-              <div className="text-center">
-                <Shield className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                <p className="text-white font-semibold">Support 24/7</p>
-                <p className="text-gray-400 text-sm">Équipe d'experts dédiée</p>
-              </div>
-              <div className="text-center">
-                <Star className="w-8 h-8 text-amber-400 mx-auto mb-2" />
-                <p className="text-white font-semibold">ROI Garanti</p>
-                <p className="text-gray-400 text-sm">Remboursé si non satisfait</p>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-blue-500/10 rounded-xl p-6 border border-blue-500/30 neon-border-blue animate-count-up">
+              <Users className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+              <div className="text-4xl font-bold text-blue-400 mb-2">350+</div>
+              <div className="text-white font-semibold">Membres Actifs</div>
+              <div className="text-gray-400 text-sm mt-2">Débutants, pros et boutiques</div>
             </div>
-            
-            <button 
-              onClick={() => setAnimationComplete(true)}
-              className="group bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 hover:from-amber-700 hover:via-orange-700 hover:to-red-700 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-2xl shadow-orange-500/25 flex items-center mx-auto text-lg"
-            >
-              <span className="mr-3">🚀 Découvrir SELEZIONE</span>
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
-
-          <div className="flex justify-center space-x-8 text-sm text-gray-500">
-            <div className="flex items-center space-x-2">
-              <Clock className="w-4 h-4" />
-              <span>Setup en 30 secondes</span>
+            <div className="bg-green-500/10 rounded-xl p-6 border border-green-500/30 neon-border-green animate-count-up" style={{animationDelay: '0.3s'}}>
+              <TrendingUp className="w-12 h-12 text-green-400 mx-auto mb-4" />
+              <div className="text-4xl font-bold text-green-400 mb-2">€820K</div>
+              <div className="text-white font-semibold">CA Mensuel</div>
+              <div className="text-gray-400 text-sm mt-2">Volume d'affaires généré</div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Globe className="w-4 h-4" />
-              <span>Disponible mondialement</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Eye className="w-4 h-4" />
-              <span>Interface intuitive</span>
+            <div className="bg-amber-500/10 rounded-xl p-6 border border-amber-500/30 neon-border-amber animate-count-up" style={{animationDelay: '0.6s'}}>
+              <Award className="w-12 h-12 text-amber-400 mx-auto mb-4" />
+              <div className="text-4xl font-bold text-amber-400 mb-2">96%</div>
+              <div className="text-white font-semibold">Satisfaction</div>
+              <div className="text-gray-400 text-sm mt-2">Membres recommandent</div>
             </div>
           </div>
         </div>
