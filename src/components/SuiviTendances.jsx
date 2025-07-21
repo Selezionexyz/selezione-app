@@ -205,9 +205,9 @@ const SuiviTendances = () => {
   }, []);
 
   const getTrendScoreColor = (score) => {
-    if (score >= 95) return 'text-red-400 bg-red-500/20';
-    if (score >= 90) return 'text-orange-400 bg-orange-500/20';
-    if (score >= 85) return 'text-yellow-400 bg-yellow-500/20';
+    if (score >= 80) return 'text-red-400 bg-red-500/20';
+    if (score >= 60) return 'text-orange-400 bg-orange-500/20';
+    if (score >= 40) return 'text-yellow-400 bg-yellow-500/20';
     return 'text-green-400 bg-green-500/20';
   };
 
