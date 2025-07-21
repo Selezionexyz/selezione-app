@@ -235,7 +235,7 @@ const ScannerCodeBarres = () => {
     
     try {
       // Appel à l'API backend réelle
-      const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      const backendUrl = import.meta.env.VITE_REACT_APP_BACKEND_URL || 'http://localhost:8001';
       const response = await fetch(`${backendUrl}/api/scan-barcode`, {
         method: 'POST',
         headers: {
