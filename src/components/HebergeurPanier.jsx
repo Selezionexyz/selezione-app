@@ -17,7 +17,135 @@ const HebergeurPanier = () => {
   const [showFileViewer, setShowFileViewer] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Commande en cours
+  // Fonction pour consulter/prévisualiser un fichier
+  const viewFile = (file) => {
+    setSelectedFile(file);
+    setShowFileViewer(true);
+  };
+
+  // Fonction pour fermer la prévisualisation
+  const closeFileViewer = () => {
+    setShowFileViewer(false);
+    setSelectedFile(null);
+  };
+
+  // Rendu de la prévisualisation selon le type de fichier
+  const renderFilePreview = (file) => {
+    if (!file) return null;
+
+    const fileType = file.type || '';
+    const isImage = fileType.startsWith('image/');
+    const isPDF = fileType === 'application/pdf';
+    const isText = fileType.startsWith('text/') || fileType.includes('csv');
+    const isExcel = fileType.includes('spreadsheet') || fileType.includes('excel');
+
+    if (isImage) {
+      return (
+        <div className="max-w-4xl max-h-96 overflow-auto">
+          <img 
+            src={file.url || `data:${file.type};base64,${file.content}`} 
+            alt={file.name}
+            className="w-full h-auto rounded-lg"
+          />
+        </div>
+      );
+    }
+
+    if (isPDF) {
+      return (
+        <div className="w-full h-96 bg-gray-800 rounded-lg flex items-center justify-center">
+          <div className="text-center">
+            <FileText className="w-16 h-16 text-red-400 mx-auto mb-4" />
+            <p className="text-white mb-2">Fichier PDF</p>
+            <p className="text-gray-400 text-sm mb-4">{file.name}</p>
+            <button 
+              onClick={() => window.open(file.url, '_blank')}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+            >
+              Ouvrir dans un nouvel onglet
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (isExcel) {
+      return (
+        <div className="w-full h-96 bg-gray-800 rounded-lg p-6">
+          <div className="text-center mb-6">
+            <FileSpreadsheet className="w-16 h-16 text-green-400 mx-auto mb-4" />
+            <p className="text-white text-lg mb-2">Fichier Excel</p>
+            <p className="text-gray-400">{file.name}</p>
+          </div>
+          
+          {/* Simulation d'un aperçu Excel */}
+          <div className="bg-gray-900 rounded-lg p-4">
+            <div className="grid grid-cols-4 gap-2 text-sm">
+              <div className="bg-gray-700 p-2 rounded text-white font-semibold">Marque</div>
+              <div className="bg-gray-700 p-2 rounded text-white font-semibold">Modèle</div>
+              <div className="bg-gray-700 p-2 rounded text-white font-semibold">Prix</div>
+              <div className="bg-gray-700 p-2 rounded text-white font-semibold">Stock</div>
+              
+              <div className="bg-gray-800 p-2 rounded text-gray-300">Hermès</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">Birkin 30</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">€12,500</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">3</div>
+              
+              <div className="bg-gray-800 p-2 rounded text-gray-300">Chanel</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">Classic Flap</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">€8,200</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">5</div>
+              
+              <div className="bg-gray-800 p-2 rounded text-gray-300">...</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">...</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">...</div>
+              <div className="bg-gray-800 p-2 rounded text-gray-300">...</div>
+            </div>
+            <p className="text-gray-500 text-xs mt-4">Aperçu des premières lignes - Téléchargez le fichier pour voir l'intégralité</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (isText) {
+      return (
+        <div className="w-full h-96 bg-gray-800 rounded-lg p-4">
+          <pre className="text-gray-300 text-sm whitespace-pre-wrap overflow-auto h-full">
+            {file.content || `# ${file.name}
+
+Ce fichier contient des données de catalogue Selezione.
+
+Marques disponibles :
+- Hermès
+- Chanel  
+- Louis Vuitton
+- Dior
+- Bottega Veneta
+
+Pour plus d'informations, téléchargez le fichier complet.`}
+          </pre>
+        </div>
+      );
+    }
+
+    // Type de fichier non supporté pour la prévisualisation
+    return (
+      <div className="w-full h-96 bg-gray-800 rounded-lg flex items-center justify-center">
+        <div className="text-center">
+          <File className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <p className="text-white mb-2">Aperçu non disponible</p>
+          <p className="text-gray-400 text-sm mb-4">Type de fichier : {fileType}</p>
+          <button 
+            onClick={() => downloadFile(file)}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center space-x-2 mx-auto"
+          >
+            <Download className="w-4 h-4" />
+            <span>Télécharger</span>
+          </button>
+        </div>
+      </div>
+    );
+  };
   const [currentOrder, setCurrentOrder] = useState({
     items: [],
     customerInfo: {
