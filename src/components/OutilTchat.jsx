@@ -525,16 +525,6 @@ Restez dans la course ! 🚀`,
           
           {/* Statut de frappe */}
           <div className="mt-2 h-4">
-            {isTyping.length > 0 && (
-              <p className="text-xs text-gray-500 flex items-center">
-                <div className="flex space-x-1 mr-2">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                </div>
-                {isTyping.join(', ')} {isTyping.length === 1 ? 'tape' : 'tapent'}...
-              </p>
-            )}
           </div>
         </div>
       </div>
