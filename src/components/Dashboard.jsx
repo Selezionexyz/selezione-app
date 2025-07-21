@@ -168,20 +168,106 @@ const Dashboard = () => {
     next_trend: "Sacs vintage des années 90"
   };
 
-  // Chargement initial
+  // Charger les données temps réel depuis l'API
   useEffect(() => {
-    loadDashboardData();
+    const loadRealTimeData = async () => {
+      setLoading(true);
+      try {
+        const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+        
+        // Charger données parallèlement
+        const [trendingRes, newsRes, marketRes] = await Promise.all([
+          fetch(`${backendUrl}/api/trending-products`).catch(() => ({ ok: false })),
+          fetch(`${backendUrl}/api/luxury-news`).catch(() => ({ ok: false })),
+          fetch(`${backendUrl}/api/market-indices`).catch(() => ({ ok: false }))
+        ]);
+
+        // Traitement des données trending
+        if (trendingRes.ok) {
+          const trendingData = await trendingRes.json();
+          if (trendingData.success) {
+            setTrendingProducts(trendingData.data);
+          }
+        }
+
+        // Traitement des news
+        if (newsRes.ok) {
+          const newsData = await newsRes.json();
+          if (newsData.success) {
+            setLuxuryNews(newsData.data);
+          }
+        }
+
+        // Traitement des indices marché
+        if (marketRes.ok) {
+          const marketData = await marketRes.json();
+          if (marketData.success) {
+            setMarketInsights(marketData.data);
+          }
+        }
+
+        setLastUpdate(new Date());
+      } catch (error) {
+        console.error('Erreur chargement données:', error);
+        // Fallback sur données locales si API indisponible
+        setTrendingProducts(realTrendingProducts.slice(0, 3));
+        setLuxuryNews(realLuxuryNews.slice(0, 4));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadRealTimeData();
+    // Actualisation automatique toutes les 5 minutes
+    const interval = setInterval(loadRealTimeData, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  const loadDashboardData = () => {
+  const loadDashboardData = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setTrendingProducts(realTrendingProducts);
-      setLuxuryNews(realLuxuryNews);
-      setMarketInsights(realMarketInsights);
+    try {
+      const backendUrl = import.meta.env.REACT_APP_BACKEND_URL || process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+      
+      // Charger données parallèlement
+      const [trendingRes, newsRes, marketRes] = await Promise.all([
+        fetch(`${backendUrl}/api/trending-products`).catch(() => ({ ok: false })),
+        fetch(`${backendUrl}/api/luxury-news`).catch(() => ({ ok: false })),
+        fetch(`${backendUrl}/api/market-indices`).catch(() => ({ ok: false }))
+      ]);
+
+      // Traitement des données trending
+      if (trendingRes.ok) {
+        const trendingData = await trendingRes.json();
+        if (trendingData.success) {
+          setTrendingProducts(trendingData.data);
+        }
+      }
+
+      // Traitement des news
+      if (newsRes.ok) {
+        const newsData = await newsRes.json();
+        if (newsData.success) {
+          setLuxuryNews(newsData.data);
+        }
+      }
+
+      // Traitement des indices marché
+      if (marketRes.ok) {
+        const marketData = await marketRes.json();
+        if (marketData.success) {
+          setMarketInsights(marketData.data);
+        }
+      }
+
       setLastUpdate(new Date());
+    } catch (error) {
+      console.error('Erreur chargement données:', error);
+      // Fallback sur données locales si API indisponible
+      setTrendingProducts(realTrendingProducts.slice(0, 3));
+      setLuxuryNews(realLuxuryNews.slice(0, 4));
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   const refreshData = () => {
