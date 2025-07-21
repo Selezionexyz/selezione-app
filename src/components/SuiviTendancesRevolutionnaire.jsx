@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  TrendingUp, Zap, Crown, Fire, Target, Eye, Brain,
+  TrendingUp, Zap, Crown, Target, Eye, Brain,
   Sparkles, RefreshCw, Bell, Globe, BarChart3, Activity,
   AlertCircle, Star, Rocket, Heart, Share, Calendar,
   DollarSign, Award, ChevronDown, ChevronUp, Play,
