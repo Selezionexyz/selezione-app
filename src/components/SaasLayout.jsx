@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Menu, X, Home, Zap, Calculator, TrendingUp, FileText,
   GraduationCap, MessageCircle, Bot, Crown, ShoppingBag, Camera, Users,
-  Settings, Clock
+  Settings, Clock, Search, Shield, Activity, Target, Tag
 } from 'lucide-react';
 
 import Dashboard from './Dashboard';
