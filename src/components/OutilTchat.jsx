@@ -324,10 +324,10 @@ Restez dans la course ! 🚀`,
   useEffect(() => {
     const channelKey = `selezione_chat_${activeChannel}`;
     const storedMessages = JSON.parse(localStorage.getItem(channelKey) || '[]');
-    const channelData = chatData[activeChannel] || [];
+    const welcomeMessages = getWelcomeMessages(activeChannel);
     
     // Combiner messages système + messages utilisateurs
-    const allMessages = [...channelData, ...storedMessages];
+    const allMessages = [...welcomeMessages, ...storedMessages];
     setMessages(allMessages);
   }, [activeChannel]);
 
