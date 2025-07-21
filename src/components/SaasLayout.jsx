@@ -38,7 +38,19 @@ const SaasLayout = ({ user, onLogout }) => {
       reason="Outil retiré car données fictives. Sera remplacé par une vraie comparaison de prix avec API réelles."
       alternatives={["Dashboard Intelligence", "Estimation IA"]} 
     />,
-    'rapport-roi': <RapportROIIntelligence />,
+    'rapport-roi': <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+      <div className="text-center">
+        <div className="w-24 h-24 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span className="text-4xl">🗑️</span>
+        </div>
+        <h1 className="text-3xl font-bold mb-4 text-red-400">Rapport ROI</h1>
+        <p className="text-xl text-gray-300 mb-2">OUTIL RETIRÉ</p>
+        <p className="text-gray-400">Cet outil ne servait à rien et a été supprimé</p>
+        <div className="mt-6 px-4 py-2 bg-red-500/20 rounded-lg text-red-300 text-sm">
+          ❌ Remplacé par des outils plus performants
+        </div>
+      </div>
+    </div>,
     calculateur: <CalculateurMarge />,
     scanner: <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
       <div className="text-center">
