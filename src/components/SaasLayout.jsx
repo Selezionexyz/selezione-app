@@ -5,24 +5,22 @@ import {
   Settings, Clock, Search, Shield, Activity, Target, Tag
 } from 'lucide-react';
 
+import ToolRemoved from './ToolRemoved';
 import Dashboard from './Dashboard';
 import ComparateurLuxe from './ComparateurLuxe';
 import OutilEstimationIA from './OutilEstimationIA';
 import CalculateurMarge from './CalculateurMarge';
 import ScannerCodeBarres from './ScannerCodeBarres';
-import SuiviTendances from './SuiviTendances';
 import HebergeurPanier from './HebergeurPanier';
 import CRMFournisseurs from './CRMFournisseurs';
 import Academy from './Academy';
 import OutilTchat from './OutilTchat';
 import AssistantLuxe from './AssistantLuxe';
 import PageVente from './PageVente';
-import AnalyseurPrixConcurrence from './AnalyseurPrixConcurrence';
 import RapportROIIntelligence from './RapportROIIntelligence';
 import GenerateurEtiquettesPro from './GenerateurEtiquettesPro';
 import AssistantAuthentificationIA from './AssistantAuthentificationIA';
 import SimulateurInvestissement from './SimulateurInvestissement';
-import RadarOpportunites from './RadarOpportunites';
 
 const SaasLayout = ({ user, onLogout }) => {
   const [activeView, setActiveView] = useState('dashboard');
