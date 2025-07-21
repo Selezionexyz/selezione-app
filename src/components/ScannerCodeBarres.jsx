@@ -306,7 +306,7 @@ const ScannerCodeBarres = () => {
       <div className="text-center">
         <div className="flex justify-center items-center space-x-3 mb-4">
           <div className="p-3 bg-blue-500/20 rounded-xl">
-            <Barcode className="w-8 h-8 text-blue-400" />
+            <Scan className="w-8 h-8 text-blue-400" />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Scanner Référence Produit
