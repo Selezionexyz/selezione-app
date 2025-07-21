@@ -66,7 +66,7 @@ const SaasLayout = ({ user, onLogout }) => {
     </div>,
     'auth-ia': <AssistantAuthentificationIA />,
     simulateur: <SimulateurInvestissement />,
-    tendances: <SuiviTendances />,
+    tendances: <SuiviTendancesRevolutionnaire />,
     radar: <RadarOpportunites />,
     fichiers: <HebergeurPanier />,
     etiquettes: <GenerateurEtiquettesPro />,
