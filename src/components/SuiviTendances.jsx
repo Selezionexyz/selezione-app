@@ -288,10 +288,8 @@ const SuiviTendances = () => {
               className="w-full px-3 py-2 bg-gray-900 border border-gray-600 rounded-lg text-white focus:border-purple-500 focus:outline-none"
             >
               <option value="all">Toutes sources</option>
-              <option value="vogue">Vogue</option>
-              <option value="instagram">Instagram</option>
-              <option value="tiktok">TikTok</option>
               <option value="google">Google Trends</option>
+              <option value="instagram">Instagram</option>
               <option value="fashion">Fashion Network</option>
             </select>
           </div>
