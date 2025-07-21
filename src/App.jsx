@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import SaasLayout from "./components/SaasLayout";
 import AuthPage from "./components/AuthPage";
+import AnimationAccueil from "./components/AnimationAccueil";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   // Vérifier l'authentification au chargement
   useEffect(() => {
