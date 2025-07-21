@@ -7,7 +7,7 @@ import {
 
 const AnimationAccueil = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(true); // Afficher immédiatement !
   const [animationComplete, setAnimationComplete] = useState(false);
 
   const steps = [
