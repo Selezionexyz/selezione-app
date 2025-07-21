@@ -10,8 +10,8 @@ import sys
 import time
 from typing import Dict, Any
 
-# Test configuration
-BACKEND_URL = "http://localhost:8001"  # Local backend
+# Test configuration - Use localhost for testing the FastAPI backend
+BACKEND_URL = "http://localhost:8001"  # Local FastAPI backend
 API_BASE = f"{BACKEND_URL}/api"
 
 class BackendTester:
