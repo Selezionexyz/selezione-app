@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 
 import Dashboard from './Dashboard';
+import ComparateurLuxe from './ComparateurLuxe';
 import OutilEstimationIA from './OutilEstimationIA';
 import CalculateurMarge from './CalculateurMarge';
 import ScannerCodeBarres from './ScannerCodeBarres';
@@ -15,8 +16,13 @@ import CRMFournisseurs from './CRMFournisseurs';
 import Academy from './Academy';
 import OutilTchat from './OutilTchat';
 import AssistantLuxe from './AssistantLuxe';
-import ComparateurLuxe from './ComparateurLuxe';
 import PageVente from './PageVente';
+import AnalyseurPrixConcurrence from './AnalyseurPrixConcurrence';
+import RapportROIIntelligence from './RapportROIIntelligence';
+import GenerateurEtiquettesPro from './GenerateurEtiquettesPro';
+import AssistantAuthentificationIA from './AssistantAuthentificationIA';
+import SimulateurInvestissement from './SimulateurInvestissement';
+import RadarOpportunites from './RadarOpportunites';
 
 const SaasLayout = ({ user, onLogout }) => {
   const [activeView, setActiveView] = useState('dashboard');
