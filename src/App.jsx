@@ -15,6 +15,12 @@ function App() {
     const checkAuth = () => {
       const authStatus = localStorage.getItem('selezione_auth');
       const userData = localStorage.getItem('selezione_user');
+      const welcomeShown = localStorage.getItem('selezione_welcome_shown');
+      
+      // Déterminer si on doit montrer l'animation d'accueil
+      if (!welcomeShown) {
+        setShowWelcome(true);
+      }
       
       if (authStatus === 'true' && userData) {
         try {
