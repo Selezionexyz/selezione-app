@@ -215,15 +215,15 @@ class BackendTester:
             try:
                 response = requests.post(
                     f"{API_BASE}/chat",
-                    json={"message": test_msg["message"]},
+                    json={"message": test_msg["message"], "session_id": "test_session"},
                     timeout=10
                 )
                 
                 if response.status_code == 200:
                     data = response.json()
-                    if "response" in data and data["response"]:
+                    if data.get("success") and data.get("data", {}).get("message"):
                         # Check if response contains expected keywords
-                        response_text = data["response"].lower()
+                        response_text = data["data"]["message"].lower()
                         found_keywords = [kw for kw in test_msg["expected_keywords"] 
                                         if kw.lower() in response_text]
                         
