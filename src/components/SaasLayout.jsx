@@ -99,11 +99,16 @@ const SaasLayout = ({ user, onLogout }) => {
 
   const getBadgeStyle = (badge) => {
     const styles = {
+      'IA': 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
+      'IA+': 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30',
       'PRO': 'bg-purple-500/20 text-purple-300 border border-purple-500/30',
       'NEW': 'bg-green-500/20 text-green-300 border border-green-500/30',
       'HOT': 'bg-orange-500/20 text-orange-300 border border-orange-500/30',
       'LIVE': 'bg-red-500/20 text-red-300 border border-red-500/30',
-      'VIP': 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+      'AUTO': 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30',
+      'B2B': 'bg-teal-500/20 text-teal-300 border border-teal-500/30',
+      'VIP': 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+      'PLANS': 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
     };
     return styles[badge] || 'bg-gray-500/20 text-gray-300';
   };
