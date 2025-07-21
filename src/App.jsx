@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from "react";
-import SafeSaasLayout from "./components/SafeSaasLayout";
+import SaasLayout from "./components/SaasLayout";
 import AuthPage from "./components/AuthPage";
+import AnimationAccueil from "./components/AnimationAccueil";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
 
+  // Vérifier l'authentification au chargement
   useEffect(() => {
     const checkAuth = () => {
       const authStatus = localStorage.getItem('selezione_auth');
       const userData = localStorage.getItem('selezione_user');
+      const welcomeShown = localStorage.getItem('selezione_welcome_shown');
+      
+      // Déterminer si on doit montrer l'animation d'accueil
+      if (!welcomeShown) {
+        setShowWelcome(true);
+      }
       
       if (authStatus === 'true' && userData) {
         try {
@@ -18,7 +28,7 @@ function App() {
           setUser(parsedUser);
           setIsAuthenticated(true);
         } catch (error) {
-          console.error('Auth error:', error);
+          console.error('Erreur parsing user data:', error);
           localStorage.removeItem('selezione_auth');
           localStorage.removeItem('selezione_user');
         }
@@ -29,14 +39,17 @@ function App() {
     checkAuth();
   }, []);
 
+  // Fonction d'authentification
   const handleAuth = (userData) => {
     setUser(userData);
     setIsAuthenticated(true);
+    // Redirection automatique vers le dashboard
     setTimeout(() => {
-      window.location.reload();
+      window.location.reload(); // Pour s'assurer que tout est bien initialisé
     }, 1000);
   };
 
+  // Fonction de déconnexion
   const handleLogout = () => {
     localStorage.removeItem('selezione_auth');
     localStorage.removeItem('selezione_user');
@@ -44,6 +57,13 @@ function App() {
     setIsAuthenticated(false);
   };
 
+  // Fonction appelée quand l'animation d'accueil se termine
+  const handleWelcomeComplete = () => {
+    localStorage.setItem('selezione_welcome_shown', 'true');
+    setShowWelcome(false);
+  };
+
+  // Écran de chargement
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -58,14 +78,23 @@ function App() {
     );
   }
 
+  // Afficher l'animation d'accueil si c'est la première fois
+  if (showWelcome) {
+    return <AnimationAccueil onComplete={handleWelcomeComplete} />;
+  }
+
+  // Si non authentifié, afficher la page d'inscription/connexion
   if (!isAuthenticated) {
     return <AuthPage onAuth={handleAuth} />;
   }
 
+  // Si authentifié, afficher l'application avec contexte utilisateur
   return (
-    <div className="min-h-screen bg-black text-white">
-      <SafeSaasLayout user={user} onLogout={handleLogout} />
-    </div>
+    <ErrorBoundary>
+      <div className="min-h-screen bg-black text-white">
+        <SaasLayout user={user} onLogout={handleLogout} />
+      </div>
+    </ErrorBoundary>
   );
 }
 
