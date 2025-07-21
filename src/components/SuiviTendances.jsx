@@ -323,16 +323,14 @@ const SuiviTendances = () => {
               <div className="p-6">
                 <div className="flex items-start space-x-6">
                   
-                  {/* Rang et image */}
+                  {/* Rang et score */}
                   <div className="flex-shrink-0">
                     <div className="w-16 h-16 bg-gray-900 rounded-lg flex items-center justify-center mb-2">
                       <span className="text-2xl font-bold text-purple-400">#{trend.rank}</span>
                     </div>
-                    <img 
-                      src={trend.image}
-                      alt={trend.title}
-                      className="w-24 h-18 object-cover rounded-lg"
-                    />
+                    <div className={`px-3 py-1 rounded-full text-sm font-bold text-center ${getTrendScoreColor(trend.trend_score)}`}>
+                      {trend.trend_score}%
+                    </div>
                   </div>
 
                   {/* Contenu principal */}
@@ -340,104 +338,59 @@ const SuiviTendances = () => {
                     
                     {/* Titre et marque */}
                     <div>
-                      <h3 className="text-xl font-bold text-white mb-1">{trend.title}</h3>
-                      <div className="flex items-center space-x-3">
-                        <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm border border-purple-500/30">
+                      <h3 className="text-2xl font-bold text-white mb-2">{trend.title}</h3>
+                      <div className="flex items-center space-x-4">
+                        <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">
                           {trend.brand}
                         </span>
-                        <span className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm">
-                          {trend.category}
-                        </span>
-                        <span className="text-gray-400">{trend.price_range}</span>
+                        <span className="text-gray-400">•</span>
+                        <span className="text-gray-300">{trend.category}</span>
+                        <span className="text-gray-400">•</span>
+                        <span className="text-green-400 font-medium">{trend.price_range}</span>
                       </div>
                     </div>
 
                     {/* Métriques */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className="bg-gray-900/50 rounded-lg p-3">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <TrendingUp className="w-4 h-4 text-purple-400" />
-                          <span className="text-gray-400 text-sm">Score</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span className={`text-2xl font-bold px-2 py-1 rounded ${getTrendScoreColor(trend.trend_score)}`}>
-                            {trend.trend_score}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="bg-gray-900/50 rounded-lg p-3">
-                        <div className="flex items-center space-x-2 mb-1">
+                      <div>
+                        <p className="text-gray-400 text-sm">Croissance hebdo</p>
+                        <div className="flex items-center space-x-1">
                           {getGrowthIcon(trend.weekly_growth)}
-                          <span className="text-gray-400 text-sm">Croissance 7j</span>
+                          <span className="text-lg font-bold text-white">{trend.weekly_growth}</span>
                         </div>
-                        <span className="text-lg font-bold text-green-400">{trend.weekly_growth}</span>
                       </div>
-
-                      <div className="bg-gray-900/50 rounded-lg p-3">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <Eye className="w-4 h-4 text-blue-400" />
-                          <span className="text-gray-400 text-sm">Recherches</span>
-                        </div>
-                        <span className="text-lg font-bold text-blue-400">
-                          {trend.search_volume.toLocaleString()}
-                        </span>
+                      
+                      <div>
+                        <p className="text-gray-400 text-sm">Mentions sociales</p>
+                        <p className="text-lg font-bold text-blue-400">{trend.social_mentions?.toLocaleString()}</p>
                       </div>
-
-                      <div className="bg-gray-900/50 rounded-lg p-3">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <Heart className="w-4 h-4 text-red-400" />
-                          <span className="text-gray-400 text-sm">Engagement</span>
-                        </div>
-                        <span className="text-lg font-bold text-red-400">
-                          {(trend.influencer_engagement / 1000).toFixed(0)}K
-                        </span>
+                      
+                      <div>
+                        <p className="text-gray-400 text-sm">Disponibilité</p>
+                        <p className="text-lg font-bold text-amber-400">{trend.availability}</p>
+                      </div>
+                      
+                      <div>
+                        <p className="text-gray-400 text-sm">Investissement</p>
+                        <p className="text-lg text-yellow-400">{trend.investment_rating}</p>
                       </div>
                     </div>
 
                     {/* Raison de la tendance */}
-                    <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
-                      <div className="flex items-start space-x-2">
-                        <Sparkles className="w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="text-amber-400 font-medium text-sm">Pourquoi c'est tendance :</p>
-                          <p className="text-amber-300 text-sm">{trend.trend_reason}</p>
-                        </div>
-                      </div>
+                    <div className="bg-gray-900/50 rounded-lg p-4">
+                      <p className="text-gray-300">
+                        <strong>Analyse:</strong> {trend.trend_reason}
+                      </p>
                     </div>
 
-                    {/* Sources et hashtags */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-gray-400 text-sm">Sources :</span>
-                        <div className="flex space-x-1">
-                          {trend.sources.map((source, idx) => (
-                            <span key={idx} className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">
-                              {source}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center space-x-2">
-                        <span className="text-gray-400 text-sm">Hashtags :</span>
-                        <div className="flex space-x-1">
-                          {trend.hashtags.slice(0, 2).map((hashtag, idx) => (
-                            <span key={idx} className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-xs">
-                              {hashtag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center space-x-3 pt-2">
-                      <span className="text-yellow-400">{trend.investment_rating}</span>
-                      <span className="text-gray-400">•</span>
-                      <span className="text-gray-400 text-sm">Disponibilité : {trend.availability}</span>
-                      <span className="text-gray-400">•</span>
-                      <span className="text-gray-400 text-sm">{trend.key_demographics}</span>
+                    {/* Sources */}
+                    <div className="flex items-center space-x-2">
+                      <span className="text-gray-400 text-sm">Sources:</span>
+                      {trend.sources?.map((source, idx) => (
+                        <span key={idx} className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs">
+                          {source}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
