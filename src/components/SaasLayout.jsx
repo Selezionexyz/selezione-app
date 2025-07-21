@@ -31,14 +31,26 @@ const SaasLayout = ({ user, onLogout }) => {
     dashboard: <Dashboard />,
     marketplace: <ComparateurLuxe />,
     estimation: <OutilEstimationIA />,
-    'analyseur-prix': <AnalyseurPrixConcurrence />,
+    'analyseur-prix': <ToolRemoved 
+      toolName="Analyseur Prix Concurrence" 
+      reason="Outil retiré car données fictives. Sera remplacé par une vraie comparaison de prix avec API réelles."
+      alternatives={["Dashboard Intelligence", "Estimation IA"]} 
+    />,
     'rapport-roi': <RapportROIIntelligence />,
     calculateur: <CalculateurMarge />,
     scanner: <ScannerCodeBarres />,
     'auth-ia': <AssistantAuthentificationIA />,
     simulateur: <SimulateurInvestissement />,
-    tendances: <SuiviTendances />,
-    radar: <RadarOpportunites />,
+    tendances: <ToolRemoved 
+      toolName="Suivi Tendances Luxe" 
+      reason="Outil retiré car données fictives. Sera remplacé par une vraie intégration Google Trends + Instagram."
+      alternatives={["Dashboard Intelligence", "Scanner Référence"]} 
+    />,
+    radar: <ToolRemoved 
+      toolName="Radar Opportunités" 
+      reason="Outil retiré car recherche fictive. Sera remplacé par un vrai scanner d'opportunités web."
+      alternatives={["Dashboard Intelligence", "Estimation IA"]} 
+    />,
     fichiers: <HebergeurPanier />,
     etiquettes: <GenerateurEtiquettesPro />,
     crm: <CRMFournisseurs />,
