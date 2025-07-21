@@ -40,7 +40,19 @@ const SaasLayout = ({ user, onLogout }) => {
     />,
     'rapport-roi': <RapportROIIntelligence />,
     calculateur: <CalculateurMarge />,
-    scanner: <ScannerCodeBarres />,
+    scanner: <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+      <div className="text-center">
+        <div className="w-24 h-24 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span className="text-4xl">🚧</span>
+        </div>
+        <h1 className="text-3xl font-bold mb-4 text-orange-400">Scanner Référence</h1>
+        <p className="text-xl text-gray-300 mb-2">EN TRAVAUX</p>
+        <p className="text-gray-400">Outil en développement pour une expérience révolutionnaire</p>
+        <div className="mt-6 px-4 py-2 bg-orange-500/20 rounded-lg text-orange-300 text-sm">
+          🔨 Retour prévu bientôt avec fonctionnalités premium
+        </div>
+      </div>
+    </div>,
     'auth-ia': <AssistantAuthentificationIA />,
     simulateur: <SimulateurInvestissement />,
     tendances: <SuiviTendances />,
