@@ -16,6 +16,11 @@ const FarfetchDirectoryTool = ({ user }) => {
   // Vérification des droits admin - ACCEPTER TOUS LES RÔLES POUR DEBUG
   const isAdmin = true; // user?.role === 'Admin/CEO' || user?.role === 'Ultra Premium' || user?.role === 'Admin' || user?.plan === 'Admin';
 
+  // Debug info
+  console.log('FarfetchDirectory - User:', user);
+  console.log('FarfetchDirectory - Role:', user?.role);
+  console.log('FarfetchDirectory - Plan:', user?.plan);
+
   // Données des 42 boutiques Farfetch
   const farfetchBoutiques = [
     {
