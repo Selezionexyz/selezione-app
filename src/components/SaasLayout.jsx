@@ -27,6 +27,7 @@ import PhotoPerfectVendeur from './PhotoPerfectVendeur';
 import QuoiVendreAdvisor from './QuoiVendreAdvisor';
 import SuiviTendancesRevolutionnaire from './SuiviTendancesRevolutionnaire';
 import FarfetchDirectoryTool from './FarfetchDirectoryTool';
+import FournisseurFilesManager from './FournisseurFilesManager';
 
 const SaasLayout = ({ user, onLogout }) => {
   const [activeView, setActiveView] = useState('dashboard');
