@@ -21,7 +21,7 @@ const FarfetchDirectoryTool = ({ user }) => {
   useEffect(() => {
     // Utiliser les vraies 180 boutiques depuis le fichier de données
     setTimeout(() => {
-      setBoutiques(farfetch180Boutiques);
+      setBoutiques(farfetchBoutiquesCompletes);
       setLoading(false);
     }, 1000);
   }, []);
