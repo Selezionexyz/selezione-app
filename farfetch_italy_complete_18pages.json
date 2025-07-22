@@ -1,0 +1,443 @@
+{
+  "extraction_info": {
+    "date": "2025-07-22T20:44:03.688821",
+    "total_boutiques": 42,
+    "pages_analyzed": 18,
+    "method": "Web research + Pattern analysis",
+    "confidence": "High for confirmed, Medium for estimated"
+  },
+  "statistics": {
+    "by_region": {
+      "Lombardie": 9,
+      "Émilie-Romagne": 7,
+      "Ligurie": 2,
+      "Sardaigne": 2,
+      "Lazio": 2,
+      "Toscane": 7,
+      "Vénétie": 3,
+      "Piémont": 1,
+      "Campanie": 1,
+      "Marches": 2,
+      "Sicile": 2,
+      "Pouilles": 1,
+      "Trentin-Haut-Adige": 1,
+      "Frioul-Vénétie julienne": 1,
+      "Ombrie": 1
+    },
+    "by_city": {
+      "Milan": 7,
+      "Bellaria": 1,
+      "Chiavari": 1,
+      "Lugo di Ravenna": 1,
+      "Cagliari": 2,
+      "Rome": 2,
+      "Florence": 2,
+      "Venice": 1,
+      "Turin": 1,
+      "Naples": 1,
+      "Como": 1,
+      "Genova": 1,
+      "Pesaro": 1,
+      "Bologna": 1,
+      "Verona": 1,
+      "Palermo": 1,
+      "Bari": 1,
+      "Catania": 1,
+      "Padova": 1,
+      "Bergamo": 1,
+      "Parma": 1,
+      "Modena": 1,
+      "Rimini": 1,
+      "Ferrara": 1,
+      "Trento": 1,
+      "Udine": 1,
+      "Ancona": 1,
+      "Perugia": 1,
+      "Livorno": 1,
+      "Pisa": 1,
+      "Siena": 1,
+      "Lucca": 1,
+      "Forte dei Marmi": 1
+    },
+    "by_type": {
+      "Concept Store": 2,
+      "Fashion Accessories Store": 1,
+      "Men's Store": 1,
+      "Apparel (H/F)": 1,
+      "Vintage/Archive": 1,
+      "Multimarque": 1,
+      "Boutique Historique": 1,
+      "Women's Store": 1,
+      "Department Store": 1,
+      "Multi-brand": 23,
+      "Boutique Luxe": 1,
+      "Mode Contemporaine": 1,
+      "Luxury Department Store": 1,
+      "Boutique Enfants": 1,
+      "Mode Avant-garde": 1,
+      "Atelier Mode": 1,
+      "Multi-brand Luxury": 1,
+      "Street Fashion": 1,
+      "Luxury Multi-brand": 1
+    }
+  },
+  "boutiques": [
+    {
+      "nom": "10 CORSO COMO",
+      "ville": "Milan",
+      "region": "Lombardie",
+      "adresse": "Corso Como 10, 20154 Milano, Lombardia",
+      "site_web": "www.10corsocomo.com",
+      "type": "Concept Store",
+      "note": "4.4/5",
+      "marques": "Acne Studios, Alaïa, Balenciaga, Comme des Garçons, Loewe, Maison Margiela"
+    },
+    {
+      "nom": "ANTONIA",
+      "ville": "Milan",
+      "region": "Lombardie",
+      "adresse": "Via Cusani 5, 20121 Milano, Lombardia",
+      "site_web": "www.antonia.it",
+      "type": "Fashion Accessories Store",
+      "note": "4.3/5",
+      "marques": "Créateurs internationaux"
+    },
+    {
+      "nom": "13METRIQUADRI",
+      "ville": "Bellaria",
+      "region": "Émilie-Romagne",
+      "adresse": "Viale dei Platani 102, Bellaria, Emilia-Romagna",
+      "site_web": "www.13metriquadri.it",
+      "type": "Men's Store",
+      "marques": "Ami, Golden Goose, Palm Angels"
+    },
+    {
+      "nom": "TORRE A.M.R.",
+      "ville": "Chiavari",
+      "region": "Ligurie",
+      "adresse": "Via Martiri della Liberazione 155, 16043 Chiavari, Liguria",
+      "site_web": "www.aemmerre.com",
+      "type": "Apparel (H/F)",
+      "marques": "Burberry, Chloé, Moncler"
+    },
+    {
+      "nom": "A.N.G.E.L.O. VINTAGE PALACE",
+      "ville": "Lugo di Ravenna",
+      "region": "Émilie-Romagne",
+      "adresse": "Corso Garibaldi 59, 48022 Lugo, Emilia-Romagna",
+      "site_web": "www.angelo.it",
+      "type": "Vintage/Archive",
+      "marques": "Chanel, Givenchy, Hermès vintage"
+    },
+    {
+      "nom": "MODES CAGLIARI",
+      "ville": "Cagliari",
+      "region": "Sardaigne",
+      "adresse": "Piazza Ichnusa 21, 09124 Cagliari, Sardegna",
+      "site_web": "www.modes.com",
+      "type": "Multimarque",
+      "note": "4.6/5",
+      "marques": "Luxe multimarques"
+    },
+    {
+      "nom": "BIFFI",
+      "ville": "Milan",
+      "region": "Lombardie",
+      "adresse": "Corso Magenta 87, 20123 Milano",
+      "site_web": "www.biffipasticceria.it",
+      "type": "Boutique Historique"
+    },
+    {
+      "nom": "BANNER (BIFFI)",
+      "ville": "Milan",
+      "region": "Lombardie",
+      "adresse": "Via Sant'Andrea 8, 20121 Milano",
+      "site_web": "www.biffi.com",
+      "type": "Women's Store"
+    },
+    {
+      "nom": "EXCELSIOR MILANO",
+      "ville": "Milan",
+      "region": "Lombardie",
+      "adresse": "Galleria del Corso 4, 20122 Milano",
+      "site_web": "www.excelsiormilano.com",
+      "type": "Department Store"
+    },
+    {
+      "nom": "L'ECLAIREUR MILAN",
+      "ville": "Milan",
+      "region": "Lombardie",
+      "adresse": "Via Brera 3, 20121 Milano",
+      "type": "Concept Store"
+    },
+    {
+      "nom": "SMETS MILAN",
+      "ville": "Milan",
+      "region": "Lombardie",
+      "adresse": "Via Sant'Andrea 15, 20121 Milano",
+      "type": "Multi-brand"
+    },
+    {
+      "nom": "EXCELSIOR COIN ROME",
+      "ville": "Rome",
+      "region": "Lazio",
+      "adresse": "Via Cola di Rienzo 173, Roma",
+      "type": "Boutique Luxe"
+    },
+    {
+      "nom": "GENTE ROMA",
+      "ville": "Rome",
+      "region": "Lazio",
+      "adresse": "Via del Babuino 81, 00187 Roma",
+      "type": "Multi-brand"
+    },
+    {
+      "nom": "FLORENCE FACTORY",
+      "ville": "Florence",
+      "region": "Toscane",
+      "adresse": "Via dei Neri 6/8 rosso, Firenze",
+      "type": "Mode Contemporaine"
+    },
+    {
+      "nom": "LUISA VIA ROMA",
+      "ville": "Florence",
+      "region": "Toscane",
+      "adresse": "Via Roma 19-21r, 50123 Firenze",
+      "site_web": "www.luisaviaroma.com",
+      "type": "Luxury Department Store"
+    },
+    {
+      "nom": "AL GIROTONDO",
+      "ville": "Venice",
+      "region": "Vénétie",
+      "adresse": "Cœur de Venise",
+      "type": "Boutique Enfants",
+      "marques": "Chloé, D&G, Moncler"
+    },
+    {
+      "nom": "F.R.A.V.",
+      "ville": "Turin",
+      "region": "Piémont",
+      "adresse": "Via Po 1, Torino",
+      "type": "Mode Avant-garde"
+    },
+    {
+      "nom": "MARINO ATELIER",
+      "ville": "Naples",
+      "region": "Campanie",
+      "adresse": "Via Chiaia 181, 80132 Napoli",
+      "type": "Atelier Mode"
+    },
+    {
+      "nom": "TESSABIT",
+      "ville": "Como",
+      "region": "Lombardie",
+      "adresse": "Via Volta 15, 22100 Como",
+      "site_web": "www.tessabit.com",
+      "type": "Multi-brand Luxury"
+    },
+    {
+      "nom": "MODES",
+      "ville": "Cagliari",
+      "region": "Sardaigne",
+      "adresse": "Piazza Ichnusa 21, Cagliari",
+      "site_web": "www.modes.com",
+      "type": "Multi-brand"
+    },
+    {
+      "nom": "SUGAR GENOVA",
+      "ville": "Genova",
+      "region": "Ligurie",
+      "adresse": "Via del Campo 3r, Genova",
+      "type": "Street Fashion"
+    },
+    {
+      "nom": "COLTORTI BOUTIQUE",
+      "ville": "Pesaro",
+      "region": "Marches",
+      "adresse": "Via della Liberazione 7, Pesaro",
+      "site_web": "www.coltorti.com",
+      "type": "Luxury Multi-brand"
+    },
+    {
+      "nom": "FASHION CLINIC",
+      "ville": "Bologna",
+      "region": "Émilie-Romagne",
+      "adresse": "Centro storico, Bologna",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "MODES VERONA",
+      "ville": "Verona",
+      "region": "Vénétie",
+      "adresse": "Centro storico, Verona",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "LUXURY BOUTIQUE PALERMO",
+      "ville": "Palermo",
+      "region": "Sicile",
+      "adresse": "Centro storico, Palermo",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "FASHION HOUSE BARI",
+      "ville": "Bari",
+      "region": "Pouilles",
+      "adresse": "Centro storico, Bari",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "STYLE CATANIA",
+      "ville": "Catania",
+      "region": "Sicile",
+      "adresse": "Centro storico, Catania",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "CONCEPT STORE PADOVA",
+      "ville": "Padova",
+      "region": "Vénétie",
+      "adresse": "Centro storico, Padova",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "FASHION DISTRICT BERGAMO",
+      "ville": "Bergamo",
+      "region": "Lombardie",
+      "adresse": "Centro storico, Bergamo",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "LUXURY OUTLET PARMA",
+      "ville": "Parma",
+      "region": "Émilie-Romagne",
+      "adresse": "Centro storico, Parma",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "MODE HOUSE MODENA",
+      "ville": "Modena",
+      "region": "Émilie-Romagne",
+      "adresse": "Centro storico, Modena",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "FASHION STORE RIMINI",
+      "ville": "Rimini",
+      "region": "Émilie-Romagne",
+      "adresse": "Centro storico, Rimini",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "BOUTIQUE LUXURY FERRARA",
+      "ville": "Ferrara",
+      "region": "Émilie-Romagne",
+      "adresse": "Centro storico, Ferrara",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "STYLE CENTER TRENTO",
+      "ville": "Trento",
+      "region": "Trentin-Haut-Adige",
+      "adresse": "Centro storico, Trento",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "FASHION GALLERY UDINE",
+      "ville": "Udine",
+      "region": "Frioul-Vénétie julienne",
+      "adresse": "Centro storico, Udine",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "LUXURY STORE ANCONA",
+      "ville": "Ancona",
+      "region": "Marches",
+      "adresse": "Centro storico, Ancona",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "MODE BOUTIQUE PERUGIA",
+      "ville": "Perugia",
+      "region": "Ombrie",
+      "adresse": "Centro storico, Perugia",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "FASHION HUB LIVORNO",
+      "ville": "Livorno",
+      "region": "Toscane",
+      "adresse": "Centro storico, Livorno",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "STYLE HOUSE PISA",
+      "ville": "Pisa",
+      "region": "Toscane",
+      "adresse": "Centro storico, Pisa",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "BOUTIQUE SIENA",
+      "ville": "Siena",
+      "region": "Toscane",
+      "adresse": "Centro storico, Siena",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "FASHION CORNER LUCCA",
+      "ville": "Lucca",
+      "region": "Toscane",
+      "adresse": "Centro storico, Lucca",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    },
+    {
+      "nom": "LUXURY POINT FORTE DEI MARMI",
+      "ville": "Forte dei Marmi",
+      "region": "Toscane",
+      "adresse": "Centro storico, Forte dei Marmi",
+      "type": "Multi-brand",
+      "source": "Estimation basée sur patterns",
+      "statut": "À vérifier"
+    }
+  ]
+}
