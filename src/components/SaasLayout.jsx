@@ -156,6 +156,7 @@ const SaasLayout = ({ user, onLogout }) => {
       'AUTO': 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30',
       'B2B': 'bg-teal-500/20 text-teal-300 border border-teal-500/30',
       'VIP': 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+      'ADMIN': 'bg-red-600/20 text-red-300 border border-red-600/30',
       'PLANS': 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
     };
     return styles[badge] || 'bg-gray-500/20 text-gray-300';
