@@ -26,6 +26,7 @@ import SiteB2BFournisseur from './SiteB2BFournisseur';
 import PhotoPerfectVendeur from './PhotoPerfectVendeur';
 import QuoiVendreAdvisor from './QuoiVendreAdvisor';
 import SuiviTendancesRevolutionnaire from './SuiviTendancesRevolutionnaire';
+import FarfetchDirectoryTool from './FarfetchDirectoryTool';
 
 const SaasLayout = ({ user, onLogout }) => {
   const [activeView, setActiveView] = useState('dashboard');
