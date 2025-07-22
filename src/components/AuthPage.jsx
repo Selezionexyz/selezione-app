@@ -400,6 +400,55 @@ const AuthPage = ({ onAuth }) => {
                   </>
                 )}
               </button>
+
+              {/* Boutons de test admin */}
+              <div className="mt-6 pt-6 border-t border-gray-700">
+                <p className="text-sm text-gray-400 mb-3 text-center">🔧 Tests Rapides</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const adminUser = {
+                        nom: 'Admin Test',
+                        email: 'admin@selezione.com',
+                        role: 'Admin/CEO',
+                        avatar: '',
+                        joinDate: new Date().toISOString(),
+                        plan: 'Admin',
+                        trialDays: 999
+                      };
+                      localStorage.setItem('selezione_auth', 'true');
+                      localStorage.setItem('selezione_user', JSON.stringify(adminUser));
+                      onAuth(adminUser);
+                    }}
+                    className="py-2 px-3 bg-red-600/20 border border-red-600/30 text-red-300 font-semibold rounded-lg hover:bg-red-600/30 transition-all flex items-center justify-center space-x-2"
+                  >
+                    <Crown className="w-4 h-4" />
+                    <span className="text-xs">Admin</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const premiumUser = {
+                        nom: 'Premium Test',
+                        email: 'premium@selezione.com',
+                        role: 'Ultra Premium',
+                        avatar: '',
+                        joinDate: new Date().toISOString(),
+                        plan: 'Ultra Premium',
+                        trialDays: 30
+                      };
+                      localStorage.setItem('selezione_auth', 'true');
+                      localStorage.setItem('selezione_user', JSON.stringify(premiumUser));
+                      onAuth(premiumUser);
+                    }}
+                    className="py-2 px-3 bg-purple-600/20 border border-purple-600/30 text-purple-300 font-semibold rounded-lg hover:bg-purple-600/30 transition-all flex items-center justify-center space-x-2"
+                  >
+                    <Star className="w-4 h-4" />
+                    <span className="text-xs">Ultra</span>
+                  </button>
+                </div>
+              </div>
             </form>
 
             <div className="mt-8 text-center">
