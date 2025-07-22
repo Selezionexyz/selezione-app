@@ -249,7 +249,8 @@ const SaasLayout = ({ user, onLogout }) => {
                 ))}
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
