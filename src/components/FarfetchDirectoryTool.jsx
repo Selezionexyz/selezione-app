@@ -4,6 +4,7 @@ import {
   Search, Filter, Eye, ExternalLink, Users, ShoppingBag,
   MessageCircle, Crown, AlertCircle
 } from 'lucide-react';
+import { farfetchBoutiquesCompletes } from '../data/farfetchBoutiques';
 
 const FarfetchDirectoryTool = ({ user }) => {
   const [boutiques, setBoutiques] = useState([]);
@@ -21,110 +22,10 @@ const FarfetchDirectoryTool = ({ user }) => {
   console.log('FarfetchDirectory - Role:', user?.role);
   console.log('FarfetchDirectory - Plan:', user?.plan);
 
-  // Données des 42 boutiques Farfetch
-  const farfetchBoutiques = [
-    {
-      id: 1,
-      nom: "10 CORSO COMO",
-      ville: "Milan",
-      region: "Lombardie",
-      adresse: "Corso Como 10, 20154 Milano, Lombardia",
-      siteWeb: "www.10corsocomo.com",
-      telephoneStore: "+39 02 2900 2674",
-      telephoneService: "+39 035 006 7700",
-      telephoneCafe: "+39 02 2901 3581",
-      whatsapp: "+39 334 644 5116",
-      emailStore: "shop@10corsocomo.com",
-      emailService: "eshop@10corsocomo.com",
-      instagram: "@10corsocomo",
-      type: "Concept Store",
-      note: "4.4/5",
-      avis: 1457,
-      marques: ["Acne Studios", "Alaïa", "Balenciaga", "Comme des Garçons", "Loewe", "Maison Margiela", "Manolo Blahnik"],
-      horaires: "Lun-Dim 10h30-19h30",
-      specialites: ["Mode", "Art", "Design", "Culture"],
-      description: "Concept store emblématique fusionnant mode, design, art et culture",
-      status: "Premium"
-    },
-    {
-      id: 2,
-      nom: "ANTONIA",
-      ville: "Milan",
-      region: "Lombardie",
-      adresse: "Via Cusani 5, 20121 Milano, Lombardia",
-      siteWeb: "www.antonia.it",
-      telephoneFemme: "+39 02 86998340",
-      telephoneHomme: "+39 02 86984141",
-      whatsapp: "À demander",
-      instagram: "@antoniamilano",
-      type: "Fashion Accessories Store",
-      note: "4.3/5",
-      avis: 26,
-      marques: ["Créateurs internationaux"],
-      horaires: "Lun-Dim 10h30-19h30",
-      specialites: ["Vêtements", "Accessoires", "Luxe"],
-      description: "Boutique de luxe avec sélection pointue de créateurs internationaux",
-      status: "Premium"
-    },
-    {
-      id: 3,
-      nom: "A.N.G.E.L.O. VINTAGE PALACE",
-      ville: "Lugo di Ravenna",
-      region: "Émilie-Romagne",
-      adresse: "Corso Garibaldi 59, 48022 Lugo di Ravenna, Emilia-Romagna",
-      siteWeb: "www.angelo.it",
-      telephone: "+39 0545 35200",
-      email: "angelo@angelo.it",
-      instagram: "@angelovintagepalace",
-      blog: "angelovintage.wordpress.com",
-      type: "Vintage/Archive",
-      marques: ["Chanel vintage", "Givenchy vintage", "Hermès vintage"],
-      specialites: ["Vintage", "Archive", "Mode historique"],
-      description: "L'un des plus importants archives de mode vintage d'Europe (40+ ans)",
-      experience: "40+ ans",
-      status: "Unique"
-    },
-    {
-      id: 4,
-      nom: "LUISA VIA ROMA",
-      ville: "Florence",
-      region: "Toscane",
-      adresse: "Via Roma 19-21r, 50123 Firenze, Toscana",
-      siteWeb: "www.luisaviaroma.com",
-      telephoneStore: "+39 055 906 4116",
-      telephoneService: "+39 055 093 60 54",
-      email: "customerservice@luisaviaroma.com",
-      instagram: "@luisaviaroma",
-      type: "Luxury Department Store",
-      marques: ["Luxe international premium"],
-      horaires: "Lun-Dim 10h30-19h30",
-      specialites: ["Department Store", "Luxe", "Institution florentine"],
-      description: "Institution florentine du luxe",
-      status: "Premium"
-    },
-    {
-      id: 5,
-      nom: "13METRIQUADRI",
-      ville: "Bellaria",
-      region: "Émilie-Romagne",
-      adresse: "Viale Paolo Guidi 102, 47814 Bellaria-Igea Marina, Emilia-Romagna",
-      siteWeb: "www.tmqstore.com",
-      telephone: "+39 0541 410995",
-      instagram: "@13metriquadri",
-      type: "Men's Store",
-      marques: ["Ami", "Golden Goose", "Palm Angels"],
-      specialites: ["Mode masculine", "Designers contemporains"],
-      description: "Boutique homme spécialisée, ouverte en 2007",
-      ouverture: "2007",
-      status: "Standard"
-    },
-    // ... (autres boutiques - version raccourcie pour l'exemple)
-  ];
-
   useEffect(() => {
-    // Simuler le chargement des données
+    // Utiliser les vraies 42 boutiques depuis le fichier de données
     setTimeout(() => {
-      setBoutiques(farfetchBoutiques);
+      setBoutiques(farfetchBoutiquesCompletes);
       setLoading(false);
     }, 1000);
   }, []);
