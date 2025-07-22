@@ -4,7 +4,8 @@ import {
   Search, Filter, Eye, ExternalLink, Users, ShoppingBag,
   MessageCircle, Crown, AlertCircle
 } from 'lucide-react';
-import { farfetch180Boutiques } from '../data/farfetch180Boutiques';
+// Retour aux 42 boutiques fonctionnelles pour éviter le crash
+import { farfetchBoutiquesCompletes } from '../data/farfetchBoutiques';
 
 const FarfetchDirectoryTool = ({ user }) => {
   const [boutiques, setBoutiques] = useState([]);
