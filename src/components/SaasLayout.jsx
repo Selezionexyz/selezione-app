@@ -179,40 +179,18 @@ const SaasLayout = ({ user, onLogout }) => {
 
         {/* Menu par thèmes */}
         <div className="p-4 space-y-6">
-          {/* Debug info */}
-          <div className="text-xs text-gray-500 mb-2">
-            Debug: Role = {user?.role || 'undefined'}
-          </div>
-          
-          {menuThemes.map((theme) => {
-            // TEMPORAIRE : Désactivation du filtrage admin pour debug
-            const filteredItems = theme.items; // Afficher tous les items temporairement
-            
-            /*
-            // Logique originale à réactiver après test
-            const filteredItems = theme.items.filter(item => {
-              if (item.adminOnly) {
-                return user?.role === 'Admin/CEO' || user?.role === 'Ultra Premium';
-              }
-              return true;
-            });
-            */
-
-            // Ne pas afficher la section si aucun item n'est visible
-            if (filteredItems.length === 0) return null;
-
-            return (
-              <div key={theme.title}>
-                <div className="px-2 py-1 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
-                  {theme.title}
-                </div>
-                <div className="space-y-1">
-                  {filteredItems.map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => {
-                        setActiveView(item.id);
-                        setSidebarOpen(false);
+          {menuThemes.map((theme) => (
+            <div key={theme.title}>
+              <div className="px-2 py-1 text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                {theme.title}
+              </div>
+              <div className="space-y-1">
+                {theme.items.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActiveView(item.id);
+                      setSidebarOpen(false);
                       }}
                       className={`w-full group transition-all duration-200 ${
                       activeView === item.id
