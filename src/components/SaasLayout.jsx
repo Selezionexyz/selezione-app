@@ -130,6 +130,13 @@ const SaasLayout = ({ user, onLogout }) => {
       ]
     },
     {
+      title: '👑 ADMIN EXCLUSIF',
+      items: [
+        { id: 'farfetch-directory', label: 'Répertoire Farfetch', icon: Search, description: '42 boutiques Italie + contacts', badge: 'ADMIN', adminOnly: true },
+        { id: 'fournisseur-files', label: 'Fichiers Fournisseurs', icon: Archive, description: 'Stockage 100 fichiers permanent', badge: 'ADMIN', adminOnly: true }
+      ]
+    },
+    {
       title: '🎓 FORMATION & SUPPORT',
       items: [
         { id: 'academy', label: 'Academy Selezione', icon: GraduationCap, description: '20+ modules interactifs' },
