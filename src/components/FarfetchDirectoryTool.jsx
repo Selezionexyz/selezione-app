@@ -4,7 +4,7 @@ import {
   Search, Filter, Eye, ExternalLink, Users, ShoppingBag,
   MessageCircle, Crown, AlertCircle
 } from 'lucide-react';
-import { farfetchBoutiquesCompletes } from '../data/farfetchBoutiques';
+import { farfetch180Boutiques } from '../data/farfetch180Boutiques';
 
 const FarfetchDirectoryTool = ({ user }) => {
   const [boutiques, setBoutiques] = useState([]);
@@ -15,17 +15,12 @@ const FarfetchDirectoryTool = ({ user }) => {
   const [selectedBoutique, setSelectedBoutique] = useState(null);
 
   // Vérification des droits admin - ACCEPTER TOUS LES RÔLES POUR DEBUG
-  const isAdmin = true; // user?.role === 'Admin/CEO' || user?.role === 'Ultra Premium' || user?.role === 'Admin' || user?.plan === 'Admin';
-
-  // Debug info
-  console.log('FarfetchDirectory - User:', user);
-  console.log('FarfetchDirectory - Role:', user?.role);
-  console.log('FarfetchDirectory - Plan:', user?.plan);
+  const isAdmin = true;
 
   useEffect(() => {
-    // Utiliser les vraies 42 boutiques depuis le fichier de données
+    // Utiliser les vraies 180 boutiques depuis le fichier de données
     setTimeout(() => {
-      setBoutiques(farfetchBoutiquesCompletes);
+      setBoutiques(farfetch180Boutiques);
       setLoading(false);
     }, 1000);
   }, []);
