@@ -21,6 +21,11 @@ const FournisseurFilesManager = ({ user }) => {
   // Vérification des droits admin - ACCEPTER TOUS LES RÔLES POUR DEBUG
   const isAdmin = true; // user?.role === 'Admin/CEO' || user?.role === 'Ultra Premium' || user?.role === 'Admin' || user?.plan === 'Admin';
 
+  // Debug info
+  console.log('FournisseurFiles - User:', user);
+  console.log('FournisseurFiles - Role:', user?.role);
+  console.log('FournisseurFiles - Plan:', user?.plan);
+
   // Catégories de fournisseurs
   const categories = [
     'Marques Premium', 'Fournisseurs B2B', 'Grossistes Europe', 'Agents Asie',
