@@ -123,6 +123,8 @@ const SaasLayout = ({ user, onLogout }) => {
     {
       title: '🔧 OUTILS PRO+',
       items: [
+        { id: 'farfetch-directory', label: '🇮🇹 Répertoire Farfetch', icon: Search, description: '42 boutiques Italie + contacts', badge: 'ADMIN' },
+        { id: 'fournisseur-files', label: '📁 Fichiers Fournisseurs', icon: Archive, description: 'Stockage 100 fichiers permanent', badge: 'ADMIN' },
         { id: 'etiquettes', label: 'Générateur Étiquettes', icon: Tag, description: 'QR codes + templates', badge: 'NEW' },
         { id: 'crm', label: 'CRM Fournisseurs', icon: Users, description: 'Ultra Premium uniquement', badge: 'VIP' },
         { id: 'chat', label: 'Community Chat', icon: MessageCircle, description: 'Réseau professionnel' },
