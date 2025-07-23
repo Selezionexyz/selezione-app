@@ -98,7 +98,7 @@ const FarfetchDirectoryTool = ({ user }) => {
   useEffect(() => {
     // Chargement simple sans erreur possible
     setTimeout(() => {
-      setBoutiques(boutiquesPremium);
+      setBoutiques(farfetch180Complete);
       setLoading(false);
     }, 500);
   }, []);
