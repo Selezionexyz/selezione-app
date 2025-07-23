@@ -333,6 +333,11 @@ const AnimationAccueil = ({ onComplete }) => {
     const timer = setTimeout(() => {
       if (currentStep < steps.length - 1) {
         setCurrentStep(currentStep + 1);
+      } else {
+        // Terminer automatiquement l'animation après la dernière étape
+        setTimeout(() => {
+          setAnimationComplete(true);
+        }, 1000);
       }
     }, steps[currentStep].duration);
 
