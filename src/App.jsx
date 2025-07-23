@@ -17,9 +17,10 @@ function App() {
       const userData = localStorage.getItem('selezione_user');
       const welcomeShown = localStorage.getItem('selezione_welcome_shown');
       
-      // Déterminer si on doit montrer l'animation d'accueil
+      // BYPASS temporaire - marquer automatiquement l'animation comme vue
       if (!welcomeShown) {
-        setShowWelcome(true);
+        localStorage.setItem('selezione_welcome_shown', 'true');
+        setShowWelcome(false);
       }
       
       if (authStatus === 'true' && userData) {
