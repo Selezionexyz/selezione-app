@@ -78,6 +78,7 @@ const SaasLayout = ({ user, onLogout }) => {
     'quoi-vendre': <QuoiVendreAdvisor />,
     'photo-perfect': <PhotoPerfectVendeur />,
     'site-b2b': <SiteB2BFournisseur />,
+    'ebook-selezione': <EbookSelezione user={user} />,
     'farfetch-directory': <FarfetchDirectoryTool user={user} />,
     'fournisseur-files': <FournisseurFilesManager user={user} />,
     fichiers: <HebergeurPanier />,
