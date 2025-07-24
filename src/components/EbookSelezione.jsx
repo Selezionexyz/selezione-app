@@ -1040,36 +1040,36 @@ const EbookSelezione = () => {
                         <h6>ÉTAPE 1 : ACHAT INITIAL (1000€)</h6>
                         <ul>
                           <li>5x Sneakers GMF00101F00683910317 à 202€ = 1010€</li>
-                          <li><strong>Légèrement au-dessus budget mais rentabilité exceptionnelle</strong></li>
-                          <li><strong>Ciblage :</strong> Tailles 38-40 (65% demande)</li>
+                          <li><strong>Légèrement au-dessus budget mais ROI exceptionnel</strong></li>
+                          <li><strong>Ciblage :</strong> Tailles 38-40 (rotation maximale)</li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
-                        <h6>ÉTAPE 2 : VENTE COST PRICE (Mois 1-2)</h6>
+                        <h6>ÉTAPE 2 : VENTE COST PRICE (Mois 1)</h6>
                         <ul>
-                          <li>Vente à cost price +20% : 242€ × 5 = 1210€</li>
-                          <li><strong>Bénéfice net rapide :</strong> 200€ (20%)</li>
-                          <li>Capital disponible : 1210€</li>
+                          <li>Vente rapide à 242€ × 5 = 1210€</li>
+                          <li><strong>Bénéfice immédiat :</strong> 200€ (20%)</li>
+                          <li>Capital sécurisé : 1210€</li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
-                        <h6>ÉTAPE 3 : VENTE RETAIL PREMIUM (Mois 3-4)</h6>
+                        <h6>ÉTAPE 3 : VENTE RETAIL PREMIUM (Mois 2-3)</h6>
                         <ul>
-                          <li>OU vente retail complète : 606€ × 5 = 3030€</li>
-                          <li><strong>Profit exceptionnel :</strong> 2020€ (200%)</li>
-                          <li><strong>OBJECTIF 3000€ DÉPASSÉ DÈS LE 1ER CYCLE !</strong></li>
+                          <li>Vente retail optimale : 485€ × 5 = 2425€</li>
+                          <li><strong>Profit net :</strong> 1415€ (140% marge !)</li>
+                          <li><strong>Capital disponible :</strong> 2425€</li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
-                        <h6>ÉTAPE 4 : SCALING MASSIF (Mois 6-12)</h6>
+                        <h6>ÉTAPE 4 : OBJECTIF 3000€+ (Mois 4-6)</h6>
                         <ul>
-                          <li>Capital multiplié : 3030€</li>
-                          <li>Réinvestissement : 15 paires possible</li>
-                          <li>Potential profit annuel : 6000€+</li>
-                          <li><strong>Business transformé avec Golden Goose !</strong></li>
+                          <li>Réinvestissement : 12 paires possible (2425/202)</li>
+                          <li>Vente : 12 × 485€ = 5820€</li>
+                          <li><strong>OBJECTIF 3000€ LARGEMENT DÉPASSÉ !</strong></li>
+                          <li><strong>Scaling potentiel :</strong> 10,000€+ annuel</li>
                         </ul>
                       </div>
                     </div>
