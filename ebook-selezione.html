@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'ART DU PRÊT-À-PORTER DE LUXE - Guide Complet SELEZIONE</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-dark: #1a1a1a;
+            --primary-gray: #2d2d2d;
+            --text-light: #f5f5f5;
+            --text-gray: #888;
+            --gradient-gold: linear-gradient(135deg, #D4AF37, #FFD700);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-light);
+            background-color: var(--primary-dark);
+            font-size: 16px;
+        }
+
+        .ebook-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Cover Page */
+        .cover {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-gray));
+            margin-bottom: 3rem;
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid var(--primary-gold);
+        }
+
+        .cover h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .cover .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+        }
+
+        .cover .author {
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        .cover .year {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-top: 1rem;
+        }
+
+        /* Chapter Styles */
+        .chapter {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: var(--primary-gray);
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-gold);
+        }
+
+        .chapter-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chapter-number {
+            background: var(--gradient-gold);
+            color: var(--primary-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .section h4 {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        .highlight {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--primary-gold);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h4 {
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .outlet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .outlet-card {
+            background: var(--primary-dark);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .outlet-card h4 {
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .outlet-card .location {
+            color: var(--text-gray);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .brand-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .brand-tag {
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        ul {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .contact-section {
+            background: var(--gradient-gold);
+            color: var(--primary-dark);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .contact-section h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--primary-dark);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-light);
+        }
+
+        .page-break {
+            page-break-before: always;
+            margin-top: 4rem;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            .chapter {
+                background: #f8f8f8;
+                border: 1px solid #ddd;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ebook-container">
+        
+        <!-- COVER PAGE -->
+        <div class="cover">
+            <h1>L'ART DU PRÊT-À-PORTER DE LUXE</h1>
+            <p class="subtitle">Guide Complet de l'Achat-Revente et du Wholesale Premium</p>
+            <div class="author">
+                <i class="fas fa-crown"></i>
+                Par SELEZIONE
+            </div>
+            <p class="year">Édition 2025 • 35+ Pages d'Expertise</p>
+        </div>
+
+        <!-- TABLE DES MATIÈRES -->
+        <div class="chapter page-break">
+            <h2 class="chapter-title">
+                <span class="chapter-number">📋</span>
+                Table des Matières
+            </h2>
+            
+            <ul style="font-size: 1.1rem; line-height: 2;">
+                <li><strong>Chapitre 1</strong> - L'Univers du Luxe</li>
+                <li><strong>Chapitre 2</strong> - SELEZIONE : Votre Partenaire Wholesale</li>
+                <li><strong>Chapitre 3</strong> - Les Différents Segments</li>
+                <li><strong>Chapitre 4</strong> - Guide Complet des Outlets Européens</li>
+                <li><strong>Chapitre 5</strong> - Collections N-1 et Déstockage</li>
+                <li><strong>Chapitre 6</strong> - La Seconde Main de Luxe</li>
+                <li><strong>Chapitre 7</strong> - Plateformes de Revente</li>
+                <li><strong>Chapitre 8</strong> - Techniques de Revente Professionnelles</li>
+                <li><strong>Chapitre 9</strong> - Business Model et Rentabilité</li>
+                <li><strong>Chapitre 10</strong> - Tendances et Avenir du Secteur</li>
+                <li><strong>Annexes</strong> - Contacts et Ressources</li>
+            </ul>
+        </div>
+
+        <!-- CHAPITRE 1 : L'UNIVERS DU LUXE -->
+        <div class="chapter page-break">
+            <h2 class="chapter-title">
+                <span class="chapter-number">1</span>
+                L'Univers du Luxe
+            </h2>
+
+            <div class="section">
+                <h3><i class="fas fa-history"></i> Histoire du Prêt-à-Porter de Luxe</h3>
+                <p>
+                    Le prêt-à-porter de luxe naît au milieu du XXe siècle, révolutionnant l'industrie de la mode. 
+                    <span class="highlight">Gabrielle Chanel</span> libère la femme du corset, 
+                    <span class="highlight">Christian Dior</span> impose le New Look en 1947, et 
+                    <span class="highlight">Yves Saint Laurent</span> démocratise la haute couture avec le prêt-à-porter.
+                </p>
+                <p>
+                    Cette évolution transforme des maisons artisanales en empires mondiaux, créant les codes du luxe moderne que nous connaissons aujourd'hui.
+                </p>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-lightbulb"></i> Le Saviez-vous ?</h4>
+                    <p>Le terme "prêt-à-porter" fut inventé par J.C. Weil en 1949, inspiré de l'expression américaine "ready-to-wear".</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-gem"></i> Codes et Savoir-vivre du Luxe</h3>
+                <p>Le luxe obéit à des codes stricts qui définissent son univers :</p>
+                <ul>
+                    <li><strong>Excellence artisanale</strong> : Savoir-faire traditionnel et innovation</li>
+                    <li><strong>Matières premières nobles</strong> : Cuirs d'exception, soies, cachemires</li>
+                    <li><strong>Exclusivité</strong> : Production limitée et distribution sélective</li>
+                    <li><strong>Héritage</strong> : Histoire de la maison et transmission du savoir</li>
+                    <li><strong>Service client premium</strong> : Expérience personnalisée</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-crown"></i> Marques Iconiques Mondiales</h3>
+                
+                <h4>🇫🇷 Maisons Françaises</h4>
+                <ul>
+                    <li><strong>Louis Vuitton</strong> (1854) - Maroquinerie et ready-to-wear</li>
+                    <li><strong>Chanel</strong> (1910) - Mode féminine et parfums</li>
+                    <li><strong>Hermès</strong> (1837) - Sellier-maroquinier de prestige</li>
+                    <li><strong>Dior</strong> (1946) - Haute couture et cosmétiques</li>
+                    <li><strong>Saint Laurent</strong> (1961) - Prêt-à-porter de luxe</li>
+                </ul>
+
+                <h4>🇮🇹 Excellence Italienne</h4>
+                <ul>
+                    <li><strong>Prada</strong> (1913) - Innovation et tradition milanaise</li>
+                    <li><strong>Gucci</strong> (1921) - Maroquinerie florentine</li>
+                    <li><strong>Versace</strong> (1978) - Glamour italien</li>
+                    <li><strong>Armani</strong> (1975) - Élégance intemporelle</li>
+                    <li><strong>Bottega Veneta</strong> (1966) - "Intrecciato" signature</li>
+                </ul>
+
+                <h4>🇬🇧 Tradition Britannique</h4>
+                <ul>
+                    <li><strong>Burberry</strong> (1856) - Trench-coat iconique</li>
+                    <li><strong>Alexander McQueen</strong> (1992) - Avant-garde britannique</li>
+                    <li><strong>Stella McCartney</strong> (2001) - Luxe durable</li>
+                </ul>
+
+                <h4>🇺🇸 Modernité Américaine</h4>
+                <ul>
+                    <li><strong>Ralph Lauren</strong> (1967) - Style américain classique</li>
+                    <li><strong>Tom Ford</strong> (2005) - Sophistication contemporaine</li>
+                    <li><strong>Marc Jacobs</strong> (1984) - Créativité new-yorkaise</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-calendar-alt"></i> Saisonnalité et Calendrier Fashion</h3>
+                <p>L'industrie du luxe fonctionne selon un calendrier précis qui dicte les collections :</p>
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Période</th>
+                            <th>Collection</th>
+                            <th>Présentation</th>
+                            <th>Livraison</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Printemps/Été (SS)</td>
+                            <td>Mars - Août</td>
+                            <td>Septembre/Octobre N-1</td>
+                            <td>Février/Mars</td>
+                        </tr>
+                        <tr>
+                            <td>Automne/Hiver (AW)</td>
+                            <td>Septembre - Février</td>
+                            <td>Février/Mars</td>
+                            <td>Juillet/Août</td>
+                        </tr>
+                        <tr>
+                            <td>Pre-Fall</td>
+                            <td>Juin - Septembre</td>
+                            <td>Janvier</td>
+                            <td>Mai/Juin</td>
+                        </tr>
+                        <tr>
+                            <td>Resort/Cruise</td>
+                            <td>Novembre - Mars</td>
+                            <td>Mai/Juin</td>
+                            <td>Octobre/Novembre</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-chart-line"></i> Impact Commercial</h4>
+                    <p>Cette saisonnalité crée des <strong>opportunités d'achat privilégiées</strong> en fin de saison, 
+                    avec des remises pouvant atteindre <span class="highlight">50% à 70%</span> sur les collections N-1.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHAPITRE 2 : SELEZIONE -->
+        <div class="chapter page-break">
+            <h2 class="chapter-title">
+                <span class="chapter-number">2</span>
+                SELEZIONE : Votre Partenaire Wholesale
+            </h2>
+
+            <div class="contact-section">
+                <h3><i class="fas fa-crown"></i> SELEZIONE</h3>
+                <p style="font-size: 1.2rem; font-weight: 600;">
+                    Spécialiste du Wholesale de Nouvelles Collections
+                </p>
+                <p>11 ans de savoir-faire • 30+ fournisseurs partenaires • Remises jusqu'à 50%</p>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-building"></i> Notre Histoire</h3>
+                <p>
+                    Fondée sur une passion pour l'excellence italienne, <span class="highlight">SELEZIONE</span> 
+                    s'est imposée en <strong>11 années</strong> comme un acteur incontournable du wholesale 
+                    de prêt-à-porter de luxe.
+                </p>
+                <p>
+                    Notre expertise, née au cœur de l'industrie textile italienne, nous permet aujourd'hui 
+                    de proposer à nos clients un accès privilégié aux plus belles collections européennes 
+                    à des conditions exceptionnelles.
+                </p>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-award"></i> Nos Atouts</h4>
+                    <ul>
+                        <li><strong>11 ans d'expertise</strong> dans le wholesale de luxe</li>
+                        <li><strong>30+ fournisseurs partenaires</strong> sélectionnés</li>
+                        <li><strong>Remises jusqu'à 50%</strong> sur les nouvelles collections</li>
+                        <li><strong>Accompagnement personnalisé</strong> pour chaque client</li>
+                        <li><strong>Livraison internationale</strong> sécurisée</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-handshake"></i> Notre Service Wholesale Exclusif</h3>
+                <p>
+                    SELEZIONE révolutionne l'accès aux nouvelles collections en proposant un service 
+                    wholesale unique sur le marché européen.
+                </p>
+
+                <h4>🎯 Collections Nouvelles à Prix Remisés</h4>
+                <p>
+                    Contrairement aux traditionnels déstockages de fins de série, nous proposons 
+                    <span class="highlight">les dernières collections en cours</span> avec des remises 
+                    exceptionnelles pouvant atteindre <strong>50%</strong> du prix de vente conseillé.
+                </p>
+
+                <h4>📋 Processus d'Achat Professionnel</h4>
+                <ol>
+                    <li><strong>Sélection</strong> : Nos experts sélectionnent les meilleures pièces</li>
+                    <li><strong>Négociation</strong> : Nous négocions les meilleurs prix auprès des producteurs</li>
+                    <li><strong>Contrôle Qualité</strong> : Vérification systématique de chaque article</li>
+                    <li><strong>Présentation</strong> : Catalogue exclusif pour nos clients wholesale</li>
+                    <li><strong>Livraison</strong> : Expédition sécurisée dans toute l'Europe</li>
+                </ol>
+
+                <h4>🛡️ Garanties Qualité</h4>
+                <ul>
+                    <li><strong>Authenticité garantie</strong> : Tous nos produits sont authentiques</li>
+                    <li><strong>État neuf</strong> : Articles neufs avec étiquettes</li>
+                    <li><strong>Retours acceptés</strong> : Politique de retour flexible</li>
+                    <li><strong>Support technique</strong> : Équipe dédiée à votre service</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-network-wired"></i> Nos 30+ Fournisseurs Partenaires</h3>
+                <p>
+                    Notre réseau exclusif de <strong>plus de 30 fournisseurs partenaires</strong> 
+                    nous permet de proposer une sélection unique de marques italiennes et européennes.
+                </p>
+
+                <h4>🇮🇹 Producteurs Italiens</h4>
+                <div class="brand-list">
+                    <span class="brand-tag">Maroquinerie Toscane</span>
+                    <span class="brand-tag">Prêt-à-Porter Milanais</span>
+                    <span class="brand-tag">Chaussures Marchigiani</span>
+                    <span class="brand-tag">Bijoux Vénitiens</span>
+                    <span class="brand-tag">Textiles Lombards</span>
+                </div>
+
+                <h4>🇪🇺 Partenaires Européens</h4>
+                <div class="brand-list">
+                    <span class="brand-tag">Maisons Françaises</span>
+                    <span class="brand-tag">Créateurs Belges</span>
+                    <span class="brand-tag">Designers Scandinaves</span>
+                    <span class="brand-tag">Artisans Espagnols</span>
+                </div>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-star"></i> Avantage Concurrentiel</h4>
+                    <p>
+                        Notre <strong>positionnement unique</strong> nous permet d'accéder aux nouvelles collections 
+                        avant leur mise sur le marché traditionnel, offrant à nos clients un avantage décisif 
+                        sur leurs concurrents.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-users"></i> Notre Clientèle</h3>
+                <p>SELEZIONE accompagne une clientèle diversifiée de professionnels :</p>
+                
+                <ul>
+                    <li><strong>Boutiques indépendantes</strong> : Détaillants spécialisés en luxe</li>
+                    <li><strong>Chaînes de magasins</strong> : Enseignes multi-marques</li>
+                    <li><strong>E-commerce</strong> : Plateformes de vente en ligne</li>
+                    <li><strong>Grands magasins</strong> : Corners et espaces dédiés</li>
+                    <li><strong>Personal shoppers</strong> : Professionnels du styling</li>
+                    <li><strong>Investisseurs</strong> : Achat-revente spécialisé</li>
+                </ul>
+
+                <div class="contact-section" style="margin-top: 2rem;">
+                    <h3><i class="fas fa-phone"></i> Contactez SELEZIONE</h3>
+                    <p><strong>Email :</strong> info@selezione-wholesale.com</p>
+                    <p><strong>Téléphone :</strong> +39 02 XXX XXXX</p>
+                    <p><strong>Siège :</strong> Milano, Italia</p>
+                    <p style="margin-top: 1rem; font-style: italic;">
+                        "Votre succès est notre réussite"
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHAPITRE 3 : LES DIFFÉRENTS SEGMENTS -->
+        <div class="chapter page-break">
+            <h2 class="chapter-title">
+                <span class="chapter-number">3</span>
+                Les Différents Segments
+            </h2>
+
+            <div class="section">
+                <h3><i class="fas fa-crown"></i> Haute Couture vs Prêt-à-Porter</h3>
+                
+                <h4>👗 Haute Couture</h4>
+                <p>
+                    La Haute Couture représente l'excellence absolue de l'artisanat français. 
+                    Réglementée par la Chambre Syndicale de la Couture Parisienne, elle obéit à des critères stricts :
+                </p>
+                <ul>
+                    <li><strong>Production artisanale</strong> : Chaque pièce réalisée à la main</li>
+                    <li><strong>Essayages multiples</strong> : Minimum 3 essayages par client</li>
+                    <li><strong>Atelier parisien</strong> : Minimum 15 employés à temps plein</li>
+                    <li><strong>Collections biannuelles</strong> : 35 sorties minimum par défilé</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-euro-sign"></i> Marché de la Haute Couture</h4>
+                    <p>
+                        Marché ultra-exclusif de <strong>200 millions d'euros</strong> annuels, 
+                        avec seulement <strong>4 000 clientes</strong> dans le monde.
+                        Prix moyen : <span class="highlight">50 000€ à 200 000€</span> par tenue.
+                    </p>
+                </div>
+
+                <h4>👔 Prêt-à-Porter de Luxe</h4>
+                <p>
+                    Le prêt-à-porter de luxe démocratise l'excellence des grandes maisons tout en 
+                    conservant des standards qualitatifs élevés :
+                </p>
+                <ul>
+                    <li><strong>Production en série limitée</strong> : 500 à 5 000 pièces par modèle</li>
+                    <li><strong>Matières premières nobles</strong> : Sélection rigoureuse des tissus</li>
+                    <li><strong>Finitions soignées</strong> : Attention aux détails et finitions</li>
+                    <li><strong>Distribution sélective</strong> : Boutiques et corners Premium</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-users"></i> Segmentation par Genre</h3>
+                
+                <h4>👩 Femme : Le Segment Dominant</h4>
+                <p>
+                    La mode féminine représente <strong>65% du marché</strong> du prêt-à-porter de luxe :
+                </p>
+                <ul>
+                    <li><strong>Prêt-à-porter</strong> : Vêtements, robes, tailleurs (40% du CA)</li>
+                    <li><strong>Maroquinerie</strong> : Sacs, petite maroquinerie (35% du CA)</li>
+                    <li><strong>Chaussures</strong> : Escarpins, boots, sneakers luxe (15% du CA)</li>
+                    <li><strong>Accessoires</strong> : Bijoux, foulards, lunettes (10% du CA)</li>
+                </ul>
+
+                <div class="brand-list">
+                    <span class="brand-tag">Chanel</span>
+                    <span class="brand-tag">Dior</span>
+                    <span class="brand-tag">Louis Vuitton</span>
+                    <span class="brand-tag">Prada</span>
+                    <span class="brand-tag">Céline</span>
+                    <span class="brand-tag">Bottega Veneta</span>
+                </div>
+
+                <h4>👨 Homme : Croissance Dynamique</h4>
+                <p>
+                    Le marché masculin connaît une <strong>croissance de 8% annuelle</strong>, 
+                    représentant 30% du secteur :
+                </p>
+                <ul>
+                    <li><strong>Costumes & Tailoring</strong> : Segment premium historique</li>
+                    <li><strong>Casual Chic</strong> : Polos, chemises, pantalons décontractés</li>
+                    <li><strong>Streetwear Luxe</strong> : Sneakers, hoodies, collaborations</li>
+                    <li><strong>Maroquinerie Masculine</strong> : Sacs, portefeuilles, ceintures</li>
+                </ul>
+
+                <div class="brand-list">
+                    <span class="brand-tag">Tom Ford</span>
+                    <span class="brand-tag">Brioni</span>
+                    <span class="brand-tag">Armani</span>
+                    <span class="brand-tag">Zegna</span>
+                    <span class="brand-tag">Brunello Cucinelli</span>
+                </div>
+
+                <h4>👶 Enfant : Segment de Niche</h4>
+                <p>
+                    Représentant 5% du marché, le luxe enfant séduit les parents aisés :
+                </p>
+                <ul>
+                    <li><strong>0-3 ans</strong> : Layette, bodies, accessoires</li>
+                    <li><strong>4-12 ans</strong> : Vêtements, chaussures, cartables</li>
+                    <li><strong>13-16 ans</strong> : Teen fashion, première approche du luxe</li>
+                </ul>
+
+                <div class="brand-list">
+                    <span class="brand-tag">Bonpoint</span>
+                    <span class="brand-tag">Dolce & Gabbana Junior</span>
+                    <span class="brand-tag">Moncler Enfant</span>
+                    <span class="brand-tag">Burberry Kids</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-briefcase"></i> Maroquinerie : Le Moteur du Luxe</h3>
+                <p>
+                    La maroquinerie représente le <strong>segment le plus rentable</strong> du luxe, 
+                    avec des marges pouvant atteindre 80% :
+                </p>
+
+                <h4>👜 Sacs à Main</h4>
+                <ul>
+                    <li><strong>Sacs iconiques</strong> : Birkin, Kelly, 2.55, Lady Dior</li>
+                    <li><strong>It-bags saisonniers</strong> : Nouveautés et collaborations</li>
+                    <li><strong>Sacs d'investissement</strong> : Pièces de collection</li>
+                    <li><strong>Gamme quotidienne</strong> : Praticité et style</li>
+                </ul>
+
+                <h4>👠 Chaussures de Luxe</h4>
+                <ul>
+                    <li><strong>Escarpins signature</strong> : Louboutin, Manolo Blahnik</li>
+                    <li><strong>Boots & Bottines</strong> : Isabel Marant, Saint Laurent</li>
+                    <li><strong>Sneakers Premium</strong> : Golden Goose, Balenciaga</li>
+                    <li><strong>Chaussures masculines</strong> : Berluti, John Lobb</li>
+                </ul>
+
+                <h4>👝 Petite Maroquinerie</h4>
+                <ul>
+                    <li><strong>Portefeuilles</strong> : Homme et femme</li>
+                    <li><strong>Porte-cartes</strong> : Format compact</li>
+                    <li><strong>Ceintures</strong> : Accessoire signature</li>
+                    <li><strong>Étuis technologiques</strong> : iPhone, iPad</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-chart-bar"></i> Rentabilité Maroquinerie</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Catégorie</th>
+                                <th>Marge Moyenne</th>
+                                <th>Rotation Stock</th>
+                                <th>ROI Annuel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sacs iconiques</td>
+                                <td>75-85%</td>
+                                <td>3x/an</td>
+                                <td>200-250%</td>
+                            </tr>
+                            <tr>
+                                <td>Chaussures</td>
+                                <td>65-75%</td>
+                                <td>4x/an</td>
+                                <td>180-220%</td>
+                            </tr>
+                            <tr>
+                                <td>Petite maroquinerie</td>
+                                <td>70-80%</td>
+                                <td>6x/an</td>
+                                <td>250-300%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-gem"></i> Bijouterie & Horlogerie</h3>
+                
+                <h4>💍 Bijouterie de Luxe</h4>
+                <ul>
+                    <li><strong>Joaillerie fine</strong> : Cartier, Van Cleef & Arpels, Tiffany</li>
+                    <li><strong>Bijoux fantaisie haut de gamme</strong> : Chanel, Dior Jewelry</li>
+                    <li><strong>Créateurs contemporains</strong> : Marie-Hélène de Taillac, Repossi</li>
+                    <li><strong>Bijoux d'investissement</strong> : Pièces de collection</li>
+                </ul>
+
+                <h4>⌚ Horlogerie Premium</h4>
+                <ul>
+                    <li><strong>Manufacture suisse</strong> : Rolex, Patek Philippe, Audemars Piguet</li>
+                    <li><strong>Horlogerie fashion</strong> : Chanel J12, Dior VIII</li>
+                    <li><strong>Montres connectées luxury</strong> : Apple Watch Hermès</li>
+                    <li><strong>Vintage & Collection</strong> : Pièces historiques</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-trending-up"></i> Tendances Bijouterie 2025</h4>
+                    <ul>
+                        <li><strong>Or recyclé</strong> : Approche durable et éthique</li>
+                        <li><strong>Pierres colorées</strong> : Retour des saphirs et émeraudes</li>
+                        <li><strong>Personnalisation</strong> : Gravures et sur-mesure</li>
+                        <li><strong>Bijoux unisexes</strong> : Codes de genre floutés</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-spray-can"></i> Parfumerie & Cosmétiques de Luxe</h3>
+                
+                <h4>🌸 Parfumerie</h4>
+                <ul>
+                    <li><strong>Grandes maisons</strong> : Chanel N°5, Dior J'adore, Hermès</li>
+                    <li><strong>Parfumerie de niche</strong> : Creed, Maison Francis Kurkdjian</li>
+                    <li><strong>Collections exclusives</strong> : Les Exclusifs de Chanel</li>
+                    <li><strong>Parfums sur-mesure</strong> : Service haute couture</li>
+                </ul>
+
+                <h4>💄 Cosmétiques Premium</h4>
+                <ul>
+                    <li><strong>Maquillage couture</strong> : YSL, Dior, Tom Ford Beauty</li>
+                    <li><strong>Soins anti-âge</strong> : La Prairie, SK-II, Clé de Peau</li>
+                    <li><strong>Clean beauty luxe</strong> : Augustinus Bader, La Mer</li>
+                    <li><strong>Coffrets et éditions limitées</strong> : Collections saisonnières</li>
+                </ul>
+
+                <div class="brand-list">
+                    <span class="brand-tag">Chanel Beauty</span>
+                    <span class="brand-tag">Dior Beauty</span>
+                    <span class="brand-tag">Tom Ford Beauty</span>
+                    <span class="brand-tag">YSL Beauty</span>
+                    <span class="brand-tag">Guerlain</span>
+                    <span class="brand-tag">La Mer</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-heart"></i> Lingerie & Underwear Haut de Gamme</h3>
+                
+                <p>
+                    Segment en forte croissance (+12% annuel), la lingerie de luxe combine 
+                    raffinement et innovation technique :
+                </p>
+
+                <h4>🌺 Lingerie Féminine</h4>
+                <ul>
+                    <li><strong>Maisons historiques</strong> : La Perla, Agent Provocateur</li>
+                    <li><strong>Créateurs modernes</strong> : Carine Gilson, Fleur of England</li>
+                    <li><strong>Collections couture</strong> : Pièces uniques et sur-mesure</li>
+                    <li><strong>Confort premium</strong> : Technologies innovantes</li>
+                </ul>
+
+                <h4>🏃‍♀️ Activewear Luxe</h4>
+                <ul>
+                    <li><strong>Athleisure premium</strong> : Lululemon, Alo Yoga</li>
+                    <li><strong>Collections sport-chic</strong> : Stella McCartney Adidas</li>
+                    <li><strong>Wellness lifestyle</strong> : Approche holistique</li>
+                </ul>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-female"></i> Marché de la Lingerie de Luxe</h4>
+                    <p>
+                        Marché de <strong>2,8 milliards d'euros</strong> en Europe, 
+                        avec une clientèle fidèle et des paniers moyens élevés 
+                        (<span class="highlight">150€ à 500€</span> par achat).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Note : L'ebook continue avec les autres chapitres... -->
+        <div class="info-box" style="text-align: center; margin: 3rem 0;">
+            <h4><i class="fas fa-info-circle"></i> Ebook en Cours de Création</h4>
+            <p>
+                Ceci est un aperçu des 3 premiers chapitres de l'ebook complet de 35+ pages.
+                <br><br>
+                <strong>Chapitres suivants :</strong>
+                <br>• Guide Complet des Outlets Européens (180+ adresses)
+                <br>• Collections N-1 et Stratégies de Déstockage
+                <br>• Marché de la Seconde Main de Luxe
+                <br>• Plateformes de Revente et Techniques Professionnelles
+                <br>• Business Model et Rentabilité
+                <br>• Et bien plus encore...
+            </p>
+            
+            <div class="contact-section" style="margin-top: 2rem;">
+                <h3><i class="fas fa-crown"></i> SELEZIONE</h3>
+                <p><strong>Pour recevoir l'ebook complet (35+ pages) :</strong></p>
+                <p>📧 info@selezione-wholesale.com</p>
+                <p>📱 +39 02 XXX XXXX</p>
+                <p style="margin-top: 1rem; font-style: italic;">
+                    "Votre expertise commence ici"
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Add some interactivity for better reading experience
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for any internal links
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add reading progress indicator
+            const progressBar = document.createElement('div');
+            progressBar.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 4px;
+                background: linear-gradient(135deg, #D4AF37, #FFD700);
+                z-index: 9999;
+                transition: width 0.3s ease;
+            `;
+            document.body.appendChild(progressBar);
+
+            window.addEventListener('scroll', function() {
+                const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                progressBar.style.width = Math.min(scrollPercent, 100) + '%';
+            });
+        });
+    </script>
+</body>
+</html>
