@@ -1002,16 +1002,19 @@ const EbookSelezione = () => {
                       <div className="gg-rtw-grid">
                         <div className="gg-rtw-item">
                           <h6>GWF01220F00100900 - T-Shirt Premium</h6>
-                          <p><strong>Prix Wholesale :</strong> €175</p>
-                          <p><strong>Prix Détail :</strong> €280-320</p>
-                          <p><strong>Marge Brute :</strong> 60-83%</p>
+                          <p><strong>Prix Wholesale (Achat) :</strong> €175</p>
+                          <p><strong>Prix Retail (Vente) :</strong> €350-420</p>
+                          <p><strong>Marge Brute :</strong> 100-140%</p>
+                          <p><strong>ROI par pièce :</strong> €175-245</p>
                           <p><strong>Tailles Performantes :</strong> XS, S, M</p>
                         </div>
                         
                         <div className="gg-rtw-item">
                           <h6>GWF01220F00087910B3 - Collection T-Shirt</h6>
-                          <p><strong>Prix Wholesale :</strong> €175</p>
-                          <p><strong>Stratégie Bundle :</strong> 3 pièces = -15%</p>
+                          <p><strong>Prix Wholesale (Achat) :</strong> €175</p>
+                          <p><strong>Prix Retail (Vente) :</strong> €330-400</p>
+                          <p><strong>Marge Brute :</strong> 89-129%</p>
+                          <p><strong>Stratégie Bundle :</strong> 3 pièces = Prix préférentiel</p>
                           <p><strong>Cross-selling :</strong> Avec sneakers +35% panier</p>
                           <p><strong>Saisonnalité :</strong> Forte demande mars-septembre</p>
                         </div>
