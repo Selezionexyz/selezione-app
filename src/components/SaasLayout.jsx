@@ -28,6 +28,7 @@ import QuoiVendreAdvisor from './QuoiVendreAdvisor';
 import SuiviTendancesRevolutionnaire from './SuiviTendancesRevolutionnaire';
 import FarfetchDirectoryTool from './FarfetchDirectoryTool';
 import FournisseurFilesManager from './FournisseurFilesManager';
+import EbookSelezione from './EbookSelezione';
 
 const SaasLayout = ({ user, onLogout }) => {
   const [activeView, setActiveView] = useState('dashboard');
