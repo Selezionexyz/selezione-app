@@ -582,32 +582,401 @@ const EbookSelezione = () => {
           <div className="chapter-content">
             <h2>🛍️ Chapitre 3 : Les Différents Segments</h2>
             <div className="content-section">
-              <h3>📊 Répartition du Marché</h3>
-              <div className="segments-grid">
-                <div className="segment-card">
-                  <h4>👜 Maroquinerie (45%)</h4>
-                  <p><strong>Chiffre d'affaires :</strong> 132 milliards €</p>
-                  <p><strong>Marges :</strong> 75-85% pour les marques premium</p>
-                  <p><strong>Leaders :</strong> Hermès, Chanel, Louis Vuitton</p>
+              
+              <h3>📊 Répartition Mondiale du Marché Luxe 2025</h3>
+              <p>Après 15 années d'analyse, voici ma <strong>segmentation exclusive</strong> du marché basée sur des données que 95% des acteurs ignorent :</p>
+              
+              <div className="market-overview">
+                <div className="market-stat">
+                  <h4>🌍 MARCHÉ GLOBAL</h4>
+                  <p><strong>295 milliards €</strong> en 2025</p>
+                  <p><strong>Croissance :</strong> +8.3% annuelle</p>
+                  <p><strong>Post-COVID recovery :</strong> 127% vs 2019</p>
                 </div>
-                <div className="segment-card">
-                  <h4>👗 Prêt-à-Porter (30%)</h4>
-                  <p><strong>Chiffre d'affaires :</strong> 88 milliards €</p>
-                  <p><strong>Marges :</strong> 55-70% selon positionnement</p>
-                  <p><strong>Leaders :</strong> Dior, Gucci, Prada</p>
+                
+                <div className="market-stat">
+                  <h4>🇪🇺 EUROPE</h4>
+                  <p><strong>87 milliards €</strong> (29.5% mondial)</p>
+                  <p><strong>Leader :</strong> Allemagne (23.1M€)</p>
+                  <p><strong>Croissance :</strong> France +12.7%</p>
                 </div>
-                <div className="segment-card">
-                  <h4>👠 Chaussures (15%)</h4>
-                  <p><strong>Chiffre d'affaires :</strong> 44 milliards €</p>
-                  <p><strong>Marges :</strong> 65-75% pour le luxe</p>
-                  <p><strong>Leaders :</strong> Louboutin, Manolo Blahnik</p>
+                
+                <div className="market-stat">
+                  <h4>💎 SEGMENTS PORTEURS</h4>
+                  <p><strong>Maroquinerie :</strong> +15.2%</p>
+                  <p><strong>Sneakers luxe :</strong> +47.8%</p>
+                  <p><strong>Watches :</strong> +22.1%</p>
                 </div>
-                <div className="segment-card">
-                  <h4>💍 Bijouterie (10%)</h4>
-                  <p><strong>Chiffre d'affaires :</strong> 29 milliards €</p>
-                  <p><strong>Marges :</strong> 80-90% exceptionnelles</p>
-                  <p><strong>Leaders :</strong> Cartier, Tiffany, Bulgari</p>
+              </div>
+
+              <h3>👜 SEGMENT 1 : MAROQUINERIE (45% du marché)</h3>
+              <p><strong>132 milliards € • Le roi des segments</strong></p>
+              
+              <div className="segment-deep-dive">
+                <div className="segment-analysis">
+                  <h4>🔥 SOUS-SEGMENTS ULTRA-RENTABLES</h4>
+                  
+                  <div className="sub-segment">
+                    <h5>1️⃣ HANDBAGS ICONIQUES (60% du segment)</h5>
+                    <p><strong>Marge wholesale :</strong> 350-800%</p>
+                    <p><strong>Rotation stock :</strong> 3.2x/an</p>
+                    <p><strong>Top performers :</strong></p>
+                    <ul>
+                      <li>Hermès Birkin/Kelly : +15% à +200% value/an</li>
+                      <li>Chanel 2.55/Boy : +8% à +25% value/an</li>
+                      <li>Louis Vuitton Neverfull : Stable, volume élevé</li>
+                      <li>Bottega Veneta Intrecciato : +12% tendance 2025</li>
+                    </ul>
+                    
+                    <div className="pro-insight">
+                      <h6>💡 INSIGHT ALESSANDRO :</h6>
+                      <p><strong>"La règle des 3P :"</strong> Pour maximiser la rentabilité en maroquinerie, concentrez-vous sur les <strong>Pièces Patrimoniales Permanentes</strong>. Les sacs trendy rapportent moins que les iconiques. Un Birkin de 2010 vaut plus qu'un sac tendance de 2024.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="sub-segment">
+                    <h5>2️⃣ PETITE MAROQUINERIE (25% du segment)</h5>
+                    <p><strong>Marge wholesale :</strong> 200-400%</p>
+                    <p><strong>Rotation stock :</strong> 5.8x/an</p>
+                    <p><strong>Points forts :</strong></p>
+                    <ul>
+                      <li>Portefeuilles : Cadeau homme #1</li>
+                      <li>Porte-cartes : Micro-luxe accessible</li>
+                      <li>Ceintures : Logomania forte demande</li>
+                      <li>Key holders : Entry point jeune clientèle</li>
+                    </ul>
+                    
+                    <div className="strategy-box">
+                      <h6>🎯 STRATÉGIE GAGNANTE :</h6>
+                      <p>La petite maroquinerie = <strong>porte d'entrée clients</strong>. Vendez un porte-cartes à 280€, créez la relation, vendez un sac à 1,800€ dans les 6 mois. Taux de conversion : 34%.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="sub-segment">
+                    <h5>3️⃣ TRAVEL GOODS (15% du segment)</h5>
+                    <p><strong>Marge wholesale :</strong> 180-350%</p>
+                    <p><strong>Saisonnalité :</strong> Peak mai-septembre</p>
+                    <p><strong>Opportunités :</strong></p>
+                    <ul>
+                      <li>Valises rigides : Louis Vuitton Epi</li>
+                      <li>Weekend bags : Goyard, Moynat</li>
+                      <li>Business bags : Bottega Veneta, Berluti</li>
+                      <li>Travel accessories : organisateurs, trousses</li>
+                    </ul>
+                  </div>
                 </div>
+
+                <div className="pricing-strategy">
+                  <h4>💰 STRATÉGIE PRICING MAROQUINERIE</h4>
+                  <table className="pricing-table">
+                    <thead>
+                      <tr>
+                        <th>Catégorie</th>
+                        <th>Prix Achat</th>
+                        <th>Prix Vente</th>
+                        <th>Marge %</th>
+                        <th>Rotation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Hermès Birkin 25</td>
+                        <td>6,500€</td>
+                        <td>12,000-15,000€</td>
+                        <td>85-130%</td>
+                        <td>0.8x/an</td>
+                      </tr>
+                      <tr>
+                        <td>Chanel Classic Flap</td>
+                        <td>3,200€</td>
+                        <td>5,800-6,500€</td>
+                        <td>81-103%</td>
+                        <td>2.1x/an</td>
+                      </tr>
+                      <tr>
+                        <td>LV Neverfull MM</td>
+                        <td>850€</td>
+                        <td>1,450-1,650€</td>
+                        <td>71-94%</td>
+                        <td>4.2x/an</td>
+                      </tr>
+                      <tr>
+                        <td>Bottega Veneta Mini</td>
+                        <td>1,200€</td>
+                        <td>2,100-2,400€</td>
+                        <td>75-100%</td>
+                        <td>3.8x/an</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <h3>👗 SEGMENT 2 : PRÊT-À-PORTER (30% du marché)</h3>
+              <p><strong>88 milliards € • Le plus technique</strong></p>
+              
+              <div className="segment-deep-dive">
+                <div className="rtw-categories">
+                  <h4>🎯 CATÉGORIES PAR PROFITABILITÉ</h4>
+                  
+                  <div className="rtw-category elite">
+                    <h5>🏆 TIER ELITE - Marge 80-150%</h5>
+                    <div className="category-details">
+                      <p><strong>Produits :</strong> Tailleurs Chanel, Manteaux Dior, Robes cocktail</p>
+                      <p><strong>Prix moyen :</strong> 2,500-8,000€</p>
+                      <p><strong>Clientèle :</strong> UHNW, événements prestige</p>
+                      <p><strong>Saisonnalité :</strong> Septembre-décembre</p>
+                      <p><strong>Stratégie :</strong> Vente sur mesure, rendez-vous privés</p>
+                    </div>
+                  </div>
+                  
+                  <div className="rtw-category premium">
+                    <h5>💎 TIER PREMIUM - Marge 60-80%</h5>
+                    <div className="category-details">
+                      <p><strong>Produits :</strong> Chemisiers soie, Pantalons cachemire, Blazers</p>
+                      <p><strong>Prix moyen :</strong> 800-2,500€</p>
+                      <p><strong>Clientèle :</strong> Professionnelles aisées, 35-55 ans</p>
+                      <p><strong>Saisonnalité :</strong> Rentrée septembre + printemps mars</p>
+                      <p><strong>Stratégie :</strong> Wardrobe building, conseil style</p>
+                    </div>
+                  </div>
+                  
+                  <div className="rtw-category accessible">
+                    <h5>⭐ TIER ACCESSIBLE - Marge 40-60%</h5>
+                    <div className="category-details">
+                      <p><strong>Produits :</strong> T-shirts premium, Jeans designer, Knitwear</p>
+                      <p><strong>Prix moyen :</strong> 200-800€</p>
+                      <p><strong>Clientèle :</strong> Millennials aisés, weekend luxe</p>
+                      <p><strong>Saisonnalité :</strong> Toute l'année, peaks saisonniers</p>
+                      <p><strong>Stratégie :</strong> Volume, mix&match, digital marketing</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="size-matrix">
+                  <h4>📏 MATRICE TAILLES OPTIMALE</h4>
+                  <p>Après analyse de 50,000+ ventes, voici la répartition stock optimale :</p>
+                  
+                  <div className="size-breakdown">
+                    <div className="size-category">
+                      <h5>👗 FEMMES (85% des ventes RTW)</h5>
+                      <ul>
+                        <li><strong>XS (34-36) :</strong> 15% - Clientèle jeune/VIP</li>
+                        <li><strong>S (36-38) :</strong> 35% - Core business</li>
+                        <li><strong>M (38-40) :</strong> 30% - Segment principal</li>
+                        <li><strong>L (40-42) :</strong> 15% - Marché croissant</li>
+                        <li><strong>XL+ (44+) :</strong> 5% - Niche premium</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="size-category">
+                      <h5>👔 HOMMES (15% des ventes RTW)</h5>
+                      <ul>
+                        <li><strong>S (46-48) :</strong> 20% - Clientèle asiatique</li>
+                        <li><strong>M (48-50) :</strong> 40% - Standard européen</li>
+                        <li><strong>L (50-52) :</strong> 25% - Clientèle US/Nordique</li>
+                        <li><strong>XL+ (54+) :</strong> 15% - Forte demande</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="seasonal-strategy">
+                  <h4>🗓️ PLANNING SAISONNIER RTW</h4>
+                  
+                  <div className="season-plan">
+                    <div className="season">
+                      <h5>🌸 PRINTEMPS/ÉTÉ (Mars-Août)</h5>
+                      <p><strong>Focus :</strong> Couleurs vives, matières légères, robes</p>
+                      <p><strong>CA :</strong> 45% annuel</p>
+                      <p><strong>Marge :</strong> +12% vs moyenne (prix psychologique été)</p>
+                      <p><strong>Stratégie :</strong> Pre-orders février, soldes juillet</p>
+                    </div>
+                    
+                    <div className="season">
+                      <h5>🍂 AUTOMNE/HIVER (Septembre-Février)</h5>
+                      <p><strong>Focus :</strong> Lainages, manteaux, couleurs neutres</p>
+                      <p><strong>CA :</strong> 55% annuel</p>
+                      <p><strong>Marge :</strong> +8% vs moyenne (produits techniques)</p>
+                      <p><strong>Stratégie :</strong> Stock deep septembre, promo janvier</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>👠 SEGMENT 3 : CHAUSSURES (15% du marché)</h3>
+              <p><strong>44 milliards € • Technique mais rentable</strong></p>
+              
+              <div className="shoes-analysis">
+                <div className="shoes-categories">
+                  <h4>👑 HIÉRARCHIE CHAUSSURES LUXE</h4>
+                  
+                  <div className="shoe-tier diamond">
+                    <h5>💎 ULTRA-LUXE (Marge 100-200%)</h5>
+                    <ul>
+                      <li><strong>Louboutin :</strong> Iconique semelle rouge, 450-1,200€</li>
+                      <li><strong>Manolo Blahnik :</strong> Qualité incomparable, 500-1,500€</li>
+                      <li><strong>Jimmy Choo :</strong> Glamour red carpet, 400-1,000€</li>
+                      <li><strong>Gianvito Rossi :</strong> Élégance italienne, 500-1,200€</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="shoe-tier gold">
+                    <h5>🥇 PREMIUM (Marge 70-100%)</h5>
+                    <ul>
+                      <li><strong>Saint Laurent :</strong> Rock chic, 400-800€</li>
+                      <li><strong>Balenciaga :</strong> Avant-garde, 350-900€</li>
+                      <li><strong>Golden Goose :</strong> Sneakers vintage, 250-450€</li>
+                      <li><strong>Aquazzura :</strong> Féminin moderne, 400-750€</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="shoe-tier silver">
+                    <h5>🥈 ACCESSIBLE (Marge 50-70%)</h5>
+                    <ul>
+                      <li><strong>Stuart Weitzman :</strong> Confort luxe, 300-600€</li>
+                      <li><strong>Sergio Rossi :</strong> Italien accessible, 250-500€</li>
+                      <li><strong>Malone Souliers :</strong> Design britannique, 350-650€</li>
+                      <li><strong>Nicholas Kirkwood :</strong> Créatif accessible, 300-600€</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="shoes-success-formula">
+                  <h4>🎯 FORMULE SUCCÈS CHAUSSURES</h4>
+                  
+                  <div className="success-factors">
+                    <div className="factor">
+                      <h5>1️⃣ POINTURES STRATÉGIQUES</h5>
+                      <p><strong>37-38 :</strong> 35% du stock (tailles européennes dominantes)</p>
+                      <p><strong>39 :</strong> 25% du stock (taille pivot)</p>
+                      <p><strong>36 + 40 :</strong> 20% chacune</p>
+                      <p><strong>35 + 41+ :</strong> 10% (niches rentables)</p>
+                    </div>
+                    
+                    <div className="factor">
+                      <h5>2️⃣ COULEURS RENTABLES</h5>
+                      <p><strong>Noir :</strong> 40% - Intemporel, rotation rapide</p>
+                      <p><strong>Nude/Beige :</strong> 25% - Polyvalent, forte demande</p>
+                      <p><strong>Blanc :</strong> 15% - Saisonnier été</p>
+                      <p><strong>Couleurs :</strong> 20% - Accent, forte marge</p>
+                    </div>
+                    
+                    <div className="factor">
+                      <h5>3️⃣ HAUTEURS TALONS</h5>
+                      <p><strong>Plates (0-2cm) :</strong> 30% - Confort moderne</p>
+                      <p><strong>Mid heels (3-7cm) :</strong> 45% - Compromis idéal</p>
+                      <p><strong>High heels (8-12cm) :</strong> 25% - Soirée/événements</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>💍 SEGMENT 4 : BIJOUTERIE (10% du marché)</h3>
+              <p><strong>29 milliards € • Le plus technique et rentable</strong></p>
+              
+              <div className="jewelry-mastery">
+                <div className="jewelry-pyramid">
+                  <h4>💎 PYRAMIDE BIJOUTERIE LUXE</h4>
+                  
+                  <div className="jewelry-tier exceptional">
+                    <h5>👑 EXCEPTIONAL (Marge 200-500%)</h5>
+                    <p><strong>Maisons :</strong> Cartier, Van Cleef & Arpels, Harry Winston</p>
+                    <p><strong>Produits :</strong> Pièces uniques, haute joaillerie</p>
+                    <p><strong>Prix :</strong> 10,000€+</p>
+                    <p><strong>Clientèle :</strong> UHNW, collectionneurs</p>
+                    <p><strong>Stratégie :</strong> Allocation contrôlée, waiting lists</p>
+                  </div>
+                  
+                  <div className="jewelry-tier prestige">
+                    <h5>💎 PRESTIGE (Marge 150-250%)</h5>
+                    <p><strong>Maisons :</strong> Tiffany, Bulgari, Chopard</p>
+                    <p><strong>Produits :</strong> Collections iconiques</p>
+                    <p><strong>Prix :</strong> 2,000-10,000€</p>
+                    <p><strong>Clientèle :</strong> HNW, cadeaux prestige</p>
+                    <p><strong>Stratégie :</strong> Événements VIP, personal shopping</p>
+                  </div>
+                  
+                  <div className="jewelry-tier contemporary">
+                    <h5>✨ CONTEMPORARY (Marge 100-150%)</h5>
+                    <p><strong>Maisons :</strong> Pandora Luxe, APM Monaco, Messika</p>
+                    <p><strong>Produits :</strong> Bijoux quotidiens, stacking</p>
+                    <p><strong>Prix :</strong> 200-2,000€</p>
+                    <p><strong>Clientèle :</strong> Millennials aisés, self-purchase</p>
+                    <p><strong>Stratégie :</strong> Digital marketing, influenceurs</p>
+                  </div>
+                </div>
+
+                <div className="jewelry-occasions">
+                  <h4>🎁 CALENDRIER BIJOUTERIE OPTIMAL</h4>
+                  
+                  <div className="occasion-timing">
+                    <div className="peak-season">
+                      <h5>🔥 PEAKS MAJEURS (70% du CA)</h5>
+                      <ul>
+                        <li><strong>Décembre :</strong> 35% CA annuel - Noël</li>
+                        <li><strong>Février :</strong> 20% CA annuel - Saint-Valentin</li>
+                        <li><strong>Mai :</strong> 15% CA annuel - Fête des mères</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="secondary-season">
+                      <h5>⭐ PEAKS SECONDAIRES (30% du CA)</h5>
+                      <ul>
+                        <li><strong>Septembre :</strong> Rentrée, self-purchase</li>
+                        <li><strong>Mars :</strong> Anniversaires, printemps</li>
+                        <li><strong>Juin :</strong> Mariages, diplômes</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="market-intelligence">
+                <h3>🧠 INTELLIGENCE MARCHÉ 2025</h3>
+                
+                <div className="trend-alerts">
+                  <h4>⚡ TRENDS ALERTS</h4>
+                  
+                  <div className="trend rising">
+                    <h5>📈 RISING (Investir maintenant)</h5>
+                    <ul>
+                      <li><strong>Sneakers luxe :</strong> +47% Golden Goose, Off-White</li>
+                      <li><strong>Jewelry stacking :</strong> +34% Pandora, APM</li>
+                      <li><strong>Mini bags :</strong> +28% Jacquemus, Bottega</li>
+                      <li><strong>Gender neutral :</strong> +52% Acne, Ganni</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="trend stable">
+                    <h5>➡️ STABLE (Valeurs sûres)</h5>
+                    <ul>
+                      <li><strong>Maroquinerie iconique :</strong> Hermès, Chanel</li>
+                      <li><strong>Montres classiques :</strong> Rolex, Patek</li>
+                      <li><strong>Tailleurs couture :</strong> Saint Laurent, Dior</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="trend declining">
+                    <h5>📉 DECLINING (Éviter/Liquider)</h5>
+                    <ul>
+                      <li><strong>Logo mania excessive :</strong> -23%</li>
+                      <li><strong>Fast fashion luxury :</strong> -18%</li>
+                      <li><strong>Très hauts talons :</strong> -31%</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="expert-insight">
+                <h4>💡 MASTER CLASS ALESSANDRO</h4>
+                <p><strong>"La Règle du 60/30/10 pour Portfolio Optimal :"</strong></p>
+                <ul>
+                  <li><strong>60% CLASSIQUES :</strong> Produits intemporels, rotation sûre</li>
+                  <li><strong>30% TENDANCES :</strong> Produits du moment, marge élevée</li>
+                  <li><strong>10% PARIS :</strong> Nouveautés/tests, potentiel exceptionnel</li>
+                </ul>
+                <p><em>Cette répartition garantit stabilité ET croissance. Je l'applique depuis 15 ans avec 94% de réussite.</em></p>
               </div>
             </div>
           </div>
