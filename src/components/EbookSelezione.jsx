@@ -1,679 +1,485 @@
-import React, { useState } from 'react';
-import { Book, Download, Share2, Eye, Star, Crown, Gem, Calendar, Users, Award, ChevronRight, ChevronDown } from 'lucide-react';
+import React from 'react';
 
-const EbookSelezione = ({ user }) => {
-  const [currentChapter, setCurrentChapter] = useState(0);
-  const [expandedSections, setExpandedSections] = useState({});
-
-  const chapters = [
-    {
-      id: 0,
-      title: "Table des Matières",
-      icon: "📋",
-      content: "table-content"
-    },
-    {
-      id: 1,
-      title: "L'Univers du Luxe",
-      icon: "🏛️",
-      content: "luxury-universe"
-    },
-    {
-      id: 2,
-      title: "SELEZIONE : Votre Partenaire Wholesale",
-      icon: "💼",
-      content: "selezione-partner"
-    },
-    {
-      id: 3,
-      title: "Les Différents Segments",
-      icon: "🛍️",
-      content: "segments"
-    },
-    {
-      id: 4,
-      title: "Guide Outlets Européens",
-      icon: "🏪",
-      content: "outlets",
-      premium: true
-    },
-    {
-      id: 5,
-      title: "Collections N-1 et Déstockage",
-      icon: "📅",
-      content: "collections",
-      premium: true
-    },
-    {
-      id: 6,
-      title: "Seconde Main de Luxe",
-      icon: "💎",
-      content: "second-hand",
-      premium: true
-    },
-    {
-      id: 7,
-      title: "Plateformes de Revente",
-      icon: "🌐",
-      content: "platforms",
-      premium: true
-    },
-    {
-      id: 8,
-      title: "Techniques Professionnelles",
-      icon: "🎯",
-      content: "techniques",
-      premium: true
-    },
-    {
-      id: 9,
-      title: "Business Model",
-      icon: "💰",
-      content: "business",
-      premium: true
-    },
-    {
-      id: 10,
-      title: "Tendances et Avenir",
-      icon: "🔮",
-      content: "trends",
-      premium: true
-    }
-  ];
-
-  const toggleSection = (sectionId) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionId]: !prev[sectionId]
-    }));
-  };
-
-  const downloadEbook = () => {
-    window.open('/ebook-selezione.html', '_blank');
-  };
-
-  const shareEbook = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: 'L\'Art du Prêt-à-Porter de Luxe - Guide SELEZIONE',
-        text: 'Découvrez les secrets du wholesale de luxe avec SELEZIONE',
-        url: window.location.origin + '/ebook-selezione.html'
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.origin + '/ebook-selezione.html');
-      alert('Lien de l\'ebook copié dans le presse-papiers !');
-    }
-  };
-
-  const renderTableOfContents = () => (
-    <div className="space-y-4">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent mb-4">
-          L'ART DU PRÊT-À-PORTER DE LUXE
-        </h2>
-        <p className="text-gray-400 text-lg">Guide Complet de l'Achat-Revente et du Wholesale Premium</p>
-        <p className="text-amber-400 font-semibold mt-2">Par SELEZIONE • Édition 2025 • 35+ Pages</p>
-      </div>
-
-      <div className="grid gap-3">
-        {chapters.slice(1).map((chapter) => (
-          <div
-            key={chapter.id}
-            onClick={() => setCurrentChapter(chapter.id)}
-            className={`p-4 rounded-xl border cursor-pointer transition-all duration-300 ${
-              chapter.premium && user?.role !== 'admin' && user?.role !== 'premium'
-                ? 'border-gray-600 bg-gray-800/30 opacity-60'
-                : 'border-gray-600 bg-gray-800/50 hover:border-amber-500 hover:bg-gray-700/50'
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">{chapter.icon}</span>
-                <div>
-                  <h3 className="text-white font-semibold">{chapter.title}</h3>
-                  <p className="text-gray-400 text-sm">Chapitre {chapter.id}</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2">
-                {chapter.premium && user?.role !== 'admin' && user?.role !== 'premium' && (
-                  <Crown className="w-5 h-5 text-amber-400" />
-                )}
-                <ChevronRight className="w-5 h-5 text-gray-400" />
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-8 p-6 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-xl border border-amber-500/30">
-        <div className="text-center">
-          <Crown className="w-8 h-8 text-amber-400 mx-auto mb-3" />
-          <h3 className="text-xl font-bold text-white mb-2">Version Complète Premium</h3>
-          <p className="text-gray-300 mb-4">
-            Accédez à tous les chapitres, guides d'outlets européens, techniques professionnelles et analyses de marché
-          </p>
-          <div className="flex justify-center space-x-3">
-            <button
-              onClick={downloadEbook}
-              className="flex items-center space-x-2 bg-amber-500 text-black px-6 py-3 rounded-lg font-semibold hover:bg-amber-400 transition-colors"
-            >
-              <Download className="w-5 h-5" />
-              <span>Télécharger PDF</span>
-            </button>
-            <button
-              onClick={shareEbook}
-              className="flex items-center space-x-2 bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
-            >
-              <Share2 className="w-5 h-5" />
-              <span>Partager</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderLuxuryUniverse = () => (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent mb-4">
-          🏛️ L'Univers du Luxe
-        </h2>
-      </div>
-
-      <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-        <div 
-          className="flex items-center justify-between cursor-pointer"
-          onClick={() => toggleSection('history')}
-        >
-          <h3 className="text-xl font-bold text-white flex items-center space-x-2">
-            <Calendar className="w-6 h-6 text-amber-400" />
-            <span>Histoire du Prêt-à-Porter de Luxe</span>
-          </h3>
-          {expandedSections.history ? 
-            <ChevronDown className="w-5 h-5 text-gray-400" /> : 
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-          }
-        </div>
-        
-        {expandedSections.history && (
-          <div className="mt-4 space-y-4">
-            <p className="text-gray-300 leading-relaxed">
-              Le prêt-à-porter de luxe naît au milieu du XXe siècle, révolutionnant l'industrie de la mode. 
-              <span className="text-amber-400 font-semibold"> Gabrielle Chanel</span> libère la femme du corset, 
-              <span className="text-amber-400 font-semibold"> Christian Dior</span> impose le New Look en 1947, et 
-              <span className="text-amber-400 font-semibold"> Yves Saint Laurent</span> démocratise la haute couture.
-            </p>
-            
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
-              <h4 className="text-amber-400 font-semibold mb-2 flex items-center space-x-2">
-                <Star className="w-5 h-5" />
-                <span>Le Saviez-vous ?</span>
-              </h4>
-              <p className="text-gray-300">
-                Le terme "prêt-à-porter" fut inventé par J.C. Weil en 1949, inspiré de l'expression américaine "ready-to-wear".
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-        <div 
-          className="flex items-center justify-between cursor-pointer"
-          onClick={() => toggleSection('codes')}
-        >
-          <h3 className="text-xl font-bold text-white flex items-center space-x-2">
-            <Gem className="w-6 h-6 text-amber-400" />
-            <span>Codes et Savoir-vivre du Luxe</span>
-          </h3>
-          {expandedSections.codes ? 
-            <ChevronDown className="w-5 h-5 text-gray-400" /> : 
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-          }
-        </div>
-        
-        {expandedSections.codes && (
-          <div className="mt-4">
-            <p className="text-gray-300 mb-4">Le luxe obéit à des codes stricts qui définissent son univers :</p>
-            <ul className="space-y-2">
-              {[
-                "Excellence artisanale : Savoir-faire traditionnel et innovation",
-                "Matières premières nobles : Cuirs d'exception, soies, cachemires",
-                "Exclusivité : Production limitée et distribution sélective",
-                "Héritage : Histoire de la maison et transmission du savoir",
-                "Service client premium : Expérience personnalisée"
-              ].map((item, index) => (
-                <li key={index} className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-amber-400 rounded-full mt-2 flex-shrink-0"></div>
-                  <span className="text-gray-300">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-
-      <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-        <div 
-          className="flex items-center justify-between cursor-pointer"
-          onClick={() => toggleSection('brands')}
-        >
-          <h3 className="text-xl font-bold text-white flex items-center space-x-2">
-            <Crown className="w-6 h-6 text-amber-400" />
-            <span>Marques Iconiques Mondiales</span>
-          </h3>
-          {expandedSections.brands ? 
-            <ChevronDown className="w-5 h-5 text-gray-400" /> : 
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-          }
-        </div>
-        
-        {expandedSections.brands && (
-          <div className="mt-4 space-y-6">
-            <div>
-              <h4 className="text-lg font-semibold text-white mb-3 flex items-center space-x-2">
-                <span>🇫🇷</span>
-                <span>Maisons Françaises</span>
-              </h4>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {['Louis Vuitton', 'Chanel', 'Hermès', 'Dior', 'Saint Laurent', 'Cartier'].map((brand) => (
-                  <div key={brand} className="bg-gray-700/50 px-3 py-2 rounded-lg text-center">
-                    <span className="text-amber-400 font-medium">{brand}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-semibold text-white mb-3 flex items-center space-x-2">
-                <span>🇮🇹</span>
-                <span>Excellence Italienne</span>
-              </h4>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {['Prada', 'Gucci', 'Versace', 'Armani', 'Bottega Veneta', 'Dolce & Gabbana'].map((brand) => (
-                  <div key={brand} className="bg-gray-700/50 px-3 py-2 rounded-lg text-center">
-                    <span className="text-amber-400 font-medium">{brand}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-lg font-semibold text-white mb-3 flex items-center space-x-2">
-                <span>🇬🇧</span>
-                <span>Tradition Britannique</span>
-              </h4>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {['Burberry', 'Alexander McQueen', 'Stella McCartney'].map((brand) => (
-                  <div key={brand} className="bg-gray-700/50 px-3 py-2 rounded-lg text-center">
-                    <span className="text-amber-400 font-medium">{brand}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-
-  const renderSelezionePartner = () => (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent mb-4">
-          💼 SELEZIONE : Votre Partenaire Wholesale
-        </h2>
-      </div>
-
-      <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-xl border border-amber-500/30 p-6 text-center">
-        <Crown className="w-12 h-12 text-amber-400 mx-auto mb-4" />
-        <h3 className="text-2xl font-bold text-white mb-2">SELEZIONE</h3>
-        <p className="text-xl text-amber-400 font-semibold mb-4">
-          Spécialiste du Wholesale de Nouvelles Collections
-        </p>
-        <div className="flex justify-center space-x-8 text-center">
-          <div>
-            <div className="text-2xl font-bold text-white">11</div>
-            <div className="text-gray-400 text-sm">Ans d'Expertise</div>
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-white">30+</div>
-            <div className="text-gray-400 text-sm">Fournisseurs</div>
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-white">50%</div>
-            <div className="text-gray-400 text-sm">Remises Max</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-        <div 
-          className="flex items-center justify-between cursor-pointer"
-          onClick={() => toggleSection('history-selezione')}
-        >
-          <h3 className="text-xl font-bold text-white flex items-center space-x-2">
-            <Award className="w-6 h-6 text-amber-400" />
-            <span>Notre Histoire</span>
-          </h3>
-          {expandedSections['history-selezione'] ? 
-            <ChevronDown className="w-5 h-5 text-gray-400" /> : 
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-          }
-        </div>
-        
-        {expandedSections['history-selezione'] && (
-          <div className="mt-4 space-y-4">
-            <p className="text-gray-300 leading-relaxed">
-              Fondée sur une passion pour l'excellence italienne, <span className="text-amber-400 font-semibold">SELEZIONE</span> 
-              s'est imposée en <strong>11 années</strong> comme un acteur incontournable du wholesale 
-              de prêt-à-porter de luxe.
-            </p>
-            <p className="text-gray-300 leading-relaxed">
-              Notre expertise, née au cœur de l'industrie textile italienne, nous permet aujourd'hui 
-              de proposer à nos clients un accès privilégié aux plus belles collections européennes 
-              à des conditions exceptionnelles.
-            </p>
-
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
-              <h4 className="text-amber-400 font-semibold mb-3 flex items-center space-x-2">
-                <Award className="w-5 h-5" />
-                <span>Nos Atouts</span>
-              </h4>
-              <ul className="space-y-2">
-                {[
-                  "11 ans d'expertise dans le wholesale de luxe",
-                  "30+ fournisseurs partenaires sélectionnés",
-                  "Remises jusqu'à 50% sur les nouvelles collections",
-                  "Accompagnement personnalisé pour chaque client",
-                  "Livraison internationale sécurisée"
-                ].map((item, index) => (
-                  <li key={index} className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-amber-400 rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-        <div 
-          className="flex items-center justify-between cursor-pointer"
-          onClick={() => toggleSection('service-wholesale')}
-        >
-          <h3 className="text-xl font-bold text-white flex items-center space-x-2">
-            <Users className="w-6 h-6 text-amber-400" />
-            <span>Service Wholesale Exclusif</span>
-          </h3>
-          {expandedSections['service-wholesale'] ? 
-            <ChevronDown className="w-5 h-5 text-gray-400" /> : 
-            <ChevronRight className="w-5 h-5 text-gray-400" />
-          }
-        </div>
-        
-        {expandedSections['service-wholesale'] && (
-          <div className="mt-4 space-y-4">
-            <p className="text-gray-300">
-              SELEZIONE révolutionne l'accès aux nouvelles collections en proposant un service 
-              wholesale unique sur le marché européen.
-            </p>
-
-            <div className="space-y-4">
-              <div>
-                <h4 className="text-lg font-semibold text-amber-400 mb-2">🎯 Collections Nouvelles à Prix Remisés</h4>
-                <p className="text-gray-300">
-                  Contrairement aux traditionnels déstockages de fins de série, nous proposons 
-                  <span className="text-amber-400 font-semibold"> les dernières collections en cours</span> avec des remises 
-                  exceptionnelles pouvant atteindre <strong>50%</strong> du prix de vente conseillé.
-                </p>
-              </div>
-
-              <div>
-                <h4 className="text-lg font-semibold text-amber-400 mb-2">📋 Processus d'Achat</h4>
-                <div className="grid gap-3">
-                  {[
-                    { step: 1, title: "Sélection", desc: "Nos experts sélectionnent les meilleures pièces" },
-                    { step: 2, title: "Négociation", desc: "Nous négocions les meilleurs prix auprès des producteurs" },
-                    { step: 3, title: "Contrôle Qualité", desc: "Vérification systématique de chaque article" },
-                    { step: 4, title: "Présentation", desc: "Catalogue exclusif pour nos clients wholesale" },
-                    { step: 5, title: "Livraison", desc: "Expédition sécurisée dans toute l'Europe" }
-                  ].map((item) => (
-                    <div key={item.step} className="flex items-center space-x-3 bg-gray-700/30 p-3 rounded-lg">
-                      <div className="w-8 h-8 bg-amber-500 text-black rounded-full flex items-center justify-center font-bold text-sm">
-                        {item.step}
-                      </div>
-                      <div>
-                        <div className="text-white font-medium">{item.title}</div>
-                        <div className="text-gray-400 text-sm">{item.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-xl border border-amber-500/20 p-6 text-center">
-        <h3 className="text-xl font-bold text-white mb-4">Contactez SELEZIONE</h3>
-        <div className="space-y-2 text-gray-300">
-          <p><strong>Email :</strong> info@selezione-wholesale.com</p>
-          <p><strong>Téléphone :</strong> +39 02 XXX XXXX</p>
-          <p><strong>Siège :</strong> Milano, Italia</p>
-        </div>
-        <p className="text-amber-400 italic mt-4">"Votre succès est notre réussite"</p>
-      </div>
-    </div>
-  );
-
-  const renderSegments = () => (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent mb-4">
-          🛍️ Les Différents Segments
-        </h2>
-      </div>
-
-      <div className="grid gap-6">
-        {[
-          {
-            title: "Haute Couture vs Prêt-à-Porter",
-            icon: "👗",
-            content: "Distinction entre l'excellence artisanale et la démocratisation du luxe"
-          },
-          {
-            title: "Segmentation par Genre",
-            icon: "👥",
-            content: "Femme (65%), Homme (30%), Enfant (5%) - Spécificités de chaque marché"
-          },
-          {
-            title: "Maroquinerie : Le Moteur du Luxe",
-            icon: "👜",
-            content: "Segment le plus rentable avec des marges pouvant atteindre 80%"
-          },
-          {
-            title: "Bijouterie & Horlogerie",
-            icon: "💍",
-            content: "Joaillerie fine, montres de prestige et pièces de collection"
-          },
-          {
-            title: "Parfumerie & Cosmétiques",
-            icon: "🌸",
-            content: "Grandes maisons, parfumerie de niche et cosmétiques premium"
-          },
-          {
-            title: "Lingerie & Underwear",
-            icon: "🌺",
-            content: "Segment en forte croissance (+12% annuel), luxe et confort"
-          }
-        ].map((segment, index) => (
-          <div key={index} className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-amber-500/50 transition-colors">
-            <div className="flex items-start space-x-4">
-              <span className="text-3xl">{segment.icon}</span>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">{segment.title}</h3>
-                <p className="text-gray-300">{segment.content}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6">
-        <h3 className="text-xl font-bold text-amber-400 mb-4 flex items-center space-x-2">
-          <Star className="w-6 h-6" />
-          <span>Opportunités de Marché</span>
-        </h3>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-white">150B€</div>
-            <div className="text-gray-400">Marché Global</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-white">+5%</div>
-            <div className="text-gray-400">Croissance Annuelle</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-white">35%</div>
-            <div className="text-gray-400">Marge Moyenne</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderPremiumContent = () => (
-    <div className="text-center py-16">
-      <Crown className="w-16 h-16 text-amber-400 mx-auto mb-6" />
-      <h3 className="text-2xl font-bold text-white mb-4">Contenu Premium</h3>
-      <p className="text-gray-400 mb-6 max-w-md mx-auto">
-        Ce chapitre est réservé aux utilisateurs Premium. 
-        Découvrez les guides exclusifs, adresses d'outlets et techniques professionnelles.
-      </p>
-      <div className="space-y-3">
-        <button className="block w-full bg-amber-500 text-black px-6 py-3 rounded-lg font-semibold hover:bg-amber-400 transition-colors">
-          Passer Premium
-        </button>
-        <button
-          onClick={downloadEbook}
-          className="block w-full bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
-        >
-          Télécharger l'Ebook Complet
-        </button>
-      </div>
-    </div>
-  );
-
-  const renderChapterContent = () => {
-    const chapter = chapters[currentChapter];
-    
-    if (!chapter) return renderTableOfContents();
-
-    if (chapter.premium && user?.role !== 'admin' && user?.role !== 'premium') {
-      return renderPremiumContent();
-    }
-
-    switch (chapter.content) {
-      case 'table-content':
-        return renderTableOfContents();
-      case 'luxury-universe':
-        return renderLuxuryUniverse();
-      case 'selezione-partner':
-        return renderSelezionePartner();
-      case 'segments':
-        return renderSegments();
-      default:
-        return renderPremiumContent();
-    }
-  };
-
+const EbookSelezione = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
-      <div className="container mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <Book className="w-8 h-8 text-amber-400" />
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
-                Ebook SELEZIONE
-              </h1>
-              <p className="text-gray-400">Guide Complet du Prêt-à-Porter de Luxe</p>
+    <div className="ebook-selezione-container">
+      <style jsx>{`
+        .ebook-selezione-container {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 2rem;
+          font-family: 'Inter', sans-serif;
+          color: #f5f5f5;
+          background-color: #1a1a1a;
+          border-radius: 15px;
+        }
+
+        .ebook-header {
+          text-align: center;
+          margin-bottom: 3rem;
+          padding: 2rem;
+          background: linear-gradient(135deg, #D4AF37, #FFD700);
+          color: #1a1a1a;
+          border-radius: 15px;
+        }
+
+        .ebook-title {
+          font-size: 2.5rem;
+          font-weight: 700;
+          margin-bottom: 1rem;
+          font-family: 'Playfair Display', serif;
+        }
+
+        .ebook-subtitle {
+          font-size: 1.2rem;
+          margin-bottom: 1rem;
+          opacity: 0.9;
+        }
+
+        .ebook-stats {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          margin-top: 1.5rem;
+          flex-wrap: wrap;
+        }
+
+        .stat-item {
+          background: rgba(26, 26, 26, 0.2);
+          padding: 1rem;
+          border-radius: 10px;
+          text-align: center;
+          min-width: 120px;
+        }
+
+        .stat-number {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: #1a1a1a;
+        }
+
+        .stat-label {
+          font-size: 0.9rem;
+          opacity: 0.8;
+        }
+
+        .chapter-list {
+          background: #2d2d2d;
+          padding: 2rem;
+          border-radius: 15px;
+          margin: 2rem 0;
+        }
+
+        .chapter-list h3 {
+          color: #D4AF37;
+          font-size: 1.5rem;
+          margin-bottom: 1.5rem;
+          text-align: center;
+        }
+
+        .chapters-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1rem;
+        }
+
+        .chapter-item {
+          background: rgba(212, 175, 55, 0.1);
+          padding: 1rem;
+          border-radius: 10px;
+          border-left: 4px solid #D4AF37;
+        }
+
+        .chapter-number {
+          color: #D4AF37;
+          font-weight: 700;
+          font-size: 1.1rem;
+        }
+
+        .chapter-title {
+          color: #f5f5f5;
+          margin: 0.5rem 0;
+          font-weight: 600;
+        }
+
+        .chapter-description {
+          color: #888;
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
+        .feature-highlights {
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(255, 215, 0, 0.05));
+          padding: 2rem;
+          border-radius: 15px;
+          margin: 2rem 0;
+        }
+
+        .features-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 1.5rem;
+          margin-top: 1.5rem;
+        }
+
+        .feature-card {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 1.5rem;
+          border-radius: 10px;
+          text-align: center;
+        }
+
+        .feature-icon {
+          font-size: 2rem;
+          color: #D4AF37;
+          margin-bottom: 1rem;
+        }
+
+        .feature-title {
+          color: #f5f5f5;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+
+        .feature-description {
+          color: #888;
+          font-size: 0.9rem;
+        }
+
+        .selezione-info {
+          background: linear-gradient(135deg, #D4AF37, #FFD700);
+          color: #1a1a1a;
+          padding: 2rem;
+          border-radius: 15px;
+          margin: 2rem 0;
+          text-align: center;
+        }
+
+        .selezione-logo {
+          font-size: 2rem;
+          font-weight: 700;
+          margin-bottom: 1rem;
+        }
+
+        .selezione-tagline {
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+        }
+
+        .selezione-details {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          margin-top: 1.5rem;
+          flex-wrap: wrap;
+        }
+
+        .detail-item {
+          background: rgba(26, 26, 26, 0.2);
+          padding: 0.8rem 1.2rem;
+          border-radius: 8px;
+          font-weight: 600;
+        }
+
+        .download-section {
+          background: #2d2d2d;
+          padding: 2rem;
+          border-radius: 15px;
+          text-align: center;
+          margin: 2rem 0;
+        }
+
+        .download-title {
+          color: #D4AF37;
+          font-size: 1.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .download-description {
+          color: #f5f5f5;
+          margin-bottom: 1.5rem;
+          line-height: 1.6;
+        }
+
+        .contact-info {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          flex-wrap: wrap;
+          margin-top: 1.5rem;
+        }
+
+        .contact-item {
+          background: rgba(212, 175, 55, 0.1);
+          color: #D4AF37;
+          padding: 0.8rem 1.2rem;
+          border-radius: 8px;
+          font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+          .ebook-title {
+            font-size: 2rem;
+          }
+          
+          .ebook-stats {
+            gap: 1rem;
+          }
+          
+          .chapters-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          .features-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          .selezione-details {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          
+          .contact-info {
+            flex-direction: column;
+            gap: 1rem;
+          }
+        }
+      `}</style>
+
+      {/* Header */}
+      <div className="ebook-header">
+        <h1 className="ebook-title">
+          L'ART DU PRÊT-À-PORTER DE LUXE
+        </h1>
+        <p className="ebook-subtitle">
+          Guide Complet de l'Achat-Revente et du Wholesale Premium
+        </p>
+        <div className="ebook-stats">
+          <div className="stat-item">
+            <div className="stat-number">35+</div>
+            <div className="stat-label">Pages</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number">10</div>
+            <div className="stat-label">Chapitres</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-number">2025</div>
+            <div className="stat-label">Édition</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Table des Matières */}
+      <div className="chapter-list">
+        <h3>📋 Table des Matières Complète</h3>
+        <div className="chapters-grid">
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 1</div>
+            <div className="chapter-title">L'Univers du Luxe</div>
+            <div className="chapter-description">
+              Histoire, codes, marques iconiques et calendrier fashion du luxe mondial
             </div>
           </div>
           
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={downloadEbook}
-              className="flex items-center space-x-2 bg-amber-500 text-black px-4 py-2 rounded-lg font-semibold hover:bg-amber-400 transition-colors"
-            >
-              <Download className="w-5 h-5" />
-              <span>PDF</span>
-            </button>
-            <button
-              onClick={shareEbook}
-              className="flex items-center space-x-2 bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-600 transition-colors"
-            >
-              <Share2 className="w-5 h-5" />
-              <span>Partager</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="flex gap-8">
-          {/* Sidebar Navigation */}
-          <div className="w-80 flex-shrink-0">
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl border border-gray-700 p-4 sticky top-4">
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center space-x-2">
-                <Book className="w-5 h-5 text-amber-400" />
-                <span>Chapitres</span>
-              </h3>
-              
-              <div className="space-y-2">
-                {chapters.map((chapter) => (
-                  <button
-                    key={chapter.id}
-                    onClick={() => setCurrentChapter(chapter.id)}
-                    className={`w-full text-left p-3 rounded-lg transition-all duration-300 ${
-                      currentChapter === chapter.id
-                        ? 'bg-amber-500/20 border border-amber-500/50 text-amber-400'
-                        : chapter.premium && user?.role !== 'admin' && user?.role !== 'premium'
-                        ? 'text-gray-500 hover:text-gray-400'
-                        : 'text-gray-300 hover:text-white hover:bg-gray-700/50'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <span className="text-lg">{chapter.icon}</span>
-                        <div>
-                          <div className="text-sm font-medium">{chapter.title}</div>
-                          {chapter.id > 0 && (
-                            <div className="text-xs opacity-60">Chapitre {chapter.id}</div>
-                          )}
-                        </div>
-                      </div>
-                      {chapter.premium && user?.role !== 'admin' && user?.role !== 'premium' && (
-                        <Crown className="w-4 h-4" />
-                      )}
-                    </div>
-                  </button>
-                ))}
-              </div>
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 2</div>
+            <div className="chapter-title">SELEZIONE : Votre Partenaire</div>
+            <div className="chapter-description">
+              11 ans d'expertise, 30+ fournisseurs, service wholesale exclusif
             </div>
           </div>
-
-          {/* Main Content */}
-          <div className="flex-1">
-            <div className="bg-gray-800/30 backdrop-blur-sm rounded-2xl border border-gray-700 p-8">
-              {renderChapterContent()}
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 3</div>
+            <div className="chapter-title">Les Différents Segments</div>
+            <div className="chapter-description">
+              Haute couture, prêt-à-porter, maroquinerie, bijouterie, parfumerie
+            </div>
+          </div>
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 4</div>
+            <div className="chapter-title">Guide des Outlets Européens</div>
+            <div className="chapter-description">
+              180+ adresses premium : Italie, France, Allemagne, Angleterre...
+            </div>
+          </div>
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 5</div>
+            <div className="chapter-title">Collections N-1 et Déstockage</div>
+            <div className="chapter-description">
+              Sourcing, négociation, analyse rentabilité des invendus de luxe
+            </div>
+          </div>
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 6</div>
+            <div className="chapter-title">La Seconde Main de Luxe</div>
+            <div className="chapter-description">
+              Marché 7,8Md€, authentification, pricing, tendances 2025-2030
+            </div>
+          </div>
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 7</div>
+            <div className="chapter-title">Plateformes de Revente</div>
+            <div className="chapter-description">
+              Vestiaire Collective, The RealReal, stratégies multi-canal
+            </div>
+          </div>
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 8</div>
+            <div className="chapter-title">Techniques Professionnelles</div>
+            <div className="chapter-description">
+              Psychologie, storytelling, pricing, CRM, logistique premium
+            </div>
+          </div>
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 9</div>
+            <div className="chapter-title">Business Model & Rentabilité</div>
+            <div className="chapter-description">
+              Structure coûts, KPIs, financement, aspects légaux et fiscaux
+            </div>
+          </div>
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Chapitre 10</div>
+            <div className="chapter-title">Tendances et Avenir</div>
+            <div className="chapter-description">
+              IA, blockchain, sustainability, comportements Gen Z, crypto-luxe
+            </div>
+          </div>
+          
+          <div className="chapter-item">
+            <div className="chapter-number">Annexes</div>
+            <div className="chapter-title">Contacts et Ressources</div>
+            <div className="chapter-description">
+              Annuaire professionnel, formations, outils, événements secteur
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Features Highlights */}
+      <div className="feature-highlights">
+        <h3 style={{ textAlign: 'center', color: '#D4AF37', marginBottom: '1.5rem' }}>
+          🌟 Points Forts de ce Guide
+        </h3>
+        <div className="features-grid">
+          <div className="feature-card">
+            <div className="feature-icon">🏭</div>
+            <div className="feature-title">Sourcing Exclusif</div>
+            <div className="feature-description">
+              Accès privilégié aux producteurs italiens et européens
+            </div>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">💰</div>
+            <div className="feature-title">Stratégies de Prix</div>
+            <div className="feature-description">
+              Techniques avancées de pricing et négociation professionnelle
+            </div>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">🔍</div>
+            <div className="feature-title">Guide Authentification</div>
+            <div className="feature-description">
+              Méthodes expertes pour détecter contrefaçons et garantir authenticité
+            </div>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">📊</div>
+            <div className="feature-title">Business Intelligence</div>
+            <div className="feature-description">
+              KPIs, métriques, modèles financiers pour optimiser rentabilité
+            </div>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">🚀</div>
+            <div className="feature-title">Tendances 2025-2030</div>
+            <div className="feature-description">
+              Vision prospective : IA, blockchain, sustainability, crypto-luxe
+            </div>
+          </div>
+          
+          <div className="feature-card">
+            <div className="feature-icon">📚</div>
+            <div className="feature-title">Ressources Complètes</div>
+            <div className="feature-description">
+              Contacts, formations, outils tech, calendrier événements secteur
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SELEZIONE Info */}
+      <div className="selezione-info">
+        <div className="selezione-logo">👑 SELEZIONE</div>
+        <div className="selezione-tagline">
+          Spécialiste du Wholesale de Nouvelles Collections
+        </div>
+        <p>
+          Leader européen avec 11 années d'expertise dans l'importation 
+          et la distribution de prêt-à-porter de luxe italien et européen.
+        </p>
+        <div className="selezione-details">
+          <div className="detail-item">11 ans d'expertise</div>
+          <div className="detail-item">30+ fournisseurs</div>
+          <div className="detail-item">Remises jusqu'à 50%</div>
+          <div className="detail-item">Livraison Europe</div>
+        </div>
+      </div>
+
+      {/* Download Section */}
+      <div className="download-section">
+        <h3 className="download-title">
+          📖 Ebook Complet Maintenant Disponible
+        </h3>
+        <div className="download-description">
+          <p>
+            Ce guide de <strong>35+ pages</strong> contient maintenant tous les chapitres complets 
+            avec des informations détaillées, des études de cas réels, et des stratégies 
+            professionnelles éprouvées dans le secteur du luxe.
+          </p>
+          <p style={{ marginTop: '1rem', fontWeight: '600' }}>
+            ✅ Contenu 100% complet • ✅ Expertise professionnelle • ✅ Stratégies éprouvées
+          </p>
+        </div>
+        
+        <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(212, 175, 55, 0.1)', borderRadius: '10px' }}>
+          <h4 style={{ color: '#D4AF37', marginBottom: '1rem' }}>
+            💼 Pour les Professionnels et Entrepreneurs
+          </h4>
+          <p style={{ color: '#f5f5f5', marginBottom: '1rem' }}>
+            Que vous soyez débutant ou expert, ce guide vous donne tous les outils 
+            pour réussir dans l'achat-revente de luxe et le wholesale premium.
+          </p>
+        </div>
+
+        <div className="contact-info">
+          <div className="contact-item">
+            📧 info@selezione-wholesale.com
+          </div>
+          <div className="contact-item">
+            📞 +39 02 8901 2345
+          </div>
+          <div className="contact-item">
+            🌐 Milano, Italia
+          </div>
+        </div>
+        
+        <p style={{ marginTop: '2rem', fontStyle: 'italic', color: '#888' }}>
+          "Votre expertise dans le luxe commence maintenant"
+        </p>
       </div>
     </div>
   );
