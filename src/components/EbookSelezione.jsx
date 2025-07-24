@@ -934,6 +934,169 @@ const EbookSelezione = () => {
           margin-top: 0;
         }
 
+        /* New styles for enriched content */
+        .timeline-box, .expertise-grid, .prestige-hierarchy,
+        .buyer-profiles, .calendar-strategic, .methodology-steps,
+        .results-grid, .services-premium, .partner-selection {
+          margin: 25px 0;
+        }
+
+        .expertise-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+        }
+
+        .expertise-card, .method-step, .result-card, .service-tier,
+        .selection-criteria, .selection-process {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 20px;
+          border-radius: 10px;
+          border-left: 3px solid #D4AF37;
+          margin: 15px 0;
+        }
+
+        .expertise-card h4, .method-step h5, .result-card h4,
+        .service-tier h4 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
+
+        .prestige-level {
+          padding: 20px;
+          border-radius: 10px;
+          margin: 15px 0;
+          border-left: 4px solid;
+        }
+
+        .tier-god {
+          background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(212, 175, 55, 0.15));
+          border-left-color: #FFD700;
+        }
+
+        .tier-s {
+          background: rgba(192, 192, 192, 0.1);
+          border-left-color: #C0C0C0;
+        }
+
+        .tier-a {
+          background: rgba(205, 127, 50, 0.1);
+          border-left-color: #CD7F32;
+        }
+
+        .tier-b {
+          background: rgba(45, 45, 45, 0.8);
+          border-left-color: #D4AF37;
+        }
+
+        .buyer-profile {
+          background: rgba(212, 175, 55, 0.1);
+          padding: 20px;
+          border-radius: 10px;
+          margin: 15px 0;
+          border: 1px solid #D4AF37;
+        }
+
+        .buyer-profile h4 {
+          color: #D4AF37;
+          margin-top: 0;
+        }
+
+        .month-block {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 15px;
+          border-radius: 8px;
+          margin: 10px 0;
+          border-left: 3px solid #D4AF37;
+        }
+
+        .month-block h4 {
+          color: #D4AF37;
+          margin-top: 0;
+        }
+
+        .step-group {
+          margin: 30px 0;
+        }
+
+        .step-group h4 {
+          color: #D4AF37;
+          font-size: 1.3rem;
+          margin-bottom: 20px;
+          text-align: center;
+          padding: 10px;
+          background: rgba(212, 175, 55, 0.1);
+          border-radius: 8px;
+        }
+
+        .results-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+        }
+
+        .result-card.success {
+          border-left-color: #28a745;
+        }
+
+        .service-tier {
+          margin: 20px 0;
+        }
+
+        .contact-grid-detailed {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+          margin: 20px 0;
+        }
+
+        .contact-method {
+          background: rgba(45, 45, 45, 0.5);
+          padding: 15px;
+          border-radius: 8px;
+        }
+
+        .contact-method h5 {
+          color: #D4AF37;
+          margin-top: 0;
+        }
+
+        .urgency-box {
+          background: linear-gradient(135deg, #D4AF37, #FFD700);
+          color: #1a1a1a;
+          padding: 15px;
+          border-radius: 8px;
+          margin: 15px 0;
+          text-align: center;
+          font-weight: 600;
+        }
+
+        .expert-insight {
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 215, 0, 0.1));
+          border: 1px solid #D4AF37;
+          padding: 20px;
+          border-radius: 10px;
+          margin: 30px 0;
+        }
+
+        .expert-insight h4 {
+          color: #D4AF37;
+          margin-top: 0;
+        }
+
+        .timeline-box {
+          background: rgba(212, 175, 55, 0.1);
+          border: 1px solid #D4AF37;
+          padding: 20px;
+          border-radius: 10px;
+        }
+
+        .timeline-box h4 {
+          color: #D4AF37;
+          margin-top: 0;
+        }
+
         @media (max-width: 768px) {
           .ebook-container {
             flex-direction: column;
