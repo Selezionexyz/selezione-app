@@ -978,21 +978,30 @@ const EbookSelezione = () => {
                     
                     <div className="gg-product-grid">
                       <div className="gg-product">
-                        <h6>GWF00101F00141543G - Super-Star Classic</h6>
-                        <p><strong>Prix Wholesale (Achat) :</strong> €485</p>
-                        <p><strong>Prix Retail (Vente) :</strong> €650-750</p>
-                        <p><strong>Marge Brute :</strong> 34-55%</p>
-                        <p><strong>Rotation :</strong> 12x/an</p>
-                        <p><strong>ROI Potentiel :</strong> €165-265 par paire</p>
+                        <h6>GMF00101F00683910317 - Super-Star Classic</h6>
+                        <p><strong>Prix Wholesale (Achat) :</strong> €202</p>
+                        <p><strong>Cost Price (+20%) :</strong> €242</p>
+                        <p><strong>Prix Retail Public :</strong> €606</p>
+                        <p><strong>Marge Brute :</strong> 200% (vs wholesale)</p>
+                        <p><strong>Profit potentiel :</strong> €404 par paire</p>
                       </div>
                       
                       <div className="gg-product">
-                        <h6>GWF00102F00183310B3 - Ball Star Leather</h6>
+                        <h6>GMF00101F00751683112 - Ball Star Leather</h6>
+                        <p><strong>Prix Wholesale (Achat) :</strong> €214</p>
+                        <p><strong>Cost Price (+20%) :</strong> €257</p>
+                        <p><strong>Prix Retail Public :</strong> €642</p>
+                        <p><strong>Marge Brute :</strong> 200% (vs wholesale)</p>
+                        <p><strong>ROI Exceptionnel :</strong> €428 par paire</p>
+                      </div>
+                      
+                      <div className="gg-product">
+                        <h6>GMF00102F00218210803 - Premium Collection</h6>
                         <p><strong>Prix Wholesale (Achat) :</strong> €485</p>
-                        <p><strong>Prix Retail (Vente) :</strong> €620-720</p>
-                        <p><strong>Marge Brute :</strong> 28-48%</p>
-                        <p><strong>Tailles Hot :</strong> 37, 38, 39 (65% demande)</p>
-                        <p><strong>Strategy :</strong> Focus tailles premium</p>
+                        <p><strong>Cost Price (+20%) :</strong> €582</p>
+                        <p><strong>Prix Retail Estimé :</strong> €750-850</p>
+                        <p><strong>Marge Potentielle :</strong> 55-75%</p>
+                        <p><strong>Segment :</strong> Ultra-premium</p>
                       </div>
                     </div>
                     
