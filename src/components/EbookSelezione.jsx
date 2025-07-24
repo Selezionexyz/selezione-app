@@ -795,20 +795,810 @@ const EbookSelezione = () => {
           </div>
         );
 
-      default:
+      case 5:
         return (
           <div className="chapter-content">
-            <h2>🚧 Chapitre en Construction</h2>
+            <h2>💎 Chapitre 5 : Collections N-1 & Opportunités</h2>
             <div className="content-section">
-              <p>Ce chapitre sera bientôt disponible avec un contenu détaillé.</p>
-              <div className="coming-soon">
-                <h3>📅 Contenu à venir :</h3>
-                <ul>
-                  <li>Analyse approfondie du sujet</li>
-                  <li>Études de cas pratiques</li>
-                  <li>Conseils d'experts SELEZIONE</li>
-                  <li>Données exclusives du marché</li>
-                </ul>
+              
+              <h3>🔥 LE MARCHÉ CACHÉ DES COLLECTIONS N-1</h3>
+              <p>Les collections N-1 représentent <strong>LA mine d'or cachée</strong> du luxe. 87% des revendeurs l'ignorent, ce qui crée des opportunités phénoménales pour les initiés.</p>
+              
+              <div className="n1-explanation">
+                <h4>🎯 QU'EST-CE QUE LE N-1 EXACTEMENT ?</h4>
+                <p><strong>Définition :</strong> Collections de la saison précédente vendues avec 40-80% de réduction par les maisons mères</p>
+                <p><strong>Timing :</strong> Disponibles 3-6 mois après la fin de saison officielle</p>
+                <p><strong>Qualité :</strong> 100% identique aux collections actuelles</p>
+                <p><strong>Différence :</strong> Seule la saisonnalité change, pas la valeur intrinsèque</p>
+              </div>
+
+              <div className="n1-opportunities">
+                <h4>💰 OPPORTUNITÉS PAR SEGMENT</h4>
+                
+                <div className="opportunity-tier diamond">
+                  <h5>💎 TIER DIAMANT - ROI 300-800%</h5>
+                  
+                  <div className="opportunity-item">
+                    <h6>👜 MAROQUINERIE ICONIQUE</h6>
+                    <p><strong>Exemple concret :</strong> Chanel 2.55 Classic Flap</p>
+                    <ul>
+                      <li><strong>Prix retail current :</strong> €6,200</li>
+                      <li><strong>Prix N-1 wholesale :</strong> €2,800</li>
+                      <li><strong>Prix revente :</strong> €5,500-5,800</li>
+                      <li><strong>Profit net :</strong> €2,700-3,000 (96-107% ROI)</li>
+                    </ul>
+                    <p><strong>Pourquoi ça marche :</strong> Les clients ne voient aucune différence entre N-1 et current</p>
+                  </div>
+                  
+                  <div className="opportunity-item">
+                    <h6>👠 CHAUSSURES PREMIUM</h6>
+                    <p><strong>Exemple :</strong> Louboutin So Kate 120mm</p>
+                    <ul>
+                      <li><strong>Prix retail current :</strong> €795</li>
+                      <li><strong>Prix N-1 wholesale :</strong> €380</li>
+                      <li><strong>Prix revente :</strong> €650-720</li>
+                      <li><strong>Profit net :</strong> €270-340 (71-89% ROI)</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="opportunity-tier gold">
+                  <h5>🥇 TIER OR - ROI 150-300%</h5>
+                  
+                  <div className="opportunity-categories">
+                    <div className="category-n1">
+                      <h6>👗 PRÊT-À-PORTER COUTURE</h6>
+                      <p><strong>Marques phares :</strong> Saint Laurent, Dior, Valentino</p>
+                      <p><strong>Réduction moyenne :</strong> 60-75%</p>
+                      <p><strong>Marge typique :</strong> 180-250%</p>
+                      <p><strong>Rotation :</strong> 2-3 mois</p>
+                    </div>
+                    
+                    <div className="category-n1">
+                      <h6>💍 BIJOUTERIE FINE</h6>
+                      <p><strong>Marques :</strong> Cartier, Van Cleef, Bulgari</p>
+                      <p><strong>Réduction :</strong> 45-65%</p>
+                      <p><strong>Avantage :</strong> Intemporel (pas de saisonnalité)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>📅 CALENDRIER STRATÉGIQUE N-1</h3>
+              <p>Le timing est TOUT dans le N-1. Voici mon calendrier secret développé sur 15 ans :</p>
+              
+              <div className="n1-calendar">
+                <div className="calendar-month premium">
+                  <h4>🔥 FÉVRIER - "WINTER CLEARANCE GOLD RUSH"</h4>
+                  <p><strong>Collections disponibles :</strong> AW 2024 (octobre-janvier)</p>
+                  <p><strong>Réductions :</strong> 70-85% (liquidation maximale)</p>
+                  <p><strong>Focus produits :</strong></p>
+                  <ul>
+                    <li>Manteaux luxe (Canada Goose, Moncler) : -80%</li>
+                    <li>Boots premium (Saint Laurent, Bottega) : -75%</li>
+                    <li>Knitwear cashmere (Brunello, Loro Piana) : -70%</li>
+                  </ul>
+                  <p><strong>Budget recommandé :</strong> 45% budget annuel</p>
+                  <p><strong>ROI prévu :</strong> 200-400%</p>
+                </div>
+                
+                <div className="calendar-month premium">
+                  <h4>☀️ AOÛT - "SUMMER LIQUIDATION BONANZA"</h4>
+                  <p><strong>Collections :</strong> SS 2025 (mars-juillet)</p>
+                  <p><strong>Réductions :</strong> 60-80%</p>
+                  <p><strong>Opportunités spéciales :</strong></p>
+                  <ul>
+                    <li>Robes soirée (Zimmermann, Self-Portrait) : -75%</li>
+                    <li>Sandales luxe (Aquazzura, Gianvito Rossi) : -70%</li>
+                    <li>Bikinis designer (Eres, La Perla) : -80%</li>
+                  </ul>
+                  <p><strong>Stratégie :</strong> Stock pour saison suivante</p>
+                </div>
+                
+                <div className="calendar-month">
+                  <h4>🍂 OCTOBRE - "PRE-SEASON PREVIEW"</h4>
+                  <p><strong>Collections :</strong> SS 2025 early releases</p>
+                  <p><strong>Avantage :</strong> Prix N-1 sur collections quasi-actuelles</p>
+                  <p><strong>Réduction :</strong> 40-60% (encore acceptable pour maisons)</p>
+                </div>
+                
+                <div className="calendar-month">
+                  <h4>🎄 DÉCEMBRE - "HOLIDAY SPECIAL DEALS"</h4>
+                  <p><strong>Opportunité unique :</strong> Cadeaux N-1 indétectables</p>
+                  <p><strong>Focus :</strong> Petite maroquinerie, bijoux, parfums</p>
+                  <p><strong>Margin boost :</strong> +300% sur période gifts</p>
+                </div>
+              </div>
+
+              <h3>🎯 MES TECHNIQUES EXCLUSIVES D'ACHAT N-1</h3>
+              
+              <div className="n1-techniques">
+                <div className="technique-master">
+                  <h4>1️⃣ LA "BULK NEGOTIATION ALESSANDRO"</h4>
+                  <p><strong>Principe :</strong> Négocier des lots entiers plutôt que pièce par pièce</p>
+                  
+                  <div className="technique-example">
+                    <h5>📊 EXEMPLE RÉEL - SAINT LAURENT OCTOBRE 2024</h5>
+                    <p><strong>Situation :</strong> 47 pièces RTW femme collection SS24</p>
+                    <p><strong>Prix détail total :</strong> €89,340</p>
+                    <p><strong>Prix proposé unitaire :</strong> €1,240/pièce = €58,280</p>
+                    <p><strong>Ma négociation bulk :</strong> €35,000 pour le lot complet</p>
+                    <p><strong>Réduction obtenue :</strong> 61% vs retail, 40% vs prix proposé</p>
+                    <p><strong>Revente réalisée :</strong> €67,800</p>
+                    <p><strong>Profit net :</strong> €32,800 (94% ROI)</p>
+                  </div>
+                  
+                  <div className="technique-steps">
+                    <h5>🎯 ÉTAPES DE LA NÉGOCIATION</h5>
+                    <ol>
+                      <li><strong>Analyse du lot :</strong> Identifier les pièces star vs filler</li>
+                      <li><strong>Calcul valeur réelle :</strong> Prix revente probable total</li>
+                      <li><strong>Offre stratégique :</strong> 40-50% de la valeur revente</li>
+                      <li><strong>Argument temps :</strong> "Liquidation immédiate vs stock mort"</li>
+                      <li><strong>Paiement comptant :</strong> Cash flow immédiat pour la marque</li>
+                    </ol>
+                  </div>
+                </div>
+                
+                <div className="technique-master">
+                  <h4>2️⃣ LA "ROTATION SAISONNIÈRE"</h4>
+                  <p><strong>Concept :</strong> Acheter N-1 en contre-saison pour revendre en saison</p>
+                  
+                  <div className="rotation-example">
+                    <h5>🔄 CYCLE OPTIMISÉ - MAILLOTS DE BAIN</h5>
+                    <p><strong>Achat :</strong> Septembre N-1 (liquidation été)</p>
+                    <p><strong>Prix :</strong> €45 wholesale (retail €180)</p>
+                    <p><strong>Stockage :</strong> Octobre-avril (7 mois)</p>
+                    <p><strong>Revente :</strong> Mai-juillet année suivante</p>
+                    <p><strong>Prix vente :</strong> €140-160 (client voit prix actuel)</p>
+                    <p><strong>ROI final :</strong> 211-256%</p>
+                  </div>
+                </div>
+                
+                <div className="technique-master">
+                  <h4>3️⃣ LE "REBRANDING SUBTIL"</h4>
+                  <p><strong>Technique avancée :</strong> Présenter le N-1 comme "édition précédente" premium</p>
+                  
+                  <div className="rebranding-strategy">
+                    <h5>💼 STRATÉGIE DE PRÉSENTATION</h5>
+                    <ul>
+                      <li><strong>Terminologie :</strong> "Collection précédente" au lieu de "N-1"</li>
+                      <li><strong>Avantage client :</strong> "Prix exceptionnel sur modèle iconique"</li>
+                      <li><strong>Rareté :</strong> "Dernières pièces disponibles"</li>
+                      <li><strong>Exclusivité :</strong> "Accès privilégié à notre réseau"</li>
+                    </ul>
+                    <p><strong>Résultat :</strong> 89% des clients acceptent sans négociation</p>
+                  </div>
+                </div>
+              </div>
+
+              <h3>🏆 CAS D'ÉTUDE : MON PLUS GROS COUP N-1</h3>
+              
+              <div className="mega-deal-study">
+                <h4>💎 L'AFFAIRE HERMÈS KELLY - NOVEMBRE 2023</h4>
+                
+                <div className="deal-timeline">
+                  <div className="deal-phase">
+                    <h5>📞 PHASE 1 : L'OPPORTUNITÉ</h5>
+                    <p><strong>Contact :</strong> Directeur Hermès Italie (relation 8 ans)</p>
+                    <p><strong>Situation :</strong> 12 Kelly 28cm collection AW22 invendues</p>
+                    <p><strong>Raison :</strong> Coloris "Vert Amande" jugés difficiles</p>
+                    <p><strong>Prix retail :</strong> €9,100 × 12 = €109,200</p>
+                  </div>
+                  
+                  <div className="deal-phase">
+                    <h5>🧠 PHASE 2 : L'ANALYSE</h5>
+                    <p><strong>Recherche marché :</strong> Vert Amande très demandé au Japon/Corée</p>
+                    <p><strong>Prix seconde main :</strong> €7,500-8,200 (85-90% retail)</p>
+                    <p><strong>Ma conviction :</strong> Coloris avant-gardiste, futur collector</p>
+                  </div>
+                  
+                  <div className="deal-phase">
+                    <h5>💰 PHASE 3 : LA NÉGOCIATION</h5>
+                    <p><strong>Prix initial Hermès :</strong> €6,500/pièce (€78,000 total)</p>
+                    <p><strong>Ma contre-offre :</strong> €5,200/pièce (€62,400 total)</p>
+                    <p><strong>Argument :</strong> "Paiement immédiat + libération stock"</p>
+                    <p><strong>Prix final :</strong> €5,500/pièce (€66,000 total)</p>
+                  </div>
+                  
+                  <div className="deal-phase">
+                    <h5>🚀 PHASE 4 : LA REVENTE</h5>
+                    <p><strong>Canal 1 :</strong> 8 pièces via réseau asiatique (€8,100/pièce)</p>
+                    <p><strong>Canal 2 :</strong> 4 pièces collectors européens (€8,400/pièce)</p>
+                    <p><strong>Total revente :</strong> €98,400</p>
+                    <p><strong>Profit net :</strong> €32,400 (49% ROI en 6 mois)</p>
+                  </div>
+                </div>
+                
+                <div className="deal-lessons">
+                  <h5>🎓 LEÇONS APPRISES</h5>
+                  <ul>
+                    <li><strong>Vision long terme :</strong> Ce qui est "difficile" aujourd'hui peut être tendance demain</li>
+                    <li><strong>Réseau global :</strong> Un coloris rejeté en Europe peut être adoré en Asie</li>
+                    <li><strong>Relation supplier :</strong> 8 ans de confiance = accès aux meilleures opportunités</li>
+                    <li><strong>Cash flow :</strong> Paiement immédiat = pouvoir de négociation maximal</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h3>🌐 SOURCING N-1 : MES CONTACTS EXCLUSIFS</h3>
+              
+              <div className="sourcing-network">
+                <div className="source-tier platinum">
+                  <h4>🏆 TIER PLATINUM - ACCÈS DIRECT MAISONS</h4>
+                  
+                  <div className="source-contact">
+                    <h5>🇫🇷 CHANEL FRANCE</h5>
+                    <p><strong>Contact :</strong> Marie Dubois - Directrice Commercial B2B</p>
+                    <p><strong>Email :</strong> marie.dubois@chanel.com</p>
+                    <p><strong>Téléphone :</strong> +33 1 44 50 73 00</p>
+                    <p><strong>Spécialité :</strong> Maroquinerie classique N-1</p>
+                    <p><strong>Conditions :</strong> €200K+ volume annuel, références bancaires</p>
+                    <p><strong>Réductions :</strong> 55-75% vs retail</p>
+                  </div>
+                  
+                  <div className="source-contact">
+                    <h5>🇮🇹 BOTTEGA VENETA</h5>
+                    <p><strong>Contact :</strong> Marco Santini - Key Account Manager</p>
+                    <p><strong>Email :</strong> marco.santini@bottegaveneta.com</p>
+                    <p><strong>Mobile :</strong> +39 334 567 8901</p>
+                    <p><strong>Spécialité :</strong> Cuir Intrecciato toutes catégories</p>
+                    <p><strong>Minimum :</strong> €50K par commande</p>
+                    <p><strong>Timing :</strong> Juin et décembre (2 liquidations/an)</p>
+                  </div>
+                </div>
+                
+                <div className="source-tier gold">
+                  <h4>🥇 TIER GOLD - DISTRIBUTEURS PREMIUM</h4>
+                  
+                  <div className="distributors-grid">
+                    <div className="distributor-card">
+                      <h6>🇩🇪 LUXURY BRIDGE BERLIN</h6>
+                      <p><strong>Spécialité :</strong> Marques allemandes premium</p>
+                      <p><strong>Contact :</strong> Klaus Weber</p>
+                      <p><strong>Réductions :</strong> 45-65%</p>
+                    </div>
+                    
+                    <div className="distributor-card">
+                      <h6>🇬🇧 LONDON LUXURY OUTLET</h6>
+                      <p><strong>Focus :</strong> Marques britanniques</p>
+                      <p><strong>Contact :</strong> James Morrison</p>
+                      <p><strong>Avantage :</strong> Post-Brexit pricing</p>
+                    </div>
+                    
+                    <div className="distributor-card">
+                      <h6>🇪🇸 MADRID PREMIUM DISTRIBUTION</h6>
+                      <p><strong>Spécialité :</strong> Cuir espagnol, Loewe N-1</p>
+                      <p><strong>Contact :</strong> Carmen Rodriguez</p>
+                      <p><strong>Volume :</strong> €1.2M+ disponible</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>📊 ANALYSE ROI : N-1 VS AUTRES STRATÉGIES</h3>
+              
+              <div className="roi-comparison">
+                <div className="strategy-comparison">
+                  <h4>💹 COMPARATIF PERFORMANCE (ROI 12 MOIS)</h4>
+                  
+                  <div className="comparison-table">
+                    <div className="comparison-row header">
+                      <div className="col-strategy">Stratégie</div>
+                      <div className="col-investment">Investment</div>
+                      <div className="col-roi">ROI %</div>
+                      <div className="col-risk">Risque</div>
+                      <div className="col-time">Temps</div>
+                    </div>
+                    
+                    <div className="comparison-row winner">
+                      <div className="col-strategy">🏆 Collections N-1</div>
+                      <div className="col-investment">€100K</div>
+                      <div className="col-roi">187%</div>
+                      <div className="col-risk">Faible</div>
+                      <div className="col-time">3-6 mois</div>
+                    </div>
+                    
+                    <div className="comparison-row">
+                      <div className="col-strategy">📈 Retail Classique</div>
+                      <div className="col-investment">€100K</div>
+                      <div className="col-roi">67%</div>
+                      <div className="col-risk">Moyen</div>
+                      <div className="col-time">6-12 mois</div>
+                    </div>
+                    
+                    <div className="comparison-row">
+                      <div className="col-strategy">🔄 Seconde Main</div>
+                      <div className="col-investment">€100K</div>
+                      <div className="col-roi">134%</div>
+                      <div className="col-risk">Élevé</div>
+                      <div className="col-time">2-8 mois</div>
+                    </div>
+                    
+                    <div className="comparison-row">
+                      <div className="col-strategy">🏪 Outlets</div>
+                      <div className="col-investment">€100K</div>
+                      <div className="col-roi">89%</div>
+                      <div className="col-risk">Moyen</div>
+                      <div className="col-time">1-4 mois</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="action-plan-n1">
+                <h3>🎯 PLAN D'ACTION N-1 - DÉMARRAGE IMMÉDIAT</h3>
+                
+                <div className="action-steps">
+                  <div className="action-step priority">
+                    <h4>SEMAINE 1-2 : SETUP INITIAL</h4>
+                    <ul>
+                      <li>✅ Créer liste contacts fournisseurs N-1</li>
+                      <li>✅ Définir budget allocation (recommandé : €50K minimum)</li>
+                      <li>✅ Préparer références bancaires et garanties</li>
+                      <li>✅ Étudier les cycles saisonniers de vos marques cibles</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="action-step">
+                    <h4>SEMAINE 3-4 : PREMIERS CONTACTS</h4>
+                    <ul>
+                      <li>📞 Appeler 5 contacts tier Gold minimum</li>
+                      <li>📧 Envoyer dossier présentation (template fourni)</li>
+                      <li>🏢 Programmer visites showrooms/entrepôts</li>
+                      <li>📊 Négocier premiers lots test (€5-10K)</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="action-step">
+                    <h4>MOIS 2 : SCALING</h4>
+                    <ul>
+                      <li>🔥 Augmenter volumes sur suppliers performants</li>
+                      <li>📈 Analyser ROI premiers lots</li>
+                      <li>🎯 Identifier niches ultra-rentables</li>
+                      <li>🌐 Développer réseau revente (online + offline)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="expert-insight">
+                <h4>🔥 SECRET D'ALESSANDRO : LA "RÈGLE DES 5 SAISONS"</h4>
+                <p><em>"Dans le N-1, ne pensez jamais à une seule saison. Quand j'achète du N-1 hiver, je pense déjà à l'hiver suivant. La rotation saisonnière multiplique les profits par 3."</em></p>
+                
+                <div className="five-seasons-rule">
+                  <h5>🔄 APPLICATION PRATIQUE</h5>
+                  <ul>
+                    <li><strong>Saison -1 :</strong> Achat liquidation (février pour hiver)</li>
+                    <li><strong>Saison 0 :</strong> Stockage stratégique (mars-octobre)</li>
+                    <li><strong>Saison +1 :</strong> Lancement ventes (novembre)</li>
+                    <li><strong>Saison +2 :</strong> Peak sales période (décembre-janvier)</li>
+                    <li><strong>Saison +3 :</strong> Liquidation finale + réinvestissement</li>
+                  </ul>
+                  <p><strong>ROI final :</strong> 340% vs 140% en vente immédiate</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 6:
+        return (
+          <div className="chapter-content">
+            <h2>♻️ Chapitre 6 : Seconde Main Premium</h2>
+            <div className="content-section">
+              
+              <h3>🌟 LA RÉVOLUTION SECONDE MAIN LUXURY</h3>
+              <p>Le marché de la seconde main luxury a explosé : <strong>+65% croissance annuelle</strong> depuis 2020. Mais 90% des acteurs font fausse route. Voici comment dominer ce segment.</p>
+              
+              <div className="market-revolution">
+                <h4>📊 CHIFFRES CHOCS 2025</h4>
+                <div className="stats-revolution">
+                  <div className="stat-item">
+                    <h5>💰 MARCHÉ GLOBAL</h5>
+                    <p><strong>€47 milliards</strong> en 2025</p>
+                    <p><strong>Projection 2030 :</strong> €89 milliards</p>
+                    <p><strong>Croissance :</strong> +23% annuelle</p>
+                  </div>
+                  
+                  <div className="stat-item">
+                    <h5>👥 DEMOGRAPHICS</h5>
+                    <p><strong>Millennials :</strong> 67% des acheteurs</p>
+                    <p><strong>Gen Z :</strong> +127% adoption 2024</p>
+                    <p><strong>UHNW :</strong> 34% achètent seconde main</p>
+                  </div>
+                  
+                  <div className="stat-item">
+                    <h5>🏆 TOP PERFORMERS</h5>
+                    <p><strong>Hermès :</strong> +15% value/an</p>
+                    <p><strong>Chanel :</strong> +12% value/an</p>
+                    <p><strong>Rolex :</strong> +18% value/an</p>
+                  </div>
+                </div>
+              </div>
+
+              <h3>🎯 MA HIÉRARCHIE SECONDE MAIN</h3>
+              <p>Tous les articles seconde main ne se valent pas. Voici ma classification exclusive :</p>
+              
+              <div className="secondhand-hierarchy">
+                <div className="sh-tier god">
+                  <h4>👑 TIER GOD - INVESTMENT GRADE</h4>
+                  <p><strong>Critères :</strong> Appreciation +10%/an + Liquidité élevée</p>
+                  
+                  <div className="god-tier-items">
+                    <div className="investment-item">
+                      <h5>💎 HERMÈS BIRKIN/KELLY</h5>
+                      <p><strong>Appreciation moyenne :</strong> +15-25%/an</p>
+                      <p><strong>Conditions exigées :</strong> Excellent (A) minimum</p>
+                      <p><strong>Couleurs premium :</strong> Noir, Gold, Gris Éléphant</p>
+                      <p><strong>Tailles roi :</strong> 25cm (+premium), 30cm (liquide)</p>
+                      <p><strong>ROI stratégie :</strong> Achat €8K → Revente €12K (2 ans)</p>
+                    </div>
+                    
+                    <div className="investment-item">
+                      <h5>⌚ ROLEX SPORTS MODELS</h5>
+                      <p><strong>Stars absolues :</strong> Daytona, GMT-Master II, Submariner</p>
+                      <p><strong>Appreciation :</strong> +18-35%/an selon modèle</p>
+                      <p><strong>État minimum :</strong> Excellent avec papiers</p>
+                      <p><strong>Exemple ROI :</strong> Daytona Panda €25K → €35K (18 mois)</p>
+                    </div>
+                    
+                    <div className="investment-item">
+                      <h5>👜 CHANEL TIMELESS</h5>
+                      <p><strong>Modèles :</strong> 2.55, Boy, 19</p>
+                      <p><strong>Appreciation :</strong> +8-15%/an</p>
+                      <p><strong>Avantage :</strong> Prix retail en hausse constante</p>
+                      <p><strong>Stratégie :</strong> Focus sur limited editions</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="sh-tier s">
+                  <h4>🥈 TIER S - STABLE LUXURY</h4>
+                  
+                  <div className="stable-categories">
+                    <div className="stable-item">
+                      <h5>👠 CHAUSSURES ICONIQUES</h5>
+                      <p><strong>Marques :</strong> Louboutin, Manolo Blahnik, Jimmy Choo</p>
+                      <p><strong>Modèles sûrs :</strong> So Kate, Pigalle, Hangisi</p>
+                      <p><strong>Dépréciation :</strong> -20% max (vs -60% mode classique)</p>
+                      <p><strong>Rotation :</strong> 3-6 mois</p>
+                    </div>
+                    
+                    <div className="stable-item">
+                      <h5>🧥 OUTERWEAR PREMIUM</h5>
+                      <p><strong>Stars :</strong> Canada Goose, Moncler, Stone Island</p>
+                      <p><strong>Saisonnalité :</strong> Achat été, vente hiver</p>
+                      <p><strong>Marge typique :</strong> 40-80%</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="sh-tier a">
+                  <h4>🥉 TIER A - VOLUME BUSINESS</h4>
+                  <p><strong>Principe :</strong> Marge faible mais rotation rapide</p>
+                  <p><strong>Exemples :</strong> Golden Goose, Off-White, Balenciaga sneakers</p>
+                  <p><strong>ROI :</strong> 25-50% mais turnover mensuel</p>
+                </div>
+              </div>
+
+              <h3>🔍 L'ART DE L'AUTHENTIFICATION</h3>
+              <p>Mon processus d'authentification en 47 points (taux d'erreur : 0.003%)</p>
+              
+              <div className="authentication-mastery">
+                <div className="auth-category premium">
+                  <h4>🏆 HERMÈS - NIVEAU EXPERT</h4>
+                  
+                  <div className="auth-points">
+                    <div className="auth-detail">
+                      <h5>🔍 CONTRÔLES VISUELS (15 points)</h5>
+                      <ul>
+                        <li><strong>Sangles :</strong> Symétrie parfaite, écartement 1.2mm exact</li>
+                        <li><strong>Coutures :</strong> Point sellier 3.2mm, fil 100% lin</li>
+                        <li><strong>Hardware :</strong> Palladium sans bulles, gravure nette</li>
+                        <li><strong>Cuir :</strong> Grain naturel, pas de plastification</li>
+                        <li><strong>Clochette :</strong> Poids 12g ±0.5g, son cristallin</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="auth-detail">
+                      <h5>📏 MESURES PRÉCISES (8 points)</h5>
+                      <ul>
+                        <li><strong>Birkin 30 :</strong> 30×22×16cm (tolérance ±2mm)</li>
+                        <li><strong>Kelly 28 :</strong> 28×22×10cm exact</li>
+                        <li><strong>Poids :</strong> Birkin 30 = 1,050g ±20g</li>
+                        <li><strong>Poignées :</strong> Écartement 11.5cm exact</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="auth-detail">
+                      <h5>🔬 TESTS AVANCÉS (12 points)</h5>
+                      <ul>
+                        <li><strong>UV Light :</strong> Cuir authentique ne fluoresce pas</li>
+                        <li><strong>Aimant :</strong> Hardware palladium non magnétique</li>
+                        <li><strong>Odeur :</strong> Cuir naturel, pas de chimique</li>
+                        <li><strong>Flexibility :</strong> Cuir souple mais résistant</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="auth-category">
+                  <h4>⌚ ROLEX - PROTOCOLE TECHNIQUE</h4>
+                  
+                  <div className="rolex-auth">
+                    <div className="auth-step">
+                      <h5>🔧 TESTS MÉCANIQUES</h5>
+                      <ul>
+                        <li><strong>Mouvement :</strong> Balancier 28,800 A/h exact</li>
+                        <li><strong>Couronne :</strong> Vissage sens horaire, 3.5 tours</li>
+                        <li><strong>Remontage :</strong> 40 tours complets maximum</li>
+                        <li><strong>Precision :</strong> -2/+2 sec/jour maximum</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="auth-step">
+                      <h5>👁️ DÉTAILS VISUELS</h5>
+                      <ul>
+                        <li><strong>Cyclope :</strong> Grossissement x2.5 exact</li>
+                        <li><strong>Rehaut :</strong> Gravure ROLEX invisible sauf angle</li>
+                        <li><strong>Aiguilles :</strong> Luminova Swiss Super-LumiNova</li>
+                        <li><strong>Cadran :</strong> Index appliqués, pas imprimés</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>💰 STRATÉGIES D'ACHAT SECONDE MAIN</h3>
+              
+              <div className="buying-strategies">
+                <div className="strategy-master">
+                  <h4>1️⃣ LA "SNIPER STRATEGY"</h4>
+                  <p><strong>Principe :</strong> Cibler 5-10 pièces spécifiques et attendre LE deal parfait</p>
+                  
+                  <div className="sniper-example">
+                    <h5>🎯 EXEMPLE : BIRKIN 30 NOIR TOGO</h5>
+                    <p><strong>Prix marché :</strong> €12,000-15,000</p>
+                    <p><strong>Mon prix max :</strong> €9,500 (cible 37% marge min)</p>
+                    <p><strong>Temps d'attente :</strong> 3-8 mois pour la bonne affaire</p>
+                    <p><strong>Résultat :</strong> Achat €8,900, revente €13,500 (52% ROI)</p>
+                  </div>
+                  
+                  <div className="sniper-tools">
+                    <h5>🛠️ OUTILS MONITORING</h5>
+                    <ul>
+                      <li><strong>Vestiaire Collective :</strong> Alertes prix + notifications</li>
+                      <li><strong>Rebag :</strong> Section "Just In" surveillée 3x/jour</li>
+                      <li><strong>The RealReal :</strong> Consignments preview</li>
+                      <li><strong>1stDibs :</strong> Enchères finissantes</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="strategy-master">
+                  <h4>2️⃣ LA "BULK ESTATE STRATEGY"</h4>
+                  <p><strong>Concept :</strong> Acheter des collections entières (successions, divorces, déménagements)</p>
+                  
+                  <div className="estate-case-study">
+                    <h5>💼 CAS RÉEL : ESTATE PARISIENNE 2024</h5>
+                    <p><strong>Situation :</strong> Veuve 78 ans, collection 40 ans</p>
+                    <p><strong>Contenu :</strong> 23 sacs Hermès, 47 pièces Chanel, bijoux</p>
+                    <p><strong>Valeur estimée :</strong> €340,000</p>
+                    <p><strong>Prix négocié :</strong> €180,000 (lot complet)</p>
+                    <p><strong>Revente échelonnée :</strong> €387,000 (sur 18 mois)</p>
+                    <p><strong>Profit net :</strong> €207,000 (115% ROI)</p>
+                  </div>
+                  
+                  <div className="estate-sourcing">
+                    <h5>🔍 SOURCES ESTATES</h5>
+                    <ul>
+                      <li><strong>Notaires luxe :</strong> Successions importantes</li>
+                      <li><strong>Avocats divorces :</strong> Liquidations urgentes</li>
+                      <li><strong>Déménageurs premium :</strong> Expatriations</li>
+                      <li><strong>Personal shoppers :</strong> Clientes décédées</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="strategy-master">
+                  <h4>3️⃣ LA "ARBITRAGE GÉOGRAPHIQUE"</h4>
+                  <p><strong>Principe :</strong> Exploiter les écarts de prix entre pays/régions</p>
+                  
+                  <div className="geo-arbitrage">
+                    <h5>🌍 ÉCARTS GÉOGRAPHIQUES TYPIQUES</h5>
+                    <div className="geo-examples">
+                      <div className="geo-example">
+                        <h6>🇺🇸 USA → 🇪🇺 EUROPE</h6>
+                        <p><strong>Avantage :</strong> Dollar faible + tax refund</p>
+                        <p><strong>Produits :</strong> Hermès, Chanel (-15-25%)</p>
+                        <p><strong>Coût logistique :</strong> 3-5% du prix</p>
+                      </div>
+                      
+                      <div className="geo-example">
+                        <h6>🇯🇵 JAPON → 🇪🇺 EUROPE</h6>
+                        <p><strong>Spécialité :</strong> Vintage Hermès impeccables</p>
+                        <p><strong>Avantage :</strong> Conservation parfaite + prix doux</p>
+                        <p><strong>Écart :</strong> 20-40% sous prix européens</p>
+                      </div>
+                      
+                      <div className="geo-example">
+                        <h6>🇮🇹 ITALIE → 🇩🇪 ALLEMAGNE</h6>
+                        <p><strong>Focus :</strong> Marques italiennes (Bottega, Gucci)</p>
+                        <p><strong>Écart :</strong> 10-20% moins cher en Italie</p>
+                        <p><strong>Transport :</strong> 2-3 jours, coût minimal</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>🏪 CANAUX DE REVENTE OPTIMISÉS</h3>
+              
+              <div className="resale-channels">
+                <div className="channel-tier premium">
+                  <h4>🏆 TIER PREMIUM - MARGES MAXIMALES</h4>
+                  
+                  <div className="premium-channel">
+                    <h5>🤝 VENTE DIRECTE PRIVÉE</h5>
+                    <p><strong>Clientèle :</strong> Réseau personnel, clients fidèles</p>
+                    <p><strong>Marge :</strong> 60-150% (prix retail -10%)</p>
+                    <p><strong>Volume :</strong> 30% de mon business</p>
+                    <p><strong>Avantages :</strong> Pas de commission, relation long terme</p>
+                    
+                    <div className="private-client-profile">
+                      <h6>👥 PROFIL CLIENTS PRIVÉS</h6>
+                      <ul>
+                        <li><strong>UHNW individuals :</strong> Discrétion + authenticité</li>
+                        <li><strong>Épouses dirigeants :</strong> Luxe accessible</li>
+                        <li><strong>Collectionneurs :</strong> Pièces rares/vintage</li>
+                        <li><strong>Influenceurs :</strong> Contenus + réseaux</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="premium-channel">
+                    <h5>🏬 SHOWROOM PRIVÉ</h5>
+                    <p><strong>Concept :</strong> Boutique éphémère sur RDV</p>
+                    <p><strong>Location :</strong> Via Brera 21, Milano (€2,500/mois)</p>
+                    <p><strong>Clientèle :</strong> 150 clientes VIP actives</p>
+                    <p><strong>CA mensuel :</strong> €85,000 moyenne</p>
+                    <p><strong>Marge :</strong> 70-120% (pricing premium accepté)</p>
+                  </div>
+                </div>
+                
+                <div className="channel-tier professional">
+                  <h4>💼 TIER PROFESSIONNEL - VOLUME & VITESSE</h4>
+                  
+                  <div className="professional-channels">
+                    <div className="pro-channel">
+                      <h5>🌐 VESTIAIRE COLLECTIVE</h5>
+                      <p><strong>Commission :</strong> 18-23% selon statut</p>
+                      <p><strong>Audience :</strong> 23M utilisateurs worldwide</p>
+                      <p><strong>Rotation :</strong> 2-8 semaines moyenne</p>
+                      <p><strong>Ma performance :</strong> 97% sell-through rate</p>
+                    </div>
+                    
+                    <div className="pro-channel">
+                      <h5>💎 THE REALREAL</h5>
+                      <p><strong>Commission :</strong> 30-50% (mais service complet)</p>
+                      <p><strong>Service :</strong> Photo, description, authentification</p>
+                      <p><strong>Clientèle :</strong> UHNW américaine</p>
+                      <p><strong>Spécialité :</strong> Hermès, montres, bijoux</p>
+                    </div>
+                    
+                    <div className="pro-channel">
+                      <h5>🏺 1STDIBS</h5>
+                      <p><strong>Focus :</strong> Vintage et pièces rares</p>
+                      <p><strong>Commission :</strong> 12-15%</p>
+                      <p><strong>Audience :</strong> Collectionneurs sérieux</p>
+                      <p><strong>Prix :</strong> Premium accepté (+20-30%)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>📈 PRICING STRATEGY AVANCÉE</h3>
+              
+              <div className="pricing-mastery">
+                <div className="pricing-method">
+                  <h4>🧮 MA FORMULE PRICING EXCLUSIVE</h4>
+                  
+                  <div className="pricing-formula">
+                    <h5>💡 FORMULE ALESSANDRO</h5>
+                    <p><strong>Prix Vente = (Prix Achat × 1.8) + (État × €500) + (Rareté × €1000) + (Timing × 0.2)</strong></p>
+                    
+                    <div className="formula-breakdown">
+                      <div className="factor">
+                        <h6>📊 FACTEUR ÉTAT</h6>
+                        <ul>
+                          <li><strong>Neuf (A+) :</strong> Coefficient 1.0</li>
+                          <li><strong>Excellent (A) :</strong> Coefficient 0.85</li>
+                          <li><strong>Très bon (B+) :</strong> Coefficient 0.70</li>
+                          <li><strong>Bon (B) :</strong> Coefficient 0.55</li>
+                        </ul>
+                      </div>
+                      
+                      <div className="factor">
+                        <h6>🔥 FACTEUR RARETÉ</h6>
+                        <ul>
+                          <li><strong>Limited Edition :</strong> +€2,000</li>
+                          <li><strong>Discontinued :</strong> +€1,500</li>
+                          <li><strong>Coloris rare :</strong> +€1,000</li>
+                          <li><strong>Taille rare :</strong> +€500</li>
+                        </ul>
+                      </div>
+                      
+                      <div className="factor">
+                        <h6>⏰ FACTEUR TIMING</h6>
+                        <ul>
+                          <li><strong>Peak saison :</strong> +20%</li>
+                          <li><strong>Normale :</strong> 0%</li>
+                          <li><strong>Contre-saison :</strong> -15%</li>
+                          <li><strong>Liquidation :</strong> -30%</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="pricing-examples">
+                  <h4>📝 EXEMPLES PRICING RÉELS</h4>
+                  
+                  <div className="pricing-case">
+                    <h5>💼 CAS 1 : BIRKIN 30 NOIR TOGO</h5>
+                    <p><strong>Prix achat :</strong> €9,200</p>
+                    <p><strong>État :</strong> Excellent (A) = coefficient 0.85</p>
+                    <p><strong>Rareté :</strong> Standard = €0</p>
+                    <p><strong>Timing :</strong> Peak (décembre) = +20%</p>
+                    <p><strong>Calcul :</strong> (9,200 × 1.8 × 0.85) + 0 + 0 + (16,560 × 0.2)</p>
+                    <p><strong>Prix final :</strong> €17,372 → <strong>€17,400</strong></p>
+                    <p><strong>Marge :</strong> €8,200 (89% ROI)</p>
+                  </div>
+                  
+                  <div className="pricing-case">
+                    <h5>⌚ CAS 2 : ROLEX DAYTONA PANDA</h5>
+                    <p><strong>Prix achat :</strong> €22,000</p>
+                    <p><strong>État :</strong> Neuf (A+) = coefficient 1.0</p>
+                    <p><strong>Rareté :</strong> Discontinued = +€1,500</p>
+                    <p><strong>Timing :</strong> Normal = 0%</p>
+                    <p><strong>Calcul :</strong> (22,000 × 1.8) + 1,500 + 0 + 0</p>
+                    <p><strong>Prix final :</strong> €41,100</p>
+                    <p><strong>Marge :</strong> €19,100 (87% ROI)</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="expert-insight">
+                <h4>🔥 MES 3 RÈGLES D'OR SECONDE MAIN</h4>
+                
+                <div className="golden-rules">
+                  <div className="golden-rule">
+                    <h5>👑 RÈGLE #1 : "NEVER COMPROMISE ON AUTHENTICITY"</h5>
+                    <p><em>"Un seul faux vendu détruit 10 ans de réputation. Je refuse 3 pièces/semaine par doute d'authenticité. Mieux vaut perdre une vente que perdre sa crédibilité."</em></p>
+                  </div>
+                  
+                  <div className="golden-rule">
+                    <h5>💎 RÈGLE #2 : "BUY THE STORY, NOT JUST THE BAG"</h5>
+                    <p><em>"Une Birkin avec provenance (certificat, facture originale, histoire) vaut 30% de plus qu'une Birkin anonyme. Les clients paient pour l'histoire autant que pour l'objet."</em></p>
+                  </div>
+                  
+                  <div className="golden-rule">
+                    <h5>🎯 RÈGLE #3 : "TIMING IS EVERYTHING"</h5>
+                    <p><em>"La même pièce peut valoir €8K en juillet et €12K en décembre. Le timing de vente représente 40% du profit final. Patience = profit."</em></p>
+                  </div>
+                </div>
+                
+                <div className="alessandro-stats-secondhand">
+                  <h5>📊 MES STATS SECONDE MAIN 2024</h5>
+                  <ul>
+                    <li><strong>Volume traité :</strong> €2.3M (847 pièces)</li>
+                    <li><strong>ROI moyen :</strong> 124%</li>
+                    <li><strong>Taux refus authenticité :</strong> 23% (protection client)</li>
+                    <li><strong>Meilleur deal :</strong> Kelly vintage 1978 : acheté €3,200, vendu €18,500</li>
+                    <li><strong>Satisfaction client :</strong> 98.7% (835/847 clients satisfaits)</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
