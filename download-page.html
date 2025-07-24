@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Téléchargement Direct - Fichiers SELEZIONE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #2d2d2d;
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 5px solid #D4AF37;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #D4AF37;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        .download-section {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid #D4AF37;
+            text-align: center;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            color: #1a1a1a;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px;
+            transition: all 0.3s ease;
+            min-width: 300px;
+        }
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+        .file-info {
+            text-align: left;
+            margin: 20px 0;
+            padding: 20px;
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+        .file-info h3 {
+            color: #D4AF37;
+            margin-top: 0;
+        }
+        .email-info {
+            background: #D4AF37;
+            color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            font-weight: 600;
+        }
+        .base64-section {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .base64-link {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            word-break: break-all;
+            border: 1px solid #D4AF37;
+            max-height: 100px;
+            overflow-y: scroll;
+        }
+        .instructions {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 SELEZIONE - Téléchargement Direct</h1>
+        
+        <div class="email-info">
+            📧 Email destinataire : <strong>Selezione.xyz@hotmail.com</strong><br>
+            🎯 Fichiers prêts pour téléchargement immédiat
+        </div>
+        
+        <div class="download-section">
+            <h2 style="color: #D4AF37; margin-top: 0;">📖 EBOOK COMPLET</h2>
+            <div class="file-info">
+                <h3>L'Art du Prêt-à-Porter de Luxe</h3>
+                <p><strong>Contenu :</strong> Guide complet 35+ pages</p>
+                <p><strong>Taille :</strong> 0.76 MB</p>
+                <p><strong>Usage :</strong> Pièce jointe pour vos emails clients</p>
+            </div>
+            <a href="data:application/pdf;base64," id="ebook-link" class="download-btn">
+                💎 TÉLÉCHARGER L'EBOOK PDF
+            </a>
+        </div>
+        
+        <div class="download-section">
+            <h2 style="color: #D4AF37; margin-top: 0;">📧 TEMPLATE EMAIL</h2>
+            <div class="file-info">
+                <h3>Guide Email Professionnel</h3>
+                <p><strong>Contenu :</strong> Template formaté pour prospection</p>
+                <p><strong>Taille :</strong> 0.13 MB</p>
+                <p><strong>Usage :</strong> Modèle pour vos emails de vente</p>
+            </div>
+            <a href="data:application/pdf;base64," id="template-link" class="download-btn">
+                📧 TÉLÉCHARGER LE TEMPLATE
+            </a>
+        </div>
+        
+        <div class="instructions">
+            <h3 style="color: #D4AF37;">📋 Instructions d'utilisation :</h3>
+            <ol>
+                <li><strong>Cliquez sur les boutons</strong> ci-dessus pour télécharger</li>
+                <li><strong>Si les boutons ne marchent pas</strong>, copiez les liens base64 ci-dessous</li>
+                <li><strong>Collez dans votre navigateur</strong> pour télécharger</li>
+                <li><strong>Utilisez l'ebook</strong> comme pièce jointe premium</li>
+                <li><strong>Adaptez le template</strong> email selon vos clients</li>
+            </ol>
+        </div>
+        
+        <div class="base64-section">
+            <h3 style="color: #D4AF37;">🔗 Liens de téléchargement direct :</h3>
+            <p><strong>Ebook PDF :</strong></p>
+            <div class="base64-link" id="ebook-base64">Chargement...</div>
+            
+            <p style="margin-top: 20px;"><strong>Template Email PDF :</strong></p>
+            <div class="base64-link" id="template-base64">Chargement...</div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; color: #888;">
+            <p>© 2025 SELEZIONE • Milano, Italia</p>
+            <p>"11 ans d'expertise • 30+ fournisseurs • Votre succès garanti"</p>
+        </div>
+    </div>
+
+    <script>
+        // Cette page se remplira automatiquement avec les données base64
+        document.addEventListener('DOMContentLoaded', function() {
+            // Les liens seront générés par le serveur Python
+            document.getElementById('ebook-base64').textContent = 'Génération des liens en cours...';
+            document.getElementById('template-base64').textContent = 'Génération des liens en cours...';
+        });
+    </script>
+</body>
+</html>
