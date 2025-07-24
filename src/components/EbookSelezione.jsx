@@ -1039,38 +1039,37 @@ const EbookSelezione = () => {
                       <div className="step-transformation">
                         <h6>ÉTAPE 1 : ACHAT INITIAL (1000€)</h6>
                         <ul>
-                          <li>2x Sneakers Super-Star à 485€ = 970€ (Wholesale)</li>
-                          <li>Reste 30€ pour frais/transport</li>
-                          <li><strong>Ciblage :</strong> Tailles 37-39 uniquement</li>
+                          <li>5x Sneakers GMF00101F00683910317 à 202€ = 1010€</li>
+                          <li><strong>Légèrement au-dessus budget mais rentabilité exceptionnelle</strong></li>
+                          <li><strong>Ciblage :</strong> Tailles 38-40 (65% demande)</li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
-                        <h6>ÉTAPE 2 : VENTE RETAIL (Mois 1-2)</h6>
+                        <h6>ÉTAPE 2 : VENTE COST PRICE (Mois 1-2)</h6>
                         <ul>
-                          <li>Vente directe B2C : 700€ × 2 = 1400€ (Retail)</li>
-                          <li><strong>Bénéfice net :</strong> 430€ (44%)</li>
-                          <li>Capital disponible : 1400€</li>
+                          <li>Vente à cost price +20% : 242€ × 5 = 1210€</li>
+                          <li><strong>Bénéfice net rapide :</strong> 200€ (20%)</li>
+                          <li>Capital disponible : 1210€</li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
-                        <h6>ÉTAPE 3 : SCALING INTELLIGENT (Mois 3-6)</h6>
+                        <h6>ÉTAPE 3 : VENTE RETAIL PREMIUM (Mois 3-4)</h6>
                         <ul>
-                          <li>Achat diversifié : 2 Sneakers (970€) + 2 T-shirts (350€)</li>
-                          <li>Investment total : 1320€</li>
-                          <li>Revente : (700€×2) + (370€×2) = 2140€</li>
-                          <li><strong>ROI cycle :</strong> 62%</li>
+                          <li>OU vente retail complète : 606€ × 5 = 3030€</li>
+                          <li><strong>Profit exceptionnel :</strong> 2020€ (200%)</li>
+                          <li><strong>OBJECTIF 3000€ DÉPASSÉ DÈS LE 1ER CYCLE !</strong></li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
-                        <h6>ÉTAPE 4 : OBJECTIF 3000€ (Mois 6-12)</h6>
+                        <h6>ÉTAPE 4 : SCALING MASSIF (Mois 6-12)</h6>
                         <ul>
-                          <li>Capital accumulé : 2140€</li>
-                          <li>Mix produits optimisé : 70% Sneakers, 30% RTW</li>
-                          <li>Bundle premium : +25% marge sur lots</li>
-                          <li><strong>Target 3000€ :</strong> Atteint en 6-8 mois</li>
+                          <li>Capital multiplié : 3030€</li>
+                          <li>Réinvestissement : 15 paires possible</li>
+                          <li>Potential profit annuel : 6000€+</li>
+                          <li><strong>Business transformé avec Golden Goose !</strong></li>
                         </ul>
                       </div>
                     </div>
