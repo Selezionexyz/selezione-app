@@ -1461,9 +1461,202 @@ const EbookSelezione = () => {
           border-radius: 10px;
         }
 
+        .expert-insight h4 {
+          color: #D4AF37;
+          margin-top: 0;
+        }
+
+        .timeline-box {
+          background: rgba(212, 175, 55, 0.1);
+          border: 1px solid #D4AF37;
+          padding: 20px;
+          border-radius: 10px;
+        }
+
         .timeline-box h4 {
           color: #D4AF37;
           margin-top: 0;
+        }
+
+        /* Additional styles for new enriched content */
+        .market-overview {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 15px;
+          margin: 20px 0;
+        }
+
+        .market-stat {
+          background: rgba(212, 175, 55, 0.1);
+          padding: 15px;
+          border-radius: 8px;
+          text-align: center;
+          border: 1px solid #D4AF37;
+        }
+
+        .market-stat h4 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
+
+        .segment-deep-dive {
+          margin: 30px 0;
+        }
+
+        .segment-analysis, .rtw-categories, .shoes-analysis, .jewelry-mastery {
+          margin: 25px 0;
+        }
+
+        .sub-segment, .rtw-category, .shoes-categories, .jewelry-pyramid {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px 0;
+          border-left: 4px solid #D4AF37;
+        }
+
+        .sub-segment h5, .rtw-category h5 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
+        }
+
+        .pro-insight, .strategy-box {
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 215, 0, 0.1));
+          border: 1px solid #D4AF37;
+          padding: 15px;
+          border-radius: 8px;
+          margin: 15px 0;
+        }
+
+        .pro-insight h6, .strategy-box h6 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 8px;
+        }
+
+        .pricing-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+          background: rgba(45, 45, 45, 0.8);
+          border-radius: 8px;
+          overflow: hidden;
+        }
+
+        .pricing-table th {
+          background: #D4AF37;
+          color: #1a1a1a;
+          padding: 12px;
+          font-weight: 600;
+        }
+
+        .pricing-table td {
+          background: rgba(45, 45, 45, 0.8);
+          color: #f5f5f5;
+          padding: 12px;
+          border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .rtw-category.elite {
+          border-left-color: #FFD700;
+          background: rgba(255, 215, 0, 0.1);
+        }
+
+        .rtw-category.premium {
+          border-left-color: #C0C0C0;
+          background: rgba(192, 192, 192, 0.1);
+        }
+
+        .rtw-category.accessible {
+          border-left-color: #CD7F32;
+          background: rgba(205, 127, 50, 0.1);
+        }
+
+        .category-details {
+          margin-top: 10px;
+        }
+
+        .size-matrix, .seasonal-strategy, .shoes-success-formula, .jewelry-occasions {
+          margin: 25px 0;
+        }
+
+        .size-breakdown, .season-plan, .success-factors, .occasion-timing {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+          margin: 15px 0;
+        }
+
+        .size-category, .season, .factor, .peak-season, .secondary-season {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 15px;
+          border-radius: 8px;
+          border-left: 3px solid #D4AF37;
+        }
+
+        .size-category h5, .season h5, .factor h5 {
+          color: #D4AF37;
+          margin-top: 0;
+        }
+
+        .shoe-tier, .jewelry-tier {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 20px;
+          border-radius: 10px;
+          margin: 15px 0;
+          border-left: 4px solid #D4AF37;
+        }
+
+        .shoe-tier.diamond, .jewelry-tier.exceptional {
+          border-left-color: #FFD700;
+          background: rgba(255, 215, 0, 0.1);
+        }
+
+        .shoe-tier.gold, .jewelry-tier.prestige {
+          border-left-color: #C0C0C0;
+          background: rgba(192, 192, 192, 0.1);
+        }
+
+        .shoe-tier.silver, .jewelry-tier.contemporary {
+          border-left-color: #CD7F32;
+          background: rgba(205, 127, 50, 0.1);
+        }
+
+        .market-intelligence {
+          margin: 30px 0;
+        }
+
+        .trend-alerts {
+          margin: 20px 0;
+        }
+
+        .trend {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 15px;
+          border-radius: 8px;
+          margin: 15px 0;
+        }
+
+        .trend.rising {
+          border-left: 4px solid #28a745;
+          background: rgba(40, 167, 69, 0.1);
+        }
+
+        .trend.stable {
+          border-left: 4px solid #ffc107;
+          background: rgba(255, 193, 7, 0.1);
+        }
+
+        .trend.declining {
+          border-left: 4px solid #dc3545;
+          background: rgba(220, 53, 69, 0.1);
+        }
+
+        .trend h5 {
+          margin-top: 0;
+          margin-bottom: 10px;
         }
 
         @media (max-width: 768px) {
