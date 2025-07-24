@@ -979,18 +979,18 @@ const EbookSelezione = () => {
                     <div className="gg-product-grid">
                       <div className="gg-product">
                         <h6>GWF00101F00141543G - Super-Star Classic</h6>
-                        <p><strong>Prix Wholesale :</strong> €485</p>
-                        <p><strong>Prix Public Conseillé :</strong> €590</p>
-                        <p><strong>Prix Marché Secondaire :</strong> €420-550</p>
+                        <p><strong>Prix Wholesale (Achat) :</strong> €485</p>
+                        <p><strong>Prix Retail (Vente) :</strong> €650-750</p>
+                        <p><strong>Marge Brute :</strong> 34-55%</p>
                         <p><strong>Rotation :</strong> 12x/an</p>
-                        <p><strong>Marge Potentielle :</strong> 18-25%</p>
+                        <p><strong>ROI Potentiel :</strong> €165-265 par paire</p>
                       </div>
                       
                       <div className="gg-product">
                         <h6>GWF00102F00183310B3 - Ball Star Leather</h6>
-                        <p><strong>Prix Wholesale :</strong> €485</p>
-                        <p><strong>Prix Public Conseillé :</strong> €580</p>
-                        <p><strong>Prix Marché Revente :</strong> €450-590</p>
+                        <p><strong>Prix Wholesale (Achat) :</strong> €485</p>
+                        <p><strong>Prix Retail (Vente) :</strong> €620-720</p>
+                        <p><strong>Marge Brute :</strong> 28-48%</p>
                         <p><strong>Tailles Hot :</strong> 37, 38, 39 (65% demande)</p>
                         <p><strong>Strategy :</strong> Focus tailles premium</p>
                       </div>
