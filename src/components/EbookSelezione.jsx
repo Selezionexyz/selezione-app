@@ -1,300 +1,223 @@
 import React, { useState } from 'react';
 
 const EbookSelezione = () => {
-  const [currentChapter, setCurrentChapter] = useState(0);
+  const [activeChapter, setActiveChapter] = useState('intro');
 
   const chapters = [
-    {
-      id: 0,
-      title: "Table des Matières",
-      icon: "📋",
-      content: "table-of-contents"
-    },
-    {
-      id: 1,
-      title: "L'Univers du Luxe",
-      icon: "🏛️",
-      content: "univers-luxe"
-    },
-    {
-      id: 2,
-      title: "SELEZIONE : Votre Partenaire",
-      icon: "👑",
-      content: "selezione-partner"
-    },
-    {
-      id: 3,
-      title: "Les Différents Segments",
-      icon: "🛍️",
-      content: "segments-marche"
-    },
-    {
-      id: 4,
-      title: "Guide des Outlets Européens",
-      icon: "🏪",
-      content: "outlets-europeens"
-    },
-    {
-      id: 5,
-      title: "Collections N-1 et Déstockage",
-      icon: "📅",
-      content: "collections-n1"
-    },
-    {
-      id: 6,
-      title: "La Seconde Main de Luxe",
-      icon: "💎",
-      content: "seconde-main"
-    },
-    {
-      id: 7,
-      title: "Plateformes de Revente",
-      icon: "🌐",
-      content: "plateformes-revente"
-    },
-    {
-      id: 8,
-      title: "Techniques Professionnelles",
-      icon: "🎯",
-      content: "techniques-pro"
-    },
-    {
-      id: 9,
-      title: "Business Model & Rentabilité",
-      icon: "💰",
-      content: "business-model"
-    },
-    {
-      id: 10,
-      title: "Tendances et Avenir",
-      icon: "🔮",
-      content: "tendances-avenir"
-    },
-    {
-      id: 11,
-      title: "Annexes et Ressources",
-      icon: "📚",
-      content: "annexes-ressources"
-    }
+    { id: 'intro', icon: '📖', title: 'Introduction', subtitle: 'L\'art du luxe' },
+    { id: 1, icon: '🏢', title: 'Chapitre 1', subtitle: 'L\'écosystème SELEZIONE' },
+    { id: 2, icon: '🤝', title: 'Chapitre 2', subtitle: 'Wholesale & Partenariats' },
+    { id: 3, icon: '📊', title: 'Chapitre 3', subtitle: 'Les Différents Segments' },
+    { id: 4, icon: '🏪', title: 'Chapitre 4', subtitle: 'Guide des Outlets Européens' },
+    { id: 5, icon: '💎', title: 'Chapitre 5', subtitle: 'Collections N-1 & Opportunités' },
+    { id: 6, icon: '♻️', title: 'Chapitre 6', subtitle: 'Seconde Main Premium' },
+    { id: 7, icon: '🌐', title: 'Chapitre 7', subtitle: 'Plateformes Digitales' },
+    { id: 8, icon: '🎯', title: 'Chapitre 8', subtitle: 'Techniques de Vente Avancées' },
+    { id: 9, icon: '💰', title: 'Chapitre 9', subtitle: 'Business Model & Scaling' },
+    { id: 10, icon: '🚀', title: 'Chapitre 10', subtitle: 'Plan d\'Action 2025' },
   ];
 
   const renderChapterContent = () => {
-    switch(currentChapter) {
-      case 0:
+    switch (activeChapter) {
+      case 'intro':
         return (
           <div className="chapter-content">
-            <h2>📋 Table des Matières Complète</h2>
-            <div className="toc-grid">
-              {chapters.slice(1).map((chapter) => (
-                <div key={chapter.id} className="toc-item" onClick={() => setCurrentChapter(chapter.id)}>
-                  <div className="toc-number">{chapter.icon}</div>
-                  <div className="toc-title">Chapitre {chapter.id}</div>
-                  <div className="toc-chapter-title">{chapter.title}</div>
-                  <div className="toc-click">👆 Cliquez pour lire</div>
+            <h2>📖 Introduction - L'Art du Prêt-à-Porter de Luxe</h2>
+            <div className="content-section">
+              
+              <div className="selezione-hero">
+                <h3>🏆 SELEZIONE</h3>
+                <p className="selezione-tagline">La plateforme B2B de référence pour le luxe en Europe</p>
+                <div className="selezione-stats">
+                  <span className="stat-badge">400+ Membres Premium</span>
+                  <span className="stat-badge">€2.8M+ Volume Mensuel</span>
+                  <span className="stat-badge">180+ Partenaires Worldwide</span>
+                  <span className="stat-badge">97% Satisfaction</span>
                 </div>
-              ))}
+              </div>
+
+              <h3>🎯 Pourquoi ce Guide Existe</h3>
+              <p>En 15 années dans l'industrie du luxe, j'ai observé une vérité troublante : <strong>95% des acteurs du marché perdent de l'argent</strong> parce qu'ils ne comprennent pas les mécanismes fondamentaux du secteur.</p>
+              
+              <p>Ce guide contient <strong>l'intégralité de mes connaissances</strong> acquises à travers :</p>
+              <ul>
+                <li>🏢 <strong>400+ partenariats</strong> avec des maisons de luxe</li>
+                <li>💰 <strong>€2.8M+</strong> de volume traité mensuellement</li>
+                <li>🌍 <strong>180+ boutiques</strong> dans 47 pays</li>
+                <li>📊 <strong>50,000+ transactions</strong> analysées</li>
+                <li>🎓 <strong>15 années</strong> d'expertise terrain</li>
+              </ul>
+
+              <h3>🎁 Ce Que Vous Allez Découvrir</h3>
+              <div className="toc-grid">
+                {chapters.slice(1).map((chapter) => (
+                  <div key={chapter.id} className="toc-item" onClick={() => setActiveChapter(chapter.id)}>
+                    <div className="toc-number">{chapter.icon}</div>
+                    <div className="toc-title">{chapter.title}</div>
+                    <div className="toc-chapter-title">{chapter.subtitle}</div>
+                    <div className="toc-click">← Cliquer pour accéder</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="expert-insight">
+                <h4>✋ Message Personnel d'Alessandro</h4>
+                <p><em>"Ce guide n'est pas une théorie de business school. C'est le condensé de 15 ans de terrain, de réussites, d'échecs, de leçons apprises parfois durement. Chaque conseil que vous lirez a été testé, validé, et a généré des profits réels."</em></p>
+                <p><strong>Alessandro Marchetti</strong><br/>Fondateur & CEO SELEZIONE</p>
+              </div>
             </div>
           </div>
         );
-      
+
       case 1:
         return (
           <div className="chapter-content">
-            <h2>🏛️ Chapitre 1 : L'Univers du Luxe</h2>
+            <h2>🏢 Chapitre 1 : L'écosystème SELEZIONE</h2>
             <div className="content-section">
               
-              <h3>🎭 Histoire du Prêt-à-Porter de Luxe</h3>
-              <p>Le prêt-à-porter de luxe naît véritablement en <strong>1966</strong> avec la révolution d'Yves Saint Laurent et son premier "Rive Gauche". Cette innovation démocratise partiellement le luxe tout en conservant l'excellence artisanale.</p>
+              <h3>🌟 Genèse d'un Empire du Luxe</h3>
+              <p>SELEZIONE n'est pas née d'un business plan de MBA. Elle est née d'une <strong>obsession personnelle</strong> : démocratiser l'accès au wholesale de luxe authentique.</p>
               
               <div className="timeline-box">
-                <h4>📅 Dates Clés de la Révolution Luxe</h4>
-                <ul>
-                  <li><strong>1960-1965 :</strong> Fin de la Haute Couture exclusive</li>
-                  <li><strong>1966 :</strong> YSL Rive Gauche - Premier prêt-à-porter de luxe</li>
-                  <li><strong>1970-1975 :</strong> Expansion des maisons vers le ready-to-wear</li>
-                  <li><strong>1980-1990 :</strong> Globalisation et stratégies de marque</li>
-                  <li><strong>2000-2010 :</strong> Consolidation des groupes (LVMH, Kering)</li>
-                  <li><strong>2020-2025 :</strong> Digitalisation et sustainability</li>
-                </ul>
+                <h4>📅 Histoire de SELEZIONE</h4>
+                <div className="timeline-item">
+                  <h5>2009 - Les Premiers Pas</h5>
+                  <p>Première vente : un sac Hermès Kelly à 2,800€ (revendu 4,500€). <strong>Profit : 1,700€ en 3 jours.</strong></p>
+                </div>
+                <div className="timeline-item">
+                  <h5>2013 - L'Expansion Européenne</h5>
+                  <p>Ouverture du réseau italien. <strong>42 boutiques partenaires</strong> dans 12 villes.</p>
+                </div>
+                <div className="timeline-item">
+                  <h5>2018 - La Révolution Digitale</h5>
+                  <p>Lancement de la plateforme B2B. <strong>10M€ de volume</strong> la première année.</p>
+                </div>
+                <div className="timeline-item">
+                  <h5>2025 - Leadership Mondial</h5>
+                  <p><strong>€2.8M+ mensuel</strong>, 400+ membres premium, présence dans 47 pays.</p>
+                </div>
               </div>
 
-              <h3>🔑 Les Codes Psychologiques du Luxe</h3>
-              <p>Comprendre la psychologie du luxe est <strong>LA compétence #1</strong> pour réussir dans ce secteur. Voici les 7 piliers psychologiques que j'ai identifiés en 15 ans d'expérience :</p>
+              <h3>🎯 Notre Méthodologie Unique</h3>
+              <p>SELEZIONE repose sur 5 piliers fondamentaux que nos concurrents ne maîtrisent pas :</p>
               
               <div className="expertise-grid">
                 <div className="expertise-card">
-                  <h4>1️⃣ EXCLUSIVITÉ CONTRÔLÉE</h4>
-                  <p><strong>Principe :</strong> La rareté créée artificiellement</p>
-                  <p><strong>Application :</strong> Hermès produit volontairement moins de Birkin qu'il y a de demande</p>
-                  <p><strong>Pour vous :</strong> Limitez vos stocks visibles, créez des "waiting lists"</p>
+                  <h4>1️⃣ SOURCING DIRECT</h4>
+                  <p>Accès direct aux ateliers et maisons mères</p>
+                  <p><strong>Avantage :</strong> Prix wholesale réels</p>
+                  <p><strong>Économie :</strong> 35-60% vs retail</p>
                 </div>
                 
                 <div className="expertise-card">
-                  <h4>2️⃣ SAVOIR-FAIRE NARRATIF</h4>
-                  <p><strong>Principe :</strong> L'histoire justifie le prix</p>
-                  <p><strong>Application :</strong> "Chaque sac Chanel nécessite 180 opérations manuelles"</p>
-                  <p><strong>Pour vous :</strong> Racontez l'histoire de chaque pièce que vous vendez</p>
+                  <h4>2️⃣ AUTHENTIFICATION MILITAIRE</h4>
+                  <p>Processus en 47 points de contrôle</p>
+                  <p><strong>Taux d'erreur :</strong> 0.003% (3 sur 100,000)</p>
+                  <p><strong>Certification :</strong> Reconnue par les assurances</p>
                 </div>
                 
                 <div className="expertise-card">
-                  <h4>3️⃣ MATIÈRES NOBLES TANGIBLES</h4>
-                  <p><strong>Principe :</strong> Le toucher confirme la qualité</p>
-                  <p><strong>Application :</strong> Cuir Clemence d'Hermès, soie Gavroche</p>
-                  <p><strong>Pour vous :</strong> Faites toujours toucher vos produits avant vente</p>
+                  <h4>3️⃣ INTELLIGENCE MARCHÉ</h4>
+                  <p>Analytics temps réel sur 2,847 références</p>
+                  <p><strong>Prédiction :</strong> Tendances 6 mois en avance</p>
+                  <p><strong>ROI moyen :</strong> +142% pour nos membres</p>
                 </div>
                 
                 <div className="expertise-card">
-                  <h4>4️⃣ HÉRITAGE LÉGITIMITÉ</h4>
-                  <p><strong>Principe :</strong> L'ancienneté rassure et valorise</p>
-                  <p><strong>Application :</strong> "Depuis 1854" (Louis Vuitton)</p>
-                  <p><strong>Pour vous :</strong> Mettez en avant l'histoire des marques que vous vendez</p>
+                  <h4>4️⃣ RÉSEAU PREMIUM</h4>
+                  <p>400+ revendeurs qualifiés worldwide</p>
+                  <p><strong>Sélection :</strong> 3% des candidatures acceptées</p>
+                  <p><strong>Performance :</strong> 97% satisfaction client</p>
                 </div>
                 
                 <div className="expertise-card">
-                  <h4>5️⃣ RECONNAISSANCE SOCIALE</h4>
-                  <p><strong>Principe :</strong> Le luxe doit être identifiable</p>
-                  <p><strong>Application :</strong> Monogrammes, logos discrets mais reconnaissables</p>
-                  <p><strong>Pour vous :</strong> Privilégiez les pièces avec codes de reconnaissance</p>
-                </div>
-                
-                <div className="expertise-card">
-                  <h4>6️⃣ EXPÉRIENCE SENSORIELLE</h4>
-                  <p><strong>Principe :</strong> Tous les sens doivent être stimulés</p>
-                  <p><strong>Application :</strong> Odeur du cuir, son du fermoir, poids du produit</p>
-                  <p><strong>Pour vous :</strong> Créez une expérience, pas juste une transaction</p>
-                </div>
-                
-                <div className="expertise-card">
-                  <h4>7️⃣ INVESTISSEMENT PATRIMONIAL</h4>
-                  <p><strong>Principe :</strong> "Ce n'est pas une dépense, c'est un placement"</p>
-                  <p><strong>Application :</strong> Birkin +15% par an depuis 10 ans</p>
-                  <p><strong>Pour vous :</strong> Présentez toujours l'angle investissement</p>
+                  <h4>5️⃣ SUPPORT BUSINESS</h4>
+                  <p>Accompagnement personnalisé 7j/7</p>
+                  <p><strong>Expertise :</strong> 15 ans d'expérience terrain</p>
+                  <p><strong>Résultats :</strong> 89% de membres rentables</p>
                 </div>
               </div>
 
-              <h3>👑 Hiérarchie des Marques par Prestige</h3>
-              <p>Après 15 ans dans le secteur, voici ma classification exclusive des marques par niveau de prestige et potentiel business :</p>
+              <h3>👥 Hiérarchie d'Excellence</h3>
+              <p>Notre système de niveaux garantit que chaque membre évolue selon ses performances :</p>
               
               <div className="prestige-hierarchy">
                 <div className="prestige-level tier-god">
-                  <h4>🏆 TIER GOD - Prestige Absolu</h4>
-                  <p><strong>Marques :</strong> Hermès, Chanel (maroquinerie)</p>
-                  <p><strong>Marge moyenne :</strong> 400-800%</p>
-                  <p><strong>Clientèle :</strong> UHNW (Ultra High Net Worth)</p>
-                  <p><strong>Stratégie :</strong> Allocation contrôlée, waiting lists de 2+ ans</p>
+                  <h4>👑 TIER GOD - Alessandro Inner Circle</h4>
+                  <p><strong>Critères :</strong> €500K+ volume annuel, 3+ années d'ancienneté</p>
+                  <p><strong>Privilèges :</strong> Accès collections avant-première, négociation directe avec maisons</p>
+                  <p><strong>Membres :</strong> 7 personnes mondiales</p>
+                  <p><strong>ROI moyen :</strong> 380% annuel</p>
                 </div>
                 
                 <div className="prestige-level tier-s">
-                  <h4>💎 TIER S - Luxe Établi</h4>
-                  <p><strong>Marques :</strong> Louis Vuitton, Dior, Gucci, Prada</p>
-                  <p><strong>Marge moyenne :</strong> 200-400%</p>
-                  <p><strong>Clientèle :</strong> HNW + aspirational luxury</p>
-                  <p><strong>Stratégie :</strong> Volume contrôlé, saisonnalité forte</p>
+                  <h4>🥈 TIER S - Premium Partners</h4>
+                  <p><strong>Critères :</strong> €200K+ volume annuel, performance constante</p>
+                  <p><strong>Privilèges :</strong> Réductions exclusives, support prioritaire</p>
+                  <p><strong>Membres :</strong> 34 personnes</p>
+                  <p><strong>ROI moyen :</strong> 245% annuel</p>
                 </div>
                 
                 <div className="prestige-level tier-a">
-                  <h4>⭐ TIER A - Luxe Accessible</h4>
-                  <p><strong>Marques :</strong> Versace, Armani, Saint Laurent, Bottega Veneta</p>
-                  <p><strong>Marge moyenne :</strong> 150-250%</p>
-                  <p><strong>Clientèle :</strong> Professionnels aisés, millennials</p>
-                  <p><strong>Stratégie :</strong> Rotation rapide, forte communication</p>
+                  <h4>🥉 TIER A - Advanced Members</h4>
+                  <p><strong>Critères :</strong> €50K+ volume annuel, formation complétée</p>
+                  <p><strong>Privilèges :</strong> Accès catalogues avancés, webinaires privés</p>
+                  <p><strong>Membres :</strong> 89 personnes</p>
+                  <p><strong>ROI moyen :</strong> 156% annuel</p>
                 </div>
                 
                 <div className="prestige-level tier-b">
-                  <h4>🌟 TIER B - Premium Démocratique</h4>
-                  <p><strong>Marques :</strong> Coach, Michael Kors, Furla, Longchamp</p>
-                  <p><strong>Marge moyenne :</strong> 100-180%</p>
-                  <p><strong>Clientèle :</strong> Classe moyenne supérieure</p>
-                  <p><strong>Stratégie :</strong> Volume élevé, prix psychologiques</p>
+                  <h4>⭐ TIER B - Standard Members</h4>
+                  <p><strong>Critères :</strong> Inscription validée, formation de base</p>
+                  <p><strong>Privilèges :</strong> Accès plateforme, support standard</p>
+                  <p><strong>Membres :</strong> 270 personnes</p>
+                  <p><strong>ROI moyen :</strong> 87% annuel</p>
                 </div>
               </div>
 
-              <h3>📊 Analyse Comportementale des Acheteurs</h3>
-              <p>Voici mes <strong>profils exclusifs</strong> développés après analyse de 15,000+ transactions :</p>
+              <h3>💼 Profils de nos Membres</h3>
+              <p>SELEZIONE attire une clientèle diversifiée mais ultra-qualifiée :</p>
               
               <div className="buyer-profiles">
                 <div className="buyer-profile">
-                  <h4>👑 LA COLLECTIONNEUSE (8% des acheteurs, 45% du CA)</h4>
-                  <p><strong>Profil :</strong> Femme 35-55 ans, patrimoine >2M€</p>
-                  <p><strong>Motivation :</strong> Passion authentique, connaissance approfondie</p>
-                  <p><strong>Comportement :</strong> Achète sans regarder le prix si coup de cœur</p>
-                  <p><strong>Technique de vente :</strong> Parlez technique, histoire, rareté</p>
-                  <p><strong>Panier moyen :</strong> 4,500€</p>
-                  <p><strong>Fréquence :</strong> 6-8 achats/an</p>
+                  <h4>🏪 Retailers Indépendants (45%)</h4>
+                  <p><strong>Profil :</strong> Boutiques 50-500m², 15-50 ans d'expérience</p>
+                  <p><strong>Volume moyen :</strong> €80K/an</p>
+                  <p><strong>Motivation :</strong> Marges premium, exclusivité territoriale</p>
                 </div>
                 
                 <div className="buyer-profile">
-                  <h4>💼 L'INVESTISSEUR STRATÉGIQUE (12% des acheteurs, 35% du CA)</h4>
-                  <p><strong>Profil :</strong> Homme/Femme 40-65 ans, entrepreneur</p>
-                  <p><strong>Motivation :</strong> Diversification patrimoniale</p>
-                  <p><strong>Comportement :</strong> Analyse ROI, demande certificats</p>
-                  <p><strong>Technique de vente :</strong> Données financières, comparaisons marché</p>
-                  <p><strong>Panier moyen :</strong> 7,200€</p>
-                  <p><strong>Fréquence :</strong> 3-4 achats/an</p>
+                  <h4>💻 E-commerce Entrepreneurs (30%)</h4>
+                  <p><strong>Profil :</strong> Digital natives, 25-40 ans, multi-plateformes</p>
+                  <p><strong>Volume moyen :</strong> €150K/an</p>
+                  <p><strong>Motivation :</strong> Scalabilité, automatisation, data</p>
                 </div>
                 
                 <div className="buyer-profile">
-                  <h4>✨ L'ASPIRATIONAL LUXURY (35% des acheteurs, 15% du CA)</h4>
-                  <p><strong>Profil :</strong> Femme 25-40 ans, cadre supérieur</p>
-                  <p><strong>Motivation :</strong> Récompense, statut social</p>
-                  <p><strong>Comportement :</strong> Hésite, compare, négocie</p>
-                  <p><strong>Technique de vente :</strong> Financement, exclusivité temporaire</p>
-                  <p><strong>Panier moyen :</strong> 890€</p>
-                  <p><strong>Fréquence :</strong> 2-3 achats/an</p>
+                  <h4>🌟 Personal Shoppers VIP (15%)</h4>
+                  <p><strong>Profil :</strong> Clientèle UHNW, conseil personnalisé</p>
+                  <p><strong>Volume moyen :</strong> €300K/an</p>
+                  <p><strong>Motivation :</strong> Exclusivité, service sur-mesure</p>
                 </div>
                 
                 <div className="buyer-profile">
-                  <h4>🎁 L'ACHETEUR OCCASION (25% des acheteurs, 5% du CA)</h4>
-                  <p><strong>Profil :</strong> Homme 30-60 ans, achat cadeau</p>
-                  <p><strong>Motivation :</strong> Faire plaisir, occasions spéciales</p>
-                  <p><strong>Comportement :</strong> Pressé, délègue souvent le choix</p>
-                  <p><strong>Technique de vente :</strong> Conseil expert, service packaging</p>
-                  <p><strong>Panier moyen :</strong> 1,450€</p>
-                  <p><strong>Fréquence :</strong> 1-2 achats/an</p>
-                </div>
-              </div>
-
-              <h3>📅 Calendrier Fashion Stratégique 2025</h3>
-              <p>Voici mon <strong>calendrier exclusif</strong> avec les opportunités business que 90% des revendeurs ignorent :</p>
-              
-              <div className="calendar-strategic">
-                <div className="month-block">
-                  <h4>🗓️ JANVIER - "RESET LUXURY"</h4>
-                  <p><strong>Opportunité :</strong> Soldes d'hiver + résolutions nouvelle année</p>
-                  <p><strong>Focus produits :</strong> Maroquinerie, montres (cadeaux Noël reportés)</p>
-                  <p><strong>Technique :</strong> "Nouveau départ, nouvelle garde-robe"</p>
-                  <p><strong>Marge :</strong> +15% vs prix décembre</p>
-                </div>
-                
-                <div className="month-block">
-                  <h4>🗓️ FÉVRIER - "VALENTINE PREMIUM"</h4>
-                  <p><strong>Opportunité :</strong> Saint-Valentin + Fashion Week</p>
-                  <p><strong>Focus produits :</strong> Bijoux, maroquinerie rouge/rose</p>
-                  <p><strong>Technique :</strong> Packages couple, financement</p>
-                  <p><strong>Marge :</strong> +25% sur produits rouges/roses</p>
-                </div>
-                
-                <div className="month-block">
-                  <h4>🗓️ MARS - "SPRING AWAKENING"</h4>
-                  <p><strong>Opportunité :</strong> Collections printemps + bonus annuels</p>
-                  <p><strong>Focus produits :</strong> Prêt-à-porter, chaussures</p>
-                  <p><strong>Technique :</strong> "Investissement printemps"</p>
-                  <p><strong>Marge :</strong> Optimale sur nouveautés</p>
-                </div>
-                
-                <div className="month-block">
-                  <h4>🗓️ AVRIL-MAI - "WEDDING SEASON"</h4>
-                  <p><strong>Opportunité :</strong> Mariages + événements sociaux</p>
-                  <p><strong>Focus produits :</strong> Robes cocktail, bijoux fins</p>
-                  <p><strong>Technique :</strong> Location luxe + vente</p>
-                  <p><strong>Marge :</strong> +30% sur événementiel</p>
+                  <h4>🏛️ Collectionneurs/Investisseurs (10%)</h4>
+                  <p><strong>Profil :</strong> Patrimoine diversifié, expertise poussée</p>
+                  <p><strong>Volume moyen :</strong> €500K+/an</p>
+                  <p><strong>Motivation :</strong> Valeur refuge, plus-values à long terme</p>
                 </div>
               </div>
 
               <div className="expert-insight">
-                <h4>💡 INSIGHT ALESSANDRO MARCHETTI</h4>
-                <p><strong>"Le secret que personne ne vous dira :"</strong></p>
-                <p>En 15 ans, j'ai remarqué que <strong>78% des ventes luxe</strong> se font sur l'émotion et la peur de rater une opportunité, pas sur la logique. Le client qui dit "je vais réfléchir" ne reviendra jamais à 94%. Votre mission : créer l'urgence émotionnelle en 12 minutes maximum.</p>
+                <h4>🔥 RÉSULTATS MEMBRES 2024</h4>
+                <p>Les statistiques ne mentent pas. Voici les performances réelles de nos membres :</p>
+                <ul>
+                  <li><strong>ROI moyen :</strong> 142% (vs 23% marché traditionnel)</li>
+                  <li><strong>Satisfaction client :</strong> 97% (vs 67% concurrence)</li>
+                  <li><strong>Croissance moyenne :</strong> +89% volume annuel</li>
+                  <li><strong>Taux de rétention :</strong> 94% (renouvellement membership)</li>
+                  <li><strong>Temps formation :</strong> 23 jours jusqu'à rentabilité</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -303,268 +226,262 @@ const EbookSelezione = () => {
       case 2:
         return (
           <div className="chapter-content">
-            <h2>👑 Chapitre 2 : SELEZIONE - Votre Partenaire</h2>
+            <h2>🤝 Chapitre 2 : Wholesale & Partenariats</h2>
             <div className="content-section">
               
-              <div className="selezione-hero">
-                <h3>🏆 SELEZIONE</h3>
-                <p className="selezione-tagline">Spécialiste du Wholesale de Nouvelles Collections</p>
-                <div className="selezione-stats">
-                  <div className="stat-badge">11 ans d'expertise</div>
-                  <div className="stat-badge">30+ fournisseurs</div>
-                  <div className="stat-badge">Remises jusqu'à 50%</div>
+              <h3>💎 L'Art du Wholesale de Luxe</h3>
+              <p>Le wholesale dans le luxe n'est pas du commerce. C'est de la <strong>diplomatie économique</strong>. Après 15 ans, je connais personnellement 89% des decision makers européens.</p>
+              
+              <div className="wholesale-mastery">
+                <h4>🎯 Les 4 Niveaux d'Accès Wholesale</h4>
+                
+                <div className="access-level diamond">
+                  <h5>💎 NIVEAU DIAMANT - Maisons Mères</h5>
+                  <p><strong>Accès :</strong> Direction générale, comités d'allocation</p>
+                  <p><strong>Conditions :</strong> €2M+ volume garantie, références bancaires AAA</p>
+                  <p><strong>Avantages :</strong> Prix manufacturier, exclusivités territoriales</p>
+                  <p><strong>Marges :</strong> 200-400%</p>
+                  <p><strong>Exemples :</strong> Hermès International, Chanel SAS, LVMH Selective</p>
+                </div>
+                
+                <div className="access-level gold">
+                  <h5>🥇 NIVEAU OR - Distributeurs Premium</h5>
+                  <p><strong>Accès :</strong> Directeurs commerciaux, responsables zone</p>
+                  <p><strong>Conditions :</strong> €500K+ volume, showroom physique</p>
+                  <p><strong>Avantages :</strong> Prix distributeur, collections complètes</p>
+                  <p><strong>Marges :</strong> 150-250%</p>
+                  <p><strong>Exemples :</strong> Richemont, Kering Eyewear, Puig</p>
+                </div>
+                
+                <div className="access-level silver">
+                  <h5>🥈 NIVEAU ARGENT - Agents Officiels</h5>
+                  <p><strong>Accès :</strong> Agents commerciaux, key account managers</p>
+                  <p><strong>Conditions :</strong> €100K+ volume, certification professionnelle</p>
+                  <p><strong>Avantages :</strong> Prix agent, support marketing</p>
+                  <p><strong>Marges :</strong> 100-180%</p>
+                  <p><strong>Exemples :</strong> Agents régionaux, multi-brands showrooms</p>
+                </div>
+                
+                <div className="access-level bronze">
+                  <h5>🥉 NIVEAU BRONZE - Wholesale Classique</h5>
+                  <p><strong>Accès :</strong> Plateformes B2B, salons professionnels</p>
+                  <p><strong>Conditions :</strong> €20K+ volume, SIRET valide</p>
+                  <p><strong>Avantages :</strong> Prix wholesale standard</p>
+                  <p><strong>Marges :</strong> 60-120%</p>
+                  <p><strong>Exemples :</strong> Ordre.com, Joor, NuOrder</p>
                 </div>
               </div>
 
-              <h3>🎯 Méthodologie SELEZIONE Exclusive</h3>
-              <p>Voici notre processus en <strong>12 étapes</strong> que nous avons développé et affiné sur 11 années d'expérience. Cette méthode nous permet de garantir une <strong>marge minimum de 40%</strong> à nos partenaires :</p>
+              <h3>🗓️ Le Calendrier Sacred du Wholesale</h3>
+              <p>Dans le luxe, tout fonctionne selon des cycles précis. Rater une fenêtre = attendre 6 mois.</p>
+              
+              <div className="calendar-strategic">
+                <div className="month-block">
+                  <h4>📅 JANVIER - "LA GRANDE OUVERTURE"</h4>
+                  <p><strong>Événements clés :</strong> SIHH (montres), Maison&Objet</p>
+                  <p><strong>Collections :</strong> Resort 2025, Pre-Fall 2025</p>
+                  <p><strong>Opportunité :</strong> Négociation allocations annuelles</p>
+                  <p><strong>Tactic Alessandro :</strong> "Janvier = 40% de mes deals annuels"</p>
+                </div>
+                
+                <div className="month-block">
+                  <h4>🌸 MARS - "FASHION WEEK FRENZY"</h4>
+                  <p><strong>Événements :</strong> Paris Fashion Week, Baselworld</p>
+                  <p><strong>Focus :</strong> Collections SS2025 en preview</p>
+                  <p><strong>Stratégie :</strong> Présence physique obligatoire</p>
+                </div>
+                
+                <div className="month-block">
+                  <h4>☀️ JUIN - "SUMMER DEALS"</h4>
+                  <p><strong>Période :</strong> Pré-commandes AW2025</p>
+                  <p><strong>Avantage :</strong> Early bird discounts -25%</p>
+                  <p><strong>Focus :</strong> Maroquinerie, chaussures, bijoux</p>
+                </div>
+                
+                <div className="month-block">
+                  <h4>🍂 SEPTEMBRE - "HARVEST TIME"</h4>
+                  <p><strong>Événements :</strong> CPD, Who's Next, Première Classe</p>
+                  <p><strong>Collections :</strong> Holiday 2025, Cruise 2026</p>
+                  <p><strong>Objectif :</strong> Sécuriser allocations Q4</p>
+                </div>
+              </div>
+
+              <h3>🎯 Ma Méthodologie de Sélection Partenaires</h3>
+              <p>En 15 ans, j'ai développé un système de scoring qui me permet d'identifier les partenaires gagnants avec 94% de précision :</p>
               
               <div className="methodology-steps">
                 <div className="step-group">
-                  <h4>📊 PHASE 1 : ANALYSE & SOURCING</h4>
+                  <h4>PHASE 1 : INTELLIGENCE PRÉALABLE</h4>
                   
                   <div className="method-step">
-                    <h5>ÉTAPE 1 : Market Intelligence</h5>
-                    <p><strong>Durée :</strong> 48h par collection</p>
-                    <p><strong>Process :</strong> Analyse des 47 sources de données européennes</p>
-                    <p><strong>Outils :</strong> Logiciel propriétaire SELEZIONE Analytics</p>
-                    <p><strong>Résultat :</strong> Identification des 12% de produits les plus rentables</p>
+                    <h5>🔍 Due Diligence Financière</h5>
+                    <ul>
+                      <li>Analyse bilan 3 dernières années</li>
+                      <li>Vérification références bancaires</li>
+                      <li>Scoring crédit Coface/Euler Hermes</li>
+                      <li>Capacité endettement évaluée</li>
+                    </ul>
                   </div>
                   
                   <div className="method-step">
-                    <h5>ÉTAPE 2 : Sélection Producteurs</h5>
-                    <p><strong>Critères :</strong> 15 points de contrôle qualité</p>
-                    <p><strong>Géographie :</strong> Toscane (60%), Lombardie (25%), Vénétie (15%)</p>
-                    <p><strong>Certification :</strong> Audit annuel de nos 30+ partenaires</p>
-                    <p><strong>Exclusivité :</strong> Accords de distribution préférentielle</p>
-                  </div>
-                  
-                  <div className="method-step">
-                    <h5>ÉTAPE 3 : Négociation Volume</h5>
-                    <p><strong>Technique :</strong> Commandes groupées trimestrielles</p>
-                    <p><strong>Levier :</strong> 2.3M€ de volume annuel négocié</p>
-                    <p><strong>Résultat :</strong> Réductions moyennes de 37% vs tarif public</p>
-                    <p><strong>Garantie :</strong> Prix bloqués 6 mois minimum</p>
-                  </div>
-                  
-                  <div className="method-step">
-                    <h5>ÉTAPE 4 : Contrôle Qualité</h5>
-                    <p><strong>Inspection :</strong> 100% des produits contrôlés avant expédition</p>
-                    <p><strong>Points de contrôle :</strong> 23 critères techniques</p>
-                    <p><strong>Rejet :</strong> 8.3% des produits refusés (standard industrie : 2%)</p>
-                    <p><strong>Garantie :</strong> Remplacement gratuit sous 30 jours</p>
+                    <h5>🏢 Audit Infrastructure</h5>
+                    <ul>
+                      <li>Visite showroom/entrepôt obligatoire</li>
+                      <li>Évaluation équipes commerciales</li>
+                      <li>Systèmes IT et CRM</li>
+                      <li>Processus logistiques</li>
+                    </ul>
                   </div>
                 </div>
-
+                
                 <div className="step-group">
-                  <h4>🚀 PHASE 2 : DISTRIBUTION & SUPPORT</h4>
+                  <h4>PHASE 2 : TEST DE COMPATIBILITÉ</h4>
                   
                   <div className="method-step">
-                    <h5>ÉTAPE 5 : Logistique Premium</h5>
-                    <p><strong>Entrepôt :</strong> 3,500m² Milano avec gestion climatisée</p>
-                    <p><strong>Emballage :</strong> Sous-vide + protection anti-UV</p>
-                    <p><strong>Expédition :</strong> 24-48h Europe, tracking temps réel</p>
-                    <p><strong>Assurance :</strong> Couverture intégrale jusqu'à livraison</p>
+                    <h5>🎭 Évaluation Culturelle</h5>
+                    <ul>
+                      <li>Alignement valeurs luxe</li>
+                      <li>Compréhension codes métier</li>
+                      <li>Respect exclusivités</li>
+                      <li>Éthique business</li>
+                    </ul>
                   </div>
                   
                   <div className="method-step">
-                    <h5>ÉTAPE 6 : Formation Client</h5>
-                    <p><strong>Masterclass :</strong> 2 jours à Milano (4 sessions/an)</p>
-                    <p><strong>Webinaires :</strong> Techniques de vente mensuelles</p>
-                    <p><strong>Documentation :</strong> Fiches produit détaillées</p>
-                    <p><strong>Support :</strong> Ligne directe avec nos experts</p>
-                  </div>
-                  
-                  <div className="method-step">
-                    <h5>ÉTAPE 7 : Analyse Performance</h5>
-                    <p><strong>Dashboard :</strong> Suivi temps réel des ventes</p>
-                    <p><strong>Benchmarking :</strong> Comparaison avec 200+ revendeurs</p>
-                    <p><strong>Recommandations :</strong> Optimisations personnalisées</p>
-                    <p><strong>ROI :</strong> Calcul précis par produit/collection</p>
-                  </div>
-                  
-                  <div className="method-step">
-                    <h5>ÉTAPE 8 : Réapprovisionnement Intelligent</h5>
-                    <p><strong>Prédiction :</strong> IA propriétaire pour anticiper la demande</p>
-                    <p><strong>Automatisation :</strong> Commandes auto sur seuils définis</p>
-                    <p><strong>Flexibilité :</strong> Ajustements jusqu'à 72h avant expédition</p>
-                    <p><strong>Saisonnalité :</strong> Adaptation automatique aux cycles</p>
-                  </div>
-                </div>
-
-                <div className="step-group">
-                  <h4>💎 PHASE 3 : OPTIMISATION & CROISSANCE</h4>
-                  
-                  <div className="method-step">
-                    <h5>ÉTAPE 9 : Stratégie Pricing</h5>
-                    <p><strong>Analyse :</strong> Comparaison 15 concurrents par région</p>
-                    <p><strong>Psychologie :</strong> Prix optimaux selon profil clientèle</p>
-                    <p><strong>Saisonnalité :</strong> Ajustements proactifs +/- 15%</p>
-                    <p><strong>Résultat :</strong> Marge moyenne optimisée à 42.7%</p>
-                  </div>
-                  
-                  <div className="method-step">
-                    <h5>ÉTAPE 10 : Marketing Support</h5>
-                    <p><strong>Visuels :</strong> Photos HD professionnelles fournies</p>
-                    <p><strong>Contenus :</strong> Descriptions optimisées SEO</p>
-                    <p><strong>Storytelling :</strong> Histoire de chaque marque/collection</p>
-                    <p><strong>Réseaux sociaux :</strong> Templates prêts à publier</p>
-                  </div>
-                  
-                  <div className="method-step">
-                    <h5>ÉTAPE 11 : Expansion Géographique</h5>
-                    <p><strong>Analyse :</strong> Potentiel par ville/région européenne</p>
-                    <p><strong>Réseau :</strong> Mise en relation avec partenaires locaux</p>
-                    <p><strong>Logistique :</strong> Adaptation aux spécificités nationales</p>
-                    <p><strong>Fiscal :</strong> Conseil TVA et douanes</p>
-                  </div>
-                  
-                  <div className="method-step">
-                    <h5>ÉTAPE 12 : Innovation Continue</h5>
-                    <p><strong>R&D :</strong> 12% du CA réinvesti en développement</p>
-                    <p><strong>Tendances :</strong> Veille sur 200+ sources mondiales</p>
-                    <p><strong>Technologies :</strong> Tests IA, blockchain, AR/VR</p>
-                    <p><strong>Évolution :</strong> Adaptation méthodologie en continu</p>
+                    <h5>📊 Test Pilote</h5>
+                    <ul>
+                      <li>Commande test €5-10K</li>
+                      <li>Évaluation performance commerciale</li>
+                      <li>Qualité service client</li>
+                      <li>Respecter délais/conditions</li>
+                    </ul>
                   </div>
                 </div>
               </div>
 
-              <h3>📊 Résultats Clients Certifiés</h3>
-              <p>Nos <strong>performance garanties</strong> validées par audit externe PWC :</p>
+              <h3>🏆 Nos Partenaires d'Exception</h3>
+              <p>SELEZIONE ne travaille qu'avec l'élite mondiale. Voici nos partnerships les plus stratégiques :</p>
               
-              <div className="results-grid">
-                <div className="result-card success">
-                  <h4>💰 PERFORMANCE FINANCIÈRE</h4>
-                  <ul>
-                    <li><strong>Marge moyenne clients :</strong> 42.7% (vs 28% marché)</li>
-                    <li><strong>ROI moyen annuel :</strong> 187%</li>
-                    <li><strong>Temps de retour investment :</strong> 4.2 mois</li>
-                    <li><strong>Croissance CA moyenne :</strong> +156% première année</li>
-                  </ul>
+              <div className="partners-premium">
+                <div className="partner-tier exceptional">
+                  <h4>👑 TIER EXCEPTIONNEL</h4>
+                  
+                  <div className="partner-card">
+                    <h5>🇮🇹 HERMÈS ITALIA SRL</h5>
+                    <p><strong>Relation :</strong> Distributeur exclusif Italie Nord</p>
+                    <p><strong>Volume :</strong> €2.3M annuel</p>
+                    <p><strong>Allocation :</strong> 847 pièces/an (Birkin: 34, Kelly: 56)</p>
+                    <p><strong>Contact VIP :</strong> Marco Antonelli (Direttore Commerciale)</p>
+                    <p><strong>Marge moyenne :</strong> 340%</p>
+                  </div>
+                  
+                  <div className="partner-card">
+                    <h5>🇫🇷 CHANEL DISTRIBUTION</h5>
+                    <p><strong>Relation :</strong> Partner Premium Europe</p>
+                    <p><strong>Volume :</strong> €1.8M annuel</p>
+                    <p><strong>Spécialité :</strong> Maroquinerie classique + parfums</p>
+                    <p><strong>Avantage :</strong> Prix manufacturier -45%</p>
+                    <p><strong>Performance :</strong> 100% allocation fulfilled</p>
+                  </div>
                 </div>
                 
-                <div className="result-card success">
-                  <h4>🎯 PERFORMANCE OPÉRATIONNELLE</h4>
-                  <ul>
-                    <li><strong>Taux de rotation stock :</strong> 6.8x/an (vs 3.2x marché)</li>
-                    <li><strong>Temps de vente moyen :</strong> 18 jours</li>
-                    <li><strong>Taux de retour :</strong> 2.1% (vs 8.7% marché)</li>
-                    <li><strong>Satisfaction client :</strong> 96.8% (NPS +73)</li>
-                  </ul>
-                </div>
-                
-                <div className="result-card success">
-                  <h4>🚀 PERFORMANCE DÉVELOPPEMENT</h4>
-                  <ul>
-                    <li><strong>Nouveaux clients /mois :</strong> +23% en moyenne</li>
-                    <li><strong>Panier moyen :</strong> +89% après 6 mois</li>
-                    <li><strong>Fidélisation :</strong> 87% de rétention annuelle</li>
-                    <li><strong>Expansion géo :</strong> +2.4 régions/an en moyenne</li>
-                  </ul>
+                <div className="partner-tier premium">
+                  <h4>💎 TIER PREMIUM</h4>
+                  
+                  <div className="partners-grid">
+                    <div className="partner-mini">
+                      <h6>🇬🇧 BURBERRY GROUP</h6>
+                      <p>Volume: €890K/an • Marge: 180%</p>
+                    </div>
+                    <div className="partner-mini">
+                      <h6>🇮🇹 BOTTEGA VENETA</h6>
+                      <p>Volume: €1.2M/an • Marge: 220%</p>
+                    </div>
+                    <div className="partner-mini">
+                      <h6>🇫🇷 SAINT LAURENT</h6>
+                      <p>Volume: €756K/an • Marge: 195%</p>
+                    </div>
+                    <div className="partner-mini">
+                      <h6>🇺🇸 TOM FORD</h6>
+                      <p>Volume: €445K/an • Marge: 165%</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <h3>🌟 Services Exclusifs SELEZIONE</h3>
-              
-              <div className="services-premium">
-                <div className="service-tier">
-                  <h4>🥇 SELEZIONE GOLD (Commande >5k€)</h4>
-                  <ul>
-                    <li>✅ Accès prioritaire nouvelles collections</li>
-                    <li>✅ Remise supplémentaire 8-12%</li>
-                    <li>✅ Délai de paiement 45 jours</li>
-                    <li>✅ Formation dédiée 1 jour/trimestre</li>
-                    <li>✅ Account manager personnel</li>
-                  </ul>
-                </div>
-                
-                <div className="service-tier">
-                  <h4>💎 SELEZIONE PLATINUM (Commande >15k€)</h4>
-                  <ul>
-                    <li>✅ Tous avantages GOLD +</li>
-                    <li>✅ Collections exclusives limited edition</li>
-                    <li>✅ Visite d'usines partenaires Milano</li>
-                    <li>✅ Personnalisation produits (logos, etc.)</li>
-                    <li>✅ Garantie rachat invendus (conditions)</li>
-                    <li>✅ Invitation événements VIP</li>
-                  </ul>
-                </div>
-                
-                <div className="service-tier">
-                  <h4>👑 SELEZIONE DIAMOND (Commande >50k€)</h4>
-                  <ul>
-                    <li>✅ Tous avantages PLATINUM +</li>
-                    <li>✅ Co-création collections personnalisées</li>
-                    <li>✅ Exclusivité territoriale (selon produits)</li>
-                    <li>✅ Financement stock 0% sur 12 mois</li>
-                    <li>✅ Support marketing dédié</li>
-                    <li>✅ Participation stratégie commerciale</li>
-                  </ul>
-                </div>
-              </div>
-
-              <h3>🤝 Processus de Sélection Partenaires</h3>
-              <p><strong>SELEZIONE ne travaille qu'avec 200 partenaires maximum</strong> pour garantir la qualité de service. Voici comment nous sélectionnons nos partenaires :</p>
+              <h3>📞 Comment Accéder au Réseau SELEZIONE</h3>
+              <p>L'accès à notre réseau est sélectif mais pas impossible. Voici le processus exact :</p>
               
               <div className="partner-selection">
                 <div className="selection-criteria">
-                  <h4>📋 CRITÈRES DE SÉLECTION</h4>
+                  <h4>✅ CRITÈRES D'ÉLIGIBILITÉ</h4>
                   <ul>
-                    <li><strong>Experience :</strong> Minimum 2 ans dans le luxe/premium</li>
-                    <li><strong>Chiffre d'affaires :</strong> Potentiel 50k€+ annuel</li>
-                    <li><strong>Clientèle :</strong> Base clients qualifiée existante</li>
-                    <li><strong>Présentation :</strong> Showroom/boutique professionnelle</li>
-                    <li><strong>Engagement :</strong> Exclusivité partielle sur territoires</li>
-                    <li><strong>Éthique :</strong> Respect des valeurs luxe</li>
+                    <li><strong>Expérience :</strong> 2+ ans dans le luxe minimum</li>
+                    <li><strong>Chiffre d'affaires :</strong> €150K+ annuel démontrable</li>
+                    <li><strong>Références :</strong> 3 fournisseurs actuels contactables</li>
+                    <li><strong>Infrastructure :</strong> Local professionnel + assurances</li>
+                    <li><strong>Engagement :</strong> €50K+ volume first year</li>
                   </ul>
                 </div>
                 
                 <div className="selection-process">
-                  <h4>🔍 PROCESSUS DE VALIDATION</h4>
-                  <ul>
-                    <li><strong>1. Candidature :</strong> Dossier détaillé + références</li>
-                    <li><strong>2. Entretien :</strong> Visio 45 min avec équipe SELEZIONE</li>
-                    <li><strong>3. Audit :</strong> Visite locaux + analyse clientèle</li>
-                    <li><strong>4. Test :</strong> Commande d'essai 2,000€ minimum</li>
-                    <li><strong>5. Formation :</strong> 3 jours Milano obligatoires</li>
-                    <li><strong>6. Contrat :</strong> Accord partenariat 2 ans renouvelable</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="contact-box">
-                <h4>📞 Devenir Partenaire SELEZIONE</h4>
-                <p><strong>Vous souhaitez rejoindre notre réseau exclusif ?</strong></p>
-                <div className="contact-grid-detailed">
-                  <div className="contact-method">
-                    <h5>📧 Email Candidature</h5>
-                    <p><strong>partnership@selezione-wholesale.com</strong></p>
-                    <p><em>Joindre : CV, présentation entreprise, références</em></p>
+                  <h4>🚀 PROCESSUS D'ADMISSION</h4>
+                  
+                  <div className="process-step">
+                    <h5>ÉTAPE 1 : Application (5 jours)</h5>
+                    <p>Dossier complet + entretien Alessandro</p>
                   </div>
                   
-                  <div className="contact-method">
-                    <h5>📱 Téléphone Direct</h5>
-                    <p><strong>+39 02 8901 2345</strong></p>
-                    <p><em>Lun-Ven 9h-18h CET - Demander Marco Rossi</em></p>
+                  <div className="process-step">
+                    <h5>ÉTAPE 2 : Due Diligence (10 jours)</h5>
+                    <p>Vérifications financières + références</p>
                   </div>
                   
-                  <div className="contact-method">
-                    <h5>🏢 Visite Showroom</h5>
-                    <p><strong>Via Brera 15, 20121 Milano</strong></p>
-                    <p><em>Sur RDV uniquement - Présentation collections</em></p>
+                  <div className="process-step">
+                    <h5>ÉTAPE 3 : Test Période (30 jours)</h5>
+                    <p>Commandes test + évaluation performance</p>
                   </div>
                   
-                  <div className="contact-method">
-                    <h5>💬 WhatsApp Business</h5>
-                    <p><strong>+39 334 567 8901</strong></p>
-                    <p><em>Première approche et questions rapides</em></p>
+                  <div className="process-step">
+                    <h5>ÉTAPE 4 : Validation (7 jours)</h5>
+                    <p>Décision finale + signature contrat</p>
                   </div>
                 </div>
+                
+                <div className="contact-info-detailed">
+                  <h4>📞 CONTACT DIRECT</h4>
+                  
+                  <div className="contact-grid-detailed">
+                    <div className="contact-method">
+                      <h5>📧 Email Priority</h5>
+                      <p><strong>alessandro@selezione-luxury.com</strong></p>
+                      <p><em>Réponse garantie sous 24h - Mentionner "EBOOK 2025"</em></p>
+                    </div>
+                    
+                    <div className="contact-method">
+                      <h5>📱 Téléphone Direct</h5>
+                      <p><strong>+39 02 8901 2345</strong></p>
+                      <p><em>Lun-Ven 9h-18h CET - Demander Marco Rossi</em></p>
+                    </div>
+                    
+                    <div className="contact-method">
+                      <h5>🏢 Visite Showroom</h5>
+                      <p><strong>Via Brera 15, 20121 Milano</strong></p>
+                      <p><em>Sur RDV uniquement - Présentation collections</em></p>
+                    </div>
+                    
+                    <div className="contact-method">
+                      <h5>💬 WhatsApp Business</h5>
+                      <p><strong>+39 334 567 8901</strong></p>
+                      <p><em>Première approche et questions rapides</em></p>
+                    </div>
+                  </div>
 
-                <div className="urgency-box">
-                  <h5>⚡ PLACES LIMITÉES 2025</h5>
-                  <p>Il ne reste que <strong>23 places</strong> dans notre réseau pour 2025. Les candidatures sont traitées par ordre d'arrivée.</p>
-                  <p><strong>Délai de réponse :</strong> 72h maximum</p>
+                  <div className="urgency-box">
+                    <h5>⚡ PLACES LIMITÉES 2025</h5>
+                    <p>Il ne reste que <strong>23 places</strong> dans notre réseau pour 2025. Les candidatures sont traitées par ordre d'arrivée.</p>
+                    <p><strong>Délai de réponse :</strong> 72h maximum</p>
+                  </div>
                 </div>
               </div>
 
@@ -606,365 +523,6 @@ const EbookSelezione = () => {
                   <p><strong>Maroquinerie :</strong> +15.2%</p>
                   <p><strong>Sneakers luxe :</strong> +47.8%</p>
                   <p><strong>Watches :</strong> +22.1%</p>
-                </div>
-              </div>
-
-              <h3>👜 SEGMENT 1 : MAROQUINERIE (45% du marché)</h3>
-              <p><strong>132 milliards € • Le roi des segments</strong></p>
-              
-              <div className="segment-deep-dive">
-                <div className="segment-analysis">
-                  <h4>🔥 SOUS-SEGMENTS ULTRA-RENTABLES</h4>
-                  
-                  <div className="sub-segment">
-                    <h5>1️⃣ HANDBAGS ICONIQUES (60% du segment)</h5>
-                    <p><strong>Marge wholesale :</strong> 350-800%</p>
-                    <p><strong>Rotation stock :</strong> 3.2x/an</p>
-                    <p><strong>Top performers :</strong></p>
-                    <ul>
-                      <li>Hermès Birkin/Kelly : +15% à +200% value/an</li>
-                      <li>Chanel 2.55/Boy : +8% à +25% value/an</li>
-                      <li>Louis Vuitton Neverfull : Stable, volume élevé</li>
-                      <li>Bottega Veneta Intrecciato : +12% tendance 2025</li>
-                    </ul>
-                    
-                    <div className="pro-insight">
-                      <h6>💡 INSIGHT ALESSANDRO :</h6>
-                      <p><strong>"La règle des 3P :"</strong> Pour maximiser la rentabilité en maroquinerie, concentrez-vous sur les <strong>Pièces Patrimoniales Permanentes</strong>. Les sacs trendy rapportent moins que les iconiques. Un Birkin de 2010 vaut plus qu'un sac tendance de 2024.</p>
-                    </div>
-                  </div>
-                  
-                  <div className="sub-segment">
-                    <h5>2️⃣ PETITE MAROQUINERIE (25% du segment)</h5>
-                    <p><strong>Marge wholesale :</strong> 200-400%</p>
-                    <p><strong>Rotation stock :</strong> 5.8x/an</p>
-                    <p><strong>Points forts :</strong></p>
-                    <ul>
-                      <li>Portefeuilles : Cadeau homme #1</li>
-                      <li>Porte-cartes : Micro-luxe accessible</li>
-                      <li>Ceintures : Logomania forte demande</li>
-                      <li>Key holders : Entry point jeune clientèle</li>
-                    </ul>
-                    
-                    <div className="strategy-box">
-                      <h6>🎯 STRATÉGIE GAGNANTE :</h6>
-                      <p>La petite maroquinerie = <strong>porte d'entrée clients</strong>. Vendez un porte-cartes à 280€, créez la relation, vendez un sac à 1,800€ dans les 6 mois. Taux de conversion : 34%.</p>
-                    </div>
-                  </div>
-                  
-                  <div className="sub-segment">
-                    <h5>3️⃣ TRAVEL GOODS (15% du segment)</h5>
-                    <p><strong>Marge wholesale :</strong> 180-350%</p>
-                    <p><strong>Saisonnalité :</strong> Peak mai-septembre</p>
-                    <p><strong>Opportunités :</strong></p>
-                    <ul>
-                      <li>Valises rigides : Louis Vuitton Epi</li>
-                      <li>Weekend bags : Goyard, Moynat</li>
-                      <li>Business bags : Bottega Veneta, Berluti</li>
-                      <li>Travel accessories : organisateurs, trousses</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="pricing-strategy">
-                  <h4>💰 STRATÉGIE PRICING MAROQUINERIE</h4>
-                  <table className="pricing-table">
-                    <thead>
-                      <tr>
-                        <th>Catégorie</th>
-                        <th>Prix Achat</th>
-                        <th>Prix Vente</th>
-                        <th>Marge %</th>
-                        <th>Rotation</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Hermès Birkin 25</td>
-                        <td>6,500€</td>
-                        <td>12,000-15,000€</td>
-                        <td>85-130%</td>
-                        <td>0.8x/an</td>
-                      </tr>
-                      <tr>
-                        <td>Chanel Classic Flap</td>
-                        <td>3,200€</td>
-                        <td>5,800-6,500€</td>
-                        <td>81-103%</td>
-                        <td>2.1x/an</td>
-                      </tr>
-                      <tr>
-                        <td>LV Neverfull MM</td>
-                        <td>850€</td>
-                        <td>1,450-1,650€</td>
-                        <td>71-94%</td>
-                        <td>4.2x/an</td>
-                      </tr>
-                      <tr>
-                        <td>Bottega Veneta Mini</td>
-                        <td>1,200€</td>
-                        <td>2,100-2,400€</td>
-                        <td>75-100%</td>
-                        <td>3.8x/an</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <h3>👗 SEGMENT 2 : PRÊT-À-PORTER (30% du marché)</h3>
-              <p><strong>88 milliards € • Le plus technique</strong></p>
-              
-              <div className="segment-deep-dive">
-                <div className="rtw-categories">
-                  <h4>🎯 CATÉGORIES PAR PROFITABILITÉ</h4>
-                  
-                  <div className="rtw-category elite">
-                    <h5>🏆 TIER ELITE - Marge 80-150%</h5>
-                    <div className="category-details">
-                      <p><strong>Produits :</strong> Tailleurs Chanel, Manteaux Dior, Robes cocktail</p>
-                      <p><strong>Prix moyen :</strong> 2,500-8,000€</p>
-                      <p><strong>Clientèle :</strong> UHNW, événements prestige</p>
-                      <p><strong>Saisonnalité :</strong> Septembre-décembre</p>
-                      <p><strong>Stratégie :</strong> Vente sur mesure, rendez-vous privés</p>
-                    </div>
-                  </div>
-                  
-                  <div className="rtw-category premium">
-                    <h5>💎 TIER PREMIUM - Marge 60-80%</h5>
-                    <div className="category-details">
-                      <p><strong>Produits :</strong> Chemisiers soie, Pantalons cachemire, Blazers</p>
-                      <p><strong>Prix moyen :</strong> 800-2,500€</p>
-                      <p><strong>Clientèle :</strong> Professionnelles aisées, 35-55 ans</p>
-                      <p><strong>Saisonnalité :</strong> Rentrée septembre + printemps mars</p>
-                      <p><strong>Stratégie :</strong> Wardrobe building, conseil style</p>
-                    </div>
-                  </div>
-                  
-                  <div className="rtw-category accessible">
-                    <h5>⭐ TIER ACCESSIBLE - Marge 40-60%</h5>
-                    <div className="category-details">
-                      <p><strong>Produits :</strong> T-shirts premium, Jeans designer, Knitwear</p>
-                      <p><strong>Prix moyen :</strong> 200-800€</p>
-                      <p><strong>Clientèle :</strong> Millennials aisés, weekend luxe</p>
-                      <p><strong>Saisonnalité :</strong> Toute l'année, peaks saisonniers</p>
-                      <p><strong>Stratégie :</strong> Volume, mix&match, digital marketing</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="size-matrix">
-                  <h4>📏 MATRICE TAILLES OPTIMALE</h4>
-                  <p>Après analyse de 50,000+ ventes, voici la répartition stock optimale :</p>
-                  
-                  <div className="size-breakdown">
-                    <div className="size-category">
-                      <h5>👗 FEMMES (85% des ventes RTW)</h5>
-                      <ul>
-                        <li><strong>XS (34-36) :</strong> 15% - Clientèle jeune/VIP</li>
-                        <li><strong>S (36-38) :</strong> 35% - Core business</li>
-                        <li><strong>M (38-40) :</strong> 30% - Segment principal</li>
-                        <li><strong>L (40-42) :</strong> 15% - Marché croissant</li>
-                        <li><strong>XL+ (44+) :</strong> 5% - Niche premium</li>
-                      </ul>
-                    </div>
-                    
-                    <div className="size-category">
-                      <h5>👔 HOMMES (15% des ventes RTW)</h5>
-                      <ul>
-                        <li><strong>S (46-48) :</strong> 20% - Clientèle asiatique</li>
-                        <li><strong>M (48-50) :</strong> 40% - Standard européen</li>
-                        <li><strong>L (50-52) :</strong> 25% - Clientèle US/Nordique</li>
-                        <li><strong>XL+ (54+) :</strong> 15% - Forte demande</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="seasonal-strategy">
-                  <h4>🗓️ PLANNING SAISONNIER RTW</h4>
-                  
-                  <div className="season-plan">
-                    <div className="season">
-                      <h5>🌸 PRINTEMPS/ÉTÉ (Mars-Août)</h5>
-                      <p><strong>Focus :</strong> Couleurs vives, matières légères, robes</p>
-                      <p><strong>CA :</strong> 45% annuel</p>
-                      <p><strong>Marge :</strong> +12% vs moyenne (prix psychologique été)</p>
-                      <p><strong>Stratégie :</strong> Pre-orders février, soldes juillet</p>
-                    </div>
-                    
-                    <div className="season">
-                      <h5>🍂 AUTOMNE/HIVER (Septembre-Février)</h5>
-                      <p><strong>Focus :</strong> Lainages, manteaux, couleurs neutres</p>
-                      <p><strong>CA :</strong> 55% annuel</p>
-                      <p><strong>Marge :</strong> +8% vs moyenne (produits techniques)</p>
-                      <p><strong>Stratégie :</strong> Stock deep septembre, promo janvier</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <h3>👠 SEGMENT 3 : CHAUSSURES (15% du marché)</h3>
-              <p><strong>44 milliards € • Technique mais rentable</strong></p>
-              
-              <div className="shoes-analysis">
-                <div className="shoes-categories">
-                  <h4>👑 HIÉRARCHIE CHAUSSURES LUXE</h4>
-                  
-                  <div className="shoe-tier diamond">
-                    <h5>💎 ULTRA-LUXE (Marge 100-200%)</h5>
-                    <ul>
-                      <li><strong>Louboutin :</strong> Iconique semelle rouge, 450-1,200€</li>
-                      <li><strong>Manolo Blahnik :</strong> Qualité incomparable, 500-1,500€</li>
-                      <li><strong>Jimmy Choo :</strong> Glamour red carpet, 400-1,000€</li>
-                      <li><strong>Gianvito Rossi :</strong> Élégance italienne, 500-1,200€</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="shoe-tier gold">
-                    <h5>🥇 PREMIUM (Marge 70-100%)</h5>
-                    <ul>
-                      <li><strong>Saint Laurent :</strong> Rock chic, 400-800€</li>
-                      <li><strong>Balenciaga :</strong> Avant-garde, 350-900€</li>
-                      <li><strong>Golden Goose :</strong> Sneakers vintage, 250-450€</li>
-                      <li><strong>Aquazzura :</strong> Féminin moderne, 400-750€</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="shoe-tier silver">
-                    <h5>🥈 ACCESSIBLE (Marge 50-70%)</h5>
-                    <ul>
-                      <li><strong>Stuart Weitzman :</strong> Confort luxe, 300-600€</li>
-                      <li><strong>Sergio Rossi :</strong> Italien accessible, 250-500€</li>
-                      <li><strong>Malone Souliers :</strong> Design britannique, 350-650€</li>
-                      <li><strong>Nicholas Kirkwood :</strong> Créatif accessible, 300-600€</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="shoes-success-formula">
-                  <h4>🎯 FORMULE SUCCÈS CHAUSSURES</h4>
-                  
-                  <div className="success-factors">
-                    <div className="factor">
-                      <h5>1️⃣ POINTURES STRATÉGIQUES</h5>
-                      <p><strong>37-38 :</strong> 35% du stock (tailles européennes dominantes)</p>
-                      <p><strong>39 :</strong> 25% du stock (taille pivot)</p>
-                      <p><strong>36 + 40 :</strong> 20% chacune</p>
-                      <p><strong>35 + 41+ :</strong> 10% (niches rentables)</p>
-                    </div>
-                    
-                    <div className="factor">
-                      <h5>2️⃣ COULEURS RENTABLES</h5>
-                      <p><strong>Noir :</strong> 40% - Intemporel, rotation rapide</p>
-                      <p><strong>Nude/Beige :</strong> 25% - Polyvalent, forte demande</p>
-                      <p><strong>Blanc :</strong> 15% - Saisonnier été</p>
-                      <p><strong>Couleurs :</strong> 20% - Accent, forte marge</p>
-                    </div>
-                    
-                    <div className="factor">
-                      <h5>3️⃣ HAUTEURS TALONS</h5>
-                      <p><strong>Plates (0-2cm) :</strong> 30% - Confort moderne</p>
-                      <p><strong>Mid heels (3-7cm) :</strong> 45% - Compromis idéal</p>
-                      <p><strong>High heels (8-12cm) :</strong> 25% - Soirée/événements</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <h3>💍 SEGMENT 4 : BIJOUTERIE (10% du marché)</h3>
-              <p><strong>29 milliards € • Le plus technique et rentable</strong></p>
-              
-              <div className="jewelry-mastery">
-                <div className="jewelry-pyramid">
-                  <h4>💎 PYRAMIDE BIJOUTERIE LUXE</h4>
-                  
-                  <div className="jewelry-tier exceptional">
-                    <h5>👑 EXCEPTIONAL (Marge 200-500%)</h5>
-                    <p><strong>Maisons :</strong> Cartier, Van Cleef & Arpels, Harry Winston</p>
-                    <p><strong>Produits :</strong> Pièces uniques, haute joaillerie</p>
-                    <p><strong>Prix :</strong> 10,000€+</p>
-                    <p><strong>Clientèle :</strong> UHNW, collectionneurs</p>
-                    <p><strong>Stratégie :</strong> Allocation contrôlée, waiting lists</p>
-                  </div>
-                  
-                  <div className="jewelry-tier prestige">
-                    <h5>💎 PRESTIGE (Marge 150-250%)</h5>
-                    <p><strong>Maisons :</strong> Tiffany, Bulgari, Chopard</p>
-                    <p><strong>Produits :</strong> Collections iconiques</p>
-                    <p><strong>Prix :</strong> 2,000-10,000€</p>
-                    <p><strong>Clientèle :</strong> HNW, cadeaux prestige</p>
-                    <p><strong>Stratégie :</strong> Événements VIP, personal shopping</p>
-                  </div>
-                  
-                  <div className="jewelry-tier contemporary">
-                    <h5>✨ CONTEMPORARY (Marge 100-150%)</h5>
-                    <p><strong>Maisons :</strong> Pandora Luxe, APM Monaco, Messika</p>
-                    <p><strong>Produits :</strong> Bijoux quotidiens, stacking</p>
-                    <p><strong>Prix :</strong> 200-2,000€</p>
-                    <p><strong>Clientèle :</strong> Millennials aisés, self-purchase</p>
-                    <p><strong>Stratégie :</strong> Digital marketing, influenceurs</p>
-                  </div>
-                </div>
-
-                <div className="jewelry-occasions">
-                  <h4>🎁 CALENDRIER BIJOUTERIE OPTIMAL</h4>
-                  
-                  <div className="occasion-timing">
-                    <div className="peak-season">
-                      <h5>🔥 PEAKS MAJEURS (70% du CA)</h5>
-                      <ul>
-                        <li><strong>Décembre :</strong> 35% CA annuel - Noël</li>
-                        <li><strong>Février :</strong> 20% CA annuel - Saint-Valentin</li>
-                        <li><strong>Mai :</strong> 15% CA annuel - Fête des mères</li>
-                      </ul>
-                    </div>
-                    
-                    <div className="secondary-season">
-                      <h5>⭐ PEAKS SECONDAIRES (30% du CA)</h5>
-                      <ul>
-                        <li><strong>Septembre :</strong> Rentrée, self-purchase</li>
-                        <li><strong>Mars :</strong> Anniversaires, printemps</li>
-                        <li><strong>Juin :</strong> Mariages, diplômes</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="market-intelligence">
-                <h3>🧠 INTELLIGENCE MARCHÉ 2025</h3>
-                
-                <div className="trend-alerts">
-                  <h4>⚡ TRENDS ALERTS</h4>
-                  
-                  <div className="trend rising">
-                    <h5>📈 RISING (Investir maintenant)</h5>
-                    <ul>
-                      <li><strong>Sneakers luxe :</strong> +47% Golden Goose, Off-White</li>
-                      <li><strong>Jewelry stacking :</strong> +34% Pandora, APM</li>
-                      <li><strong>Mini bags :</strong> +28% Jacquemus, Bottega</li>
-                      <li><strong>Gender neutral :</strong> +52% Acne, Ganni</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="trend stable">
-                    <h5>➡️ STABLE (Valeurs sûres)</h5>
-                    <ul>
-                      <li><strong>Maroquinerie iconique :</strong> Hermès, Chanel</li>
-                      <li><strong>Montres classiques :</strong> Rolex, Patek</li>
-                      <li><strong>Tailleurs couture :</strong> Saint Laurent, Dior</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="trend declining">
-                    <h5>📉 DECLINING (Éviter/Liquider)</h5>
-                    <ul>
-                      <li><strong>Logo mania excessive :</strong> -23%</li>
-                      <li><strong>Fast fashion luxury :</strong> -18%</li>
-                      <li><strong>Très hauts talons :</strong> -31%</li>
-                    </ul>
-                  </div>
                 </div>
               </div>
 
@@ -1108,6 +666,109 @@ const EbookSelezione = () => {
                 </div>
               </div>
 
+              <h3>👜 SEGMENT 1 : MAROQUINERIE (45% du marché)</h3>
+              <p><strong>132 milliards € • Le roi des segments</strong></p>
+              
+              <div className="segment-deep-dive">
+                <div className="segment-analysis">
+                  <h4>🔥 SOUS-SEGMENTS ULTRA-RENTABLES</h4>
+                  
+                  <div className="sub-segment">
+                    <h5>1️⃣ HANDBAGS ICONIQUES (60% du segment)</h5>
+                    <p><strong>Marge wholesale :</strong> 350-800%</p>
+                    <p><strong>Rotation stock :</strong> 3.2x/an</p>
+                    <p><strong>Top performers :</strong></p>
+                    <ul>
+                      <li>Hermès Birkin/Kelly : +15% à +200% value/an</li>
+                      <li>Chanel 2.55/Boy : +8% à +25% value/an</li>
+                      <li>Louis Vuitton Neverfull : Stable, volume élevé</li>
+                      <li>Bottega Veneta Intrecciato : +12% tendance 2025</li>
+                    </ul>
+                    
+                    <div className="pro-insight">
+                      <h6>💡 INSIGHT ALESSANDRO :</h6>
+                      <p><strong>"La règle des 3P :"</strong> Pour maximiser la rentabilité en maroquinerie, concentrez-vous sur les <strong>Pièces Patrimoniales Permanentes</strong>. Les sacs trendy rapportent moins que les iconiques. Un Birkin de 2010 vaut plus qu'un sac tendance de 2024.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="sub-segment">
+                    <h5>2️⃣ PETITE MAROQUINERIE (25% du segment)</h5>
+                    <p><strong>Marge wholesale :</strong> 200-400%</p>
+                    <p><strong>Rotation stock :</strong> 5.8x/an</p>
+                    <p><strong>Points forts :</strong></p>
+                    <ul>
+                      <li>Portefeuilles : Cadeau homme #1</li>
+                      <li>Porte-cartes : Micro-luxe accessible</li>
+                      <li>Ceintures : Logomania forte demande</li>
+                      <li>Key holders : Entry point jeune clientèle</li>
+                    </ul>
+                    
+                    <div className="strategy-box">
+                      <h6>🎯 STRATÉGIE GAGNANTE :</h6>
+                      <p>La petite maroquinerie = <strong>porte d'entrée clients</strong>. Vendez un porte-cartes à 280€, créez la relation, vendez un sac à 1,800€ dans les 6 mois. Taux de conversion : 34%.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="sub-segment">
+                    <h5>3️⃣ TRAVEL GOODS (15% du segment)</h5>
+                    <p><strong>Marge wholesale :</strong> 180-350%</p>
+                    <p><strong>Saisonnalité :</strong> Peak mai-septembre</p>
+                    <p><strong>Opportunités :</strong></p>
+                    <ul>
+                      <li>Valises rigides : Louis Vuitton Epi</li>
+                      <li>Weekend bags : Goyard, Moynat</li>
+                      <li>Business bags : Bottega Veneta, Berluti</li>
+                      <li>Travel accessories : organisateurs, trousses</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="pricing-strategy">
+                  <h4>💰 STRATÉGIE PRICING MAROQUINERIE</h4>
+                  <table className="pricing-table">
+                    <thead>
+                      <tr>
+                        <th>Catégorie</th>
+                        <th>Prix Achat</th>
+                        <th>Prix Vente</th>
+                        <th>Marge %</th>
+                        <th>Rotation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Hermès Birkin 25</td>
+                        <td>6,500€</td>
+                        <td>12,000-15,000€</td>
+                        <td>85-130%</td>
+                        <td>0.8x/an</td>
+                      </tr>
+                      <tr>
+                        <td>Chanel Classic Flap</td>
+                        <td>3,200€</td>
+                        <td>5,800-6,500€</td>
+                        <td>81-103%</td>
+                        <td>2.1x/an</td>
+                      </tr>
+                      <tr>
+                        <td>LV Neverfull MM</td>
+                        <td>850€</td>
+                        <td>1,450-1,650€</td>
+                        <td>71-94%</td>
+                        <td>4.2x/an</td>
+                      </tr>
+                      <tr>
+                        <td>Bottega Veneta Mini</td>
+                        <td>1,200€</td>
+                        <td>2,100-2,400€</td>
+                        <td>75-100%</td>
+                        <td>3.8x/an</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
               <div className="expert-insight">
                 <h4>💡 MASTER CLASS ALESSANDRO</h4>
                 <p><strong>"La Règle du 60/30/10 pour Portfolio Optimal :"</strong></p>
@@ -1128,260 +789,6 @@ const EbookSelezione = () => {
                     <li><strong>Closing premium :</strong> "À ce prix, elles partiront demain"</li>
                   </ul>
                   <p><strong>Résultat :</strong> +40% closing rate • +25% panier moyen • 95% satisfaction</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 4:
-        return (
-          <div className="chapter-content">
-            <h2>🏪 Chapitre 4 : Guide des Outlets Européens</h2>
-            <div className="content-section">
-              
-              <h3>🎯 LES 50 MEILLEURS OUTLETS EUROPÉENS - GUIDE EXCLUSIF</h3>
-              <p>Après 15 ans d'expertise, voici ma sélection des outlets les plus rentables d'Europe avec <strong>stratégies de négociation spécifiques</strong> et techniques d'achat wholesale.</p>
-              
-              <div className="outlets-tier-system">
-                <h4>📈 CLASSIFICATION PAR TIER DE RENTABILITÉ</h4>
-                
-                <div className="tier-god">
-                  <h5>👑 TIER GOD - ROI 200-500%</h5>
-                  
-                  <div className="outlet-premium">
-                    <h6>🇮🇹 SERRAVALLE DESIGNER OUTLET</h6>
-                    <p><strong>Adresse exacte :</strong> Via della Moda 1, 15069 Serravalle Scrivia (AL)</p>
-                    <p><strong>GPS :</strong> 44.7208°N, 8.8456°E</p>
-                    <p><strong>Marques ultra-premium :</strong> Prada (30-60%), Gucci (25-55%), Versace (40-70%), Armani (35-60%)</p>
-                    <p><strong>Horaires optimaux :</strong> Mar-Jeu 9h-10h (premier choix), Dim 17h-19h (négociation)</p>
-                    <p><strong>Technique Alessandro :</strong> "Arrivée 8h45, parking VIP gratuit, négociation en italien avec responsables boutique"</p>
-                    
-                    <div className="outlet-secrets">
-                      <h6>🔐 SECRETS INSIDERS</h6>
-                      <ul>
-                        <li><strong>Code VIP :</strong> Demander "Alessandro da Milano" = -10% supplémentaire</li>
-                        <li><strong>Best period :</strong> 2e semaine janvier, 3e semaine juillet</li>
-                        <li><strong>Hidden gems :</strong> Entrepôt Prada (accès restreint) = -80%</li>
-                        <li><strong>Négociation :</strong> Achat 3+ pièces même marque = prix wholesale</li>
-                      </ul>
-                    </div>
-                    
-                    <div className="profit-examples">
-                      <h6>💰 EXEMPLES PROFITS RÉELS</h6>
-                      <ul>
-                        <li>Sac Prada Galleria : Achat 650€ → Revente 1200€ = +85% profit</li>
-                        <li>Sneakers Gucci Ace : Achat 280€ → Revente 520€ = +86% profit</li>
-                        <li>Manteau Versace : Achat 420€ → Revente 850€ = +102% profit</li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div className="outlet-premium">
-                    <h6>🇬🇧 BICESTER VILLAGE</h6>
-                    <p><strong>Adresse exacte :</strong> 50 Pingle Drive, Bicester OX26 6WD</p>
-                    <p><strong>Train direct :</strong> Londres Marylebone 46min (£27 A/R)</p>
-                    <p><strong>Marques incontournables :</strong> Burberry (40-65%), Alexander McQueen (35-50%), Stella McCartney (45-60%)</p>
-                    <p><strong>VIP Suite disponible :</strong> Réservation +44 1869 323200</p>
-                    
-                    <div className="bicester-strategy">
-                      <h6>🎯 STRATÉGIE BICESTER</h6>
-                      <p><strong>Phase 1 (9h-11h) :</strong> Shopping méthodique par ordre de priorité</p>
-                      <p><strong>Phase 2 (11h-13h) :</strong> Négociation collective avec managers</p>
-                      <p><strong>Phase 3 (13h-15h) :</strong> Personal shopping session VIP</p>
-                      <p><strong>Tax refund :</strong> 20% VAT récupérable (non-EU residents)</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="tier-s">
-                  <h5>🥈 TIER S - ROI 100-200%</h5>
-                  
-                  <div className="outlets-grid-advanced">
-                    <div className="outlet-card-premium">
-                      <h6>🇮🇹 FIDENZA VILLAGE</h6>
-                      <p><strong>Localisation :</strong> Via San Michele Campagna, 43036 Fidenza (PR)</p>
-                      <p><strong>Spécialité :</strong> Maroquinerie italienne premium</p>
-                      <p><strong>Stars :</strong> Bottega Veneta (-45%), Saint Laurent (-40%), Balenciaga (-35%)</p>
-                      <p><strong>Personal Shopper :</strong> Gratuit si achat >€1500</p>
-                      
-                      <div className="fidenza-timing">
-                        <h6>⏰ TIMING PARFAIT</h6>
-                        <p><strong>Soldes privées :</strong> 15-31 janvier, 15-31 juillet</p>
-                        <p><strong>Restock :</strong> Mercredi matin (nouveautés)</p>
-                        <p><strong>Best deals :</strong> Vendredi soir (-20% supplémentaire)</p>
-                      </div>
-                    </div>
-                    
-                    <div className="outlet-card-premium">
-                      <h6>🇫🇷 LA VALLÉE VILLAGE</h6>
-                      <p><strong>Adresse :</strong> 3 Cours de la Garonne, 77700 Serris</p>
-                      <p><strong>Accès :</strong> RER A Marne-la-Vallée + Navette gratuite</p>
-                      <p><strong>Focus français :</strong> Hermès Vintage, Chanel Outlet, Dior Sauvage</p>
-                      <p><strong>Avantage :</strong> Prix français = -15% vs prix internationaux</p>
-                    </div>
-                    
-                    <div className="outlet-card-premium">
-                      <h6>🇩🇪 WERTHEIM VILLAGE</h6>
-                      <p><strong>Position :</strong> Almosenberg, 97877 Wertheim</p>
-                      <p><strong>Spécialité allemande :</strong> Hugo Boss (-50%), Aigner (-60%), MCM (-45%)</p>
-                      <p><strong>Technique :</strong> Négociation en anglais + paiement cash = -10%</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="tier-a">
-                  <h5>🥉 TIER A - ROI 50-100%</h5>
-                  
-                  <div className="outlets-comprehensive">
-                    <h6>🇪🇸 LAS ROZAS VILLAGE (Madrid)</h6>
-                    <p><strong>Marques ibériques :</strong> Loewe (-40%), Palomo Spain (-55%), Custo Dalmau (-50%)</p>
-                    
-                    <h6>🇳🇱 BATAVIA STAD (Amsterdam)</h6>
-                    <p><strong>Focus Benelux :</strong> Scotch & Soda (-60%), Denham (-50%), G-Star (-65%)</p>
-                    
-                    <h6>🇧🇪 MAASMECHELEN VILLAGE</h6>
-                    <p><strong>Position centrale :</strong> Frontière BE/NL/DE</p>
-                    <p><strong>Avantage fiscal :</strong> TVA belge récupérable</p>
-                  </div>
-                </div>
-              </div>
-
-              <h3>🧠 PSYCHOLOGIE DE LA NÉGOCIATION OUTLET</h3>
-              <p>Mes techniques exclusives développées sur 2000+ négociations réussies :</p>
-              
-              <div className="negotiation-mastery">
-                <div className="technique-card">
-                  <h4>1️⃣ LA TECHNIQUE "BUNDLE ITALIANO"</h4>
-                  <p><strong>Principe :</strong> Acheter plusieurs pièces de la même marque pour obtenir le prix grossiste</p>
-                  <p><strong>Phrase magique :</strong> <em>"Je suis revendeur professionnel, quel prix pour 3 pièces ?"</em></p>
-                  <p><strong>Résultat :</strong> -20 à -35% sur le prix affiché</p>
-                  <p><strong>Success rate :</strong> 87% (testé 340 fois)</p>
-                </div>
-                
-                <div className="technique-card">
-                  <h4>2️⃣ LA MÉTHODE "CLOSING FRIDAY"</h4>
-                  <p><strong>Timing :</strong> Vendredi 17h-19h (fin de semaine, objectifs vendeurs)</p>
-                  <p><strong>Approche :</strong> "Je peux acheter maintenant si on trouve un accord"</p>
-                  <p><strong>Levier :</strong> Paiement immédiat cash</p>
-                  <p><strong>Gain moyen :</strong> -15% supplémentaire</p>
-                </div>
-                
-                <div className="technique-card">
-                  <h4>3️⃣ LA STRATÉGIE "DÉFAUT MINEUR"</h4>
-                  <p><strong>Observation :</strong> Chercher micro-défauts (bouton, fil, éraflure)</p>
-                  <p><strong>Négociation :</strong> "C'est dommage pour ce petit défaut..."</p>
-                  <p><strong>Résultat :</strong> -10 à -25% même sur défauts minimes</p>
-                  <p><strong>Éthique :</strong> Défauts réels uniquement</p>
-                </div>
-                
-                <div className="technique-card">
-                  <h4>4️⃣ LE "PACKAGE DEAL PREMIUM"</h4>
-                  <p><strong>Méthode :</strong> Proposer un budget global fixe pour plusieurs articles</p>
-                  <p><strong>Exemple :</strong> "J'ai 800€, que pouvez-vous me proposer ?"</p>
-                  <p><strong>Psychologie :</strong> Vendeur organise la vente autour de votre budget</p>
-                  <p><strong>Bonus :</strong> Articles suggérés souvent sous-évalués</p>
-                </div>
-              </div>
-
-              <h3>📅 CALENDRIER STRATÉGIQUE 2025</h3>
-              <p>Planning optimal pour maximiser les profits sur 12 mois :</p>
-              
-              <div className="yearly-strategy">
-                <div className="month-strategy">
-                  <h4>🔥 JANVIER - THE GOLDEN MONTH</h4>
-                  <p><strong>Période :</strong> 2-31 janvier</p>
-                  <p><strong>Opportunité :</strong> Liquidation stocks Noël + nouveaux arrivages</p>
-                  <p><strong>Focus :</strong> Maroquinerie (-70%), Chaussures (-65%), Bijoux (-60%)</p>
-                  <p><strong>Budget recommandé :</strong> 40% budget annuel</p>
-                  <p><strong>ROI attendu :</strong> 150-300%</p>
-                </div>
-                
-                <div className="month-strategy">
-                  <h4>🌸 MARS - SPRING PREPARATION</h4>
-                  <p><strong>Focus :</strong> Collections Printemps-Été en preview</p>
-                  <p><strong>Stratégie :</strong> Pre-orders avec acompte (-30%)</p>
-                  <p><strong>Produits :</strong> Robes, sandales, sacs colorés</p>
-                </div>
-                
-                <div className="month-strategy">
-                  <h4>☀️ JUILLET - SUMMER CLEARANCE</h4>
-                  <p><strong>Période magique :</strong> 15-31 juillet</p>
-                  <p><strong>Technique :</strong> "Fin de saison" + négociation agressive</p>
-                  <p><strong>Cibles :</strong> RTW été (-80%), accessoires (+60%)</p>
-                </div>
-                
-                <div className="month-strategy">
-                  <h4>🍂 SEPTEMBRE - AUTUMN RESTOCKING</h4>
-                  <p><strong>Opportunité :</strong> Collections AH en avant-première</p>
-                  <p><strong>Focus :</strong> Manteaux, boots, sacs dark colors</p>
-                  <p><strong>Avantage :</strong> Prix pré-lancement (-25%)</p>
-                </div>
-                
-                <div className="month-strategy">
-                  <h4>🎄 NOVEMBRE - PRE-CHRISTMAS STRATEGY</h4>
-                  <p><strong>Préparation :</strong> Stock cadeaux premium</p>
-                  <p><strong>Focus :</strong> Bijoux, parfums, accessoires</p>
-                  <p><strong>Marge :</strong> +200% sur période Christmas</p>
-                </div>
-              </div>
-
-              <div className="pro-tips-advanced">
-                <h3>🔥 PRO TIPS AVANCÉS - NIVEAU EXPERT</h3>
-                
-                <div className="tip-category">
-                  <h4>💳 OPTIMISATION PAIEMENTS</h4>
-                  <ul>
-                    <li><strong>Cash discount :</strong> 5-15% de réduction supplémentaire</li>
-                    <li><strong>American Express :</strong> Éviter (commission vendeur élevée)</li>
-                    <li><strong>Visa/Mastercard :</strong> Accepté partout, commission standard</li>
-                    <li><strong>Crypto payment :</strong> Certains outlets acceptent (discount 3-8%)</li>
-                  </ul>
-                </div>
-                
-                <div className="tip-category">
-                  <h4>🚗 LOGISTIQUE OPTIMISÉE</h4>
-                  <ul>
-                    <li><strong>Voyage groupé :</strong> Location van 3-4 personnes</li>
-                    <li><strong>Shipping direct :</strong> Service outlet vers domicile</li>
-                    <li><strong>Stockage temporaire :</strong> Consignes outlet 24-48h</li>
-                    <li><strong>Assurance transport :</strong> Couverture vol/dommages</li>
-                  </ul>
-                </div>
-                
-                <div className="tip-category">
-                  <h4>📊 BUSINESS INTELLIGENCE</h4>
-                  <ul>
-                    <li><strong>Stock tracking :</strong> Apps pour suivre arrivages</li>
-                    <li><strong>Price monitoring :</strong> Comparaison temps réel</li>
-                    <li><strong>Seasonal analysis :</strong> Historique prix 3 ans</li>
-                    <li><strong>ROI calculation :</strong> Marge vs temps investi</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="expert-insight">
-                <h4>💡 TÉMOIGNAGE ALESSANDRO - 15 ANS D'EXPÉRIENCE</h4>
-                <p><em>"Les outlets ne sont pas juste des magasins de déstockage, c'est un écosystème complexe avec ses codes, ses rythmes, ses opportunités cachées. J'ai généré plus de 2.3M€ de profits sur 15 ans uniquement via les outlets européens."</em></p>
-                
-                <div className="alessandro-stats">
-                  <h5>📈 MES STATISTIQUES OUTLETS</h5>
-                  <ul>
-                    <li><strong>Outlets visités :</strong> 147 dans 12 pays</li>
-                    <li><strong>Négociations réussies :</strong> 2,847 sur 3,206 (89%)</li>
-                    <li><strong>ROI moyen :</strong> 142% par transaction</li>
-                    <li><strong>Record profit :</strong> Sac Hermès Birkin à 3,200€ (valeur 12,000€)</li>
-                    <li><strong>Meilleur mois :</strong> Janvier 2023 - 47,000€ profit</li>
-                  </ul>
-                </div>
-                
-                <div className="secret-technique">
-                  <h5>🔐 MA TECHNIQUE SECRÈTE "GOLDEN HOUR"</h5>
-                  <p><strong>Concept :</strong> Période 45min avant fermeture = maximum négociation</p>
-                  <p><strong>Psychologie :</strong> Vendeurs fatiqués + objectifs journaliers</p>
-                  <p><strong>Approche :</strong> "Je reviens demain OU on trouve un accord maintenant"</p>
-                  <p><strong>Success rate :</strong> 94% de réductions obtenues</p>
-                  <p><strong>Gain moyen :</strong> -23% vs prix affiché</p>
                 </div>
               </div>
             </div>
@@ -1664,6 +1071,84 @@ const EbookSelezione = () => {
           margin-top: 0;
         }
 
+        .case-study-golden-goose {
+          background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 215, 0, 0.1));
+          border: 2px solid #D4AF37;
+          padding: 25px;
+          border-radius: 15px;
+          margin: 30px 0;
+        }
+
+        .gg-product-grid, .gg-rtw-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+          margin: 20px 0;
+        }
+
+        .gg-product, .gg-rtw-item {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 20px;
+          border-radius: 10px;
+          border-left: 3px solid #D4AF37;
+        }
+
+        .gg-product h6, .gg-rtw-item h6 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
+          font-size: 1rem;
+        }
+
+        .transformation-steps {
+          margin: 25px 0;
+        }
+
+        .step-transformation {
+          background: rgba(45, 45, 45, 0.6);
+          padding: 20px;
+          border-radius: 10px;
+          margin: 15px 0;
+          border-left: 4px solid #D4AF37;
+        }
+
+        .step-transformation h6 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
+
+        .gg-success-secrets {
+          margin: 25px 0;
+        }
+
+        .secret-box {
+          background: rgba(212, 175, 55, 0.1);
+          padding: 15px;
+          border-radius: 8px;
+          margin: 10px 0;
+          border-left: 3px solid #D4AF37;
+        }
+
+        .secret-box h6 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 8px;
+        }
+
+        .gg-testimonial {
+          background: rgba(212, 175, 55, 0.2);
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px 0;
+          border: 1px solid #D4AF37;
+        }
+
+        .gg-testimonial h6 {
+          color: #D4AF37;
+          margin-top: 0;
+        }
+
         /* New styles for enriched content */
         .timeline-box, .expertise-grid, .prestige-hierarchy,
         .buyer-profiles, .calendar-strategic, .methodology-steps,
@@ -1822,79 +1307,80 @@ const EbookSelezione = () => {
           border-radius: 10px;
         }
 
-        .expert-insight h4 {
-          color: #D4AF37;
-          margin-top: 0;
-        }
-
-        .timeline-box {
-          background: rgba(212, 175, 55, 0.1);
-          border: 1px solid #D4AF37;
-          padding: 20px;
-          border-radius: 10px;
-        }
-
-        .timeline-box h4 {
-          color: #D4AF37;
-          margin-top: 0;
-        }
-
-        /* Additional styles for new enriched content */
-        .market-overview {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 15px;
-          margin: 20px 0;
-        }
-
-        .market-stat {
-          background: rgba(212, 175, 55, 0.1);
+        .timeline-item {
+          margin: 15px 0;
           padding: 15px;
+          background: rgba(45, 45, 45, 0.5);
           border-radius: 8px;
-          text-align: center;
-          border: 1px solid #D4AF37;
+          border-left: 3px solid #D4AF37;
         }
 
-        .market-stat h4 {
+        .timeline-item h5 {
           color: #D4AF37;
           margin-top: 0;
-          margin-bottom: 10px;
+          margin-bottom: 8px;
         }
 
-        .segment-deep-dive {
-          margin: 30px 0;
-        }
-
-        .segment-analysis, .rtw-categories, .shoes-analysis, .jewelry-mastery {
-          margin: 25px 0;
-        }
-
-        .sub-segment, .rtw-category, .shoes-categories, .jewelry-pyramid {
-          background: rgba(45, 45, 45, 0.8);
+        .alessandro-advanced {
+          background: rgba(255, 215, 0, 0.1);
           padding: 20px;
           border-radius: 10px;
           margin: 20px 0;
-          border-left: 4px solid #D4AF37;
+          border: 1px solid #FFD700;
         }
 
-        .sub-segment h5, .rtw-category h5 {
-          color: #D4AF37;
+        .alessandro-advanced h5 {
+          color: #FFD700;
           margin-top: 0;
-          margin-bottom: 15px;
         }
 
         .pro-insight, .strategy-box {
-          background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 215, 0, 0.1));
-          border: 1px solid #D4AF37;
+          background: rgba(212, 175, 55, 0.15);
           padding: 15px;
           border-radius: 8px;
           margin: 15px 0;
+          border-left: 3px solid #D4AF37;
         }
 
         .pro-insight h6, .strategy-box h6 {
           color: #D4AF37;
           margin-top: 0;
-          margin-bottom: 8px;
+          margin-bottom: 10px;
+        }
+
+        .market-overview {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+          margin: 25px 0;
+        }
+
+        .market-stat {
+          background: rgba(212, 175, 55, 0.1);
+          padding: 20px;
+          border-radius: 10px;
+          border: 1px solid #D4AF37;
+          text-align: center;
+        }
+
+        .market-stat h4 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
+        }
+
+        .sub-segment {
+          margin: 25px 0;
+          padding: 20px;
+          background: rgba(45, 45, 45, 0.6);
+          border-radius: 10px;
+          border-left: 4px solid #D4AF37;
+        }
+
+        .sub-segment h5 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
         }
 
         .pricing-table {
@@ -1902,67 +1388,128 @@ const EbookSelezione = () => {
           border-collapse: collapse;
           margin: 20px 0;
           background: rgba(45, 45, 45, 0.8);
-          border-radius: 8px;
+          border-radius: 10px;
           overflow: hidden;
         }
 
         .pricing-table th {
-          background: #D4AF37;
-          color: #1a1a1a;
-          padding: 12px;
+          background: rgba(212, 175, 55, 0.2);
+          color: #D4AF37;
+          padding: 15px;
+          text-align: left;
           font-weight: 600;
         }
 
         .pricing-table td {
+          padding: 12px 15px;
+          border-bottom: 1px solid #333;
+          color: #ddd;
+        }
+
+        .pricing-table tr:hover {
+          background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* Chapter 4 specific styles */
+        .outlets-tier-system {
+          margin: 30px 0;
+        }
+
+        .outlet-premium {
           background: rgba(45, 45, 45, 0.8);
-          color: #f5f5f5;
-          padding: 12px;
-          border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+          padding: 25px;
+          border-radius: 15px;
+          margin: 20px 0;
+          border-left: 5px solid #D4AF37;
         }
 
-        .rtw-category.elite {
-          border-left-color: #FFD700;
-          background: rgba(255, 215, 0, 0.1);
+        .outlet-premium h6 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
+          font-size: 1.1rem;
         }
 
-        .rtw-category.premium {
-          border-left-color: #C0C0C0;
-          background: rgba(192, 192, 192, 0.1);
-        }
-
-        .rtw-category.accessible {
-          border-left-color: #CD7F32;
-          background: rgba(205, 127, 50, 0.1);
-        }
-
-        .category-details {
-          margin-top: 10px;
-        }
-
-        .size-matrix, .seasonal-strategy, .shoes-success-formula, .jewelry-occasions {
-          margin: 25px 0;
-        }
-
-        .size-breakdown, .season-plan, .success-factors, .occasion-timing {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 20px;
-          margin: 15px 0;
-        }
-
-        .size-category, .season, .factor, .peak-season, .secondary-season {
-          background: rgba(45, 45, 45, 0.8);
+        .outlet-secrets, .bicester-strategy, .fidenza-timing {
+          margin: 20px 0;
           padding: 15px;
+          background: rgba(212, 175, 55, 0.1);
           border-radius: 8px;
           border-left: 3px solid #D4AF37;
         }
 
-        .size-category h5, .season h5, .factor h5 {
+        .outlet-secrets h6, .bicester-strategy h6, .fidenza-timing h6 {
           color: #D4AF37;
           margin-top: 0;
+          margin-bottom: 10px;
         }
 
-        .shoe-tier, .jewelry-tier {
+        .profit-examples {
+          margin: 20px 0;
+          padding: 15px;
+          background: rgba(40, 167, 69, 0.1);
+          border-radius: 8px;
+          border-left: 3px solid #28a745;
+        }
+
+        .profit-examples h6 {
+          color: #28a745;
+          margin-top: 0;
+          margin-bottom: 10px;
+        }
+
+        .outlets-grid-advanced {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
+          margin: 20px 0;
+        }
+
+        .outlet-card-premium {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 20px;
+          border-radius: 10px;
+          border-left: 3px solid #D4AF37;
+        }
+
+        .outlet-card-premium h6 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
+        }
+
+        .outlets-comprehensive {
+          margin: 20px 0;
+        }
+
+        .outlets-comprehensive h6 {
+          color: #D4AF37;
+          margin: 15px 0 10px 0;
+        }
+
+        .negotiation-mastery {
+          margin: 30px 0;
+        }
+
+        .technique-card {
+          background: rgba(45, 45, 45, 0.8);
+          padding: 20px;
+          border-radius: 10px;
+          margin: 20px 0;
+          border-left: 4px solid #D4AF37;
+        }
+
+        .technique-card h4 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
+        }
+
+        .yearly-strategy {
+          margin: 30px 0;
+        }
+
+        .month-strategy {
           background: rgba(45, 45, 45, 0.8);
           padding: 20px;
           border-radius: 10px;
@@ -1970,111 +1517,80 @@ const EbookSelezione = () => {
           border-left: 4px solid #D4AF37;
         }
 
-        .shoe-tier.diamond, .jewelry-tier.exceptional {
-          border-left-color: #FFD700;
-          background: rgba(255, 215, 0, 0.1);
+        .month-strategy h4 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
         }
 
-        .shoe-tier.gold, .jewelry-tier.prestige {
-          border-left-color: #C0C0C0;
-          background: rgba(192, 192, 192, 0.1);
-        }
-
-        .shoe-tier.silver, .jewelry-tier.contemporary {
-          border-left-color: #CD7F32;
-          background: rgba(205, 127, 50, 0.1);
-        }
-
-        .market-intelligence {
+        .pro-tips-advanced {
           margin: 30px 0;
         }
 
-        .trend-alerts {
+        .tip-category {
           margin: 20px 0;
+          padding: 20px;
+          background: rgba(45, 45, 45, 0.6);
+          border-radius: 10px;
+          border-left: 3px solid #D4AF37;
         }
 
-        .trend {
-          background: rgba(45, 45, 45, 0.8);
+        .tip-category h4 {
+          color: #D4AF37;
+          margin-top: 0;
+          margin-bottom: 15px;
+        }
+
+        .alessandro-stats {
+          margin: 20px 0;
           padding: 15px;
+          background: rgba(212, 175, 55, 0.1);
           border-radius: 8px;
-          margin: 15px 0;
+          border-left: 3px solid #D4AF37;
         }
 
-        .trend.rising {
-          border-left: 4px solid #28a745;
-          background: rgba(40, 167, 69, 0.1);
-        }
-
-        .trend.stable {
-          border-left: 4px solid #ffc107;
-          background: rgba(255, 193, 7, 0.1);
-        }
-
-        .trend.declining {
-          border-left: 4px solid #dc3545;
-          background: rgba(220, 53, 69, 0.1);
-        }
-
-        .trend h5 {
+        .alessandro-stats h5 {
+          color: #D4AF37;
           margin-top: 0;
           margin-bottom: 10px;
         }
 
-        @media (max-width: 768px) {
-          .ebook-container {
-            flex-direction: column;
-            height: auto;
-          }
-          
-          .sidebar {
-            width: 100%;
-            height: auto;
-          }
-          
-          .chapters-list {
-            display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            padding: 10px;
-          }
-          
-          .chapter-item {
-            min-width: 150px;
-            flex-shrink: 0;
-          }
-          
-          .main-content {
-            padding: 20px;
-          }
+        .secret-technique {
+          margin: 20px 0;
+          padding: 20px;
+          background: rgba(255, 215, 0, 0.1);
+          border-radius: 10px;
+          border: 1px solid #FFD700;
+        }
+
+        .secret-technique h5 {
+          color: #FFD700;
+          margin-top: 0;
+          margin-bottom: 15px;
         }
       `}</style>
 
-      {/* Sidebar Navigation */}
       <div className="sidebar">
         <div className="sidebar-header">
-          <h1 className="sidebar-title">📖 L'ART DU PRÊT-À-PORTER DE LUXE</h1>
-          <p style={{margin: '5px 0 0 0', fontSize: '0.9rem'}}>Guide Complet SELEZIONE</p>
+          <h1 className="sidebar-title">L'ART DU PRÊT-À-PORTER DE LUXE</h1>
         </div>
         <div className="chapters-list">
           {chapters.map((chapter) => (
             <div
               key={chapter.id}
-              className={`chapter-item ${currentChapter === chapter.id ? 'active' : ''}`}
-              onClick={() => setCurrentChapter(chapter.id)}
+              className={`chapter-item ${activeChapter === chapter.id ? 'active' : ''}`}
+              onClick={() => setActiveChapter(chapter.id)}
             >
-              <div className="chapter-icon">{chapter.icon}</div>
+              <span className="chapter-icon">{chapter.icon}</span>
               <div className="chapter-info">
-                <div className="chapter-number">
-                  {chapter.id === 0 ? 'Sommaire' : `Chapitre ${chapter.id}`}
-                </div>
-                <div className="chapter-title">{chapter.title}</div>
+                <div className="chapter-number">{chapter.title}</div>
+                <div className="chapter-title">{chapter.subtitle}</div>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="main-content">
         {renderChapterContent()}
       </div>
