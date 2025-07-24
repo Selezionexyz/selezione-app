@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Menu, X, Home, Zap, Calculator, TrendingUp, FileText,
   GraduationCap, MessageCircle, Bot, Crown, ShoppingBag, Camera, Users,
-  Settings, Clock, Search, Shield, Activity, Target, Tag, Globe, Archive
+  Settings, Clock, Search, Shield, Activity, Target, Tag, Globe, Archive, Book
 } from 'lucide-react';
 
 import ToolRemoved from './ToolRemoved';
