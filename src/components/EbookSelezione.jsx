@@ -1030,38 +1030,38 @@ const EbookSelezione = () => {
                       <div className="step-transformation">
                         <h6>ÉTAPE 1 : ACHAT INITIAL (1000€)</h6>
                         <ul>
-                          <li>2x Sneakers Super-Star (485€ × 2 = 970€)</li>
+                          <li>2x Sneakers Super-Star à 485€ = 970€ (Wholesale)</li>
                           <li>Reste 30€ pour frais/transport</li>
                           <li><strong>Ciblage :</strong> Tailles 37-39 uniquement</li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
-                        <h6>ÉTAPE 2 : OPTIMISATION STOCK (Mois 1-2)</h6>
+                        <h6>ÉTAPE 2 : VENTE RETAIL (Mois 1-2)</h6>
                         <ul>
-                          <li>Vente directe B2C : 590€ × 2 = 1180€</li>
-                          <li><strong>Bénéfice net :</strong> 180€ (18%)</li>
-                          <li>Capital disponible : 1180€</li>
+                          <li>Vente directe B2C : 700€ × 2 = 1400€ (Retail)</li>
+                          <li><strong>Bénéfice net :</strong> 430€ (44%)</li>
+                          <li>Capital disponible : 1400€</li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
                         <h6>ÉTAPE 3 : SCALING INTELLIGENT (Mois 3-6)</h6>
                         <ul>
-                          <li>Achat diversifié : 2 Sneakers + 3 T-shirts</li>
-                          <li>Investment : (485×2) + (175×3) = 1495€</li>
-                          <li>Revente : (590×2) + (300×3) = 2080€</li>
-                          <li><strong>ROI cycle :</strong> 39%</li>
+                          <li>Achat diversifié : 2 Sneakers (970€) + 2 T-shirts (350€)</li>
+                          <li>Investment total : 1320€</li>
+                          <li>Revente : (700€×2) + (370€×2) = 2140€</li>
+                          <li><strong>ROI cycle :</strong> 62%</li>
                         </ul>
                       </div>
                       
                       <div className="step-transformation">
                         <h6>ÉTAPE 4 : OBJECTIF 3000€ (Mois 6-12)</h6>
                         <ul>
-                          <li>Capital accumulation : 2080€</li>
-                          <li>Stratégie mix premium : Sneakers + RTW + accessories</li>
-                          <li>Bundle deals : +25% marge sur lots</li>
-                          <li><strong>Target atteint :</strong> 6-8 mois avec discipline</li>
+                          <li>Capital accumulé : 2140€</li>
+                          <li>Mix produits optimisé : 70% Sneakers, 30% RTW</li>
+                          <li>Bundle premium : +25% marge sur lots</li>
+                          <li><strong>Target 3000€ :</strong> Atteint en 6-8 mois</li>
                         </ul>
                       </div>
                     </div>
