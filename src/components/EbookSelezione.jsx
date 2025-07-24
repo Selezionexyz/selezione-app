@@ -979,29 +979,29 @@ const EbookSelezione = () => {
                     <div className="gg-product-grid">
                       <div className="gg-product">
                         <h6>GMF00101F00683910317 - Super-Star Classic</h6>
-                        <p><strong>Prix Wholesale (Achat) :</strong> €202</p>
-                        <p><strong>Cost Price (+20%) :</strong> €242</p>
-                        <p><strong>Prix Retail Public :</strong> €606</p>
-                        <p><strong>Marge Brute :</strong> 200% (vs wholesale)</p>
-                        <p><strong>Profit potentiel :</strong> €404 par paire</p>
+                        <p><strong>Prix Wholesale (Achat) :</strong> €202/paire</p>
+                        <p><strong>Cost Price (+20%) :</strong> €242/paire</p>
+                        <p><strong>Prix Retail (Vente) :</strong> €485/paire</p>
+                        <p><strong>Marge Brute :</strong> 140% par paire !</p>
+                        <p><strong>Profit net :</strong> €283 par paire</p>
                       </div>
                       
                       <div className="gg-product">
                         <h6>GMF00101F00751683112 - Ball Star Leather</h6>
-                        <p><strong>Prix Wholesale (Achat) :</strong> €214</p>
-                        <p><strong>Cost Price (+20%) :</strong> €257</p>
-                        <p><strong>Prix Retail Public :</strong> €642</p>
-                        <p><strong>Marge Brute :</strong> 200% (vs wholesale)</p>
-                        <p><strong>ROI Exceptionnel :</strong> €428 par paire</p>
+                        <p><strong>Prix Wholesale (Achat) :</strong> €214/paire</p>
+                        <p><strong>Cost Price (+20%) :</strong> €257/paire</p>
+                        <p><strong>Prix Retail (Vente) :</strong> €515/paire</p>
+                        <p><strong>Marge Brute :</strong> 141% par paire !</p>
+                        <p><strong>ROI Exceptionnel :</strong> €301 par paire</p>
                       </div>
                       
                       <div className="gg-product">
                         <h6>GMF00102F00218210803 - Premium Collection</h6>
-                        <p><strong>Prix Wholesale (Achat) :</strong> €485</p>
-                        <p><strong>Cost Price (+20%) :</strong> €582</p>
-                        <p><strong>Prix Retail Estimé :</strong> €750-850</p>
-                        <p><strong>Marge Potentielle :</strong> 55-75%</p>
-                        <p><strong>Segment :</strong> Ultra-premium</p>
+                        <p><strong>Prix Wholesale (Achat) :</strong> €485/paire</p>
+                        <p><strong>Cost Price (+20%) :</strong> €582/paire</p>
+                        <p><strong>Prix Retail Estimé :</strong> €750-850/paire</p>
+                        <p><strong>Marge Premium :</strong> 55-75%</p>
+                        <p><strong>Segment :</strong> Ultra-luxury</p>
                       </div>
                     </div>
                     
